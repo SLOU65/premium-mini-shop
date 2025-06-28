@@ -5,9 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Continental</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" );
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
 
-    /* Анимация появления экрана (сверху вниз) */
+    /* CSS переменные для тем */
+    :root {
+      --bg-primary: #000000;
+      --bg-secondary: rgba(0, 0, 0, 0.85);
+      --bg-tertiary: rgba(255, 255, 255, 0.05);
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --btn-bg: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+      --btn-text: #000000;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: rgba(255, 255, 255, 0.95);
+      --bg-tertiary: rgba(0, 0, 0, 0.05);
+      --text-primary: #000000;
+      --text-secondary: #666666;
+      --border-color: rgba(0, 0, 0, 0.1);
+      --btn-bg: linear-gradient(135deg, #000000 0%, #333333 100%);
+      --btn-text: #ffffff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Анимации */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -19,7 +44,6 @@
       }
     }
 
-    /* Анимация появления элементов внутри экрана (слева направо) */
     @keyframes slideIn {
       from {
         opacity: 0;
@@ -31,7 +55,6 @@
       }
     }
 
-    /* Анимация пульсации для кнопок */
     @keyframes pulse {
       0%, 100% {
         transform: scale(1);
@@ -41,7 +64,6 @@
       }
     }
 
-    /* Анимация мерцания для фона экрана */
     @keyframes shimmer {
       0% {
         background-position: -200% 0;
@@ -51,7 +73,6 @@
       }
     }
 
-    /* Анимация "плавания" для логотипа */
     @keyframes float {
       0%, 100% {
         transform: translateY(0px);
@@ -68,16 +89,18 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow: hidden; /* Скрываем прокрутку, чтобы не было видно "лишнего" */
+      min-height: 100vh;
+      height: auto;
+      overflow-x: hidden;
       font-family: 'Inter', sans-serif;
       font-size: 16px;
-      color: #ffffff;
-      background: #000000;
+      color: var(--text-primary);
+      background: var(--bg-primary);
       position: relative;
+      transition: all 0.3s ease;
     }
 
-    /* Премиальный фон с анимированными элементами */
+    /* Премиальный фон */
     body::before {
       content: '';
       position: fixed;
@@ -89,59 +112,39 @@
         radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-        linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+        linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
       z-index: -2;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 2px,
-          rgba(255, 255, 255, 0.01) 2px,
-          rgba(255, 255, 255, 0.01) 4px
-        );
-      z-index: -1;
     }
 
     .container {
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
       padding: 20px;
-      position: relative; /* Контейнер для абсолютно позиционированных экранов */
+      position: relative;
       width: 100%;
-      height: 100%;
     }
 
     .screen {
-      display: none; /* Скрыт по умолчанию */
+      display: none;
       width: 100%;
       max-width: 420px;
-      background: rgba(0, 0, 0, 0.85);
+      background: var(--bg-secondary);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-color);
       border-radius: 20px;
       padding: 30px;
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      position: absolute; /* Экраны накладываются друг на друга */
-      top: 50%;
+      box-shadow: 0 20px 40px var(--shadow-color), inset 0 1px 0 var(--border-color);
+      position: absolute;
+      top: 20px;
       left: 50%;
-      transform: translate(-50%, -50%); /* Центрируем экран */
-      opacity: 0; /* Изначально невидимый */
-      pointer-events: none; /* Не реагирует на события мыши, когда неактивен */
-      transition: opacity 0.3s ease-out; /* Плавное исчезновение */
-      overflow: hidden; /* Скрываем содержимое, выходящее за границы */
+      transform: translateX(-50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+      overflow: hidden;
+      min-height: 600px; /* Увеличена высота окна */
     }
 
     .screen::before {
@@ -151,20 +154,47 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.05),
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
       animation: shimmer 3s infinite;
     }
 
     .active {
-      display: block; /* Делаем видимым */
-      opacity: 1; /* Полностью непрозрачный */
-      pointer-events: auto; /* Реагирует на события мыши */
-      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Запускаем анимацию появления */
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* Переключатель темы */
+    .theme-switcher {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1000;
+      background: var(--bg-secondary);
+      border-radius: 25px;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px var(--shadow-color);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .theme-btn {
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 18px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-btn.active {
+      background: var(--btn-bg);
+      color: var(--btn-text);
     }
 
     .logo {
@@ -173,7 +203,7 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 50px;
-      background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -190,12 +220,12 @@
       transform: translateX(-50%);
       width: 60px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #ffffff, transparent);
+      background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
     }
 
     .btn {
-      background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-      color: #000000;
+      background: var(--btn-bg);
+      color: var(--btn-text);
       padding: 18px 24px;
       margin: 16px 0;
       border: none;
@@ -208,40 +238,15 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      box-shadow:
-        0 4px 15px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      opacity: 0; /* Изначально невидимый для slideIn */
-      transform: translateX(20px); /* Исходное положение для slideIn */
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      transform: translateX(20px);
       font-family: 'Inter', sans-serif;
-    }
-
-    /* Задержка анимации для кнопок */
-    .btn:nth-child(2) { animation-delay: 0.1s; }
-    .btn:nth-child(3) { animation-delay: 0.2s; }
-    .btn:nth-child(4) { animation-delay: 0.3s; }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-      );
-      transition: left 0.5s;
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow:
-        0 8px 25px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
     .btn:active {
@@ -252,12 +257,13 @@
       display: flex;
       align-items: center;
       margin-bottom: 30px;
+      position: relative;
     }
 
     .back {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
       font-size: 24px;
       width: 44px;
       height: 44px;
@@ -269,7 +275,7 @@
       justify-content: center;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
-      flex-shrink: 0; /* Чтобы кнопка не сжималась */
+      flex-shrink: 0;
     }
 
     .back:hover {
@@ -277,8 +283,43 @@
       transform: translateX(-2px);
     }
 
-    .back:active {
-      transform: scale(0.95);
+    /* Корзина в хедере */
+    .cart-icon {
+      position: absolute;
+      right: 0;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-size: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .cart-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
     }
 
     h1 {
@@ -286,105 +327,256 @@
       font-size: 28px;
       font-weight: 700;
       margin: 0;
-      flex: 1; /* Занимает оставшееся пространство */
+      flex: 1;
       text-align: center;
-      background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      /* Сдвигаем заголовок немного левее */
       transform: translateX(-25px);
     }
+
     .product {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--bg-tertiary);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-color);
       padding: 20px;
       margin: 16px 0;
       border-radius: 16px;
-      opacity: 0; /* Изначально невидимый для slideIn */
-      transform: translateX(20px); /* Исходное положение для slideIn */
+      opacity: 0;
+      transform: translateX(20px);
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
       overflow: hidden;
     }
 
-    .product:nth-child(2) { animation-delay: 0.1s; }
-    .product:nth-child(3) { animation-delay: 0.2s; }
-    .product:nth-child(4) { animation-delay: 0.3s; }
-
-    .product::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    }
-
     .product:hover {
       background: rgba(255, 255, 255, 0.08);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 25px var(--shadow-color);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      background: var(--bg-tertiary);
+      border-radius: 12px;
+      margin-bottom: 15px;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--border-color);
     }
 
     .product-name {
       font-weight: 600;
       font-size: 18px;
       margin-bottom: 8px;
-      color: #ffffff;
+      color: var(--text-primary);
+    }
+
+    .product-description {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .product-sizes {
+      margin-bottom: 15px;
+    }
+
+    .product-sizes label {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .size-options {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .size-option {
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .size-option:hover,
+    .size-option.selected {
+      background: var(--btn-bg);
+      color: var(--btn-text);
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
     }
 
     .product-price {
-      color: #cccccc;
+      color: var(--text-primary);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .add-to-cart {
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .add-to-cart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0
+, 0, 0, 0.2);
+    }
+
+    .add-to-cart:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Стили для корзины */
+    .cart-item {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cart-item-image {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .cart-item-details {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+
+    .cart-item-price {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cart-item-remove {
+      background: #ff4444;
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .cart-item-remove:hover {
+      background: #ff6666;
+      transform: scale(1.1);
+    }
+
+    .cart-total {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .cart-total-amount {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .checkout-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .checkout-btn:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+    }
+
+    .empty-cart-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      opacity: 0.5;
     }
 
     .support-link {
       display: inline-block;
-      background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-      color: #000000;
+      background: var(--btn-bg);
+      color: var(--btn-text);
       padding: 16px 24px;
       border-radius: 12px;
       font-weight: 600;
       font-size: 16px;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow:
-        0 4px 15px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
       position: relative;
       overflow: hidden;
     }
 
-    .support-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-      );
-      transition: left 0.5s;
-    }
-
     .support-link:hover {
       transform: translateY(-2px);
-      box-shadow:
-        0 8px 25px rgba(255, 255, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    }
-
-    .support-link:active {
-      transform: scale(0.98);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
     #home {
@@ -393,37 +585,37 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      min-height: 400px;
+      min-height: 500px;
     }
 
     .terms-content {
       line-height: 1.6;
-      color: #cccccc;
+      color: var(--text-secondary);
       font-size: 16px;
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--bg-tertiary);
       padding: 20px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      text-align: left; /* Явно выравниваем текст по левому краю */
+      border: 1px solid var(--border-color);
+      text-align: left;
     }
 
-    /* Стили для переключателя языков */
+    /* Переключатель языков */
     #language-switcher {
       position: fixed;
       top: 15px;
       left: 15px;
-      z-index: 1000; /* Поверх всех элементов */
-      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      background: var(--bg-secondary);
       border-radius: 8px;
       padding: 5px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px var(--shadow-color);
     }
 
     #language-switcher select {
       background: transparent;
       border: none;
-      color: #ffffff;
+      color: var(--text-primary);
       font-size: 14px;
       padding: 5px;
       cursor: pointer;
@@ -431,49 +623,45 @@
     }
 
     #language-switcher select option {
-      background: #000000;
-      color: #ffffff;
+      background: var(--bg-primary);
+      color: var(--text-primary);
     }
 
-    /* Адаптивность для мобильных устройств */
+    /* Адаптивность */
     @media (max-width: 480px) {
       .container {
         padding: 10px;
       }
-
       .screen {
         padding: 20px;
         border-radius: 16px;
+        min-height: 500px;
       }
-
       .logo {
         font-size: 36px;
         margin-bottom: 40px;
       }
-
       .btn {
         padding: 16px 20px;
         font-size: 15px;
       }
-
       h1 {
         font-size: 24px;
-        /* Сдвигаем заголовок немного левее для мобильных */
         transform: translateX(-5px);
       }
-
       #language-switcher {
         top: 10px;
         left: 10px;
         padding: 3px 8px;
       }
-      #language-switcher select {
-        font-size: 12px;
+      .theme-switcher {
+        top: 10px;
+        right: 10px;
       }
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
   <!-- Переключатель языков -->
   <div id="language-switcher">
     <select id="language-select">
@@ -484,7 +672,14 @@
     </select>
   </div>
 
+  <!-- Переключатель темы -->
+  <div class="theme-switcher">
+    <button class="theme-btn active" onclick="setTheme('dark')" title="Темная тема">🌙</button>
+    <button class="theme-btn" onclick="setTheme('light')" title="Светлая тема">☀️</button>
+  </div>
+
   <div class="container">
+    <!-- Главный экран -->
     <div class="screen active" id="home">
       <div class="logo">The Continental</div>
       <button class="btn" onclick="openScreen('catalog')" data-key="catalog_btn">Каталог</button>
@@ -492,139 +687,359 @@
       <button class="btn" onclick="openScreen('support')" data-key="support_btn">Поддержка</button>
     </div>
 
+    <!-- Каталог -->
     <div class="screen" id="catalog">
       <div class="header">
         <button class="back" onclick="backToHome()">←</button>
         <h1 data-key="catalog_title">Каталог</h1>
+        <div class="cart-icon" onclick="openScreen('cart')">
+          🛒
+          <div class="cart-count" id="cart-count" style="display: none;">0</div>
+        </div>
       </div>
       <button class="btn" onclick="openScreen('tshirts')" data-key="tshirts_btn">Футболки</button>
       <button class="btn" onclick="openScreen('shorts')" data-key="shorts_btn">Шорты</button>
       <button class="btn" onclick="openScreen('sneakers')" data-key="sneakers_btn">Кроссовки</button>
     </div>
 
+    <!-- Футболки -->
     <div class="screen" id="tshirts">
       <div class="header">
         <button class="back" onclick="openScreen('catalog')">←</button>
         <h1 data-key="tshirts_title">Футболки</h1>
+        <div class="cart-icon" onclick="openScreen('cart')">
+          🛒
+          <div class="cart-count" id="cart-count-tshirts" style="display: none;">0</div>
+        </div>
       </div>
-      <div class="product">
+      
+      <div class="product" data-product-id="tshirt1">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/333/fff?text=Premium+Basic')"></div>
         <div class="product-name" data-key="tshirt1_name">Футболка Premium Basic</div>
-        <div class="product-price">€29.99</div>
+        <div class="product-description" data-key="tshirt1_desc">Высококачественная футболка из премиального хлопка. Идеальная посадка и долговечность.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="S">S</div>
+            <div class="size-option" data-size="M">M</div>
+            <div class="size-option" data-size="L">L</div>
+            <div class="size-option" data-size="XL">XL</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€29.99</div>
+          <button class="add-to-cart" onclick="addToCart('tshirt1')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
-      <div class="product">
+
+      <div class="product" data-product-id="tshirt2">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/444/fff?text=Designer+Edition')"></div>
         <div class="product-name" data-key="tshirt2_name">Футболка Designer Edition</div>
-        <div class="product-price">€45.99</div>
+        <div class="product-description" data-key="tshirt2_desc">Дизайнерская футболка с уникальным принтом. Ограниченная коллекция.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="S">S</div>
+            <div class="size-option" data-size="M">M</div>
+            <div class="size-option" data-size="L">L</div>
+            <div class="size-option" data-size="XL">XL</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€45.99</div>
+          <button class="add-to-cart" onclick="addToCart('tshirt2')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
-      <div class="product">
+
+      <div class="product" data-product-id="tshirt3">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/555/fff?text=Limited+Collection')"></div>
         <div class="product-name" data-key="tshirt3_name">Футболка Limited Collection</div>
-        <div class="product-price">€59.99</div>
+        <div class="product-description" data-key="tshirt3_desc">Эксклюзивная футболка из лимитированной коллекции. Премиальные материалы.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="S">S</div>
+            <div class="size-option" data-size="M">M</div>
+            <div class="size-option" data-size="L">L</div>
+            <div class="size-option" data-size="XL">XL</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€59.99</div>
+          <button class="add-to-cart" onclick="addToCart('tshirt3')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
     </div>
 
+    <!-- Шорты -->
     <div class="screen" id="shorts">
       <div class="header">
         <button class="back" onclick="openScreen('catalog')">←</button>
         <h1 data-key="shorts_title">Шорты</h1>
+        <div class="cart-icon" onclick="openScreen('cart')">
+          🛒
+          <div class="cart-count" id="cart-count-shorts" style="display: none;">0</div>
+        </div>
       </div>
-      <div class="product">
+      
+      <div class="product" data-product-id="shorts1">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/666/fff?text=Premium+Sport')"></div>
         <div class="product-name" data-key="shorts1_name">Шорты Premium Sport</div>
-        <div class="product-price">€39.99</div>
+        <div class="product-description" data-key="shorts1_desc">Спортивные шорты из дышащего материала. Идеальны для тренировок и отдыха.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="S">S</div>
+            <div class="size-option" data-size="M">M</div>
+            <div class="size-option" data-size="L">L</div>
+            <div class="size-option" data-size="XL">XL</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€39.99</div>
+          <button class="add-to-cart" onclick="addToCart('shorts1')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
-      <div class="product">
-        <div class="product-name" data-key="shorts2_name">Шорты Casual Luxury</div>
-        <div class="product-price">€49.99</div>
+
+      <div class="product" data-product-id="shorts2">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/777/fff?text=Casual+Style')"></div>
+        <div class="product-name" data-key="shorts2_name">Шорты Casual Style</div>
+        <div class="product-description" data-key="shorts2_desc">Повседневные шорты в стиле casual. Комфорт и стиль на каждый день.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="S">S</div>
+            <div class="size-option" data-size="M">M</div>
+            <div class="size-option" data-size="L">L</div>
+            <div class="size-option" data-size="XL">XL</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€34.99</div>
+          <button class="add-to-cart" onclick="addToCart('shorts2')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
-      <div class="product">
-        <div class="product-name" data-key="shorts3_name">Шорты Designer Cut</div>
-        <div class="product-price">€65.99</div>
+
+      <div class="product" data-product-id="shorts3">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/888/fff?text=Elite+Performance')"></div>
+        <div class="product-name" data-key="shorts3_name">Шорты Elite Performance</div>
+        <div class="product-description" data-key="shorts3_desc">Профессиональные шорты для спорта. Технологичные материалы и эргономичный крой.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="S">S</div>
+            <div class="size-option" data-size="M">M</div>
+            <div class="size-option" data-size="L">L</div>
+            <div class="size-option" data-size="XL">XL</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€49.99</div>
+          <button class="add-to-cart" onclick="addToCart('shorts3')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
     </div>
 
+    <!-- Кроссовки -->
     <div class="screen" id="sneakers">
       <div class="header">
         <button class="back" onclick="openScreen('catalog')">←</button>
         <h1 data-key="sneakers_title">Кроссовки</h1>
+        <div class="cart-icon" onclick="openScreen('cart')">
+          🛒
+          <div class="cart-count" id="cart-count-sneakers" style="display: none;">0</div>
+        </div>
       </div>
-      <div class="product">
-        <div class="product-name" data-key="sneaker1_name">Nike Air Premium</div>
-        <div class="product-price">€89.99</div>
+      
+      <div class="product" data-product-id="sneakers1">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/999/fff?text=Urban+Classic')"></div>
+        <div class="product-name" data-key="sneakers1_name">Кроссовки Urban Classic</div>
+        <div class="product-description" data-key="sneakers1_desc">Классические городские кроссовки. Стиль и комфорт для повседневной носки.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="40">40</div>
+            <div class="size-option" data-size="41">41</div>
+            <div class="size-option" data-size="42">42</div>
+            <div class="size-option" data-size="43">43</div>
+            <div class="size-option" data-size="44">44</div>
+            <div class="size-option" data-size="45">45</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€89.99</div>
+          <button class="add-to-cart" onclick="addToCart('sneakers1')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
-      <div class="product">
-        <div class="product-name" data-key="sneaker2_name">Adidas Luxury Edition</div>
-        <div class="product-price">€95.99</div>
+
+      <div class="product" data-product-id="sneakers2">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/aaa/fff?text=Sport+Pro')"></div>
+        <div class="product-name" data-key="sneakers2_name">Кроссовки Sport Pro</div>
+        <div class="product-description" data-key="sneakers2_desc">Профессиональные спортивные кроссовки. Максимальная поддержка и амортизация.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="40">40</div>
+            <div class="size-option" data-size="41">41</div>
+            <div class="size-option" data-size="42">42</div>
+            <div class="size-option" data-size="43">43</div>
+            <div class="size-option" data-size="44">44</div>
+            <div class="size-option" data-size="45">45</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€129.99</div>
+          <button class="add-to-cart" onclick="addToCart('sneakers2')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
-      <div class="product">
-        <div class="product-name" data-key="sneaker3_name">Jordan Exclusive</div>
-        <div class="product-price">€129.99</div>
+
+      <div class="product" data-product-id="sneakers3">
+        <div class="product-image" style="background-image: url('https://via.placeholder.com/400x200/bbb/fff?text=Limited+Edition')"></div>
+        <div class="product-name" data-key="sneakers3_name">Кроссовки Limited Edition</div>
+        <div class="product-description" data-key="sneakers3_desc">Эксклюзивные кроссовки лимитированной серии. Уникальный дизайн и премиальные материалы.</div>
+        <div class="product-sizes">
+          <label data-key="size_label">Размер:</label>
+          <div class="size-options">
+            <div class="size-option" data-size="40">40</div>
+            <div class="size-option" data-size="41">41</div>
+            <div class="size-option" data-size="42">42</div>
+            <div class="size-option" data-size="43">43</div>
+            <div class="size-option" data-size="44">44</div>
+            <div class="size-option" data-size="45">45</div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">€199.99</div>
+          <button class="add-to-cart" onclick="addToCart('sneakers3')" data-key="add_to_cart_btn">В корзину</button>
+        </div>
       </div>
     </div>
 
+    <!-- Корзина -->
+    <div class="screen" id="cart">
+      <div class="header">
+        <button class="back" onclick="openScreen('catalog')">←</button>
+        <h1 data-key="cart_title">Корзина</h1>
+      </div>
+      
+      <div id="cart-items">
+        <div class="empty-cart">
+          <div class="empty-cart-icon">🛒</div>
+          <p data-key="empty_cart">Ваша корзина пуста</p>
+        </div>
+      </div>
+      
+      <div id="cart-total" class="cart-total" style="display: none;">
+        <div class="cart-total-amount" id="total-amount">€0.00</div>
+        <button class="checkout-btn" onclick="checkout()" data-key="checkout_btn">Оформить заказ</button>
+      </div>
+    </div>
+
+    <!-- Условия работы -->
     <div class="screen" id="terms">
       <div class="header">
         <button class="back" onclick="backToHome()">←</button>
         <h1 data-key="terms_title">Условия работы</h1>
       </div>
-      <div class="terms-content" data-key="terms_content">
-        <p><strong>Добро пожаловать в The Continental!</strong></p>
-        <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
-        <p><strong>Условия заказа:</strong></p>
-        <p>• Оплата — 100% предоплата<br>
-        • Доставка по Европе — 7-14 рабочих дней<br>
-        • Возвратов и обменов нет<br>
-        • Гарантия качества на все товары</p>
-        <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
+      <div class="terms-content">
+        <div data-key="terms_content">
+          <h3>Общие положения</h3>
+          <p>Добро пожаловать в The Continental - эксклюзивный магазин премиальной одежды и обуви.</p>
+          
+          <h3>Условия покупки</h3>
+          <ul>
+            <li>Все цены указаны в евро и являются окончательными</li>
+            <li>Оплата производится через защищенные платежные системы</li>
+            <li>Доставка осуществляется по всему миру в течение 3-7 рабочих дней</li>
+            <li>Возврат товара возможен в течение 14 дней с момента получения</li>
+          </ul>
+          
+          <h3>Гарантии качества</h3>
+          <p>Мы гарантируем подлинность и высокое качество всех представленных товаров. Каждый товар проходит тщательную проверку перед отправкой.</p>
+          
+          <h3>Конфиденциальность</h3>
+          <p>Ваши персональные данные защищены и используются исключительно для обработки заказов и улучшения качества обслуживания.</p>
+        </div>
       </div>
     </div>
 
-        <div class="screen" id="support">
+    <!-- Поддержка -->
+    <div class="screen" id="support">
       <div class="header">
-        <button class="back" onclick="backToHome( )">←</button>
+        <button class="back" onclick="backToHome()">←</button>
         <h1 data-key="support_title">Поддержка</h1>
       </div>
-      <p data-key="support_text" style="margin-bottom: 20px; color: #cccccc; line-height: 1.6;">
-        Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.
-      </p>
-      <div style="text-align: center; margin-top: 20px;"> <!-- Добавлен новый div с центрированием -->
-        <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</a>
+      <div style="text-align: center; padding: 40px 20px;">
+        <p data-key="support_text" style="margin-bottom: 30px; color: var(--text-secondary); font-size: 18px;">
+          Нужна помощь? Свяжитесь с нашей службой поддержки
+        </p>
+        <a href="https://t.me/your_support_bot" class="support-link" data-key="contact_support">
+          Связаться с поддержкой
+        </a>
       </div>
     </div>
+  </div>
+
   <script>
-    // Объект с переводами
+    // Переводы
     const translations = {
       ru: {
         catalog_btn: "Каталог",
-        terms_btn: "Условия работы",
+        terms_btn: "Условия работы", 
         support_btn: "Поддержка",
         catalog_title: "Каталог",
         tshirts_btn: "Футболки",
         shorts_btn: "Шорты",
         sneakers_btn: "Кроссовки",
         tshirts_title: "Футболки",
-        tshirt1_name: "Футболка Premium Basic",
-        tshirt2_name: "Футболка Designer Edition",
-        tshirt3_name: "Футболка Limited Collection",
         shorts_title: "Шорты",
-        shorts1_name: "Шорты Premium Sport",
-        shorts2_name: "Шорты Casual Luxury",
-        shorts3_name: "Шорты Designer Cut",
         sneakers_title: "Кроссовки",
-        sneaker1_name: "Nike Air Premium",
-        sneaker2_name: "Adidas Luxury Edition",
-        sneaker3_name: "Jordan Exclusive",
+        cart_title: "Корзина",
         terms_title: "Условия работы",
-        terms_content: `
-          <p><strong>Добро пожаловать в The Continental!</strong></p>
-          <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
-          <p><strong>Условия заказа:</strong></p>
-          <p>• Оплата — 100% предоплата<br>
-          • Доставка по Европе — 7-14 рабочих дней<br>
-          • Возвратов и обменов нет<br>
-          • Гарантия качества на все товары</p>
-          <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
-        `,
         support_title: "Поддержка",
-        support_text: "Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.",
-        contact_manager_btn: "НАПИСАТЬ МЕНЕДЖЕРУ"
+        size_label: "Размер:",
+        add_to_cart_btn: "В корзину",
+        empty_cart: "Ваша корзина пуста",
+        checkout_btn: "Оформить заказ",
+        contact_support: "Связаться с поддержкой",
+        support_text: "Нужна помощь? Свяжитесь с нашей службой поддержки",
+        tshirt1_name: "Футболка Premium Basic",
+        tshirt1_desc: "Высококачественная футболка из премиального хлопка. Идеальная посадка и долговечность.",
+        tshirt2_name: "Футболка Designer Edition",
+        tshirt2_desc: "Дизайнерская футболка с уникальным принтом. Ограниченная коллекция.",
+        tshirt3_name: "Футболка Limited Collection",
+        tshirt3_desc: "Эксклюзивная футболка из лимитированной коллекции. Премиальные материалы.",
+        shorts1_name: "Шорты Premium Sport",
+        shorts1_desc: "Спортивные шорты из дышащего материала. Идеальны для тренировок и отдыха.",
+        shorts2_name: "Шорты Casual Style",
+        shorts2_desc: "Повседневные шорты в стиле casual. Комфорт и стиль на каждый день.",
+        shorts3_name: "Шорты Elite Performance",
+        shorts3_desc: "Профессиональные шорты для спорта. Технологичные материалы и эргономичный крой.",
+        sneakers1_name: "Кроссовки Urban Classic",
+        sneakers1_desc: "Классические городские кроссовки. Стиль и комфорт для повседневной носки.",
+        sneakers2_name: "Кроссовки Sport Pro",
+        sneakers2_desc: "Профессиональные спортивные кроссовки. Максимальная поддержка и амортизация.",
+        sneakers3_name: "Кроссовки Limited Edition",
+        sneakers3_desc: "Эксклюзивные кроссовки лимитированной серии. Уникальный дизайн и премиальные материалы.",
+        terms_content: `
+          <h3>Общие положения</h3>
+          <p>Добро пожаловать в The Continental - эксклюзивный магазин премиальной одежды и обуви.</p>
+          
+          <h3>Условия покупки</h3>
+          <ul>
+            <li>Все цены указаны в евро и являются окончательными</li>
+            <li>Оплата производится через защищенные платежные системы</li>
+            <li>Доставка осуществляется по всему миру в течение 3-7 рабочих дней</li>
+            <li>Возврат товара возможен в течение 14 дней с момента получения</li>
+          </ul>
+          
+          <h3>Гарантии качества</h3>
+          <p>Мы гарантируем подлинность и высокое качество всех представленных товаров. Каждый товар про
+ходит тщательную проверку перед отправкой.</p>
+          
+          <h3>Конфиденциальность</h3>
+          <p>Ваши персональные данные защищены и используются исключительно для обработки заказов и улучшения качества обслуживания.</p>
+        `
       },
       en: {
         catalog_btn: "Catalog",
@@ -635,31 +1050,53 @@
         shorts_btn: "Shorts",
         sneakers_btn: "Sneakers",
         tshirts_title: "T-Shirts",
-        tshirt1_name: "Premium Basic T-Shirt",
-        tshirt2_name: "Designer Edition T-Shirt",
-        tshirt3_name: "Limited Collection T-Shirt",
         shorts_title: "Shorts",
-        shorts1_name: "Premium Sport Shorts",
-        shorts2_name: "Casual Luxury Shorts",
-        shorts3_name: "Designer Cut Shorts",
         sneakers_title: "Sneakers",
-        sneaker1_name: "Nike Air Premium",
-        sneaker2_name: "Adidas Luxury Edition",
-        sneaker3_name: "Jordan Exclusive",
+        cart_title: "Cart",
         terms_title: "Terms of Service",
-        terms_content: `
-          <p><strong>Welcome to The Continental!</strong></p>
-          <p>We offer only premium replicas of the highest quality. Each item undergoes strict quality control before shipping.</p>
-          <p><strong>Order Conditions:</strong></p>
-          <p>• Payment — 100% prepayment<br>
-          • Delivery within Europe — 7-14 business days<br>
-          • No returns or exchanges<br>
-          • Quality guarantee for all items</p>
-          <p>We work only with trusted suppliers and guarantee that the product matches the description.</p>
-        `,
         support_title: "Support",
-        support_text: "Our managers are ready to answer all your questions and help you choose a product. We work 24/7 for your convenience.",
-        contact_manager_btn: "CONTACT MANAGER"
+        size_label: "Size:",
+        add_to_cart_btn: "Add to Cart",
+        empty_cart: "Your cart is empty",
+        checkout_btn: "Checkout",
+        contact_support: "Contact Support",
+        support_text: "Need help? Contact our support team",
+        tshirt1_name: "Premium Basic T-Shirt",
+        tshirt1_desc: "High-quality t-shirt made from premium cotton. Perfect fit and durability.",
+        tshirt2_name: "Designer Edition T-Shirt",
+        tshirt2_desc: "Designer t-shirt with unique print. Limited collection.",
+        tshirt3_name: "Limited Collection T-Shirt",
+        tshirt3_desc: "Exclusive t-shirt from limited collection. Premium materials.",
+        shorts1_name: "Premium Sport Shorts",
+        shorts1_desc: "Sports shorts made from breathable material. Perfect for workouts and leisure.",
+        shorts2_name: "Casual Style Shorts",
+        shorts2_desc: "Casual everyday shorts. Comfort and style for daily wear.",
+        shorts3_name: "Elite Performance Shorts",
+        shorts3_desc: "Professional sports shorts. High-tech materials and ergonomic cut.",
+        sneakers1_name: "Urban Classic Sneakers",
+        sneakers1_desc: "Classic urban sneakers. Style and comfort for everyday wear.",
+        sneakers2_name: "Sport Pro Sneakers",
+        sneakers2_desc: "Professional sports sneakers. Maximum support and cushioning.",
+        sneakers3_name: "Limited Edition Sneakers",
+        sneakers3_desc: "Exclusive limited series sneakers. Unique design and premium materials.",
+        terms_content: `
+          <h3>General Terms</h3>
+          <p>Welcome to The Continental - exclusive store for premium clothing and footwear.</p>
+          
+          <h3>Purchase Terms</h3>
+          <ul>
+            <li>All prices are in euros and are final</li>
+            <li>Payment is processed through secure payment systems</li>
+            <li>Worldwide delivery within 3-7 business days</li>
+            <li>Returns are possible within 14 days of receipt</li>
+          </ul>
+          
+          <h3>Quality Guarantee</h3>
+          <p>We guarantee the authenticity and high quality of all products. Each item undergoes thorough inspection before shipping.</p>
+          
+          <h3>Privacy</h3>
+          <p>Your personal data is protected and used exclusively for order processing and service quality improvement.</p>
+        `
       },
       uk: {
         catalog_btn: "Каталог",
@@ -670,162 +1107,559 @@
         shorts_btn: "Шорти",
         sneakers_btn: "Кросівки",
         tshirts_title: "Футболки",
-        tshirt1_name: "Футболка Premium Basic",
-        tshirt2_name: "Футболка Designer Edition",
-        tshirt3_name: "Футболка Limited Collection",
         shorts_title: "Шорти",
-        shorts1_name: "Шорти Premium Sport",
-        shorts2_name: "Шорти Casual Luxury",
-        shorts3_name: "Шорти Designer Cut",
         sneakers_title: "Кросівки",
-        sneaker1_name: "Nike Air Premium",
-        sneaker2_name: "Adidas Luxury Edition",
-        sneaker3_name: "Jordan Exclusive",
+        cart_title: "Кошик",
         terms_title: "Умови роботи",
-        terms_content: `
-          <p><strong>Ласкаво просимо до The Continental!</strong></p>
-          <p>Ми пропонуємо лише преміум-репліки найвищої якості. Кожен товар проходить суворий контроль якості перед відправкою.</p>
-          <p><strong>Умови замовлення:</strong></p>
-          <p>• Оплата — 100% передоплата<br>
-          • Доставка по Європі — 7-14 робочих днів<br>
-          • Повернень та обмінів немає<br>
-          • Гарантія якості на всі товари</p>
-          <p>Ми працюємо лише з перевіреними постачальниками та гарантуємо відповідність товару опису.</p>
-        `,
         support_title: "Підтримка",
-        support_text: "Наші менеджери готові відповісти на всі ваші запитання та допомогти з вибором товару. Ми працюємо 24/7 для вашої зручності.",
-        contact_manager_btn: "НАПИСАТИ МЕНЕДЖЕРУ"
+        size_label: "Розмір:",
+        add_to_cart_btn: "У кошик",
+        empty_cart: "Ваш кошик порожній",
+        checkout_btn: "Оформити замовлення",
+        contact_support: "Зв'язатися з підтримкою",
+        support_text: "Потрібна допомога? Зв'яжіться з нашою службою підтримки",
+        tshirt1_name: "Футболка Premium Basic",
+        tshirt1_desc: "Високоякісна футболка з преміального бавовни. Ідеальна посадка та довговічність.",
+        tshirt2_name: "Футболка Designer Edition",
+        tshirt2_desc: "Дизайнерська футболка з унікальним принтом. Обмежена колекція.",
+        tshirt3_name: "Футболка Limited Collection",
+        tshirt3_desc: "Ексклюзивна футболка з лімітованої колекції. Преміальні матеріали.",
+        shorts1_name: "Шорти Premium Sport",
+        shorts1_desc: "Спортивні шорти з дихаючого матеріалу. Ідеальні для тренувань та відпочинку.",
+        shorts2_name: "Шорти Casual Style",
+        shorts2_desc: "Повсякденні шорти в стилі casual. Комфорт та стиль на кожен день.",
+        shorts3_name: "Шорти Elite Performance",
+        shorts3_desc: "Професійні шорти для спорту. Технологічні матеріали та ергономічний крій.",
+        sneakers1_name: "Кросівки Urban Classic",
+        sneakers1_desc: "Класичні міські кросівки. Стиль та комфорт для повсякденного носіння.",
+        sneakers2_name: "Кросівки Sport Pro",
+        sneakers2_desc: "Професійні спортивні кросівки. Максимальна підтримка та амортизація.",
+        sneakers3_name: "Кросівки Limited Edition",
+        sneakers3_desc: "Ексклюзивні кросівки лімітованої серії. Унікальний дизайн та преміальні матеріали.",
+        terms_content: `
+          <h3>Загальні положення</h3>
+          <p>Ласкаво просимо до The Continental - ексклюзивного магазину преміального одягу та взуття.</p>
+          
+          <h3>Умови покупки</h3>
+          <ul>
+            <li>Всі ціни вказані в євро та є остаточними</li>
+            <li>Оплата здійснюється через захищені платіжні системи</li>
+            <li>Доставка по всьому світу протягом 3-7 робочих днів</li>
+            <li>Повернення товару можливе протягом 14 днів з моменту отримання</li>
+          </ul>
+          
+          <h3>Гарантії якості</h3>
+          <p>Ми гарантуємо автентичність та високу якість усіх представлених товарів. Кожен товар проходить ретельну перевірку перед відправкою.</p>
+          
+          <h3>Конфіденційність</h3>
+          <p>Ваші персональні дані захищені та використовуються виключно для обробки замовлень та покращення якості обслуговування.</p>
+        `
       },
       de: {
         catalog_btn: "Katalog",
-        terms_btn: "Nutzungsbedingungen",
+        terms_btn: "Geschäftsbedingungen",
         support_btn: "Support",
         catalog_title: "Katalog",
         tshirts_btn: "T-Shirts",
         shorts_btn: "Shorts",
         sneakers_btn: "Sneakers",
         tshirts_title: "T-Shirts",
-        tshirt1_name: "Premium Basic T-Shirt",
-        tshirt2_name: "Designer Edition T-Shirt",
-        tshirt3_name: "Limited Collection T-Shirt",
         shorts_title: "Shorts",
-        shorts1_name: "Premium Sport Shorts",
-        shorts2_name: "Casual Luxury Shorts",
-        shorts3_name: "Designer Cut Shorts",
         sneakers_title: "Sneakers",
-        sneaker1_name: "Nike Air Premium",
-        sneaker2_name: "Adidas Luxury Edition",
-        sneaker3_name: "Jordan Exclusive",
-        terms_title: "Nutzungsbedingungen",
-        terms_content: `
-          <p><strong>Willkommen bei The Continental!</strong></p>
-          <p>Wir bieten ausschließlich Premium-Repliken höchster Qualität an. Jeder Artikel wird vor dem Versand einer strengen Qualitätskontrolle unterzogen.</p>
-          <p><strong>Bestellbedingungen:</strong></p>
-          <p>• Zahlung — 100% Vorkasse<br>
-          • Lieferung innerhalb Europas — 7-14 Werktage<br>
-          • Keine Rückgabe oder Umtausch<br>
-          • Qualitätsgarantie für alle Artikel</p>
-          <p>Wir arbeiten nur mit vertrauenswürdigen Lieferanten zusammen und garantieren, dass das Produkt der Beschreibung entspricht.</p>
-        `,
+        cart_title: "Warenkorb",
+        terms_title: "Geschäftsbedingungen",
         support_title: "Support",
-        support_text: "Unsere Manager stehen Ihnen jederzeit zur Verfügung, um Ihre Fragen zu beantworten und Ihnen bei der Produktauswahl zu helfen. Wir sind 24/7 für Sie da.",
-        contact_manager_btn: "MANAGER KONTAKTIEREN"
+        size_label: "Größe:",
+        add_to_cart_btn: "In den Warenkorb",
+        empty_cart: "Ihr Warenkorb ist leer",
+        checkout_btn: "Zur Kasse",
+        contact_support: "Support kontaktieren",
+        support_text: "Brauchen Sie Hilfe? Kontaktieren Sie unser Support-Team",
+        tshirt1_name: "Premium Basic T-Shirt",
+        tshirt1_desc: "Hochwertiges T-Shirt aus Premium-Baumwolle. Perfekte Passform und Langlebigkeit.",
+        tshirt2_name: "Designer Edition T-Shirt",
+        tshirt2_desc: "Designer-T-Shirt mit einzigartigem Print. Limitierte Kollektion.",
+        tshirt3_name: "Limited Collection T-Shirt",
+        tshirt3_desc: "Exklusives T-Shirt aus limitierter Kollektion. Premium-Materialien.",
+        shorts1_name: "Premium Sport Shorts",
+        shorts1_desc: "Sport-Shorts aus atmungsaktivem Material. Perfekt für Training und Freizeit.",
+        shorts2_name: "Casual Style Shorts",
+        shorts2_desc: "Lässige Alltags-Shorts. Komfort und Stil für den täglichen Gebrauch.",
+        shorts3_name: "Elite Performance Shorts",
+        shorts3_desc: "Professionelle Sport-Shorts. High-Tech-Materialien und ergonomischer Schnitt.",
+        sneakers1_name: "Urban Classic Sneakers",
+        sneakers1_desc: "Klassische urbane Sneakers. Stil und Komfort für den Alltag.",
+        sneakers2_name: "Sport Pro Sneakers",
+        sneakers2_desc: "Professionelle Sport-Sneakers. Maximale Unterstützung und Dämpfung.",
+        sneakers3_name: "Limited Edition Sneakers",
+        sneakers3_desc: "Exklusive limitierte Serie Sneakers. Einzigartiges Design und Premium-Materialien.",
+        terms_content: `
+          <h3>Allgemeine Bedingungen</h3>
+          <p>Willkommen bei The Continental - exklusiver Shop für Premium-Kleidung und Schuhe.</p>
+          
+          <h3>Kaufbedingungen</h3>
+          <ul>
+            <li>Alle Preise sind in Euro und sind endgültig</li>
+            <li>Zahlung erfolgt über sichere Zahlungssysteme</li>
+            <li>Weltweite Lieferung innerhalb von 3-7 Werktagen</li>
+            <li>Rückgabe ist innerhalb von 14 Tagen nach Erhalt möglich</li>
+          </ul>
+          
+          <h3>Qualitätsgarantie</h3>
+          <p>Wir garantieren die Echtheit und hohe Qualität aller Produkte. Jeder Artikel wird vor dem Versand sorgfältig geprüft.</p>
+          
+          <h3>Datenschutz</h3>
+          <p>Ihre persönlichen Daten sind geschützt und werden ausschließlich für die Bestellabwicklung und Verbesserung der Servicequalität verwendet.</p>
+        `
       }
     };
 
-    // Функция для применения переводов
-    function applyTranslations(lang) {
-      const elements = document.querySelectorAll('[data-key]');
-      elements.forEach(el => {
-        const key = el.dataset.key;
-        if (translations[lang] && translations[lang][key]) {
-          if (key.includes('_content')) { // Для HTML-содержимого
-            el.innerHTML = translations[lang][key];
-          } else { // Для текстового содержимого
-            el.textContent = translations[lang][key];
+    // Глобальные переменные
+    let currentLanguage = 'ru';
+    let cart = [];
+    let currentTheme = 'dark';
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTheme();
+      loadLanguage();
+      loadCart();
+      updateCartCount();
+      setupSizeSelection();
+      setupLanguageSwitcher();
+    });
+
+    // Функции навигации
+    function openScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function backToHome() {
+      openScreen('home');
+    }
+
+    // Функции темы
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.body.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[onclick="setTheme('${theme}')"]`).classList.add('active');
+    }
+
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      setTheme(savedTheme);
+    }
+
+    // Функции языка
+    function setupLanguageSwitcher() {
+      const languageSelect = document.getElementById('language-select');
+      languageSelect.value = currentLanguage;
+      languageSelect.addEventListener('change', function() {
+        setLanguage(this.value);
+      });
+    }
+
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      localStorage.setItem('language', lang);
+      updateTexts();
+    }
+
+    function loadLanguage() {
+      const savedLanguage = localStorage.getItem('language') || 'ru';
+      currentLanguage = savedLanguage;
+      document.getElementById('language-select').value = savedLanguage;
+      updateTexts();
+    }
+
+    function updateTexts() {
+      const texts = translations[currentLanguage];
+      document.querySelectorAll('[data-key]').forEach(element => {
+        const key = element.getAttribute('data-key');
+        if (texts[key]) {
+          if (element.innerHTML.includes('<')) {
+            element.innerHTML = texts[key];
+          } else {
+            element.textContent = texts[key];
           }
         }
       });
     }
 
-    // Обработчик изменения языка
-    document.getElementById('language-select').addEventListener('change', function() {
-      applyTranslations(this.value);
-    });
-
-    // Функция для открытия нового экрана
-    function openScreen(id) {
-      const currentScreen = document.querySelector('.screen.active');
-      const target = document.getElementById(id);
-
-      if (currentScreen) {
-        // Убираем класс 'active' для запуска анимации исчезновения
-        currentScreen.classList.remove('active');
-        currentScreen.style.pointerEvents = 'none'; // Делаем некликабельным сразу
-
-        // Сбрасываем стили для элементов внутри уходящего экрана, чтобы они не мешали
-        currentScreen.querySelectorAll('.btn, .product').forEach(el => {
-          el.style.opacity = '0';
-          el.style.transform = 'translateX(20px)';
-          el.style.transition = 'none'; // Отключаем transition для мгновенного сброса
-        });
-
-        // После завершения анимации исчезновения, полностью скрываем экран
-        setTimeout(() => {
-          currentScreen.style.display = 'none';
-        }, 300); // Соответствует transition: opacity 0.3s ease-out;
-      }
-
-      // Показываем новый экран
-      target.style.display = 'block'; // Делаем видимым, но пока opacity: 0
-      target.style.pointerEvents = 'auto'; // Делаем кликабельным
-      target.classList.add('active'); // Добавляем класс 'active' для запуска fadeIn
-      target.scrollTop = 0; // Прокручиваем экран в начало
-
-      // Запускаем анимацию slideIn для кнопок и продуктов на новом экране
-      const animatedElements = target.querySelectorAll('.btn, .product');
-      animatedElements.forEach((el, index) => {
-        // Убедимся, что transition включен для анимации появления
-        el.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateX(0)';
-        }, index * 100 + 300); // Задержка, чтобы анимация fadeIn экрана успела начаться
+    // Функции выбора размера
+    function setupSizeSelection() {
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('size-option')) {
+          const product = e.target.closest('.product');
+          const sizeOptions = product.querySelectorAll('.size-option');
+          
+          sizeOptions.forEach(option => option.classList.remove('selected'));
+          e.target.classList.add('selected');
+          
+          const addToCartBtn = product.querySelector('.add-to-cart');
+          addToCartBtn.disabled = false;
+        }
       });
     }
 
-    // Функция для возврата на домашний экран
-    function backToHome() {
-      openScreen('home');
-    }
-
-    // Инициализация анимаций при загрузке для домашнего экрана
-    document.addEventListener('DOMContentLoaded', function() {
-      const homeScreen = document.getElementById('home');
-      const homeButtons = homeScreen.querySelectorAll('.btn');
-      homeButtons.forEach((btn, index) => {
-        // Убедимся, что transition включен для анимации появления
-        btn.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        setTimeout(() => {
-          btn.style.opacity = '1';
-          btn.style.transform = 'translateX(0)';
-        }, index * 150);
-      });
-
-      // Инициализация Telegram Web App API
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand(); // Полное открытие приложения
-
-        // Настройка темы для Telegram
-        window.Telegram.WebApp.setHeaderColor('#000000');
-        window.Telegram.WebApp.setBackgroundColor('#000000');
+    // Функции корзины
+    function addToCart(productId) {
+      const productElement = document.querySelector(`[data-product-id="${productId}"]`);
+      const selectedSize = productElement.querySelector('.size-option.selected');
+      
+      if (!selectedSize) {
+        alert(currentLanguage === 'ru' ? 'Выберите размер' : 
+              currentLanguage === 'en' ? 'Select size' :
+              currentLanguage === 'uk' ? 'Оберіть розмір' : 'Größe auswählen');
+        return;
       }
 
-      // Применяем переводы при первой загрузке (по умолчанию русский)
-      applyTranslations(document.getElementById('language-select').value);
+      const
+product = {
+        id: productId,
+        name: productElement.querySelector('.product-name').textContent,
+        price: parseFloat(productElement.querySelector('.product-price').textContent.replace('€', '')),
+        size: selectedSize.getAttribute('data-size'),
+        image: productElement.querySelector('.product-image').style.backgroundImage
+      };
+
+      // Проверяем, есть ли уже такой товар с таким размером
+      const existingItem = cart.find(item => item.id === productId && item.size === product.size);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        product.quantity = 1;
+        cart.push(product);
+      }
+
+      saveCart();
+      updateCartCount();
+      
+      // Показываем уведомление
+      showNotification(currentLanguage === 'ru' ? 'Товар добавлен в корзину' : 
+                      currentLanguage === 'en' ? 'Item added to cart' :
+                      currentLanguage === 'uk' ? 'Товар додано до кошика' : 'Artikel zum Warenkorb hinzugefügt');
+      
+      // Сбрасываем выбор размера
+      selectedSize.classList.remove('selected');
+      productElement.querySelector('.add-to-cart').disabled = true;
+    }
+
+    function removeFromCart(productId, size) {
+      cart = cart.filter(item => !(item.id === productId && item.size === size));
+      saveCart();
+      updateCartCount();
+      updateCartDisplay();
+    }
+
+    function updateCartCount() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCounts = document.querySelectorAll('.cart-count');
+      
+      cartCounts.forEach(count => {
+        if (totalItems > 0) {
+          count.textContent = totalItems;
+          count.style.display = 'block';
+        } else {
+          count.style.display = 'none';
+        }
+      });
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const totalAmount = document.getElementById('total-amount');
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = `
+          <div class="empty-cart">
+            <div class="empty-cart-icon">🛒</div>
+            <p data-key="empty_cart">${translations[currentLanguage].empty_cart}</p>
+          </div>
+        `;
+        cartTotal.style.display = 'none';
+        return;
+      }
+
+      let total = 0;
+      cartItems.innerHTML = '';
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <div class="cart-item-image" style="${item.image}"></div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-details">${translations[currentLanguage].size_label} ${item.size} | ${translations[currentLanguage].quantity || 'Количество'}: ${item.quantity}</div>
+            <div class="cart-item-price">€${(item.price * item.quantity).toFixed(2)}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${item.id}', '${item.size}')">×</button>
+        `;
+        
+        cartItems.appendChild(cartItem);
+      });
+
+      totalAmount.textContent = `€${total.toFixed(2)}`;
+      cartTotal.style.display = 'block';
+    }
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function loadCart() {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        cart = JSON.parse(savedCart);
+      }
+    }
+
+    function checkout() {
+      if (cart.length === 0) return;
+      
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const orderDetails = cart.map(item => 
+        `${item.name} (${translations[currentLanguage].size_label} ${item.size}) x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}`
+      ).join('\n');
+      
+      const message = `${translations[currentLanguage].new_order || 'Новый заказ'}:\n\n${orderDetails}\n\n${translations[currentLanguage].total || 'Итого'}: €${total.toFixed(2)}`;
+      
+      // Отправляем заказ в Telegram (замените на ваш bot token и chat ID)
+      const botToken = 'YOUR_BOT_TOKEN';
+      const chatId = 'YOUR_CHAT_ID';
+      
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message
+        })
+      }).then(response => {
+        if (response.ok) {
+          showNotification(translations[currentLanguage].order_sent || 'Заказ отправлен!');
+          cart = [];
+          saveCart();
+          updateCartCount();
+          updateCartDisplay();
+        } else {
+          showNotification(translations[currentLanguage].order_error || 'Ошибка отправки заказа');
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+        showNotification(translations[currentLanguage].order_error || 'Ошибка отправки заказа');
+      });
+    }
+
+    function showNotification(message) {
+      // Создаем уведомление
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        padding: 15px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 20px var(--shadow-color);
+        z-index: 10000;
+        font-weight: 600;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      // Анимация появления
+      setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      // Удаление через 3 секунды
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+
+    // Обновляем отображение корзины при открытии
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('cart-icon') || e.target.closest('.cart-icon')) {
+        setTimeout(updateCartDisplay, 100);
+      }
     });
+
+    // Добавляем недостающие переводы
+    translations.ru.quantity = 'Количество';
+    translations.ru.new_order = 'Новый заказ';
+    translations.ru.total = 'Итого';
+    translations.ru.order_sent = 'Заказ отправлен!';
+    translations.ru.order_error = 'Ошибка отправки заказа';
+
+    translations.en.quantity = 'Quantity';
+    translations.en.new_order = 'New Order';
+    translations.en.total = 'Total';
+    translations.en.order_sent = 'Order sent!';
+    translations.en.order_error = 'Order sending error';
+
+    translations.uk.quantity = 'Кількість';
+    translations.uk.new_order = 'Нове замовлення';
+    translations.uk.total = 'Разом';
+    translations.uk.order_sent = 'Замовлення відправлено!';
+    translations.uk.order_error = 'Помилка відправки замовлення';
+
+    translations.de.quantity = 'Menge';
+    translations.de.new_order = 'Neue Bestellung';
+    translations.de.total = 'Gesamt';
+    translations.de.order_sent = 'Bestellung gesendet!';
+    translations.de.order_error = 'Fehler beim Senden der Bestellung';
+
+    // Обработка свайпов для мобильных устройств
+    let startX = 0;
+    let startY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', function(e) {
+      if (!startX || !startY) return;
+
+      let endX = e.changedTouches[0].clientX;
+      let endY = e.changedTouches[0].clientY;
+
+      let diffX = startX - endX;
+      let diffY = startY - endY;
+
+      // Проверяем, что это горизонтальный свайп
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        const activeScreen = document.querySelector('.screen.active');
+        
+        // Свайп влево (назад)
+        if (diffX > 0) {
+          if (activeScreen.id === 'catalog') {
+            backToHome();
+          } else if (['tshirts', 'shorts', 'sneakers', 'cart'].includes(activeScreen.id)) {
+            openScreen('catalog');
+          } else if (['terms', 'support'].includes(activeScreen.id)) {
+            backToHome();
+          }
+        }
+      }
+
+      startX = 0;
+      startY = 0;
+    });
+
+    // Обработка кнопки "Назад" браузера
+    window.addEventListener('popstate', function(e) {
+      const activeScreen = document.querySelector('.screen.active');
+      if (activeScreen.id !== 'home') {
+        if (['tshirts', 'shorts', 'sneakers', 'cart'].includes(activeScreen.id)) {
+          openScreen('catalog');
+        } else {
+          backToHome();
+        }
+      }
+    });
+
+    // Добавляем состояния в историю браузера
+    function openScreenWithHistory(screenId) {
+      openScreen(screenId);
+      history.pushState({screen: screenId}, '', `#${screenId}`);
+    }
+
+    // Обновляем функции навигации
+    const originalOpenScreen = openScreen;
+    openScreen = function(screenId) {
+      originalOpenScreen(screenId);
+      if (screenId !== 'home') {
+        history.pushState({screen: screenId}, '', `#${screenId}`);
+      }
+    };
+
+    // Инициализация при загрузке с хешем
+    window.addEventListener('load', function() {
+      const hash = window.location.hash.substring(1);
+      if (hash && document.getElementById(hash)) {
+        openScreen(hash);
+      }
+    });
+
+    // Улучшенная анимация для кнопок
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn') || e.target.classList.contains('add-to-cart') || e.target.classList.contains('checkout-btn')) {
+        e.target.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          e.target.style.transform = '';
+        }, 150);
+      }
+    });
+
+    // Предзагрузка изображений
+    function preloadImages() {
+      const imageUrls = [
+        'https://via.placeholder.com/400x200/333/fff?text=Premium+Basic',
+        'https://via.placeholder.com/400x200/444/fff?text=Designer+Edition',
+        'https://via.placeholder.com/400x200/555/fff?text=Limited+Collection',
+        'https://via.placeholder.com/400x200/666/fff?text=Premium+Sport',
+        'https://via.placeholder.com/400x200/777/fff?text=Casual+Style',
+        'https://via.placeholder.com/400x200/888/fff?text=Elite+Performance',
+        'https://via.placeholder.com/400x200/999/fff?text=Urban+Classic',
+        'https://via.placeholder.com/400x200/aaa/fff?text=Sport+Pro',
+        'https://via.placeholder.com/400x200/bbb/fff?text=Limited+Edition'
+      ];
+
+      imageUrls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    }
+
+    // Запускаем предзагрузку изображений
+    setTimeout(preloadImages, 1000);
+
+    // Обработка ошибок
+    window.addEventListener('error', function(e) {
+      console.error('Ошибка:', e.error);
+    });
+
+    // Проверка поддержки localStorage
+    function isLocalStorageSupported() {
+      try {
+        const test = 'test';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+      } catch(e) {
+        return false;
+      }
+    }
+
+    if (!isLocalStorageSupported()) {
+      console.warn('localStorage не поддерживается');
+    }
   </script>
 </body>
 </html>
-
