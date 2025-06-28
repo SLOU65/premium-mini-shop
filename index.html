@@ -11,11 +11,11 @@
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translate(-50%, -50%) translateY(30px); /* Начинаем чуть ниже центра */
+        transform: translate(-50%, -50%) translateY(30px);
       }
       to {
         opacity: 1;
-        transform: translate(-50%, -50%) translateY(0); /* Заканчиваем в центре */
+        transform: translate(-50%, -50%) translateY(0);
       }
     }
 
@@ -112,7 +112,7 @@
     }
 
     .container {
-      display: flex; /* Используем flexbox для центрирования содержимого */
+      display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -140,7 +140,7 @@
       transform: translate(-50%, -50%); /* Центрируем экран */
       opacity: 0; /* Изначально невидимый */
       pointer-events: none; /* Не реагирует на события мыши, когда неактивен */
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Плавное исчезновение */
+      transition: opacity 0.3s ease-out; /* Плавное исчезновение */
       overflow: hidden; /* Скрываем содержимое, выходящее за границы */
     }
 
@@ -212,6 +212,7 @@
         0 4px 15px rgba(255, 255, 255, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
       opacity: 0; /* Изначально невидимый для slideIn */
+      transform: translateX(20px); /* Исходное положение для slideIn */
       font-family: 'Inter', sans-serif;
     }
 
@@ -255,7 +256,7 @@
       display: flex;
       align-items: center;
       margin-bottom: 30px;
-      animation: fadeIn 0.5s ease;
+      /* Удаляем fadeIn отсюда, так как экран уже анимируется */
     }
 
     .back {
@@ -273,6 +274,7 @@
       justify-content: center;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
+      flex-shrink: 0; /* Чтобы кнопка не сжималась */
     }
 
     .back:hover {
@@ -289,12 +291,13 @@
       font-size: 28px;
       font-weight: 700;
       margin: 0;
-      flex: 1;
+      flex: 1; /* Занимает оставшееся пространство */
       text-align: center;
       background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      /* Удаляем анимацию slideIn отсюда, чтобы заголовок не "приезжал" */
     }
 
     .product {
@@ -305,6 +308,7 @@
       margin: 16px 0;
       border-radius: 16px;
       opacity: 0; /* Изначально невидимый для slideIn */
+      transform: translateX(20px); /* Исходное положение для slideIn */
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
@@ -384,10 +388,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
-    .support-link:hover::before {
-      left: 100%;
-    }
-
     .support-link:active {
       transform: scale(0.98);
     }
@@ -405,11 +405,12 @@
       line-height: 1.6;
       color: #cccccc;
       font-size: 16px;
-      animation: fadeIn 0.6s ease 0.2s both;
+      /* Удаляем fadeIn отсюда, так как экран уже анимируется */
       background: rgba(255, 255, 255, 0.03);
       padding: 20px;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: left; /* Явно выравниваем текст по левому краю */
     }
 
     /* Адаптивность для мобильных устройств */
@@ -436,12 +437,6 @@
       h1 {
         font-size: 24px;
       }
-    }
-
-    /* Дополнительные анимации для загрузки */
-    .loading {
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards;
     }
   </style>
 </head>
@@ -553,22 +548,30 @@
   <script>
     function openScreen(id ) {
       const currentScreen = document.querySelector('.screen.active');
+      const target = document.getElementById(id);
+
       if (currentScreen) {
-        // Убираем класс 'active' и сбрасываем стили для плавного исчезновения
+        // Убираем класс 'active' для запуска анимации исчезновения
         currentScreen.classList.remove('active');
-        currentScreen.style.opacity = '0';
-        currentScreen.style.pointerEvents = 'none'; // Делаем некликабельным
-        // Сбрасываем анимации для элементов внутри уходящего экрана
+        currentScreen.style.pointerEvents = 'none'; // Делаем некликабельным сразу
+
+        // Сбрасываем стили для элементов внутри уходящего экрана, чтобы они не мешали
         currentScreen.querySelectorAll('.btn, .product').forEach(el => {
           el.style.opacity = '0';
-          el.style.transform = 'translateX(20px)'; // Возвращаем в исходное состояние для slideIn
-          el.style.transition = 'none'; // Отключаем transition, чтобы сброс был мгновенным
+          el.style.transform = 'translateX(20px)';
+          el.style.transition = 'none'; // Отключаем transition для мгновенного сброса
         });
+
+        // После завершения анимации исчезновения, полностью скрываем экран
+        setTimeout(() => {
+          currentScreen.style.display = 'none';
+        }, 300); // Соответствует transition: opacity 0.3s ease-out;
       }
 
-      const target = document.getElementById(id);
-      // Добавляем класс 'active' для нового экрана, что запустит fadeIn
-      target.classList.add('active');
+      // Показываем новый экран
+      target.style.display = 'block'; // Делаем видимым, но пока opacity: 0
+      target.style.pointerEvents = 'auto'; // Делаем кликабельным
+      target.classList.add('active'); // Добавляем класс 'active' для запуска fadeIn
       target.scrollTop = 0; // Прокручиваем экран в начало
 
       // Запускаем анимацию slideIn для кнопок и продуктов на новом экране
@@ -579,7 +582,7 @@
         setTimeout(() => {
           el.style.opacity = '1';
           el.style.transform = 'translateX(0)';
-        }, index * 100 + 300); // Добавляем задержку, чтобы анимация fadeIn экрана успела начаться
+        }, index * 100 + 300); // Задержка, чтобы анимация fadeIn экрана успела начаться
       });
     }
 
@@ -613,5 +616,4 @@
   </script>
 </body>
 </html>
-
 
