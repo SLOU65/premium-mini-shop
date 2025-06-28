@@ -293,7 +293,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       /* Сдвигаем заголовок немного левее */
-      transform: translateX(-10px);
+      transform: translateX(-25px);
     }
     .product {
       background: rgba(255, 255, 255, 0.05);
@@ -576,17 +576,18 @@
       </div>
     </div>
 
-    <div class="screen" id="support">
+        <div class="screen" id="support">
       <div class="header">
-        <button class="back" onclick="backToHome()">←</button>
+        <button class="back" onclick="backToHome( )">←</button>
         <h1 data-key="support_title">Поддержка</h1>
       </div>
       <p data-key="support_text" style="margin-bottom: 20px; color: #cccccc; line-height: 1.6;">
         Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.
       </p>
-      <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</a>
+      <div style="text-align: center; margin-top: 20px;"> <!-- Добавлен новый div с центрированием -->
+        <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</a>
+      </div>
     </div>
-  </div>
   <script>
     // Объект с переводами
     const translations = {
