@@ -1,306 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Continental</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
-
-    /* CSS переменные для тем */
     :root {
-      --bg-primary: #000000;
-      --bg-secondary: rgba(0, 0, 0, 0.85);
-      --bg-tertiary: rgba(255, 255, 255, 0.05);
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #2d2d2d;
+      --bg-tertiary: #3a3a3a;
       --text-primary: #ffffff;
-      --text-secondary: #cccccc;
-      --border-color: rgba(255, 255, 255, 0.1);
-      --shadow-color: rgba(0, 0, 0, 0.5);
-      --btn-bg: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-      --btn-text: #000000;
-      --btn-shadow: rgba(255, 255, 255, 0.2);
+      --text-secondary: #b0b0b0;
+      --accent: #4a9eff;
+      --accent-hover: #3d8ce6;
+      --border-color: #404040;
+      --btn-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --btn-text: #ffffff;
+      --btn-shadow: rgba(102, 126, 234, 0.3);
     }
 
     [data-theme="light"] {
       --bg-primary: #ffffff;
-      --bg-secondary: rgba(255, 255, 255, 0.95);
-      --bg-tertiary: rgba(0, 0, 0, 0.05);
-      --text-primary: #000000;
-      --text-secondary: #666666;
-      --border-color: rgba(0, 0, 0, 0.1);
-      --shadow-color: rgba(0, 0, 0, 0.1);
-      --btn-bg: linear-gradient(135deg, #000000 0%, #333333 100%);
+      --bg-secondary: #f8f9fa;
+      --bg-tertiary: #e9ecef;
+      --text-primary: #212529;
+      --text-secondary: #6c757d;
+      --accent: #0d6efd;
+      --accent-hover: #0b5ed7;
+      --border-color: #dee2e6;
+      --btn-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       --btn-text: #ffffff;
-      --btn-shadow: rgba(0, 0, 0, 0.2);
-    }
-
-    /* Анимации */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -50%) translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) translateY(0);
-      }
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.02);
-      }
-    }
-
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-      100% {
-        background-position: 200% 0;
-      }
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      --btn-shadow: rgba(102, 126, 234, 0.2);
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      color: var(--text-primary);
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-primary);
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background:
-        radial-gradient(circle at 20% 80%, var(--border-color) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, var(--border-color) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, var(--border-color) 0%, transparent 50%);
-      z-index: -2;
+      color: var(--text-primary);
+      min-height: 100vh;
       transition: all 0.3s ease;
     }
 
     .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      max-width: 500px;
+      margin: 0 auto;
       padding: 20px;
-      position: relative;
-      width: 100%;
-      height: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .screen {
-      display: none;
-      width: 100%;
-      max-width: 420px;
-      max-height: 90vh;
       background: var(--bg-secondary);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 20px 40px var(--shadow-color);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease-out;
-      overflow-y: auto;
-    }
-
-    .screen::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+      border-radius: 24px;
+      padding: 40px;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        var(--border-color),
-        transparent
-      );
-      animation: shimmer 3s infinite;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      display: none;
+      position: relative;
     }
 
-    .active {
+    .screen.active {
       display: block;
-      opacity: 1;
-      pointer-events: auto;
-      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      font-weight: 700;
       text-align: center;
-      margin-bottom: 50px;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      background: var(--btn-bg);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: float 3s ease-in-out infinite;
-      letter-spacing: 2px;
-      position: relative;
-    }
-
-    .logo::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--text-primary), transparent);
+      letter-spacing: -1px;
     }
 
     .btn {
+      width: 100%;
+      padding: 18px 24px;
+      margin: 12px 0;
       background: var(--btn-bg);
       color: var(--btn-text);
-      padding: 18px 24px;
-      margin: 16px 0;
       border: none;
-      font-weight: 600;
+      border-radius: 16px;
       font-size: 16px;
-      width: 100%;
-      text-align: center;
-      border-radius: 12px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px var(--btn-shadow);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 15px var(--btn-shadow);
-      opacity: 0;
-      transform: translateX(20px);
-      font-family: 'Inter', sans-serif;
     }
-
-    .btn:nth-child(2) { animation-delay: 0.1s; }
-    .btn:nth-child(3) { animation-delay: 0.2s; }
-    .btn:nth-child(4) { animation-delay: 0.3s; }
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px var(--btn-shadow);
+      box-shadow: 0 12px 35px var(--btn-shadow);
     }
 
     .btn:active {
-      transform: translateY(0) scale(0.98);
+      transform: translateY(0);
     }
 
     .header {
       display: flex;
       align-items: center;
       margin-bottom: 30px;
+      position: relative;
     }
 
     .back {
       background: var(--bg-tertiary);
       border: 1px solid var(--border-color);
       color: var(--text-primary);
-      font-size: 24px;
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      margin-right: 16px;
+      font-size: 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
       flex-shrink: 0;
     }
 
     .back:hover {
-      background: var(--border-color);
-      transform: translateX(-2px);
-    }
-
-    .back:active {
-      transform: scale(0.95);
+      background: var(--bg-primary);
+      transform: scale(1.05);
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
       font-size: 28px;
       font-weight: 700;
-      margin: 0;
+      color: var(--text-primary);
+      margin-left: 15px;
       flex: 1;
-      text-align: center;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      transform: translateX(-25px);
     }
 
     .product {
       background: var(--bg-tertiary);
-      backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
-      padding: 20px;
-      margin: 16px 0;
       border-radius: 16px;
-      opacity: 0;
-      transform: translateX(20px);
-      transition: all 0.3s ease;
+      padding: 20px;
+      margin: 15px 0;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .product:nth-child(2) { animation-delay: 0.1s; }
-    .product:nth-child(3) { animation-delay: 0.2s; }
-    .product:nth-child(4) { animation-delay: 0.3s; }
-
     .product:hover {
-      background: var(--border-color);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px var(--shadow-color);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      border-color: var(--accent);
     }
 
     .product-image {
@@ -310,161 +171,123 @@
       background-position: center;
       border-radius: 12px;
       margin-bottom: 15px;
-      background-color: var(--bg-tertiary);
+      background-color: var(--bg-secondary);
     }
 
     .product-name {
-      font-weight: 600;
       font-size: 18px;
-      margin-bottom: 8px;
+      font-weight: 600;
       color: var(--text-primary);
+      margin-bottom: 8px;
     }
 
     .product-price {
-      color: var(--text-secondary);
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
     }
 
     .product-description {
       color: var(--text-secondary);
       font-size: 14px;
       line-height: 1.4;
-      margin-bottom: 15px;
     }
 
     .size-selector {
-      margin: 15px 0;
+      margin: 25px 0;
     }
 
     .size-label {
-      color: var(--text-primary);
-      font-weight: 500;
-      margin-bottom: 8px;
       display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      font-size: 16px;
     }
 
     .size-options {
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 10px;
     }
 
     .size-option {
-      padding: 8px 16px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
+      padding: 10px 16px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 14px;
-      min-width: 40px;
+      font-weight: 500;
+      min-width: 50px;
       text-align: center;
     }
 
     .size-option:hover {
-      background: var(--border-color);
+      border-color: var(--accent);
+      background: var(--bg-tertiary);
     }
 
     .size-option.selected {
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border-color: transparent;
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
     }
 
     .add-to-cart {
+      width: 100%;
+      padding: 16px;
       background: var(--btn-bg);
       color: var(--btn-text);
       border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
+      border-radius: 14px;
+      font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      width: 100%;
-      margin-top: 10px;
+      margin-top: 20px;
+      box-shadow: 0 6px 20px var(--btn-shadow);
     }
 
-    .add-to-cart:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .add-to-cart:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px var(--btn-shadow);
-    }
-
-    .support-link {
-      display: inline-block;
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      padding: 16px 24px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 16px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px var(--btn-shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .support-link:hover {
+    .add-to-cart:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px var(--btn-shadow);
     }
 
-    .support-link:active {
-      transform: scale(0.98);
-    }
-
-    #home {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 400px;
-    }
-
-    .terms-content {
+    .content {
       line-height: 1.6;
       color: var(--text-secondary);
-      font-size: 16px;
-      background: var(--bg-tertiary);
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      text-align: left;
     }
 
-    /* Переключатели в верхней части */
+    .content p {
+      margin-bottom: 15px;
+    }
+
     .top-controls {
       position: fixed;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      z-index: 1000;
+      top: 20px;
+      left: 20px;
+      right: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 1000;
+      pointer-events: none;
     }
 
     .language-switcher, .theme-switcher {
       background: var(--bg-secondary);
-      border-radius: 8px;
-      padding: 5px 10px;
       border: 1px solid var(--border-color);
-      box-shadow: 0 2px 10px var(--shadow-color);
+      border-radius: 12px;
+      padding: 8px 12px;
       backdrop-filter: blur(10px);
+      pointer-events: auto;
     }
 
-    .language-switcher select, .theme-switcher button {
-      background: transparent
-      border none;
+    .language-switcher select {
+      background: transparent;
+      border: none;
       color: var(--text-primary);
       font-size: 14px;
       padding: 5px;
@@ -486,6 +309,10 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
     }
 
     .theme-switcher button:hover {
@@ -644,9 +471,21 @@
         font-size: 15px;
       }
 
+      .header {
+        justify-content: center;
+        position: relative;
+      }
+
+      .back {
+        position: absolute;
+        left: 0;
+      }
+
       h1 {
         font-size: 24px;
-        transform: translateX(-5px);
+        margin-left: 0;
+        text-align: center;
+        flex: none;
       }
 
       .top-controls {
@@ -656,7 +495,7 @@
       }
 
       .language-switcher, .theme-switcher {
-        padding: 3px 8px;
+        padding: 6px 10px;
       }
 
       .language-switcher select, .theme-switcher button {
@@ -686,12 +525,12 @@
 <body data-theme="dark">
   <!-- Верхние элементы управления -->
   <div class="top-controls">
-    <div class="language-switcher">
+        <div class="language-switcher">
       <select id="language-select">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-        <option value="uk">Українська</option>
-        <option value="de">Deutsch</option>
+        <option value="ru">🇷🇺 RU</option>
+        <option value="en">🇺🇸 EN</option>
+        <option value="uk">🇺🇦 UK</option>
+        <option value="de">🇩🇪 DE</option>
       </select>
     </div>
     <div class="theme-switcher">
@@ -700,9 +539,9 @@
   </div>
 
   <!-- Кнопка корзины -->
-  <button class="cart-button" onclick="openScreen('cart')" id="cart-btn">
+  <button class="cart-button" id="cart-btn" onclick="openScreen('cart')">
     🛒
-    <span class="cart-count" id="cart-count" style="display: none;">0</span>
+    <div class="cart-count" id="cart-count" style="display: none;">0</div>
   </button>
 
   <div class="container">
@@ -731,18 +570,21 @@
         <button class="back" onclick="openScreen('catalog')">←</button>
         <h1 data-key="tshirts_title">Футболки</h1>
       </div>
+      
       <div class="product" onclick="openProductDetail('tshirt1')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/333/fff?text=Premium+Basic')"></div>
         <div class="product-name" data-key="tshirt1_name">Футболка Premium Basic</div>
         <div class="product-price">€29.99</div>
         <div class="product-description" data-key="tshirt1_desc">Классическая футболка из премиального хлопка</div>
       </div>
+
       <div class="product" onclick="openProductDetail('tshirt2')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/444/fff?text=Designer+Edition')"></div>
         <div class="product-name" data-key="tshirt2_name">Футболка Designer Edition</div>
         <div class="product-price">€45.99</div>
         <div class="product-description" data-key="tshirt2_desc">Дизайнерская футболка с уникальным принтом</div>
       </div>
+
       <div class="product" onclick="openProductDetail('tshirt3')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/555/fff?text=Limited+Collection')"></div>
         <div class="product-name" data-key="tshirt3_name">Футболка Limited Collection</div>
@@ -757,18 +599,21 @@
         <button class="back" onclick="openScreen('catalog')">←</button>
         <h1 data-key="shorts_title">Шорты</h1>
       </div>
+      
       <div class="product" onclick="openProductDetail('shorts1')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/666/fff?text=Premium+Sport')"></div>
         <div class="product-name" data-key="shorts1_name">Шорты Premium Sport</div>
         <div class="product-price">€39.99</div>
         <div class="product-description" data-key="shorts1_desc">Спортивные шорты из дышащего материала</div>
       </div>
+
       <div class="product" onclick="openProductDetail('shorts2')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/777/fff?text=Casual+Luxury')"></div>
         <div class="product-name" data-key="shorts2_name">Шорты Casual Luxury</div>
         <div class="product-price">€49.99</div>
         <div class="product-description" data-key="shorts2_desc">Повседневные шорты премиум качества</div>
       </div>
+
       <div class="product" onclick="openProductDetail('shorts3')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/888/fff?text=Designer+Cut')"></div>
         <div class="product-name" data-key="shorts3_name">Шорты Designer Cut</div>
@@ -783,18 +628,21 @@
         <button class="back" onclick="openScreen('catalog')">←</button>
         <h1 data-key="sneakers_title">Кроссовки</h1>
       </div>
+      
       <div class="product" onclick="openProductDetail('sneaker1')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/999/fff?text=Nike+Air+Premium')"></div>
         <div class="product-name" data-key="sneaker1_name">Nike Air Premium</div>
         <div class="product-price">€89.99</div>
         <div class="product-description" data-key="sneaker1_desc">Премиальные кроссовки Nike Air с технологией амортизации</div>
       </div>
+
       <div class="product" onclick="openProductDetail('sneaker2')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/aaa/000?text=Adidas+Luxury')"></div>
         <div class="product-name" data-key="sneaker2_name">Adidas Luxury Edition</div>
         <div class="product-price">€95.99</div>
         <div class="product-description" data-key="sneaker2_desc">Люксовая версия классических Adidas</div>
       </div>
+
       <div class="product" onclick="openProductDetail('sneaker3')">
         <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/bbb/000?text=Jordan+Exclusive')"></div>
         <div class="product-name" data-key="sneaker3_name">Jordan Exclusive</div>
@@ -804,24 +652,22 @@
     </div>
 
     <!-- Детальная страница товара -->
-    <div class="screen" id="product-detail">
+    <div class="screen product-detail" id="product-detail">
       <div class="header">
         <button class="back" onclick="goBackFromProduct()">←</button>
         <h1 id="detail-title">Товар</h1>
       </div>
-      <div class="product-detail">
-        <div class="product-image" id="detail-image"></div>
-        <div class="product-name" id="detail-name"></div>
-        <div class="product-price" id="detail-price"></div>
-        <div class="product-description" id="detail-description"></div>
-        
-        <div class="size-selector">
-          <label class="size-label" data-key="size_label">Размер:</label>
-          <div class="size-options" id="size-options"></div>
-        </div>
-        
-        <button class="add-to-cart" id="add-to-cart-btn" onclick="addToCart()" data-key="add_to_cart">Добавить в корзину</button>
+      <div id="detail-image" class="product-image" style="height: 250px; margin-bottom: 20px;"></div>
+      <div id="detail-name" class="product-name" style="font-size: 24px; margin-bottom: 10px;"></div>
+      <div id="detail-price" class="product-price" style="font-size: 28px; margin-bottom: 15px;"></div>
+      <div id="detail-description" class="product-description" style="margin-bottom: 25px; font-size: 16px;"></div>
+      
+      <div class="size-selector">
+        <label class="size-label" data-key="size_label">Размер:</label>
+        <div class="size-options" id="size-options"></div>
       </div>
+      
+      <button class="add-to-cart" onclick="addToCart()" data-key="add_to_cart">Добавить в корзину</button>
     </div>
 
     <!-- Корзина -->
@@ -912,7 +758,7 @@
         sneaker3_name: "Jordan Exclusive",
         sneaker3_desc: "Эксклюзивные Jordan с уникальным дизайном",
         // Тексты
-        terms_text1: "Добро пожаловать в The Continental - эксклюзивный магазин премиальной одежды и обуви.",
+                terms_text1: "Добро пожаловать в The Continental - эксклюзивный магазин премиальной одежды и обуви.",
         terms_text2: "Мы работаем только с проверенными поставщиками и гарантируем подлинность всех товаров.",
         terms_text3: "Доставка осуществляется по всему миру в течение 3-7 рабочих дней.",
         terms_text4: "Возврат товара возможен в течение 14 дней с момента получения.",
@@ -948,7 +794,7 @@
         tshirt3_name: "Limited Collection T-Shirt",
         tshirt3_desc: "Limited collection, exclusive design",
         shorts1_name: "Premium Sport Shorts",
-        shorts1_desc: "Sport shorts made from breathable material",
+        shorts1_desc: "Sports shorts made from breathable material",
         shorts2_name: "Casual Luxury Shorts",
         shorts2_desc: "Casual shorts of premium quality",
         shorts3_name: "Designer Cut Shorts",
@@ -1009,14 +855,14 @@
         sneaker3_desc: "Ексклюзивні Jordan з унікальним дизайном",
         // Texts
         terms_text1: "Ласкаво просимо до The Continental - ексклюзивного магазину преміального одягу та взуття.",
-        terms_text2: "Ми працюємо тільки з перевіреними постачальниками та гарантуємо справжність всіх товарів.",
+        terms_text2: "Ми працюємо тільки з перевіреними постачальниками і гарантуємо справжність всіх товарів.",
         terms_text3: "Доставка здійснюється по всьому світу протягом 3-7 робочих днів.",
         terms_text4: "Повернення товару можливе протягом 14 днів з моменту отримання.",
-        terms_text5: "Всі ціни вказані в євро та включають ПДВ.",
+        terms_text5: "Всі ціни вказані в євро і включають ПДВ.",
         support_text1: "Наша служба підтримки працює 24/7 для вирішення будь-яких питань.",
         support_contact: "Контакти:",
         support_text2: "Середній час відповіді: 15 хвилин",
-        support_text3: "Ми розмовляємо російською, англійською, українською та німецькою мовами."
+        support_text3: "Ми говоримо російською, англійською, українською та німецькою мовами."
       },
       de: {
         catalog_btn: "Katalog",
@@ -1034,13 +880,13 @@
         support_title: "Support",
         size_label: "Größe:",
         add_to_cart: "In den Warenkorb",
-        checkout_btn: "Zur Kasse",
+        checkout_btn: "Bestellen",
         empty_cart: "Warenkorb ist leer",
         // Products
         tshirt1_name: "Premium Basic T-Shirt",
         tshirt1_desc: "Klassisches T-Shirt aus Premium-Baumwolle",
         tshirt2_name: "Designer Edition T-Shirt",
-        tshirt2_desc: "Designer-T-Shirt mit einzigartigem Print",
+        tshirt2_desc: "Designer T-Shirt mit einzigartigem Print",
         tshirt3_name: "Limited Collection T-Shirt",
         tshirt3_desc: "Limitierte Kollektion, exklusives Design",
         shorts1_name: "Premium Sport Shorts",
@@ -1060,7 +906,7 @@
         terms_text2: "Wir arbeiten nur mit verifizierten Lieferanten und garantieren die Echtheit aller Produkte.",
         terms_text3: "Die Lieferung erfolgt weltweit innerhalb von 3-7 Werktagen.",
         terms_text4: "Eine Rückgabe ist innerhalb von 14 Tagen nach Erhalt möglich.",
-                terms_text5: "Alle Preise sind in Euro angegeben und enthalten die Mehrwertsteuer.",
+        terms_text5: "Alle Preise sind in Euro angegeben und enthalten die Mehrwertsteuer.",
         support_text1: "Unser Support-Service arbeitet 24/7 zur Lösung aller Fragen.",
         support_contact: "Kontakte:",
         support_text2: "Durchschnittliche Antwortzeit: 15 Minuten",
@@ -1180,11 +1026,15 @@
       const screens = document.querySelectorAll('.screen');
       screens.forEach(screen => screen.classList.remove('active'));
       
-      const targetScreen = document.getElementById(screenId);
+            const targetScreen = document.getElementById(screenId);
       if (targetScreen) {
         targetScreen.classList.add('active');
-        previousScreen = document.querySelector('.screen.active') ? 
-          document.querySelector('.screen.active').id : 'home';
+        
+        // Сохраняем предыдущий экран для навигации
+        const currentActive = document.querySelector('.screen.active');
+        if (currentActive && currentActive.id !== screenId) {
+          previousScreen = currentActive.id;
+        }
       }
     }
 
@@ -1194,58 +1044,57 @@
 
     function goBackFromProduct() {
       if (currentProduct && products[currentProduct]) {
-        openScreen(products[currentProduct].category);
+        const category = products[currentProduct].category;
+        openScreen(category);
       } else {
         openScreen('catalog');
       }
     }
 
-    // Функция открытия детальной страницы товара
+    // Функции товаров
     function openProductDetail(productId) {
       currentProduct = productId;
       const product = products[productId];
       
       if (!product) return;
       
-      // Заполнение данных товара
+      // Заполняем данные товара
       document.getElementById('detail-title').textContent = getTranslation(product.name);
       document.getElementById('detail-image').style.backgroundImage = `url('${product.image}')`;
       document.getElementById('detail-name').textContent = getTranslation(product.name);
       document.getElementById('detail-price').textContent = product.price;
       document.getElementById('detail-description').textContent = getTranslation(product.description);
       
-      // Создание селектора размеров
+      // Создаем опции размеров
       const sizeOptions = document.getElementById('size-options');
       sizeOptions.innerHTML = '';
-      selectedSize = null;
       
       product.sizes.forEach(size => {
-        const sizeBtn = document.createElement('div');
-        sizeBtn.className = 'size-option';
-        sizeBtn.textContent = size;
-        sizeBtn.onclick = () => selectSize(size, sizeBtn);
-        sizeOptions.appendChild(sizeBtn);
+        const sizeElement = document.createElement('div');
+        sizeElement.className = 'size-option';
+        sizeElement.textContent = size;
+        sizeElement.onclick = () => selectSize(size);
+        sizeOptions.appendChild(sizeElement);
       });
       
+      selectedSize = null;
       openScreen('product-detail');
     }
 
-    // Функция выбора размера
-    function selectSize(size, element) {
-      // Убираем выделение с других размеров
-      document.querySelectorAll('.size-option').forEach(opt => {
-        opt.classList.remove('selected');
+    function selectSize(size) {
+      selectedSize = size;
+      
+      // Обновляем визуальное состояние
+      document.querySelectorAll('.size-option').forEach(option => {
+        option.classList.remove('selected');
       });
       
-      // Выделяем выбранный размер
-      element.classList.add('selected');
-      selectedSize = size;
+      event.target.classList.add('selected');
     }
 
-    // Функция добавления в корзину
     function addToCart() {
       if (!currentProduct || !selectedSize) {
-        alert(currentLanguage === 'ru' ? 'Выберите размер' : 
+        alert(currentLanguage === 'ru' ? 'Выберите размер' :
               currentLanguage === 'en' ? 'Select size' :
               currentLanguage === 'uk' ? 'Оберіть розмір' : 'Größe wählen');
         return;
@@ -1257,8 +1106,7 @@
         name: getTranslation(product.name),
         price: product.price,
         size: selectedSize,
-        image: product.image,
-        timestamp: Date.now()
+        image: product.image
       };
       
       cart.push(cartItem);
@@ -1273,133 +1121,141 @@
       alert(message);
     }
 
-    // Функция удаления из корзины
     function removeFromCart(index) {
       cart.splice(index, 1);
       saveCart();
       updateCartUI();
-      renderCart();
     }
 
-    // Функция обновления UI корзины
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
     function updateCartUI() {
       const cartCount = document.getElementById('cart-count');
-      const cartBtn = document.getElementById('cart-btn');
-      
-      if (cart.length > 0) {
-        cartCount.textContent = cart.length;
-        cartCount.style.display = 'flex';
-      } else {
-        cartCount.style.display = 'none';
-      }
-      
-      renderCart();
-    }
-
-    // Функция отрисовки корзины
-    function renderCart() {
       const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total-section');
       const emptyCart = document.getElementById('empty-cart');
-      const cartTotalSection = document.getElementById('cart-total-section');
       const cartTotalAmount = document.getElementById('cart-total-amount');
       
       if (cart.length === 0) {
+        cartCount.style.display = 'none';
         cartItems.innerHTML = '';
+        cartTotal.style.display = 'none';
         emptyCart.style.display = 'block';
-        cartTotalSection.style.display = 'none';
-        return;
-      }
-      
-      emptyCart.style.display = 'none';
-      cartTotalSection.style.display = 'block';
-      
-      let total = 0;
-      cartItems.innerHTML = '';
-      
-      cart.forEach((item, index) => {
-        const price = parseFloat(item.price.replace('€', ''));
-        total += price;
+      } else {
+        cartCount.style.display = 'flex';
+        cartCount.textContent = cart.length;
+        emptyCart.style.display = 'none';
+        cartTotal.style.display = 'block';
         
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-          <div class="cart-item-image" style="background-image: url('${item.image}')"></div>
-          <div class="cart-item-info">
-            <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-details">${getTranslation('size_label')} ${item.size}</div>
-            <div class="cart-item-price">${item.price}</div>
-          </div>
-          <button class="cart-item-remove" onclick="removeFromCart(${index})">×</button>
-        `;
-        cartItems.appendChild(cartItem);
-      });
-      
-      cartTotalAmount.textContent = `€${total.toFixed(2)}`;
+        // Отображаем товары в корзине
+        cartItems.innerHTML = '';
+        let total = 0;
+        
+        cart.forEach((item, index) => {
+          const price = parseFloat(item.price.replace('€', ''));
+          total += price;
+          
+          const cartItem = document.createElement('div');
+          cartItem.className = 'cart-item';
+          cartItem.innerHTML = `
+            <div class="cart-item-image" style="background-image: url('${item.image}')"></div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-details">${currentLanguage === 'ru' ? 'Размер' : 
+                                                currentLanguage === 'en' ? 'Size' :
+                                                currentLanguage === 'uk' ? 'Розмір' : 'Größe'}: ${item.size}</div>
+              <div class="cart-item-price">${item.price}</div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})">×</button>
+          `;
+          cartItems.appendChild(cartItem);
+        });
+        
+        cartTotalAmount.textContent = `€${total.toFixed(2)}`;
+      }
     }
 
     // Функция оформления заказа
     function checkout() {
       if (cart.length === 0) return;
       
-      const message = currentLanguage === 'ru' ? 'Заказ оформлен! Мы свяжемся с вами в ближайшее время.' :
-                     currentLanguage === 'en' ? 'Order placed! We will contact you shortly.' :
-                     currentLanguage === 'uk' ? 'Замовлення оформлено! Ми зв\'яжемося з вами найближчим часом.' : 
-                     'Bestellung aufgegeben! Wir werden uns in Kürze bei Ihnen melden.';
+      // Формируем сообщение для менеджера
+      let message = `🛒 *Новый заказ из The Continental*\n\n`;
+      message += `📅 Дата: ${new Date().toLocaleString()}\n`;
+      message += `🌐 Язык: ${currentLanguage.toUpperCase()}\n\n`;
+      message += `📦 *Товары:*\n`;
       
-      alert(message);
-      cart = [];
-      saveCart();
-      updateCartUI();
+      let total = 0;
+      cart.forEach((item, index) => {
+        const price = parseFloat(item.price.replace('€', ''));
+        total += price;
+        message += `${index + 1}. ${item.name}\n`;
+        message += `   Размер: ${item.size}\n`;
+        message += `   Цена: ${item.price}\n\n`;
+      });
+      
+      message += `💰 *Общая сумма: €${total.toFixed(2)}*\n\n`;
+      message += `📱 Клиент готов к оформлению заказа`;
+      
+      // Кодируем сообщение для URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Telegram менеджера (замените на реальный username)
+      const managerTelegram = 'continental_manager'; // Замените на реальный username менеджера
+      
+      // Создаем ссылку на Telegram
+      const telegramUrl = `https://t.me/${managerTelegram}?text=${encodedMessage}`;
+      
+      // Открываем Telegram
+      window.open(telegramUrl, '_blank');
+      
+      // Показываем уведомление
+      const confirmMessage = currentLanguage === 'ru' ? 'Вы будете перенаправлены к менеджеру для оформления заказа' :
+                            currentLanguage === 'en' ? 'You will be redirected to the manager to complete your order' :
+                            currentLanguage === 'uk' ? 'Вас буде перенаправлено до менеджера для оформлення замовлення' : 
+                            'Sie werden zum Manager weitergeleitet, um Ihre Bestellung abzuschließen';
+      
+      alert(confirmMessage);
     }
 
-    // Функция сохранения корзины
-    function saveCart() {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    // Функции для работы с языками
+    // Функции локализации
     function setLanguage(lang) {
       currentLanguage = lang;
-      document.getElementById('language-select').value = lang;
       localStorage.setItem('language', lang);
-      updateTexts();
+      document.getElementById('language-select').value = lang;
+      updateTranslations();
     }
 
     function getTranslation(key) {
-      return translations[currentLanguage] && translations[currentLanguage][key] 
-        ? translations[currentLanguage][key] 
-        : translations['ru'][key] || key;
+      return translations[currentLanguage][key] || key;
     }
 
-    function updateTexts() {
+    function updateTranslations() {
       document.querySelectorAll('[data-key]').forEach(element => {
         const key = element.getAttribute('data-key');
         const translation = getTranslation(key);
-        if (translation) {
+        
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+          element.placeholder = translation;
+        } else {
           element.textContent = translation;
         }
       });
       
       // Обновляем корзину если она открыта
-      if (document.getElementById('cart').classList.contains('active')) {
-        renderCart();
-      }
-      
-      // Обновляем детальную страницу товара если она открыта
-      if (document.getElementById('product-detail').classList.contains('active') && currentProduct) {
-        const product = products[currentProduct];
-        document.getElementById('detail-title').textContent = getTranslation(product.name);
-        document.getElementById('detail-name').textContent = getTranslation(product.name);
-        document.getElementById('detail-description').textContent = getTranslation(product.description);
-      }
+      updateCartUI();
     }
 
-    // Функции для работы с темами
+    // Функции темы
     function setTheme(theme) {
       currentTheme = theme;
       document.body.setAttribute('data-theme', theme);
-      document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
       localStorage.setItem('theme', theme);
+      
+      const themeButton = document.getElementById('theme-toggle');
+      themeButton.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
 
     function toggleTheme() {
@@ -1407,7 +1263,7 @@
       setTheme(newTheme);
     }
 
-    // Обработка свайпов для мобильных устройств
+    // Сенсорная навигация
     let startX = 0;
     let startY = 0;
 
@@ -1429,11 +1285,11 @@
       if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
         const activeScreen = document.querySelector('.screen.active');
         
-        // Свайп влево (назад)
         if (diffX > 0) {
+          // Свайп влево - назад
           if (activeScreen.id === 'product-detail') {
             goBackFromProduct();
-                    } else if (activeScreen.id !== 'home') {
+          } else if (activeScreen.id !== 'home') {
             backToHome();
           }
         }
@@ -1556,171 +1412,729 @@
 
     // Функция для получения количества товара определенного типа в корзине
     function getCartItemCount(productId) {
-      return cart.filter(item => item.id === productId).length;
+            return cart.filter(item => item.id === productId).length;
     }
 
     // Функция для очистки корзины
     function clearCart() {
-      const confirmMessage = currentLanguage === 'ru' ? 'Очистить корзину?' :
-                            currentLanguage === 'en' ? 'Clear cart?' :
-                            currentLanguage === 'uk' ? 'Очистити кошик?' : 'Warenkorb leeren?';
-      
-      if (confirm(confirmMessage)) {
-        cart = [];
-        saveCart();
-        updateCartUI();
-      }
+      cart = [];
+      saveCart();
+      updateCartUI();
     }
 
-    // Функция для экспорта данных корзины (для отладки)
-    function exportCartData() {
-      const data = {
-        cart: cart,
-        total: getCartTotal(),
-        timestamp: new Date().toISOString(),
-        language: currentLanguage,
-        theme: currentTheme
-      };
-      
-      console.log('Cart Data:', JSON.stringify(data, null, 2));
-      return data;
-    }
-
-    // Функция для импорта данных корзины (для отладки)
-    function importCartData(data) {
-      if (data && data.cart && Array.isArray(data.cart)) {
-        cart = data.cart;
-        saveCart();
-        updateCartUI();
-        
-        if (data.language) {
-          setLanguage(data.language);
-        }
-        
-        if (data.theme) {
-          setTheme(data.theme);
-        }
-        
-        return true;
-      }
-      return false;
-    }
-
-    // Функция для получения статистики
-    function getStats() {
+    // Функция для получения статистики корзины
+    function getCartStats() {
       const stats = {
-        totalProducts: Object.keys(products).length,
-        cartItems: cart.length,
-        cartTotal: getCartTotal(),
-        currentLanguage: currentLanguage,
-        currentTheme: currentTheme,
-        categories: {
-          tshirts: Object.keys(products).filter(key => products[key].category === 'tshirts').length,
-          shorts: Object.keys(products).filter(key => products[key].category === 'shorts').length,
-          sneakers: Object.keys(products).filter(key => products[key].category === 'sneakers').length
-        }
+        totalItems: cart.length,
+        totalPrice: getCartTotal(),
+        categories: {}
       };
+      
+      cart.forEach(item => {
+        const product = products[item.id];
+        if (product) {
+          const category = product.category;
+          stats.categories[category] = (stats.categories[category] || 0) + 1;
+        }
+      });
       
       return stats;
     }
 
-    // Добавляем глобальные функции для консоли (для отладки)
-    window.continentalDebug = {
-      exportCart: exportCartData,
-      importCart: importCartData,
-      clearCart: clearCart,
-      getStats: getStats,
-      searchProducts: searchProducts,
-      sortProducts: sortProductsByPrice
-    };
+    // Функция для экспорта заказа в различных форматах
+    function exportOrder(format = 'text') {
+      if (cart.length === 0) return '';
+      
+      const stats = getCartStats();
+      const date = new Date().toLocaleString();
+      
+      switch (format) {
+        case 'json':
+          return JSON.stringify({
+            date,
+            language: currentLanguage,
+            items: cart,
+            total: stats.totalPrice,
+            stats
+          }, null, 2);
+          
+        case 'csv':
+          let csv = 'Name,Size,Price\n';
+          cart.forEach(item => {
+            csv += `"${item.name}","${item.size}","${item.price}"\n`;
+          });
+          return csv;
+          
+        default:
+          let text = `The Continental Order\n`;
+          text += `Date: ${date}\n`;
+          text += `Language: ${currentLanguage.toUpperCase()}\n\n`;
+          text += `Items:\n`;
+          cart.forEach((item, index) => {
+            text += `${index + 1}. ${item.name} (Size: ${item.size}) - ${item.price}\n`;
+          });
+          text += `\nTotal: €${stats.totalPrice.toFixed(2)}`;
+          return text;
+      }
+    }
 
-    // Функция для обработки клавиатурных сокращений
-    document.addEventListener('keydown', function(e) {
-      // Ctrl/Cmd + H - домой
-      if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
-        e.preventDefault();
-        backToHome();
-      }
+    // Функция для сохранения заказа в локальное хранилище
+    function saveOrderHistory() {
+      if (cart.length === 0) return;
       
-      // Ctrl/Cmd + C - корзина
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        e.preventDefault();
-        openScreen('cart');
-      }
+      const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+      const newOrder = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        items: [...cart],
+        total: getCartTotal(),
+        language: currentLanguage
+      };
       
-      // Escape - назад
-      if (e.key === 'Escape') {
-        const activeScreen = document.querySelector('.screen.active');
-        if (activeScreen && activeScreen.id !== 'home') {
-          if (activeScreen.id === 'product-detail') {
-            goBackFromProduct();
-          } else {
-            backToHome();
-          }
+      orders.push(newOrder);
+      localStorage.setItem('orderHistory', JSON.stringify(orders));
+    }
+
+    // Функция для получения истории заказов
+    function getOrderHistory() {
+      return JSON.parse(localStorage.getItem('orderHistory') || '[]');
+    }
+
+    // Функция для удаления заказа из истории
+    function removeFromHistory(orderId) {
+      const orders = getOrderHistory();
+      const filteredOrders = orders.filter(order => order.id !== orderId);
+      localStorage.setItem('orderHistory', JSON.stringify(filteredOrders));
+    }
+
+    // Улучшенная функция оформления заказа
+    function checkout() {
+      if (cart.length === 0) return;
+      
+      // Сохраняем заказ в историю
+      saveOrderHistory();
+      
+      // Формируем детальное сообщение для менеджера
+      const stats = getCartStats();
+      let message = `🛒 *Новый заказ из The Continental*\n\n`;
+      message += `📅 Дата: ${new Date().toLocaleString()}\n`;
+      message += `🌐 Язык: ${currentLanguage.toUpperCase()}\n`;
+      message += `📊 Всего позиций: ${stats.totalItems}\n\n`;
+      message += `📦 *Детали заказа:*\n`;
+      
+      // Группируем товары по категориям
+      const groupedItems = {};
+      cart.forEach(item => {
+        const product = products[item.id];
+        const category = product ? product.category : 'other';
+        if (!groupedItems[category]) {
+          groupedItems[category] = [];
         }
-      }
-      
-      // Ctrl/Cmd + T - переключение темы
-      if ((e.ctrlKey || e.metaKey) && e.key === 't') {
-        e.preventDefault();
-        toggleTheme();
-      }
-    });
-
-    // Функция для предзагрузки изображений
-    function preloadImages() {
-      Object.values(products).forEach(product => {
-        const img = new Image();
-        img.src = product.image;
+        groupedItems[category].push(item);
       });
+      
+      // Выводим товары по категориям
+      Object.keys(groupedItems).forEach(category => {
+        const categoryName = {
+          'tshirts': '👕 Футболки',
+          'shorts': '🩳 Шорты', 
+          'sneakers': '👟 Кроссовки'
+        }[category] || category;
+        
+        message += `\n${categoryName}:\n`;
+        groupedItems[category].forEach((item, index) => {
+          message += `  ${index + 1}. ${item.name}\n`;
+          message += `     Размер: ${item.size}\n`;
+          message += `     Цена: ${item.price}\n`;
+        });
+      });
+      
+      message += `\n💰 *Общая сумма: €${stats.totalPrice.toFixed(2)}*\n\n`;
+      message += `📱 Клиент готов к оформлению заказа\n`;
+      message += `🔗 Ссылка на магазин: ${window.location.href}`;
+      
+      // Кодируем сообщение для URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Telegram менеджера (замените на реальный username)
+      const managerTelegram = 'continental_manager'; // Замените на реальный username менеджера
+      
+      // Создаем ссылку на Telegram
+      const telegramUrl = `https://t.me/${managerTelegram}?text=${encodedMessage}`;
+      
+      // Открываем Telegram
+      window.open(telegramUrl, '_blank');
+      
+      // Показываем подтверждение
+      const confirmMessage = currentLanguage === 'ru' ? 
+        'Заказ отправлен менеджеру! Вы будете перенаправлены в Telegram для завершения оформления.' :
+        currentLanguage === 'en' ? 
+        'Order sent to manager! You will be redirected to Telegram to complete the checkout.' :
+        currentLanguage === 'uk' ? 
+        'Замовлення відправлено менеджеру! Вас буде перенаправлено в Telegram для завершення оформлення.' : 
+        'Bestellung an Manager gesendet! Sie werden zu Telegram weitergeleitet, um den Checkout abzuschließen.';
+      
+      alert(confirmMessage);
+      
+      // Очищаем корзину после успешной отправки
+      setTimeout(() => {
+        clearCart();
+        backToHome();
+      }, 2000);
     }
 
-    // Запускаем предзагрузку изображений
-    window.addEventListener('load', preloadImages);
-
-    // Функция для отслеживания времени на сайте (аналитика)
-    let startTime = Date.now();
-    let isActive = true;
-
-    window.addEventListener('focus', () => isActive = true);
-    window.addEventListener('blur', () => isActive = false);
-
-    function getSessionTime() {
-      return isActive ? Date.now() - startTime : 0;
+    // Функция для проверки доступности Telegram
+    function checkTelegramAvailability() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobile = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/.test(userAgent);
+      
+      if (isMobile) {
+        // На мобильных устройствах пытаемся открыть приложение Telegram
+        return 'tg://';
+      } else {
+        // На десктопе используем веб-версию
+        return 'https://t.me/';
+      }
     }
 
-    // Сохраняем время сессии при закрытии
-    window.addEventListener('beforeunload', function() {
-      const sessionTime = getSessionTime();
-      localStorage.setItem('lastSessionTime', sessionTime);
-    });
+    // Функция для отправки отзыва
+    function sendFeedback(rating, comment) {
+      const feedback = {
+        date: new Date().toISOString(),
+        rating: rating,
+        comment: comment,
+        language: currentLanguage,
+        userAgent: navigator.userAgent
+      };
+      
+      // Сохраняем отзыв локально
+      const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+      feedbacks.push(feedback);
+      localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+      
+      // Отправляем отзыв менеджеру
+      const message = `⭐ *Новый отзыв о The Continental*\n\n` +
+                     `📅 Дата: ${new Date().toLocaleString()}\n` +
+                     `⭐ Оценка: ${rating}/5\n` +
+                     `💬 Комментарий: ${comment}\n` +
+                     `🌐 Язык: ${currentLanguage.toUpperCase()}`;
+      
+      const encodedMessage = encodeURIComponent(message);
+      const telegramUrl = `https://t.me/continental_manager?text=${encodedMessage}`;
+      
+      return telegramUrl;
+    }
 
-    // Функция для получения информации о сессии
-    function getSessionInfo() {
+    // Функция для получения информации о браузере и устройстве
+    function getDeviceInfo() {
       return {
-        currentSessionTime: getSessionTime(),
-        lastSessionTime: localStorage.getItem('lastSessionTime') || 0,
-        totalVisits: localStorage.getItem('totalVisits') || 0,
-        firstVisit: localStorage.getItem('firstVisit') || new Date().toISOString()
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        platform: navigator.platform,
+        screenResolution: `${screen.width}x${screen.height}`,
+        windowSize: `${window.innerWidth}x${window.innerHeight}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        online: navigator.onLine
       };
     }
 
-    // Увеличиваем счетчик посещений
-    const totalVisits = parseInt(localStorage.getItem('totalVisits') || '0') + 1;
-    localStorage.setItem('totalVisits', totalVisits.toString());
-
-    if (!localStorage.getItem('firstVisit')) {
-      localStorage.setItem('firstVisit', new Date().toISOString());
+    // Функция для логирования действий пользователя (для аналитики)
+    function logUserAction(action, details = {}) {
+      const log = {
+        timestamp: new Date().toISOString(),
+        action: action,
+        details: details,
+        deviceInfo: getDeviceInfo(),
+        currentScreen: document.querySelector('.screen.active')?.id,
+        language: currentLanguage,
+        theme: currentTheme
+      };
+      
+      // Сохраняем в локальное хранилище
+      const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+      logs.push(log);
+      
+      // Ограничиваем количество логов (последние 100)
+      if (logs.length > 100) {
+        logs.splice(0, logs.length - 100);
+      }
+      
+      localStorage.setItem('userLogs', JSON.stringify(logs));
     }
 
-    // Добавляем функции сессии в debug объект
-    window.continentalDebug.getSessionInfo = getSessionInfo;
+    // Добавляем логирование к основным действиям
+    const originalOpenScreen = openScreen;
+    openScreen = function(screenId) {
+      logUserAction('screen_open', { screenId });
+      return originalOpenScreen(screenId);
+    };
 
-    console.log('🏨 The Continental Store loaded successfully!');
-    console.log('💡 Use window.continentalDebug for debugging functions');
+    const originalAddToCart = addToCart;
+    addToCart = function() {
+      const result = originalAddToCart();
+      if (currentProduct && selectedSize) {
+        logUserAction('add_to_cart', { 
+          productId: currentProduct, 
+          size: selectedSize,
+          productName: getTranslation(products[currentProduct].name)
+        });
+      }
+      return result;
+    };
+
+    // Функция для получения аналитики
+    function getAnalytics() {
+      const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+      const analytics = {
+        totalActions: logs.length,
+        screenViews: {},
+        cartActions: 0,
+        mostViewedProducts: {},
+        languageUsage: {},
+        themeUsage: {},
+        sessionDuration: 0
+      };
+      
+      logs.forEach(log => {
+        // Подсчет просмотров экранов
+        if (log.action === 'screen_open') {
+          const screen = log.details.screenId;
+          analytics.screenViews[screen] = (analytics.screenViews[screen] || 0) + 1;
+        }
+        
+        // Подсчет действий с корзиной
+        if (log.action === 'add_to_cart') {
+          analytics.cartActions++;
+          const productName = log.details.productName;
+          analytics.mostViewedProducts[productName] = (analytics.mostViewedProducts[productName] || 0) + 1;
+        }
+        
+        // Статистика языков
+        analytics.languageUsage[log.language] = (analytics.languageUsage[log.language] || 0) + 1;
+        
+        // Статистика тем
+        analytics.themeUsage[log.theme] = (analytics.themeUsage[log.theme] || 0) + 1;
+      });
+      
+      return analytics;
+    }
+
+    // Функция для экспорта аналитики
+    function exportAnalytics() {
+      const analytics = getAnalytics();
+      const deviceInfo = getDeviceInfo();
+      const orderHistory = getOrderHistory();
+      
+      const report = {
+        generatedAt: new Date().toISOString(),
+        analytics,
+        deviceInfo,
+        orderHistory,
+        currentCart: cart,
+        settings: {
+          language: currentLanguage,
+          theme: currentTheme
+        }
+      };
+      
+      return JSON.stringify(report, null, 2);
+    }
+
+    // Функция для сброса всех данных
+    function resetAllData() {
+      const confirmMessage = currentLanguage === 'ru' ? 
+        'Вы уверены, что хотите сбросить все данные? Это действие нельзя отменить.' :
+        currentLanguage === 'en' ? 
+        'Are you sure you want to reset all data? This action cannot be undone.' :
+        currentLanguage === 'uk' ? 
+        'Ви впевнені, що хочете скинути всі дані? Цю дію неможливо скасувати.' : 
+        'Sind Sie sicher, dass Sie alle Daten zurücksetzen möchten? Diese Aktion kann nicht rückgängig gemacht werden.';
+      
+      if (confirm(confirmMessage)) {
+        localStorage.clear();
+        cart = [];
+        currentLanguage = 'ru';
+        currentTheme = 'dark';
+        updateCartUI();
+        setLanguage('ru');
+        setTheme('dark');
+        backToHome();
+        
+        const successMessage = currentLanguage === 'ru' ? 
+          'Все данные успешно сброшены!' :
+          currentLanguage === 'en' ? 
+          'All data has been successfully reset!' :
+          currentLanguage === 'uk' ? 
+          'Всі дані успішно скинуто!' : 
+          'Alle Daten wurden erfolgreich zurückgesetzt!';
+        
+        alert(successMessage);
+      }
+    }
+
+    // Добавляем обработчик для отслеживания времени сессии
+    let sessionStartTime = Date.now();
+    
+    window.addEventListener('beforeunload', function() {
+      const sessionDuration = Date.now() - sessionStartTime;
+      logUserAction('session_end', { duration: sessionDuration });
+    });
+
+    // Функция для проверки обновлений (можно использовать для уведомлений)
+    function checkForUpdates() {
+      const lastUpdateCheck = localStorage.getItem('lastUpdateCheck');
+      const now = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000;
+      
+      if (!lastUpdateCheck || (now - parseInt(lastUpdateCheck)) > oneDay) {
+        localStorage.setItem('lastUpdateCheck', now.toString());
+        
+        // Здесь можно добавить логику проверки обновлений
+        logUserAction('update_check', { timestamp: now });
+      }
+    }
+
+    // Запускаем проверку обновлений при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+      checkForUpdates();
+      logUserAction('app_start', { timestamp: Date.now() });
+    });
+
+    // Функция для обработки ошибок
+    function handleError(error, context = '') {
+      console.error('Error in The Continental app:', error);
+      
+      const errorLog = {
+        timestamp: new Date().toISOString(),
+        error: error.message || error,
+        stack: error.stack || '',
+        context: context,
+        deviceInfo: getDeviceInfo(),
+        currentScreen: document.querySelector('.screen.active')?.id,
+        language: currentLanguage
+      };
+      
+      // Сохраняем ошибку в локальное хранилище
+      const errors = JSON.parse(localStorage.getItem('errorLogs') || '[]');
+      errors.push(errorLog);
+      
+      // Ограничиваем количество ошибок (последние 50)
+      if (errors.length > 50) {
+        errors.splice(0, errors.length - 50);
+      }
+      
+      localStorage.setItem('errorLogs', JSON.stringify(errors));
+      
+      // Показываем пользователю дружелюбное сообщение об ошибке
+      const errorMessage = currentLanguage === 'ru' ? 
+        'Произошла ошибка. Пожалуйста, попробуйте еще раз.' :
+        currentLanguage === 'en' ? 
+        'An error occurred. Please try again.' :
+        currentLanguage === 'uk' ? 
+        'Сталася помилка. Будь ласка, спробуйте ще раз.' : 
+        'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
+      
+      // Не показываем alert для каждой ошибки, только логируем
+      console.warn(errorMessage);
+    }
+
+    // Глобальный обработчик ошибок
+    window.addEventListener('error', function(event) {
+      handleError(event.error, 'Global error handler');
+    });
+
+    // Обработчик для необработанных промисов
+    window.addEventListener('unhandledrejection', function(event) {
+      handleError(event.reason, 'Unhandled promise rejection');
+    });
+
+    // Функция для отправки отчета об ошибках менеджеру
+    function sendErrorReport() {
+      const errors = JSON.parse(localStorage.getItem('errorLogs') || '[]');
+      if (errors.length === 0) return;
+      
+      const recentErrors = errors.slice(-5); // Последние 5 ошибок
+      let message = `🚨 *Отчет об ошибках The Continental*\n\n`;
+      message += `📅 Дата: ${new Date().toLocaleString()}\n`;
+      message += `🔢 Всего ошибок: ${errors.length}\n\n`;
+      
+      recentErrors.forEach((error, index) => {
+        message += `❌ *Ошибка ${index + 1}:*\n`;
+        message += `Время: ${new Date(error.timestamp).toLocaleString()}\n`;
+        message += `Сообщение: ${error.error}\n`;
+        message += `Экран: ${error.currentScreen}\n`;
+        message += `Язык: ${error.language}\n\n`;
+      });
+      
+      const encodedMessage = encodeURIComponent(message);
+      const telegramUrl = `https://t.me/continental_manager?text=${encodedMessage}`;
+      
+      window.open(telegramUrl, '_blank');
+    }
+
+    // Функция для очистки логов ошибок
+    function clearErrorLogs() {
+      localStorage.removeItem('errorLogs');
+      console.log('Error logs cleared');
+    }
+
+    // Функция для получения статистики производительности
+    function getPerformanceStats() {
+      if (!window.performance) return null;
+      
+      const navigation = performance.getEntriesByType('navigation')[0];
+      const paint = performance.getEntriesByType('paint');
+      
+      return {
+        loadTime: navigation ? navigation.loadEventEnd - navigation.loadEventStart : 0,
+        domContentLoaded: navigation ? navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart : 0,
+        firstPaint: paint.find(p => p.name === 'first-paint')?.startTime || 0,
+        firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0,
+        memoryUsage: performance.memory ? {
+          used: performance.memory.usedJSHeapSize,
+          total: performance.memory.totalJSHeapSize,
+          limit: performance.memory.jsHeapSizeLimit
+        } : null
+      };
+    }
+
+    // Функция для оптимизации производительности
+    function optimizePerformance() {
+      // Ленивая загрузка изображений
+      const images = document.querySelectorAll('.product-image[style*="background-image"]');
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const bgImage = img.style.backgroundImage;
+            if (bgImage && bgImage !== 'none') {
+              // Изображение уже загружено
+              imageObserver.unobserve(img);
+            }
+          }
+        });
+      });
+      
+      images.forEach(img => imageObserver.observe(img));
+      
+      // Предзагрузка критических ресурсов
+      const criticalScreens = ['home', 'catalog'];
+      criticalScreens.forEach(screenId => {
+        const screen = document.getElementById(screenId);
+        if (screen) {
+          screen.style.willChange = 'transform';
+        }
+      });
+    }
+
+    // Функция для проверки совместимости браузера
+    function checkBrowserCompatibility() {
+      const features = {
+        localStorage: typeof Storage !== 'undefined',
+        flexbox: CSS.supports('display', 'flex'),
+        grid: CSS.supports('display', 'grid'),
+        customProperties: CSS.supports('--custom', 'property'),
+        intersectionObserver: 'IntersectionObserver' in window,
+        fetch: 'fetch' in window
+      };
+      
+      const unsupportedFeatures = Object.keys(features).filter(key => !features[key]);
+      
+      if (unsupportedFeatures.length > 0) {
+        console.warn('Unsupported browser features:', unsupportedFeatures);
+        
+        const warningMessage = currentLanguage === 'ru' ? 
+          'Ваш браузер может не поддерживать некоторые функции. Рекомендуем обновить браузер.' :
+          currentLanguage === 'en' ? 
+          'Your browser may not support some features. We recommend updating your browser.' :
+          currentLanguage === 'uk' ? 
+          'Ваш браузер може не підтримувати деякі функції. Рекомендуємо оновити браузер.' : 
+          'Ihr Browser unterstützt möglicherweise einige Funktionen nicht. Wir empfehlen, Ihren Browser zu aktualisieren.';
+        
+        // Показываем предупреждение только если критические функции не поддерживаются
+        if (!features.localStorage || !features.flexbox) {
+          alert(warningMessage);
+        }
+      }
+      
+      return features;
+    }
+
+    // Функция для создания резервной копии данных
+    function createBackup() {
+      const backup = {
+        version: '1.0',
+        timestamp: new Date().toISOString(),
+        cart: cart,
+        settings: {
+          language: currentLanguage,
+          theme: currentTheme
+        },
+        orderHistory: getOrderHistory(),
+        userLogs: JSON.parse(localStorage.getItem('userLogs') || '[]'),
+        analytics: getAnalytics()
+      };
+      
+      return JSON.stringify(backup, null, 2);
+    }
+
+    // Функция для восстановления из резервной копии
+    function restoreFromBackup(backupData) {
+      try {
+        const backup = JSON.parse(backupData);
+        
+        if (backup.version && backup.cart) {
+          cart = backup.cart;
+          saveCart();
+          updateCartUI();
+          
+          if (backup.settings) {
+            setLanguage(backup.settings.language || 'ru');
+            setTheme(backup.settings.theme || 'dark');
+          }
+          
+          if (backup.orderHistory) {
+            localStorage.setItem('orderHistory', JSON.stringify(backup.orderHistory));
+          }
+          
+          if (backup.userLogs) {
+            localStorage.setItem('userLogs', JSON.stringify(backup.userLogs));
+          }
+          
+          const successMessage = currentLanguage === 'ru' ? 
+            'Данные успешно восстановлены из резервной копии!' :
+            currentLanguage === 'en' ? 
+            'Data successfully restored from backup!' :
+            currentLanguage === 'uk' ? 
+            'Дані успішно відновлено з резервної копії!' : 
+            'Daten erfolgreich aus Backup wiederhergestellt!';
+          
+          alert(successMessage);
+          return true;
+        }
+      } catch (error) {
+        handleError(error, 'Restore from backup');
+        
+        const errorMessage = currentLanguage === 'ru' ? 
+          'Ошибка при восстановлении данных. Проверьте формат файла.' :
+          currentLanguage === 'en' ? 
+          'Error restoring data. Please check the file format.' :
+          currentLanguage === 'uk' ? 
+          'Помилка при відновленні даних. Перевірте формат файлу.' : 
+          'Fehler beim Wiederherstellen der Daten. Bitte überprüfen Sie das Dateiformat.';
+        
+        alert(errorMessage);
+        return false;
+      }
+    }
+
+    // Функция для автоматического создания резервных копий
+    function autoBackup() {
+      const lastBackup = localStorage.getItem('lastBackupTime');
+      const now = Date.now();
+      const oneWeek = 7 * 24 * 60 * 60 * 1000;
+      
+      if (!lastBackup || (now - parseInt(lastBackup)) > oneWeek) {
+        const backup = createBackup();
+        localStorage.setItem('autoBackup', backup);
+        localStorage.setItem('lastBackupTime', now.toString());
+        
+        logUserAction('auto_backup_created', { timestamp: now });
+      }
+    }
+
+    // Функция для проверки целостности данных
+    function validateDataIntegrity() {
+      const issues = [];
+      
+      // Проверяем корзину
+      cart.forEach((item, index) => {
+        if (!item.id || !item.name || !item.price || !item.size) {
+          issues.push(`Cart item ${index} is missing required fields`);
+        }
+        
+        if (item.id && !products[item.id]) {
+          issues.push(`Cart item ${index} references non-existent product ${item.id}`);
+        }
+      });
+      
+      // Проверяем настройки
+      if (!['ru', 'en', 'uk', 'de'].includes(currentLanguage)) {
+        issues.push(`Invalid language setting: ${currentLanguage}`);
+      }
+      
+      if (!['dark', 'light'].includes(currentTheme)) {
+        issues.push(`Invalid theme setting: ${currentTheme}`);
+      }
+      
+      if (issues.length > 0) {
+        console.warn('Data integrity issues found:', issues);
+        logUserAction('data_integrity_issues', { issues });
+      }
+      
+      return issues;
+    }
+
+    // Инициализация всех систем при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        // Проверяем совместимость браузера
+        checkBrowserCompatibility();
+        
+        // Проверяем целостность данных
+        validateDataIntegrity();
+        
+        // Оптимизируем производительность
+        optimizePerformance();
+        
+        // Создаем автоматическую резервную копию
+        autoBackup();
+        
+        // Логируем успешную инициализацию
+        logUserAction('app_initialized', { 
+          timestamp: Date.now(),
+          performance: getPerformanceStats()
+        });
+        
+      } catch (error) {
+        handleError(error, 'App initialization');
+      }
+    });
+
+    // Функция для отладки (только для разработки)
+    function debugInfo() {
+      return {
+        currentLanguage,
+        currentTheme,
+        currentProduct,
+        selectedSize,
+        cart,
+        cartStats: getCartStats(),
+        analytics: getAnalytics(),
+        performance: getPerformanceStats(),
+        errors: JSON.parse(localStorage.getItem('errorLogs') || '[]'),
+        deviceInfo: getDeviceInfo()
+      };
+    }
+
+    // Экспортируем функции для консоли разработчика
+    if (typeof window !== 'undefined') {
+      window.ContinentalDebug = {
+        debugInfo,
+        createBackup,
+        restoreFromBackup,
+        clearErrorLogs,
+        sendErrorReport,
+        exportAnalytics,
+        resetAllData,
+        validateDataIntegrity
+      };
+    }
+
   </script>
 </body>
 </html>
+
 
 
 
