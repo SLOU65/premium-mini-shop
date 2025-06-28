@@ -1,259 +1,156 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Premium Replica Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet" />
-<style>
-  /* Базовые стили */
-  body {
-    margin: 0;
-    background: #121212;
-    color: #eee;
-    font-family: 'Oswald', sans-serif;
-    font-size: 14px;
-  }
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background: #1e1e1e;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  header h1 {
-    font-size: 20px;
-    color: #e03e2f;
-    margin: 0;
-    letter-spacing: 1.5px;
-  }
-  nav {
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  nav a {
-    color: #eee;
-    text-decoration: none;
-    font-weight: 700;
-    padding: 8px 12px;
-    margin-left: 12px;
-    white-space: nowrap;
-    border-radius: 4px;
-    transition: background 0.3s, color 0.3s;
-    font-size: 13px;
-  }
-  nav a:first-child {
-    margin-left: 0;
-  }
-  nav a:hover,
-  nav a:focus {
-    background: #ff4500;
-    color: #121212;
-  }
-
-  .banner {
-    background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
-    height: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    font-weight: 900;
-    color: #ff4500cc;
-    text-shadow: 1px 1px 8px #000;
-    margin-bottom: 15px;
-  }
-
-  .products {
-    max-width: 1000px;
-    margin: 0 auto 40px;
-    padding: 0 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
-    gap: 15px;
-  }
-  .products h2 {
-    grid-column: 1/-1;
-    font-size: 18px;
-    color: #ff4500;
-    margin-bottom: 10px;
-  }
-  .product-card {
-    background: #1e1e1e;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 0 10px #e03e2f33;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .product-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #ff4500aa;
-  }
-  .product-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    margin-bottom: 8px;
-  }
-  .product-name {
-    font-size: 14px;
-    color: #ff4500;
-    text-align: center;
-    margin-bottom: 4px;
-    font-weight: 700;
-  }
-  .product-price {
-    font-size: 13px;
-    color: #ddd;
-    margin-bottom: 8px;
-  }
-  .buy-btn {
-    background: #e03e2f;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 13px;
-    width: 100%;
-    transition: background 0.3s ease;
-  }
-  .buy-btn:hover {
-    background: #ff4500;
-  }
-
-  footer {
-    background: #1e1e1e;
-    color: #777;
-    text-align: center;
-    padding: 12px 10px;
-    font-size: 12px;
-  }
-
-  /* Для плавной прокрутки меню */
-  nav::-webkit-scrollbar {
-    height: 6px;
-  }
-  nav::-webkit-scrollbar-thumb {
-    background: #ff4500cc;
-    border-radius: 3px;
-  }
-  nav::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  /* Мобильные улучшения */
-  @media (max-width: 400px) {
-    header h1 {
-      font-size: 18px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Continental</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
     }
-    .banner {
-      font-size: 22px;
-      height: 200px;
-      margin-bottom: 10px;
+    .screen {
+      display: none;
+      padding: 20px;
     }
-    .products {
-      grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
-      gap: 10px;
-      margin-bottom: 30px;
+    .active {
+      display: block;
     }
-    .buy-btn {
-      padding: 5px 10px;
-      font-size: 12px;
+    .btn {
+      background: #fff;
+      color: #000;
+      padding: 12px 16px;
+      margin: 8px 0;
+      border: none;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
     }
-  }
-</style>
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .back {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    .product {
+      background: #111;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+    .product-name {
+      font-weight: bold;
+    }
+    .product-price {
+      color: #bbb;
+      font-size: 13px;
+    }
+    .support-link {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>PREMIUM SHOP</h1>
-  <nav>
-    <a href="#hoodies">Худи</a>
-    <a href="#sneakers">Кроссовки</a>
-    <a href="#tshirts">Футболки</a>
-    <a href="#pants">Штаны</a>
-    <a href="#polo">Поло</a>
-    <a href="#accessories">Аксессуары</a>
-  </nav>
-</header>
-
-<div class="banner">
-  Крутые Премиум Реплики
+<div class="screen active" id="home">
+  <h1>The Continental</h1>
+  <button class="btn" onclick="openScreen('catalog')">Каталог</button>
+  <button class="btn" onclick="openScreen('terms')">Условия работы</button>
+  <button class="btn" onclick="openScreen('support')">Поддержка</button>
 </div>
 
-<section id="hoodies" class="products">
-  <h2>Худи</h2>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/140x140?text=Худи+1" alt="Худи 1" />
-    <div class="product-name">Худи Supreme</div>
-    <div class="product-price">€59.99</div>
-    <button class="buy-btn" onclick="alert('Купить Худи Supreme')">Купить</button>
+<div class="screen" id="catalog">
+  <div class="header">
+    <button class="back" onclick="backToHome()">←</button>
+    <h1>Каталог</h1>
   </div>
-  <!-- Добавь больше товаров по аналогии -->
-</section>
+  <button class="btn" onclick="openScreen('tshirts')">Футболки</button>
+  <button class="btn" onclick="openScreen('shorts')">Шорты</button>
+  <button class="btn" onclick="openScreen('sneakers')">Кроссовки</button>
+</div>
 
-<section id="sneakers" class="products">
-  <h2>Кроссовки</h2>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/140x140?text=Кроссовки+1" alt="Кроссовки 1" />
-    <div class="product-name">Nike Air Max</div>
-    <div class="product-price">€89.99</div>
-    <button class="buy-btn" onclick="alert('Купить Nike Air Max')">Купить</button>
+<div class="screen" id="tshirts">
+  <div class="header">
+    <button class="back" onclick="openScreen('catalog')">←</button>
+    <h1>Футболки</h1>
   </div>
-</section>
-
-<section id="tshirts" class="products">
-  <h2>Футболки</h2>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/140x140?text=Футболка+1" alt="Футболка 1" />
-    <div class="product-name">Футболка Off-White</div>
+  <div class="product">
+    <div class="product-name">Футболка Premium</div>
     <div class="product-price">€29.99</div>
-    <button class="buy-btn" onclick="alert('Купить Футболка Off-White')">Купить</button>
   </div>
-</section>
+</div>
 
-<section id="pants" class="products">
-  <h2>Штаны</h2>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/140x140?text=Штаны+1" alt="Штаны 1" />
-    <div class="product-name">Спортивные штаны</div>
+<div class="screen" id="shorts">
+  <div class="header">
+    <button class="back" onclick="openScreen('catalog')">←</button>
+    <h1>Шорты</h1>
+  </div>
+  <div class="product">
+    <div class="product-name">Шорты Premium</div>
     <div class="product-price">€39.99</div>
-    <button class="buy-btn" onclick="alert('Купить Спортивные штаны')">Купить</button>
   </div>
-</section>
+</div>
 
-<section id="polo" class="products">
-  <h2>Поло</h2>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/140x140?text=Поло+1" alt="Поло 1" />
-    <div class="product-name">Поло Ralph Lauren</div>
-    <div class="product-price">€49.99</div>
-    <button class="buy-btn" onclick="alert('Купить Поло Ralph Lauren')">Купить</button>
+<div class="screen" id="sneakers">
+  <div class="header">
+    <button class="back" onclick="openScreen('catalog')">←</button>
+    <h1>Кроссовки</h1>
   </div>
-</section>
-
-<section id="accessories" class="products">
-  <h2>Аксессуары</h2>
-  <div class="product-card">
-    <img src="https://via.placeholder.com/140x140?text=Часы+1" alt="Часы 1" />
-    <div class="product-name">Часы G-Shock</div>
-    <div class="product-price">€79.99</div>
-    <button class="buy-btn" onclick="alert('Купить Часы G-Shock')">Купить</button>
+  <div class="product">
+    <div class="product-name">Nike Premium</div>
+    <div class="product-price">€89.99</div>
   </div>
-</section>
+</div>
 
-<footer>
-  &copy; 2025 PREMIUM SHOP — Все права защищены
-</footer>
+<div class="screen" id="terms">
+  <div class="header">
+    <button class="back" onclick="backToHome()">←</button>
+    <h1>Условия работы</h1>
+  </div>
+  <p>Мы предлагаем только премиум-реплики. Оплата — предоплата. Доставка по Европе — 7-14 дней. Возвратов нет. Все товары проходят проверку качества перед отправкой.</p>
+</div>
+
+<div class="screen" id="support">
+  <div class="header">
+    <button class="back" onclick="backToHome()">←</button>
+    <h1>Поддержка</h1>
+  </div>
+  <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank">НАПИСАТЬ МЕНЕДЖЕРУ</a>
+</div>
+
+<script>
+  function openScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function backToHome() {
+    openScreen('home');
+  }
+</script>
 
 </body>
 </html>
