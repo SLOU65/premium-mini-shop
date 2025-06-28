@@ -244,10 +244,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
-    .btn:hover::before {
-      left: 100%;
-    }
-
     .btn:active {
       transform: translateY(0) scale(0.98);
     }
@@ -256,7 +252,6 @@
       display: flex;
       align-items: center;
       margin-bottom: 30px;
-      /* Удаляем fadeIn отсюда, так как экран уже анимируется */
     }
 
     .back {
@@ -297,9 +292,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      /* Удаляем анимацию slideIn отсюда, чтобы заголовок не "приезжал" */
+      /* Сдвигаем заголовок немного левее */
+      transform: translateX(-10px);
     }
-
     .product {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
@@ -405,12 +400,39 @@
       line-height: 1.6;
       color: #cccccc;
       font-size: 16px;
-      /* Удаляем fadeIn отсюда, так как экран уже анимируется */
       background: rgba(255, 255, 255, 0.03);
       padding: 20px;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       text-align: left; /* Явно выравниваем текст по левому краю */
+    }
+
+    /* Стили для переключателя языков */
+    #language-switcher {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1000; /* Поверх всех элементов */
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 8px;
+      padding: 5px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #language-switcher select {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 14px;
+      padding: 5px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    #language-switcher select option {
+      background: #000000;
+      color: #ffffff;
     }
 
     /* Адаптивность для мобильных устройств */
@@ -436,44 +458,65 @@
 
       h1 {
         font-size: 24px;
+        /* Сдвигаем заголовок немного левее для мобильных */
+        transform: translateX(-5px);
+      }
+
+      #language-switcher {
+        top: 10px;
+        left: 10px;
+        padding: 3px 8px;
+      }
+      #language-switcher select {
+        font-size: 12px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Переключатель языков -->
+  <div id="language-switcher">
+    <select id="language-select">
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+      <option value="uk">Українська</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </div>
+
   <div class="container">
     <div class="screen active" id="home">
       <div class="logo">The Continental</div>
-      <button class="btn" onclick="openScreen('catalog')">Каталог</button>
-      <button class="btn" onclick="openScreen('terms')">Условия работы</button>
-      <button class="btn" onclick="openScreen('support')">Поддержка</button>
+      <button class="btn" onclick="openScreen('catalog')" data-key="catalog_btn">Каталог</button>
+      <button class="btn" onclick="openScreen('terms')" data-key="terms_btn">Условия работы</button>
+      <button class="btn" onclick="openScreen('support')" data-key="support_btn">Поддержка</button>
     </div>
 
     <div class="screen" id="catalog">
       <div class="header">
         <button class="back" onclick="backToHome()">←</button>
-        <h1>Каталог</h1>
+        <h1 data-key="catalog_title">Каталог</h1>
       </div>
-      <button class="btn" onclick="openScreen('tshirts')">Футболки</button>
-      <button class="btn" onclick="openScreen('shorts')">Шорты</button>
-      <button class="btn" onclick="openScreen('sneakers')">Кроссовки</button>
+      <button class="btn" onclick="openScreen('tshirts')" data-key="tshirts_btn">Футболки</button>
+      <button class="btn" onclick="openScreen('shorts')" data-key="shorts_btn">Шорты</button>
+      <button class="btn" onclick="openScreen('sneakers')" data-key="sneakers_btn">Кроссовки</button>
     </div>
 
     <div class="screen" id="tshirts">
       <div class="header">
         <button class="back" onclick="openScreen('catalog')">←</button>
-        <h1>Футболки</h1>
+        <h1 data-key="tshirts_title">Футболки</h1>
       </div>
       <div class="product">
-        <div class="product-name">Футболка Premium Basic</div>
+        <div class="product-name" data-key="tshirt1_name">Футболка Premium Basic</div>
         <div class="product-price">€29.99</div>
       </div>
       <div class="product">
-        <div class="product-name">Футболка Designer Edition</div>
+        <div class="product-name" data-key="tshirt2_name">Футболка Designer Edition</div>
         <div class="product-price">€45.99</div>
       </div>
       <div class="product">
-        <div class="product-name">Футболка Limited Collection</div>
+        <div class="product-name" data-key="tshirt3_name">Футболка Limited Collection</div>
         <div class="product-price">€59.99</div>
       </div>
     </div>
@@ -481,18 +524,18 @@
     <div class="screen" id="shorts">
       <div class="header">
         <button class="back" onclick="openScreen('catalog')">←</button>
-        <h1>Шорты</h1>
+        <h1 data-key="shorts_title">Шорты</h1>
       </div>
       <div class="product">
-        <div class="product-name">Шорты Premium Sport</div>
+        <div class="product-name" data-key="shorts1_name">Шорты Premium Sport</div>
         <div class="product-price">€39.99</div>
       </div>
       <div class="product">
-        <div class="product-name">Шорты Casual Luxury</div>
+        <div class="product-name" data-key="shorts2_name">Шорты Casual Luxury</div>
         <div class="product-price">€49.99</div>
       </div>
       <div class="product">
-        <div class="product-name">Шорты Designer Cut</div>
+        <div class="product-name" data-key="shorts3_name">Шорты Designer Cut</div>
         <div class="product-price">€65.99</div>
       </div>
     </div>
@@ -500,18 +543,18 @@
     <div class="screen" id="sneakers">
       <div class="header">
         <button class="back" onclick="openScreen('catalog')">←</button>
-        <h1>Кроссовки</h1>
+        <h1 data-key="sneakers_title">Кроссовки</h1>
       </div>
       <div class="product">
-        <div class="product-name">Nike Air Premium</div>
+        <div class="product-name" data-key="sneaker1_name">Nike Air Premium</div>
         <div class="product-price">€89.99</div>
       </div>
       <div class="product">
-        <div class="product-name">Adidas Luxury Edition</div>
+        <div class="product-name" data-key="sneaker2_name">Adidas Luxury Edition</div>
         <div class="product-price">€95.99</div>
       </div>
       <div class="product">
-        <div class="product-name">Jordan Exclusive</div>
+        <div class="product-name" data-key="sneaker3_name">Jordan Exclusive</div>
         <div class="product-price">€129.99</div>
       </div>
     </div>
@@ -519,9 +562,9 @@
     <div class="screen" id="terms">
       <div class="header">
         <button class="back" onclick="backToHome()">←</button>
-        <h1>Условия работы</h1>
+        <h1 data-key="terms_title">Условия работы</h1>
       </div>
-      <div class="terms-content">
+      <div class="terms-content" data-key="terms_content">
         <p><strong>Добро пожаловать в The Continental!</strong></p>
         <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
         <p><strong>Условия заказа:</strong></p>
@@ -536,17 +579,181 @@
     <div class="screen" id="support">
       <div class="header">
         <button class="back" onclick="backToHome()">←</button>
-        <h1>Поддержка</h1>
+        <h1 data-key="support_title">Поддержка</h1>
       </div>
-      <p style="margin-bottom: 20px; color: #cccccc; line-height: 1.6;">
+      <p data-key="support_text" style="margin-bottom: 20px; color: #cccccc; line-height: 1.6;">
         Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.
       </p>
-      <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank">НАПИСАТЬ МЕНЕДЖЕРУ</a>
+      <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</a>
     </div>
   </div>
-
   <script>
-    function openScreen(id ) {
+    // Объект с переводами
+    const translations = {
+      ru: {
+        catalog_btn: "Каталог",
+        terms_btn: "Условия работы",
+        support_btn: "Поддержка",
+        catalog_title: "Каталог",
+        tshirts_btn: "Футболки",
+        shorts_btn: "Шорты",
+        sneakers_btn: "Кроссовки",
+        tshirts_title: "Футболки",
+        tshirt1_name: "Футболка Premium Basic",
+        tshirt2_name: "Футболка Designer Edition",
+        tshirt3_name: "Футболка Limited Collection",
+        shorts_title: "Шорты",
+        shorts1_name: "Шорты Premium Sport",
+        shorts2_name: "Шорты Casual Luxury",
+        shorts3_name: "Шорты Designer Cut",
+        sneakers_title: "Кроссовки",
+        sneaker1_name: "Nike Air Premium",
+        sneaker2_name: "Adidas Luxury Edition",
+        sneaker3_name: "Jordan Exclusive",
+        terms_title: "Условия работы",
+        terms_content: `
+          <p><strong>Добро пожаловать в The Continental!</strong></p>
+          <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
+          <p><strong>Условия заказа:</strong></p>
+          <p>• Оплата — 100% предоплата<br>
+          • Доставка по Европе — 7-14 рабочих дней<br>
+          • Возвратов и обменов нет<br>
+          • Гарантия качества на все товары</p>
+          <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
+        `,
+        support_title: "Поддержка",
+        support_text: "Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.",
+        contact_manager_btn: "НАПИСАТЬ МЕНЕДЖЕРУ"
+      },
+      en: {
+        catalog_btn: "Catalog",
+        terms_btn: "Terms of Service",
+        support_btn: "Support",
+        catalog_title: "Catalog",
+        tshirts_btn: "T-Shirts",
+        shorts_btn: "Shorts",
+        sneakers_btn: "Sneakers",
+        tshirts_title: "T-Shirts",
+        tshirt1_name: "Premium Basic T-Shirt",
+        tshirt2_name: "Designer Edition T-Shirt",
+        tshirt3_name: "Limited Collection T-Shirt",
+        shorts_title: "Shorts",
+        shorts1_name: "Premium Sport Shorts",
+        shorts2_name: "Casual Luxury Shorts",
+        shorts3_name: "Designer Cut Shorts",
+        sneakers_title: "Sneakers",
+        sneaker1_name: "Nike Air Premium",
+        sneaker2_name: "Adidas Luxury Edition",
+        sneaker3_name: "Jordan Exclusive",
+        terms_title: "Terms of Service",
+        terms_content: `
+          <p><strong>Welcome to The Continental!</strong></p>
+          <p>We offer only premium replicas of the highest quality. Each item undergoes strict quality control before shipping.</p>
+          <p><strong>Order Conditions:</strong></p>
+          <p>• Payment — 100% prepayment<br>
+          • Delivery within Europe — 7-14 business days<br>
+          • No returns or exchanges<br>
+          • Quality guarantee for all items</p>
+          <p>We work only with trusted suppliers and guarantee that the product matches the description.</p>
+        `,
+        support_title: "Support",
+        support_text: "Our managers are ready to answer all your questions and help you choose a product. We work 24/7 for your convenience.",
+        contact_manager_btn: "CONTACT MANAGER"
+      },
+      uk: {
+        catalog_btn: "Каталог",
+        terms_btn: "Умови роботи",
+        support_btn: "Підтримка",
+        catalog_title: "Каталог",
+        tshirts_btn: "Футболки",
+        shorts_btn: "Шорти",
+        sneakers_btn: "Кросівки",
+        tshirts_title: "Футболки",
+        tshirt1_name: "Футболка Premium Basic",
+        tshirt2_name: "Футболка Designer Edition",
+        tshirt3_name: "Футболка Limited Collection",
+        shorts_title: "Шорти",
+        shorts1_name: "Шорти Premium Sport",
+        shorts2_name: "Шорти Casual Luxury",
+        shorts3_name: "Шорти Designer Cut",
+        sneakers_title: "Кросівки",
+        sneaker1_name: "Nike Air Premium",
+        sneaker2_name: "Adidas Luxury Edition",
+        sneaker3_name: "Jordan Exclusive",
+        terms_title: "Умови роботи",
+        terms_content: `
+          <p><strong>Ласкаво просимо до The Continental!</strong></p>
+          <p>Ми пропонуємо лише преміум-репліки найвищої якості. Кожен товар проходить суворий контроль якості перед відправкою.</p>
+          <p><strong>Умови замовлення:</strong></p>
+          <p>• Оплата — 100% передоплата<br>
+          • Доставка по Європі — 7-14 робочих днів<br>
+          • Повернень та обмінів немає<br>
+          • Гарантія якості на всі товари</p>
+          <p>Ми працюємо лише з перевіреними постачальниками та гарантуємо відповідність товару опису.</p>
+        `,
+        support_title: "Підтримка",
+        support_text: "Наші менеджери готові відповісти на всі ваші запитання та допомогти з вибором товару. Ми працюємо 24/7 для вашої зручності.",
+        contact_manager_btn: "НАПИСАТИ МЕНЕДЖЕРУ"
+      },
+      de: {
+        catalog_btn: "Katalog",
+        terms_btn: "Nutzungsbedingungen",
+        support_btn: "Support",
+        catalog_title: "Katalog",
+        tshirts_btn: "T-Shirts",
+        shorts_btn: "Shorts",
+        sneakers_btn: "Sneakers",
+        tshirts_title: "T-Shirts",
+        tshirt1_name: "Premium Basic T-Shirt",
+        tshirt2_name: "Designer Edition T-Shirt",
+        tshirt3_name: "Limited Collection T-Shirt",
+        shorts_title: "Shorts",
+        shorts1_name: "Premium Sport Shorts",
+        shorts2_name: "Casual Luxury Shorts",
+        shorts3_name: "Designer Cut Shorts",
+        sneakers_title: "Sneakers",
+        sneaker1_name: "Nike Air Premium",
+        sneaker2_name: "Adidas Luxury Edition",
+        sneaker3_name: "Jordan Exclusive",
+        terms_title: "Nutzungsbedingungen",
+        terms_content: `
+          <p><strong>Willkommen bei The Continental!</strong></p>
+          <p>Wir bieten ausschließlich Premium-Repliken höchster Qualität an. Jeder Artikel wird vor dem Versand einer strengen Qualitätskontrolle unterzogen.</p>
+          <p><strong>Bestellbedingungen:</strong></p>
+          <p>• Zahlung — 100% Vorkasse<br>
+          • Lieferung innerhalb Europas — 7-14 Werktage<br>
+          • Keine Rückgabe oder Umtausch<br>
+          • Qualitätsgarantie für alle Artikel</p>
+          <p>Wir arbeiten nur mit vertrauenswürdigen Lieferanten zusammen und garantieren, dass das Produkt der Beschreibung entspricht.</p>
+        `,
+        support_title: "Support",
+        support_text: "Unsere Manager stehen Ihnen jederzeit zur Verfügung, um Ihre Fragen zu beantworten und Ihnen bei der Produktauswahl zu helfen. Wir sind 24/7 für Sie da.",
+        contact_manager_btn: "MANAGER KONTAKTIEREN"
+      }
+    };
+
+    // Функция для применения переводов
+    function applyTranslations(lang) {
+      const elements = document.querySelectorAll('[data-key]');
+      elements.forEach(el => {
+        const key = el.dataset.key;
+        if (translations[lang] && translations[lang][key]) {
+          if (key.includes('_content')) { // Для HTML-содержимого
+            el.innerHTML = translations[lang][key];
+          } else { // Для текстового содержимого
+            el.textContent = translations[lang][key];
+          }
+        }
+      });
+    }
+
+    // Обработчик изменения языка
+    document.getElementById('language-select').addEventListener('change', function() {
+      applyTranslations(this.value);
+    });
+
+    // Функция для открытия нового экрана
+    function openScreen(id) {
       const currentScreen = document.querySelector('.screen.active');
       const target = document.getElementById(id);
 
@@ -586,6 +793,7 @@
       });
     }
 
+    // Функция для возврата на домашний экран
     function backToHome() {
       openScreen('home');
     }
@@ -606,12 +814,15 @@
       // Инициализация Telegram Web App API
       if (window.Telegram && window.Telegram.WebApp) {
         window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
+        window.Telegram.WebApp.expand(); // Полное открытие приложения
 
         // Настройка темы для Telegram
         window.Telegram.WebApp.setHeaderColor('#000000');
         window.Telegram.WebApp.setBackgroundColor('#000000');
       }
+
+      // Применяем переводы при первой загрузке (по умолчанию русский)
+      applyTranslations(document.getElementById('language-select').value);
     });
   </script>
 </body>
