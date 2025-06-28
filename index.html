@@ -5,39 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Continental</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" );
 
+    /* Анимация появления экрана (сверху вниз) */
     @keyframes fadeIn {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px); 
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(30px); /* Начинаем чуть ниже центра */
       }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0); /* Заканчиваем в центре */
       }
     }
 
+    /* Анимация появления элементов внутри экрана (слева направо) */
     @keyframes slideIn {
-      from { 
-        opacity: 0; 
-        transform: translateX(20px); 
+      from {
+        opacity: 0;
+        transform: translateX(20px);
       }
-      to { 
-        opacity: 1; 
-        transform: translateX(0); 
+      to {
+        opacity: 1;
+        transform: translateX(0);
       }
     }
 
+    /* Анимация пульсации для кнопок */
     @keyframes pulse {
-      0%, 100% { 
-        transform: scale(1); 
+      0%, 100% {
+        transform: scale(1);
       }
-      50% { 
-        transform: scale(1.02); 
+      50% {
+        transform: scale(1.02);
       }
     }
 
+    /* Анимация мерцания для фона экрана */
     @keyframes shimmer {
       0% {
         background-position: -200% 0;
@@ -47,6 +51,7 @@
       }
     }
 
+    /* Анимация "плавания" для логотипа */
     @keyframes float {
       0%, 100% {
         transform: translateY(0px);
@@ -64,7 +69,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      overflow: hidden;
+      overflow: hidden; /* Скрываем прокрутку, чтобы не было видно "лишнего" */
       font-family: 'Inter', sans-serif;
       font-size: 16px;
       color: #ffffff;
@@ -80,7 +85,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
+      background:
         radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
@@ -95,7 +100,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
+      background:
         repeating-linear-gradient(
           90deg,
           transparent,
@@ -107,15 +112,18 @@
     }
 
     .container {
-      display: flex;
+      display: flex; /* Используем flexbox для центрирования содержимого */
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      position: relative; /* Контейнер для абсолютно позиционированных экранов */
+      width: 100%;
+      height: 100%;
     }
 
     .screen {
-      display: none;
+      display: none; /* Скрыт по умолчанию */
       width: 100%;
       max-width: 420px;
       background: rgba(0, 0, 0, 0.85);
@@ -123,12 +131,17 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       padding: 30px;
-      box-shadow: 
+      box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
+      position: absolute; /* Экраны накладываются друг на друга */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Центрируем экран */
+      opacity: 0; /* Изначально невидимый */
+      pointer-events: none; /* Не реагирует на события мыши, когда неактивен */
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Плавное исчезновение */
+      overflow: hidden; /* Скрываем содержимое, выходящее за границы */
     }
 
     .screen::before {
@@ -148,7 +161,10 @@
     }
 
     .active {
-      display: block;
+      display: block; /* Делаем видимым */
+      opacity: 1; /* Полностью непрозрачный */
+      pointer-events: auto; /* Реагирует на события мыши */
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Запускаем анимацию появления */
     }
 
     .logo {
@@ -192,14 +208,14 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      box-shadow: 
+      box-shadow:
         0 4px 15px rgba(255, 255, 255, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      animation: slideIn 0.5s ease forwards;
-      opacity: 0;
+      opacity: 0; /* Изначально невидимый для slideIn */
       font-family: 'Inter', sans-serif;
     }
 
+    /* Задержка анимации для кнопок */
     .btn:nth-child(2) { animation-delay: 0.1s; }
     .btn:nth-child(3) { animation-delay: 0.2s; }
     .btn:nth-child(4) { animation-delay: 0.3s; }
@@ -222,7 +238,7 @@
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 
+      box-shadow:
         0 8px 25px rgba(255, 255, 255, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
@@ -233,7 +249,6 @@
 
     .btn:active {
       transform: translateY(0) scale(0.98);
-      transition: all 0.1s ease;
     }
 
     .header {
@@ -289,8 +304,7 @@
       padding: 20px;
       margin: 16px 0;
       border-radius: 16px;
-      animation: slideIn 0.5s ease forwards;
-      opacity: 0;
+      opacity: 0; /* Изначально невидимый для slideIn */
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
@@ -340,7 +354,7 @@
       font-size: 16px;
       text-decoration: none;
       transition: all 0.3s ease;
-      box-shadow: 
+      box-shadow:
         0 4px 15px rgba(255, 255, 255, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
       position: relative;
@@ -365,7 +379,7 @@
 
     .support-link:hover {
       transform: translateY(-2px);
-      box-shadow: 
+      box-shadow:
         0 8px 25px rgba(255, 255, 255, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
@@ -403,22 +417,22 @@
       .container {
         padding: 10px;
       }
-      
+
       .screen {
         padding: 20px;
         border-radius: 16px;
       }
-      
+
       .logo {
         font-size: 36px;
         margin-bottom: 40px;
       }
-      
+
       .btn {
         padding: 16px 20px;
         font-size: 15px;
       }
-      
+
       h1 {
         font-size: 24px;
       }
@@ -537,27 +551,35 @@
   </div>
 
   <script>
-    function openScreen(id) {
+    function openScreen(id ) {
       const currentScreen = document.querySelector('.screen.active');
       if (currentScreen) {
+        // Убираем класс 'active' и сбрасываем стили для плавного исчезновения
         currentScreen.classList.remove('active');
-        currentScreen.style.opacity = '';
-        currentScreen.style.transform = '';
+        currentScreen.style.opacity = '0';
+        currentScreen.style.pointerEvents = 'none'; // Делаем некликабельным
+        // Сбрасываем анимации для элементов внутри уходящего экрана
+        currentScreen.querySelectorAll('.btn, .product').forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateX(20px)'; // Возвращаем в исходное состояние для slideIn
+          el.style.transition = 'none'; // Отключаем transition, чтобы сброс был мгновенным
+        });
       }
-      
+
       const target = document.getElementById(id);
+      // Добавляем класс 'active' для нового экрана, что запустит fadeIn
       target.classList.add('active');
-      target.scrollTop = 0;
-      
+      target.scrollTop = 0; // Прокручиваем экран в начало
+
+      // Запускаем анимацию slideIn для кнопок и продуктов на новом экране
       const animatedElements = target.querySelectorAll('.btn, .product');
       animatedElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
+        // Убедимся, что transition включен для анимации появления
+        el.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
         setTimeout(() => {
-          el.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
           el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, index * 100);
+          el.style.transform = 'translateX(0)';
+        }, index * 100 + 300); // Добавляем задержку, чтобы анимация fadeIn экрана успела начаться
       });
     }
 
@@ -565,25 +587,29 @@
       openScreen('home');
     }
 
-    // Инициализация анимаций при загрузке
+    // Инициализация анимаций при загрузке для домашнего экрана
     document.addEventListener('DOMContentLoaded', function() {
-      const homeButtons = document.querySelectorAll('#home .btn');
+      const homeScreen = document.getElementById('home');
+      const homeButtons = homeScreen.querySelectorAll('.btn');
       homeButtons.forEach((btn, index) => {
+        // Убедимся, что transition включен для анимации появления
+        btn.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
         setTimeout(() => {
           btn.style.opacity = '1';
+          btn.style.transform = 'translateX(0)';
         }, index * 150);
       });
-    });
 
-    // Добавляем поддержку Telegram Web App API
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-      
-      // Настройка темы для Telegram
-      window.Telegram.WebApp.setHeaderColor('#000000');
-      window.Telegram.WebApp.setBackgroundColor('#000000');
-    }
+      // Инициализация Telegram Web App API
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+
+        // Настройка темы для Telegram
+        window.Telegram.WebApp.setHeaderColor('#000000');
+        window.Telegram.WebApp.setBackgroundColor('#000000');
+      }
+    });
   </script>
 </body>
 </html>
