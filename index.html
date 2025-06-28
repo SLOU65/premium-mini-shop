@@ -5,16 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Continental</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       background: #000;
       color: #fff;
       font-family: Arial, sans-serif;
       font-size: 14px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .screen {
       display: none;
       padding: 20px;
+      width: 100%;
+      max-width: 400px;
     }
     .active {
       display: block;
@@ -23,7 +30,7 @@
       background: #fff;
       color: #000;
       padding: 12px 16px;
-      margin: 8px 0;
+      margin: 12px 0;
       border: none;
       font-weight: bold;
       width: 100%;
@@ -46,8 +53,9 @@
       cursor: pointer;
     }
     h1 {
-      font-size: 20px;
-      margin: 0;
+      font-size: 32px;
+      margin: 0 0 30px;
+      text-align: center;
     }
     .product {
       background: #111;
@@ -70,6 +78,14 @@
       border-radius: 4px;
       font-weight: bold;
       text-decoration: none;
+    }
+    #home {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
     }
   </style>
 </head>
