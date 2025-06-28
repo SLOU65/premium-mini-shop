@@ -5,200 +5,586 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Continental</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    @keyframes slideIn {
+      from { 
+        opacity: 0; 
+        transform: translateX(20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { 
+        transform: scale(1); 
+      }
+      50% { 
+        transform: scale(1.02); 
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     html, body {
       margin: 0;
       padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #ffffff;
+      background: #000000;
+      position: relative;
+    }
+
+    /* Премиальный фон с анимированными элементами */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      background: linear-gradient(to bottom, #000000, #1a1a1a, #333333);
-      background-image: url('https://i.ibb.co/bzjF1Mz/smoke-gradient.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      color: #fff;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.01) 2px,
+          rgba(255, 255, 255, 0.01) 4px
+        );
+      z-index: -1;
+    }
+
+    .container {
       display: flex;
       justify-content: center;
       align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
+
     .screen {
       display: none;
-      padding: 20px;
       width: 100%;
-      max-width: 400px;
-      background: rgba(0, 0, 0, 0.75);
-      border-radius: 12px;
-      animation: fadeIn 0.5s ease;
+      max-width: 420px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
+
+    .screen::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+      );
+      animation: shimmer 3s infinite;
+    }
+
     .active {
       display: block;
     }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: float 3s ease-in-out infinite;
+      letter-spacing: 2px;
+      position: relative;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffffff, transparent);
+    }
+
     .btn {
-      background: #fff;
-      color: #000;
-      padding: 12px 16px;
-      margin: 12px 0;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+      color: #000000;
+      padding: 18px 24px;
+      margin: 16px 0;
       border: none;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 16px;
       width: 100%;
       text-align: center;
-      border-radius: 6px;
+      border-radius: 12px;
       cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.1s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 4px 15px rgba(255, 255, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      animation: slideIn 0.5s ease forwards;
+      opacity: 0;
+      font-family: 'Inter', sans-serif;
     }
+
+    .btn:nth-child(2) { animation-delay: 0.1s; }
+    .btn:nth-child(3) { animation-delay: 0.2s; }
+    .btn:nth-child(4) { animation-delay: 0.3s; }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transition: left 0.5s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 25px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
     .btn:active {
-      transform: scale(0.97);
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s ease;
     }
+
     .header {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
-    }
-    .back {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 20px;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    h1 {
-      font-size: 32px;
-      margin: 0 0 30px;
-      text-align: center;
-      animation: fadeIn 0.6s ease;
-    }
-    .product {
-      background: #111;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 4px;
+      margin-bottom: 30px;
       animation: fadeIn 0.5s ease;
     }
+
+    .back {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      margin-right: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .back:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-2px);
+    }
+
+    .back:active {
+      transform: scale(0.95);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+      flex: 1;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      margin: 16px 0;
+      border-radius: 16px;
+      animation: slideIn 0.5s ease forwards;
+      opacity: 0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product:nth-child(2) { animation-delay: 0.1s; }
+    .product:nth-child(3) { animation-delay: 0.2s; }
+    .product:nth-child(4) { animation-delay: 0.3s; }
+
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+
+    .product:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
     .product-name {
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #ffffff;
     }
+
     .product-price {
-      color: #bbb;
-      font-size: 13px;
+      color: #cccccc;
+      font-size: 16px;
+      font-weight: 500;
     }
+
     .support-link {
       display: inline-block;
-      background: #fff;
-      color: #000;
-      padding: 10px 16px;
-      border-radius: 4px;
-      font-weight: bold;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+      color: #000000;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
       text-decoration: none;
-      transition: transform 0.1s ease;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 15px rgba(255, 255, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
     }
+
+    .support-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transition: left 0.5s;
+    }
+
+    .support-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 25px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .support-link:hover::before {
+      left: 100%;
+    }
+
     .support-link:active {
-      transform: scale(0.97);
+      transform: scale(0.98);
     }
+
     #home {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100%;
       text-align: center;
+      min-height: 400px;
     }
-    .logo {
-      font-size: 36px;
-      font-weight: bold;
-      margin-bottom: 40px;
-      text-align: center;
-      animation: fadeIn 0.8s ease;
+
+    .terms-content {
+      line-height: 1.6;
+      color: #cccccc;
+      font-size: 16px;
+      animation: fadeIn 0.6s ease 0.2s both;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+      
+      .screen {
+        padding: 20px;
+        border-radius: 16px;
+      }
+      
+      .logo {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+      
+      .btn {
+        padding: 16px 20px;
+        font-size: 15px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    /* Дополнительные анимации для загрузки */
+    .loading {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="screen active" id="home">
+      <div class="logo">The Continental</div>
+      <button class="btn" onclick="openScreen('catalog')">Каталог</button>
+      <button class="btn" onclick="openScreen('terms')">Условия работы</button>
+      <button class="btn" onclick="openScreen('support')">Поддержка</button>
+    </div>
 
-<div class="screen active" id="home">
-  <div class="logo">The Continental</div>
-  <button class="btn" onclick="openScreen('catalog')">Каталог</button>
-  <button class="btn" onclick="openScreen('terms')">Условия работы</button>
-  <button class="btn" onclick="openScreen('support')">Поддержка</button>
-</div>
+    <div class="screen" id="catalog">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1>Каталог</h1>
+      </div>
+      <button class="btn" onclick="openScreen('tshirts')">Футболки</button>
+      <button class="btn" onclick="openScreen('shorts')">Шорты</button>
+      <button class="btn" onclick="openScreen('sneakers')">Кроссовки</button>
+    </div>
 
-<div class="screen" id="catalog">
-  <div class="header">
-    <button class="back" onclick="backToHome()">←</button>
-    <h1>Каталог</h1>
+    <div class="screen" id="tshirts">
+      <div class="header">
+        <button class="back" onclick="openScreen('catalog')">←</button>
+        <h1>Футболки</h1>
+      </div>
+      <div class="product">
+        <div class="product-name">Футболка Premium Basic</div>
+        <div class="product-price">€29.99</div>
+      </div>
+      <div class="product">
+        <div class="product-name">Футболка Designer Edition</div>
+        <div class="product-price">€45.99</div>
+      </div>
+      <div class="product">
+        <div class="product-name">Футболка Limited Collection</div>
+        <div class="product-price">€59.99</div>
+      </div>
+    </div>
+
+    <div class="screen" id="shorts">
+      <div class="header">
+        <button class="back" onclick="openScreen('catalog')">←</button>
+        <h1>Шорты</h1>
+      </div>
+      <div class="product">
+        <div class="product-name">Шорты Premium Sport</div>
+        <div class="product-price">€39.99</div>
+      </div>
+      <div class="product">
+        <div class="product-name">Шорты Casual Luxury</div>
+        <div class="product-price">€49.99</div>
+      </div>
+      <div class="product">
+        <div class="product-name">Шорты Designer Cut</div>
+        <div class="product-price">€65.99</div>
+      </div>
+    </div>
+
+    <div class="screen" id="sneakers">
+      <div class="header">
+        <button class="back" onclick="openScreen('catalog')">←</button>
+        <h1>Кроссовки</h1>
+      </div>
+      <div class="product">
+        <div class="product-name">Nike Air Premium</div>
+        <div class="product-price">€89.99</div>
+      </div>
+      <div class="product">
+        <div class="product-name">Adidas Luxury Edition</div>
+        <div class="product-price">€95.99</div>
+      </div>
+      <div class="product">
+        <div class="product-name">Jordan Exclusive</div>
+        <div class="product-price">€129.99</div>
+      </div>
+    </div>
+
+    <div class="screen" id="terms">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1>Условия работы</h1>
+      </div>
+      <div class="terms-content">
+        <p><strong>Добро пожаловать в The Continental!</strong></p>
+        <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
+        <p><strong>Условия заказа:</strong></p>
+        <p>• Оплата — 100% предоплата<br>
+        • Доставка по Европе — 7-14 рабочих дней<br>
+        • Возвратов и обменов нет<br>
+        • Гарантия качества на все товары</p>
+        <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
+      </div>
+    </div>
+
+    <div class="screen" id="support">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1>Поддержка</h1>
+      </div>
+      <p style="margin-bottom: 20px; color: #cccccc; line-height: 1.6;">
+        Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.
+      </p>
+      <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank">НАПИСАТЬ МЕНЕДЖЕРУ</a>
+    </div>
   </div>
-  <button class="btn" onclick="openScreen('tshirts')">Футболки</button>
-  <button class="btn" onclick="openScreen('shorts')">Шорты</button>
-  <button class="btn" onclick="openScreen('sneakers')">Кроссовки</button>
-</div>
 
-<div class="screen" id="tshirts">
-  <div class="header">
-    <button class="back" onclick="openScreen('catalog')">←</button>
-    <h1>Футболки</h1>
-  </div>
-  <div class="product">
-    <div class="product-name">Футболка Premium</div>
-    <div class="product-price">€29.99</div>
-  </div>
-</div>
+  <script>
+    function openScreen(id) {
+      const currentScreen = document.querySelector('.screen.active');
+      if (currentScreen) {
+        currentScreen.classList.remove('active');
+        currentScreen.style.opacity = '';
+        currentScreen.style.transform = '';
+      }
+      
+      const target = document.getElementById(id);
+      target.classList.add('active');
+      target.scrollTop = 0;
+      
+      const animatedElements = target.querySelectorAll('.btn, .product');
+      animatedElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }
 
-<div class="screen" id="shorts">
-  <div class="header">
-    <button class="back" onclick="openScreen('catalog')">←</button>
-    <h1>Шорты</h1>
-  </div>
-  <div class="product">
-    <div class="product-name">Шорты Premium</div>
-    <div class="product-price">€39.99</div>
-  </div>
-</div>
+    function backToHome() {
+      openScreen('home');
+    }
 
-<div class="screen" id="sneakers">
-  <div class="header">
-    <button class="back" onclick="openScreen('catalog')">←</button>
-    <h1>Кроссовки</h1>
-  </div>
-  <div class="product">
-    <div class="product-name">Nike Premium</div>
-    <div class="product-price">€89.99</div>
-  </div>
-</div>
+    // Инициализация анимаций при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+      const homeButtons = document.querySelectorAll('#home .btn');
+      homeButtons.forEach((btn, index) => {
+        setTimeout(() => {
+          btn.style.opacity = '1';
+        }, index * 150);
+      });
+    });
 
-<div class="screen" id="terms">
-  <div class="header">
-    <button class="back" onclick="backToHome()">←</button>
-    <h1>Условия работы</h1>
-  </div>
-  <p>Мы предлагаем только премиум-реплики. Оплата — предоплата. Доставка по Европе — 7-14 дней. Возвратов нет. Все товары проходят проверку качества перед отправкой.</p>
-</div>
-
-<div class="screen" id="support">
-  <div class="header">
-    <button class="back" onclick="backToHome()">←</button>
-    <h1>Поддержка</h1>
-  </div>
-  <a class="support-link" href="https://t.me/YOUR_MANAGER" target="_blank">НАПИСАТЬ МЕНЕДЖЕРУ</a>
-</div>
-
-<script>
-  function openScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(id);
-    target.classList.add('active');
-    target.scrollTop = 0;
-  }
-
-  function backToHome() {
-    openScreen('home');
-  }
-</script>
-
+    // Добавляем поддержку Telegram Web App API
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+      
+      // Настройка темы для Telegram
+      window.Telegram.WebApp.setHeaderColor('#000000');
+      window.Telegram.WebApp.setBackgroundColor('#000000');
+    }
+  </script>
 </body>
 </html>
 
