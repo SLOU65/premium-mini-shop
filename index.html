@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Премиум Магазин</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .product { margin-bottom: 20px; border: 1px solid #ccc; border-radius: 10px; padding: 10px; }
+    button { padding: 10px 20px; background: #1c87c9; color: white; border: none; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>🔥 Премиум Магазин</h1>
+
+  <div class="product">
+    <h2>Nike Air Max 97 — €130</h2>
+    <p>Размеры 41–45, доставка 7–14 дней.</p>
+    <button onclick="buy('Nike Air Max 97')">Купить</button>
+  </div>
+
+  <div class="product">
+    <h2>Balenciaga Triple S — €180</h2>
+    <p>Размеры 40–45, доставка по Европе.</p>
+    <button onclick="buy('Balenciaga Triple S')">Купить</button>
+  </div>
+
+  <script>
+    function buy(product) {
+      Telegram.WebApp.sendData(JSON.stringify({
+        action: 'buy',
+        product: product
+      }));
+    }
+
+    window.onload = () => {
+      if (window.Telegram?.WebApp) Telegram.WebApp.ready();
+    };
+  </script>
+</body>
+</html>
