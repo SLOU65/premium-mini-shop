@@ -64,26 +64,27 @@
     * {
       box-sizing: border-box;
     }
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    color: #ffffff;
-    position: relative;
-    background: #000000;
-    background-image: url('photo_2025-06-29_16-18-14.jpg');
-    background-size: contain;
-    background-repeat: repeat;
-    background-position: center;
-    background-attachment: fixed;
+     
+    html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  position: relative;
+  background: #000000;
+  background-image: url('photo_2025-06-29_16-18-14.jpg');
+  background-size: contain;
+  background-repeat: repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
-
+    
     
 
-   body::after {
+    body::after {
       content: '';
       position: fixed;
       top: 0;
@@ -99,7 +100,7 @@
           rgba(255, 255, 255, 0.01) 4px
         );
       z-index: -1;
-    } 
+    }
 
     .container {
       display: flex;
@@ -237,11 +238,10 @@
     }
 
     .header {
-      position: relative;
-      height: 44px;
+      display: flex;
+      align-items: center;
       margin-bottom: 30px;
     }
-
 
     .back {
       background: rgba(255, 255, 255, 0.1);
@@ -275,16 +275,14 @@
       font-size: 28px;
       font-weight: 700;
       margin: 0;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      flex: 1; /* Занимает оставшееся пространство */
       text-align: center;
       background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-    }
-
+      /* Сдвигаем заголовок немного левее */
+      transform: translateX(-25px);
     }
     .product {
       background: rgba(255, 255, 255, 0.05);
