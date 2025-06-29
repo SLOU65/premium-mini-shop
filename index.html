@@ -30,8 +30,8 @@
       --tg-theme-text-color: #ffffff;
       --tg-theme-hint-color: #999999;
       --tg-theme-link-color: #ffffff;
-      --tg-theme-button-color: #ffffff;
-      --tg-theme-button-text-color: #000000;
+      --tg-theme-button-color: #ffffff; /* Белые кнопки в черной теме */
+      --tg-theme-button-text-color: #000000; /* Черный текст на белых кнопках */
       --tg-theme-secondary-bg-color: #1a1a1a;
       --header-bg: #ffffff;
       --header-text: #000000;
@@ -42,8 +42,8 @@
       --tg-theme-text-color: #000000;
       --tg-theme-hint-color: #666666;
       --tg-theme-link-color: #000000;
-      --tg-theme-button-color: #000000;
-      --tg-theme-button-text-color: #ffffff;
+      --tg-theme-button-color: #000000; /* Черные кнопки в светлой теме */
+      --tg-theme-button-text-color: #ffffff; /* Белый текст на черных кнопках */
       --tg-theme-secondary-bg-color: #f5f5f5;
       --header-bg: #000000;
       --header-text: #ffffff;
@@ -91,11 +91,11 @@
     /* Уменьшенный поиск без иконки лупы */
     .search-container {
       flex: 1;
-      max-width: 90px; /* Уменьшено с 120px */
+      max-width: 90px;
       background: rgba(128, 128, 128, 0.15);
       border: 1px solid rgba(128, 128, 128, 0.3);
       border-radius: 15px;
-      padding: 5px 8px; /* Убрано место для иконки */
+      padding: 5px 8px;
       display: flex;
       align-items: center;
       transition: all 0.3s ease;
@@ -133,7 +133,7 @@
       position: relative;
       transition: all 0.3s ease;
       user-select: none;
-      z-index: 1001; /* Увеличен z-index для кликабельности */
+      z-index: 1001;
     }
 
     .filters-button:hover {
@@ -156,7 +156,7 @@
       border-radius: 8px;
       padding: 10px;
       display: none;
-      z-index: 1002; /* Увеличен z-index */
+      z-index: 1002;
       min-width: 160px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
       backdrop-filter: blur(10px);
@@ -295,10 +295,10 @@
       background: linear-gradient(90deg, transparent, var(--tg-theme-text-color), transparent);
     }
 
-    /* Кнопки */
+    /* Основные кнопки - исправлены цвета */
     .btn {
-      background: var(--tg-theme-button-color);
-      color: var(--tg-theme-button-text-color);
+      background: var(--tg-theme-button-color) !important; /* Принудительно применяем цвет */
+      color: var(--tg-theme-button-text-color) !important; /* Принудительно применяем цвет текста */
       padding: 14px 20px;
       margin: 8px 0;
       border: none;
@@ -651,7 +651,7 @@
       }
       
       .search-container {
-        max-width: 70px; /* Еще меньше для маленьких экранов */
+        max-width: 70px;
       }
       
       .screen {
@@ -1469,7 +1469,7 @@ function removeFromCart(cartId) {
   }
 }
 
-// Оформление заказа
+// Оформление заказа - исправленная логика отправки
 function checkout() {
   if (cart.length === 0) {
     if (tg && tg.showAlert) {
@@ -1494,7 +1494,7 @@ function checkout() {
   // Группируем товары по типам
   const groupedItems = {};
   cart.forEach(item => {
-    const category = item.name.includes('футболка') ? 'Футболки' : 
+    const category = item.name.includes('футболка') || item.name.includes('футболки') ? 'Футболки' : 
                     item.name.includes('шорты') ? 'Шорты' :
                     item.name.includes('штаны') ? 'Штаны' : 'Аксессуары';
     if (!groupedItems[category]) {
@@ -1527,7 +1527,7 @@ function checkout() {
       language: currentLang
     }));
   } else {
-    // Fallback - открываем Telegram с сообщением
+    // Fallback - открываем Telegram с сообщением менеджеру
     const encodedMessage = encodeURIComponent(message);
     const telegramUrl = `https://t.me/a6tribunal?text=${encodedMessage}`;
     window.open(telegramUrl, '_blank');
@@ -1538,10 +1538,10 @@ function checkout() {
   updateCartDisplay();
   
   if (tg && tg.showAlert) {
-    tg.showAlert('Заказ отправлен менеджеру!');
+    tg.showAlert('Заказ отправлен менеджеру @a6tribunal!');
     tg.close && tg.close();
   } else {
-    alert('Заказ отправлен менеджеру!');
+    alert('Заказ отправлен менеджеру @a6tribunal!');
   }
 }
 
