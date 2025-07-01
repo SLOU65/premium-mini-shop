@@ -66,8 +66,6 @@
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-
-
     .language-select {
       background: rgba(128, 128, 128, 0.15);
       border: 1px solid rgba(128, 128, 128, 0.4);
@@ -271,7 +269,7 @@
       font-size: 32px;
       font-weight: 700;
       text-align: center;
-      margin: 30px 0 40px;
+      margin: 20px 0 20px; /* Уменьшили отступ снизу */
       background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -303,6 +301,94 @@
       background: linear-gradient(90deg, transparent, #000000, transparent);
     }
 
+    /* Раздел новостей */
+    .news-section {
+      margin: 20px 0 30px;
+      text-align: center;
+    }
+
+    .news-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    body[data-theme="light"] .news-title {
+      color: #000000;
+    }
+
+    .news-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      height: 120px;
+    }
+
+    body[data-theme="light"] .news-carousel {
+      background: #f5f5f5;
+    }
+
+    .news-slides {
+      display: flex;
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .news-slide {
+      min-width: 100%;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .news-slide h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    body[data-theme="light"] .news-slide h3 {
+      color: #000000;
+    }
+
+    .news-slide p {
+      font-size: 12px;
+      color: #999999;
+      line-height: 1.4;
+    }
+
+    body[data-theme="light"] .news-slide p {
+      color: #666666;
+    }
+
+    .news-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .news-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(128, 128, 128, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .news-indicator.active {
+      background: #007bff;
+      transform: scale(1.2);
+    }
+
     /* Основные кнопки - ИСПРАВЛЕНЫ ЦВЕТА */
     .btn {
       background: #ffffff !important; /* Белые кнопки в темной теме */
@@ -327,6 +413,37 @@
     }
 
     .btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Кнопки социальных сетей */
+    .social-btn {
+      background: #ffffff !important;
+      color: #000000 !important;
+      padding: 12px 20px;
+      margin: 6px 0;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      width: 100%;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    body[data-theme="light"] .social-btn {
+      background: #000000 !important;
+      color: #ffffff !important;
+    }
+
+    .social-btn:active {
       transform: scale(0.98);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
@@ -753,12 +870,32 @@
       
       .logo {
         font-size: 26px;
-        margin: 25px 0 30px;
+        margin: 20px 0 15px;
       }
       
       .btn {
         padding: 12px 16px;
         font-size: 14px;
+      }
+
+      .news-section {
+        margin: 15px 0 25px;
+      }
+
+      .news-carousel {
+        height: 100px;
+      }
+
+      .news-slide {
+        padding: 10px;
+      }
+
+      .news-slide h3 {
+        font-size: 13px;
+      }
+
+      .news-slide p {
+        font-size: 11px;
       }
     }
 </style>
@@ -859,10 +996,37 @@
   <!-- Главный экран -->
   <div class="screen active" id="home">
     <div class="logo">The Continental</div>
+    
+    <!-- Раздел новостей -->
+    <div class="news-section">
+      <div class="news-carousel">
+        <div class="news-slides" id="news-slides">
+          <div class="news-slide">
+            <h3 data-key="news1_title">Новая коллекция весна-лето 2025</h3>
+            <p data-key="news1_text">Эксклюзивные модели от ведущих брендов уже в наличии. Ограниченная серия!</p>
+          </div>
+          <div class="news-slide">
+            <h3 data-key="news2_title">Скидки до 30% на аксессуары</h3>
+            <p data-key="news2_text">Специальное предложение на все аксессуары. Акция действует до конца месяца.</p>
+          </div>
+          <div class="news-slide">
+            <h3 data-key="news3_title">Быстрая доставка по Европе</h3>
+            <p data-key="news3_text">Теперь доставляем заказы еще быстрее - от 5 до 10 рабочих дней.</p>
+          </div>
+        </div>
+      </div>
+      <div class="news-indicators" id="news-indicators">
+        <div class="news-indicator active" onclick="goToSlide(0)"></div>
+        <div class="news-indicator" onclick="goToSlide(1)"></div>
+        <div class="news-indicator" onclick="goToSlide(2)"></div>
+      </div>
+    </div>
+
     <button class="btn" data-key="mens_btn" onclick="openScreen('mens')">Мужское</button>
     <button class="btn" data-key="womens_btn" onclick="openScreen('womens')">Женское</button>
     <button class="btn" data-key="terms_btn" onclick="openScreen('terms')">Условия работы</button>
     <button class="btn" data-key="support_btn" onclick="openScreen('support')">Поддержка</button>
+    <button class="btn" data-key="social_btn" onclick="openScreen('social')">Мы в соцсетях</button>
   </div>
 
   <!-- Мужская одежда -->
@@ -888,6 +1052,34 @@
     <button class="btn" data-key="womens_pants_btn" onclick="openScreen('womens-pants')">Штаны</button>
     <button class="btn" data-key="womens_accessories_btn" onclick="openScreen('womens-accessories')">Аксессуары</button>
   </div>
+
+  <!-- Социальные сети -->
+  <div class="screen" id="social">
+    <div class="header">
+      <button class="back" onclick="backToHome()">←</button>
+      <h1 data-key="social_title">Мы в соцсетях</h1>
+    </div>
+    <p data-key="social_text" style="margin-bottom: 20px; color: #999999; line-height: 1.5; text-align: center;">
+      Подписывайтесь на наши социальные сети, чтобы быть в курсе всех новинок и специальных предложений!
+    </p>
+    <button class="social-btn" data-key="instagram_btn" onclick="openSocialLink('https://instagram.com/continental_store_random')">
+      📷 Instagram
+    </button>
+    <button class="social-btn" data-key="tiktok_btn" onclick="openSocialLink('https://tiktok.com/@continental_random')">
+      🎵 TikTok
+    </button>
+    <button class="social-btn" data-key="whatsapp_btn" onclick="openSocialLink('https://wa.me/1234567890')">
+      💬 WhatsApp
+    </button>
+    <button class="social-btn" data-key="viber_btn" onclick="openSocialLink('viber://chat?number=1234567890')">
+      📞 Viber
+    </button>
+    <button class="social-btn" data-key="telegram_btn" onclick="openSocialLink('https://t.me/continental_random')">
+      ✈️ Telegram
+    </button>
+  </div>
+
+
 
   <!-- Мужские футболки -->
   <div class="screen" id="mens-tshirts">
@@ -1065,6 +1257,8 @@ let itemsPerPage = 5;
 let currentCategory = '';
 let filteredProducts = [];
 let selectedProduct = null;
+let currentSlide = 0;
+let newsInterval;
 
 // Данные товаров (100 товаров для каждой категории)
 const products = {
@@ -1102,6 +1296,20 @@ const translations = {
     womens_btn: "Женское", 
     terms_btn: "Условия работы",
     support_btn: "Поддержка",
+    social_btn: "Мы в соцсетях",
+    news1_title: "Новая коллекция весна-лето 2025",
+    news1_text: "Эксклюзивные модели от ведущих брендов уже в наличии. Ограниченная серия!",
+    news2_title: "Скидки до 30% на аксессуары",
+    news2_text: "Специальное предложение на все аксессуары. Акция действует до конца месяца.",
+    news3_title: "Быстрая доставка по Европе",
+    news3_text: "Теперь доставляем заказы еще быстрее - от 5 до 10 рабочих дней.",
+    social_title: "Мы в соцсетях",
+    social_text: "Подписывайтесь на наши социальные сети, чтобы быть в курсе всех новинок и специальных предложений!",
+    instagram_btn: "📷 Instagram",
+    tiktok_btn: "🎵 TikTok",
+    whatsapp_btn: "💬 WhatsApp",
+    viber_btn: "📞 Viber",
+    telegram_btn: "✈️ Telegram",
     mens_title: "Мужское",
     womens_title: "Женское",
     mens_tshirts_btn: "Футболки",
@@ -1141,6 +1349,20 @@ const translations = {
     womens_btn: "Women's",
     terms_btn: "Terms of Service", 
     support_btn: "Support",
+    social_btn: "Follow Us",
+    news1_title: "New Spring-Summer 2025 Collection",
+    news1_text: "Exclusive models from leading brands are now available. Limited series!",
+    news2_title: "Up to 30% off accessories",
+    news2_text: "Special offer on all accessories. Promotion valid until the end of the month.",
+    news3_title: "Fast delivery across Europe",
+    news3_text: "We now deliver orders even faster - from 5 to 10 business days.",
+    social_title: "Follow Us",
+    social_text: "Follow our social networks to stay updated on all new arrivals and special offers!",
+    instagram_btn: "📷 Instagram",
+    tiktok_btn: "🎵 TikTok",
+    whatsapp_btn: "💬 WhatsApp",
+    viber_btn: "📞 Viber",
+    telegram_btn: "✈️ Telegram",
     mens_title: "Men's",
     womens_title: "Women's",
     mens_tshirts_btn: "T-Shirts",
@@ -1180,6 +1402,20 @@ const translations = {
     womens_btn: "Жіноче",
     terms_btn: "Умови роботи",
     support_btn: "Підтримка",
+    social_btn: "Ми в соцмережах",
+    news1_title: "Нова колекція весна-літо 2025",
+    news1_text: "Ексклюзивні моделі від провідних брендів вже в наявності. Обмежена серія!",
+    news2_title: "Знижки до 30% на аксесуари",
+    news2_text: "Спеціальна пропозиція на всі аксесуари. Акція діє до кінця місяця.",
+    news3_title: "Швидка доставка по Європі",
+    news3_text: "Тепер доставляємо замовлення ще швидше - від 5 до 10 робочих днів.",
+    social_title: "Ми в соцмережах",
+    social_text: "Підписуйтесь на наші соціальні мережі, щоб бути в курсі всіх новинок та спеціальних пропозицій!",
+    instagram_btn: "📷 Instagram",
+    tiktok_btn: "🎵 TikTok",
+    whatsapp_btn: "💬 WhatsApp",
+    viber_btn: "📞 Viber",
+    telegram_btn: "✈️ Telegram",
     mens_title: "Чоловіче",
     womens_title: "Жіноче",
     mens_tshirts_btn: "Футболки",
@@ -1219,6 +1455,20 @@ const translations = {
     womens_btn: "Damen",
     terms_btn: "Nutzungsbedingungen",
     support_btn: "Support",
+    social_btn: "Folgen Sie uns",
+    news1_title: "Neue Frühjahr-Sommer 2025 Kollektion",
+    news1_text: "Exklusive Modelle führender Marken sind jetzt verfügbar. Limitierte Serie!",
+    news2_title: "Bis zu 30% Rabatt auf Accessoires",
+    news2_text: "Sonderangebot für alle Accessoires. Aktion gültig bis Ende des Monats.",
+    news3_title: "Schnelle Lieferung in ganz Europa",
+    news3_text: "Wir liefern Bestellungen jetzt noch schneller - von 5 bis 10 Werktagen.",
+    social_title: "Folgen Sie uns",
+    social_text: "Folgen Sie unseren sozialen Netzwerken, um über alle Neuheiten und Sonderangebote informiert zu bleiben!",
+    instagram_btn: "📷 Instagram",
+    tiktok_btn: "🎵 TikTok",
+    whatsapp_btn: "💬 WhatsApp",
+    viber_btn: "📞 Viber",
+    telegram_btn: "✈️ Telegram",
     mens_title: "Herren",
     womens_title: "Damen",
     mens_tshirts_btn: "T-Shirts",
@@ -1241,214 +1491,291 @@ const translations = {
     terms_title: "Nutzungsbedingungen",
     terms_content: `
       <p><strong>Willkommen bei The Continental!</strong></p>
-      <p>Wir bieten ausschließlich Premium-Repliken höchster Qualität an. Jeder Artikel wird vor dem Versand einer strengen Qualitätskontrolle unterzogen.</p>
+      <p>Wir bieten nur Premium-Replikas höchster Qualität. Jeder Artikel durchläuft eine strenge Qualitätskontrolle vor dem Versand.</p>
       <p><strong>Bestellbedingungen:</strong></p>
-      <p>• Zahlung — 100% Vorkasse<br>
+      <p>• Zahlung — 100% Vorauszahlung<br>
       • Lieferung innerhalb Europas — 7-14 Werktage<br>
-      • Keine Rückgabe oder Umtausch<br>
+      • Keine Rücksendungen oder Umtausch<br>
       • Qualitätsgarantie für alle Artikel</p>
-      <p>Wir arbeiten nur mit vertrauenswürdigen Lieferanten zusammen und garantieren, dass das Produkt der Beschreibung entspricht.</p>
+      <p>Wir arbeiten nur mit vertrauenswürdigen Lieferanten und garantieren, dass das Produkt der Beschreibung entspricht.</p>
     `,
     support_title: "Support",
-    support_text: "Unsere Manager stehen Ihnen jederzeit zur Verfügung, um Ihre Fragen zu beantworten und Ihnen bei der Produktauswahl zu helfen. Wir sind 24/7 für Sie da.",
+    support_text: "Unsere Manager sind bereit, alle Ihre Fragen zu beantworten und Ihnen bei der Produktauswahl zu helfen. Wir arbeiten 24/7 für Ihre Bequemlichkeit.",
     contact_manager_btn: "MANAGER KONTAKTIEREN"
   }
 };
 
-// Функция для применения переводов
-function applyTranslations(lang) {
-  const elements = document.querySelectorAll('[data-key]');
-  elements.forEach(el => {
-    const key = el.dataset.key;
-    if (translations[lang] && translations[lang][key]) {
-      if (key.includes('_content')) {
-        el.innerHTML = translations[lang][key];
-      } else {
-        el.textContent = translations[lang][key];
-      }
-    }
+// Функции для работы с новостями
+function initNewsCarousel() {
+  startNewsAutoSlide();
+}
+
+function goToSlide(slideIndex) {
+  currentSlide = slideIndex;
+  updateNewsSlide();
+  resetNewsAutoSlide();
+}
+
+function updateNewsSlide() {
+  const slides = document.getElementById('news-slides');
+  const indicators = document.querySelectorAll('.news-indicator');
+  
+  slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+  
+  indicators.forEach((indicator, index) => {
+    indicator.classList.toggle('active', index === currentSlide);
   });
 }
 
-// Переключение фильтров
-function toggleFilters() {
-  const dropdown = document.getElementById('filters-dropdown');
-  dropdown.classList.toggle('show');
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % 3;
+  updateNewsSlide();
 }
 
-// Переключение темы
-function toggleTheme() {
-  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.body.setAttribute('data-theme', currentTheme);
-  document.getElementById('theme-toggle').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+function startNewsAutoSlide() {
+  newsInterval = setInterval(nextSlide, 4000); // Меняем слайд каждые 4 секунды
+}
+
+function resetNewsAutoSlide() {
+  clearInterval(newsInterval);
+  startNewsAutoSlide();
+}
+
+// Функция для открытия социальных ссылок
+function openSocialLink(url) {
+  if (tg && tg.openLink) {
+    tg.openLink(url);
+  } else {
+    window.open(url, '_blank');
+  }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  initLanguage();
+  initTheme();
+  initFilters();
+  initCart();
+  initNewsCarousel();
   
-  // Уведомляем Telegram о смене темы
-  if (tg && currentTheme === 'light') {
-    tg.setHeaderColor && tg.setHeaderColor('#000000');
-  } else if (tg) {
-    tg.setHeaderColor && tg.setHeaderColor('#ffffff');
+  // Загружаем товары для первой категории
+  if (products['mens-tshirts']) {
+    loadProducts('mens-tshirts');
   }
-}
+});
 
-// Функция для открытия нового экрана
-function openScreen(id) {
-  const currentScreen = document.querySelector('.screen.active');
-  const target = document.getElementById(id);
-
-  if (currentScreen) {
-    currentScreen.classList.remove('active');
+// Функция смены языка
+function changeLanguage(lang) {
+  const elements = document.querySelectorAll('[data-key]');
+  elements.forEach(element => {
+    const key = element.getAttribute('data-key');
+    if (translations[lang] && translations[lang][key]) {
+      if (element.innerHTML.includes('<')) {
+        element.innerHTML = translations[lang][key];
+      } else {
+        element.textContent = translations[lang][key];
+      }
+    }
+  });
+  
+  // Обновляем placeholder для поиска
+  const searchInput = document.getElementById('search-input');
+  const placeholders = {
+    ru: 'Поиск...',
+    en: 'Search...',
+    uk: 'Пошук...',
+    de: 'Suchen...'
+  };
+  if (searchInput && placeholders[lang]) {
+    searchInput.placeholder = placeholders[lang];
   }
-
-  if (target) {
-    target.classList.add('active');
-    
-    // Загружаем товары если это каталог
-    if (id.includes('-') && products[id]) {
-      currentCategory = id;
-      applyFilters();
+  
+  // Обновляем текст кнопки фильтров
+  const filtersButton = document.getElementById('filters-button');
+  const filterTexts = {
+    ru: 'ФИЛЬТР',
+    en: 'FILTER',
+    uk: 'ФІЛЬТР',
+    de: 'FILTER'
+  };
+  if (filtersButton && filterTexts[lang]) {
+    const dropdown = filtersButton.querySelector('.filters-dropdown');
+    filtersButton.innerHTML = filterTexts[lang];
+    if (dropdown) {
+      filtersButton.appendChild(dropdown);
     }
   }
 }
 
-// Функция для возврата на главную
+// Инициализация языка
+function initLanguage() {
+  const languageSelect = document.getElementById('language-select');
+  languageSelect.addEventListener('change', function() {
+    changeLanguage(this.value);
+  });
+  
+  // Устанавливаем язык по умолчанию
+  changeLanguage('ru');
+}
+
+// Функция смены темы
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', currentTheme);
+  
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+}
+
+// Инициализация темы
+function initTheme() {
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', toggleTheme);
+}
+
+// Функции навигации
+function openScreen(screenId) {
+  // Скрываем все экраны
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  
+  // Показываем нужный экран
+  const targetScreen = document.getElementById(screenId);
+  if (targetScreen) {
+    targetScreen.classList.add('active');
+    
+    // Загружаем товары для категорий
+    if (products[screenId]) {
+      loadProducts(screenId);
+    }
+  }
+}
+
 function backToHome() {
   openScreen('home');
 }
 
-// Применение фильтров
+// Функции для работы с товарами
+function loadProducts(category) {
+  currentCategory = category;
+  currentPage = 1;
+  applyFilters();
+}
+
 function applyFilters() {
-  if (!currentCategory || !products[currentCategory]) return;
-  
-  const searchTerm = document.getElementById('search-input').value.toLowerCase();
   const priceFilter = document.getElementById('price-filter').value;
   const sizeFilter = document.getElementById('size-filter').value;
   const brandFilter = document.getElementById('brand-filter').value;
+  const searchQuery = document.getElementById('search-input').value.toLowerCase();
   
-  filteredProducts = products[currentCategory].filter(product => {
-    // Поиск по названию
-    if (searchTerm && !product.name.toLowerCase().includes(searchTerm)) {
-      return false;
-    }
-    
-    // Фильтр по цене
-    if (priceFilter) {
-      const price = product.price;
-      switch (priceFilter) {
-        case '0-30':
-          if (price < 0 || price > 30) return false;
-          break;
-        case '30-60':
-          if (price < 30 || price > 60) return false;
-          break;
-        case '60-100':
-          if (price < 60 || price > 100) return false;
-          break;
-        case '100+':
-          if (price < 100) return false;
-          break;
-      }
-    }
-    
-    // Фильтр по размеру
-    if (sizeFilter && !product.sizes.includes(sizeFilter)) {
-      return false;
-    }
-    
-    // Фильтр по бренду
-    if (brandFilter && product.brand !== brandFilter) {
-      return false;
-    }
-    
-    return true;
-  });
+  let filtered = products[currentCategory] || [];
   
-  loadProducts(currentCategory, 1);
+  // Фильтр по цене
+  if (priceFilter) {
+    if (priceFilter === '100+') {
+      filtered = filtered.filter(p => p.price >= 100);
+    } else {
+      const [min, max] = priceFilter.split('-').map(Number);
+      filtered = filtered.filter(p => p.price >= min && p.price <= max);
+    }
+  }
+  
+  // Фильтр по размеру
+  if (sizeFilter) {
+    filtered = filtered.filter(p => p.sizes.includes(sizeFilter));
+  }
+  
+  // Фильтр по бренду
+  if (brandFilter) {
+    filtered = filtered.filter(p => p.brand === brandFilter);
+  }
+  
+  // Поиск
+  if (searchQuery) {
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(searchQuery) ||
+      p.description.toLowerCase().includes(searchQuery)
+    );
+  }
+  
+  filteredProducts = filtered;
+  renderProducts();
+  renderPagination();
 }
 
-// Загрузка товаров с пагинацией
-function loadProducts(category, page = 1) {
-  const container = document.getElementById(`${category}-content`);
-  const paginationContainer = document.getElementById(`${category}-pagination`);
-  
+function renderProducts() {
+  const container = document.getElementById(`${currentCategory}-content`);
   if (!container) return;
   
-  const items = filteredProducts.length > 0 ? filteredProducts : (products[category] || []);
-  const startIndex = (page - 1) * itemsPerPage;
+  const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const pageItems = items.slice(startIndex, endIndex);
+  const pageProducts = filteredProducts.slice(startIndex, endIndex);
   
-  // Очищаем контейнер
-  container.innerHTML = '';
-  
-  if (pageItems.length === 0) {
+  if (pageProducts.length === 0) {
     container.innerHTML = '<div class="empty-state">Товары не найдены</div>';
-    if (paginationContainer) paginationContainer.innerHTML = '';
     return;
   }
   
-  // Добавляем товары
-  pageItems.forEach(product => {
-    const productElement = document.createElement('div');
-    productElement.className = 'product';
-    productElement.innerHTML = `
-      <div class="product-image">Фото товара</div>
+  container.innerHTML = pageProducts.map(product => `
+    <div class="product" onclick="selectProduct(${product.id}, '${currentCategory}')">
+      <div class="product-image">Изображение товара</div>
       <div class="product-name">${product.name}</div>
       <div class="product-description">${product.description}</div>
       <div class="product-price">€${product.price}</div>
       <div class="product-details">
-        <div>Размеры: ${product.sizes.join(', ')}</div>
-        <div>В наличии: ${product.stock}</div>
+        <span>Бренд: ${product.brand}</span>
+        <span>В наличии: ${product.stock}</span>
       </div>
-      <button class="add-to-cart-btn" onclick="showProductModal(${product.id}, '${category}')">
+      <button class="add-to-cart-btn" onclick="event.stopPropagation(); selectProduct(${product.id}, '${currentCategory}')">
         Добавить в корзину
       </button>
-    `;
-    container.appendChild(productElement);
-  });
-  
-  // Создаем пагинацию
-  createPagination(category, page, Math.ceil(items.length / itemsPerPage));
+    </div>
+  `).join('');
 }
 
-// Создание пагинации
-function createPagination(category, currentPage, totalPages) {
-  const container = document.getElementById(`${category}-pagination`);
-  if (!container || totalPages <= 1) {
-    if (container) container.innerHTML = '';
+function renderPagination() {
+  const container = document.getElementById(`${currentCategory}-pagination`);
+  if (!container) return;
+  
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  
+  if (totalPages <= 1) {
+    container.innerHTML = '';
     return;
   }
   
-  container.innerHTML = '';
+  let paginationHTML = '';
   
   // Кнопка "Назад"
-  const prevBtn = document.createElement('button');
-  prevBtn.textContent = '←';
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.onclick = () => loadProducts(category, currentPage - 1);
-  container.appendChild(prevBtn);
+  paginationHTML += `<button ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">‹</button>`;
   
-  // Номера страниц (показываем максимум 5 страниц)
-  const startPage = Math.max(1, currentPage - 2);
-  const endPage = Math.min(totalPages, startPage + 4);
-  
-  for (let i = startPage; i <= endPage; i++) {
-    const pageBtn = document.createElement('button');
-    pageBtn.textContent = i;
-    pageBtn.className = i === currentPage ? 'active' : '';
-    pageBtn.onclick = () => loadProducts(category, i);
-    container.appendChild(pageBtn);
+  // Номера страниц
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+      paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+    } else if (i === currentPage - 2 || i === currentPage + 2) {
+      paginationHTML += '<span>...</span>';
+    }
   }
   
   // Кнопка "Вперед"
-  const nextBtn = document.createElement('button');
-  nextBtn.textContent = '→';
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.onclick = () => loadProducts(category, currentPage + 1);
-  container.appendChild(nextBtn);
+  paginationHTML += `<button ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">›</button>`;
+  
+  container.innerHTML = paginationHTML;
 }
 
-// Показать модальное окно выбора товара
-function showProductModal(productId, category) {
+function changePage(page) {
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  if (page >= 1 && page <= totalPages) {
+    currentPage = page;
+    renderProducts();
+    renderPagination();
+  }
+}
+
+// Функции для работы с корзиной
+function selectProduct(productId, category) {
   const product = products[category].find(p => p.id === productId);
   if (!product) return;
   
@@ -1458,239 +1785,148 @@ function showProductModal(productId, category) {
   document.getElementById('modal-title').textContent = product.name;
   
   const sizeSelect = document.getElementById('modal-size');
-  sizeSelect.innerHTML = '';
-  product.sizes.forEach(size => {
-    const option = document.createElement('option');
-    option.value = size;
-    option.textContent = size;
-    sizeSelect.appendChild(option);
-  });
+  sizeSelect.innerHTML = product.sizes.map(size => 
+    `<option value="${size}">${size}</option>`
+  ).join('');
   
   document.getElementById('modal-quantity').value = 1;
-  document.getElementById('modal-quantity').max = product.stock;
   
   // Показываем модальное окно
   document.getElementById('product-modal').classList.add('show');
 }
 
-// Закрыть модальное окно
 function closeModal() {
   document.getElementById('product-modal').classList.remove('show');
   selectedProduct = null;
 }
 
-// Подтвердить добавление в корзину
 function confirmAddToCart() {
   if (!selectedProduct) return;
   
   const size = document.getElementById('modal-size').value;
   const quantity = parseInt(document.getElementById('modal-quantity').value);
   
-  if (!size || quantity < 1 || quantity > selectedProduct.stock) {
-    alert('Проверьте выбранные параметры');
-    return;
-  }
-  
-  // Добавляем в корзину
   const cartItem = {
-    ...selectedProduct,
-    selectedSize: size,
+    id: Date.now(),
+    productId: selectedProduct.id,
+    category: selectedProduct.category,
+    name: selectedProduct.name,
+    price: selectedProduct.price,
+    size: size,
     quantity: quantity,
-    cartId: Date.now()
+    total: selectedProduct.price * quantity
   };
   
   cart.push(cartItem);
   updateCartDisplay();
   closeModal();
   
+  // Показываем уведомление (можно добавить)
   if (tg && tg.showAlert) {
     tg.showAlert('Товар добавлен в корзину!');
-  } else {
-    alert('Товар добавлен в корзину!');
   }
 }
 
-// Обновление отображения корзины
 function updateCartDisplay() {
   const cartCount = document.getElementById('cart-count');
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  
+  if (totalItems > 0) {
+    cartCount.textContent = totalItems;
+    cartCount.style.display = 'flex';
+  } else {
+    cartCount.style.display = 'none';
+  }
+  
+  renderCart();
+}
+
+function renderCart() {
   const cartContent = document.getElementById('cart-content');
   const cartTotal = document.getElementById('cart-total');
-  const totalPrice = document.getElementById('total-price');
   
   if (cart.length === 0) {
-    cartCount.style.display = 'none';
     cartContent.innerHTML = '<div class="empty-state">Корзина пуста</div>';
     cartTotal.style.display = 'none';
-  } else {
-    cartCount.style.display = 'flex';
-    cartCount.textContent = cart.length;
-    
-    // Отображаем товары в корзине
-    cartContent.innerHTML = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-      total += item.price * item.quantity;
-      
-      const cartItemElement = document.createElement('div');
-      cartItemElement.className = 'cart-item';
-      cartItemElement.innerHTML = `
-        <div class="product-name">${item.name}</div>
-        <div class="product-description">Размер: ${item.selectedSize}</div>
-        <div class="product-price">€${item.price} x ${item.quantity} = €${(item.price * item.quantity).toFixed(2)}</div>
-        <button class="add-to-cart-btn" style="background: #dc3545; margin-top: 8px;" onclick="removeFromCart(${item.cartId})">
-          Удалить
-        </button>
-      `;
-      cartContent.appendChild(cartItemElement);
-    });
-    
-    totalPrice.textContent = `€${total.toFixed(2)}`;
-    cartTotal.style.display = 'block';
-  }
-}
-
-// Удаление товара из корзины
-function removeFromCart(cartId) {
-  cart = cart.filter(item => item.cartId !== cartId);
-  updateCartDisplay();
-  
-  if (tg && tg.showAlert) {
-    tg.showAlert('Товар удален из корзины');
-  } else {
-    alert('Товар удален из корзины');
-  }
-}
-
-// Оформление заказа - ИСПРАВЛЕННАЯ ЛОГИКА ОТПРАВКИ
-function checkout() {
-  if (cart.length === 0) {
-    if (tg && tg.showAlert) {
-      tg.showAlert('Корзина пуста');
-    } else {
-      alert('Корзина пуста');
-    }
     return;
   }
   
-  const currentLang = document.getElementById('language-select').value;
-  const now = new Date();
-  const date = now.toLocaleDateString('ru-RU');
-  const time = now.toLocaleTimeString('ru-RU');
+  cartContent.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+        <div style="flex: 1;">
+          <div style="font-weight: 600; margin-bottom: 4px;">${item.name}</div>
+          <div style="font-size: 12px; color: #999;">Размер: ${item.size} | Количество: ${item.quantity}</div>
+        </div>
+        <button onclick="removeFromCart(${item.id})" style="background: #ff4444; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; cursor: pointer;">×</button>
+      </div>
+      <div style="font-weight: 600;">€${item.total.toFixed(2)}</div>
+    </div>
+  `).join('');
   
-  let message = `*Новый заказ из The Continental*\n\n`;
-  message += `📅 Дата: ${date}, ${time}\n`;
-  message += `🌐 Язык: ${currentLang.toUpperCase()}\n`;
-  message += `📊 Всего позиций: ${cart.length}\n\n`;
-  message += `📦 *Детали заказа:*\n\n`;
-  
-  // Группируем товары по типам
-  const groupedItems = {};
-  cart.forEach(item => {
-    const category = item.name.includes('футболка') || item.name.includes('футболки') ? 'Футболки' : 
-                    item.name.includes('шорты') ? 'Шорты' :
-                    item.name.includes('штаны') ? 'Штаны' : 'Аксессуары';
-    if (!groupedItems[category]) {
-      groupedItems[category] = [];
-    }
-    groupedItems[category].push(item);
-  });
-  
-  let itemNumber = 1;
-  Object.keys(groupedItems).forEach(category => {
-    message += `👕 ${category}:\n`;
-    groupedItems[category].forEach(item => {
-      message += `  ${itemNumber}. ${item.name}\n`;
-      message += `     Размер: ${item.selectedSize}\n`;
-      message += `     Цена: €${item.price}\n\n`;
-      itemNumber++;
-    });
-  });
-  
-  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  message += `💰 *Общая сумма: €${total.toFixed(2)}*`;
-  
-  // ИСПРАВЛЕННАЯ ОТПРАВКА - прямое перенаправление в личные сообщения
-  const encodedMessage = encodeURIComponent(message);
-  const telegramUrl = `https://t.me/a6tribunal?text=${encodedMessage}`;
-  
-  // Открываем Telegram с сообщением менеджеру
-  window.open(telegramUrl, '_blank');
-  
-  // Очищаем корзину после оформления
-  cart = [];
+  const totalPrice = cart.reduce((sum, item) => sum + item.total, 0);
+  document.getElementById('total-price').textContent = `€${totalPrice.toFixed(2)}`;
+  cartTotal.style.display = 'block';
+}
+
+function removeFromCart(itemId) {
+  cart = cart.filter(item => item.id !== itemId);
   updateCartDisplay();
+}
+
+function checkout() {
+  if (cart.length === 0) return;
   
+  // Здесь можно добавить логику оформления заказа
   if (tg && tg.showAlert) {
-    tg.showAlert('Заказ отправлен менеджеру @a6tribunal!');
+    tg.showAlert('Функция оформления заказа будет добавлена позже');
   } else {
-    alert('Заказ отправлен менеджеру @a6tribunal!');
+    alert('Функция оформления заказа будет добавлена позже');
   }
 }
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-  // Обработчик изменения языка
-  document.getElementById('language-select').addEventListener('change', function() {
-    applyTranslations(this.value);
-  });
-  
-  // Обработчик кнопки фильтров - исправлен
+// Инициализация корзины
+function initCart() {
+  const cartButton = document.getElementById('cart-button');
+  cartButton.addEventListener('click', () => openScreen('cart'));
+}
+
+// Инициализация фильтров
+function initFilters() {
   const filtersButton = document.getElementById('filters-button');
+  const filtersDropdown = document.getElementById('filters-dropdown');
+  
   filtersButton.addEventListener('click', function(e) {
-    e.preventDefault();
     e.stopPropagation();
-    toggleFilters();
+    filtersDropdown.classList.toggle('show');
   });
   
-  // Обработчик переключения темы
-  document.getElementById('theme-toggle').addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleTheme();
+  // Закрытие при клике вне меню
+  document.addEventListener('click', function() {
+    filtersDropdown.classList.remove('show');
   });
   
-  // Обработчик корзины
-  document.getElementById('cart-button').addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    openScreen('cart');
-  });
-  
-  // Закрытие фильтров при клике вне их
-  document.addEventListener('click', function(e) {
-    const filtersButton = document.getElementById('filters-button');
-    const dropdown = document.getElementById('filters-dropdown');
-    
-    if (!filtersButton.contains(e.target)) {
-      dropdown.classList.remove('show');
-    }
-  });
-  
-  // Предотвращение закрытия при клике внутри выпадающего меню
-  document.getElementById('filters-dropdown').addEventListener('click', function(e) {
+  // Предотвращаем закрытие при клике внутри меню
+  filtersDropdown.addEventListener('click', function(e) {
     e.stopPropagation();
   });
   
-  // Обработчики фильтров
-  document.getElementById('search-input').addEventListener('input', applyFilters);
+  // Обработчики изменения фильтров
   document.getElementById('price-filter').addEventListener('change', applyFilters);
   document.getElementById('size-filter').addEventListener('change', applyFilters);
   document.getElementById('brand-filter').addEventListener('change', applyFilters);
-  
-  // Инициализация корзины
-  updateCartDisplay();
-  
-  // Применяем начальные переводы
-  applyTranslations('ru');
-  
-  // Настройка Telegram Web App
-  if (tg) {
-    tg.ready && tg.ready();
-    tg.MainButton && tg.MainButton.setText('Оформить заказ');
-    tg.MainButton && tg.MainButton.hide();
+  document.getElementById('search-input').addEventListener('input', applyFilters);
+}
+
+// Закрытие модального окна при клике вне его
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('product-modal');
+  if (e.target === modal) {
+    closeModal();
   }
 });
 </script>
 </body>
 </html>
+
+
