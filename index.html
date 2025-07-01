@@ -40,31 +40,31 @@
     }
 
     .top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: rgba(0, 0, 0, 0.7); /* или #111, можно с прозрачностью */
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  z-index: 1000;
-  box-shadow: none; /* Убираем тень */
-  border-bottom: none; /* Убираем границу */
-  gap: 8px;
-  backdrop-filter: blur(10px); /* Можно оставить */
-  transition: background 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      z-index: 1000;
+      box-shadow: none;
+      border-bottom: none;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+      transition: background 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
+    }
 
     body[data-theme="light"] .top-bar {
-  background: #ffffff;       /* светлый фон */
-  color: #000000;            /* чёрный текст */
-  border-bottom: none;
-  box-shadow: none;
-  transition: background 0.3s ease, color 0.3s ease;
-}
+      background: #ffffff;
+      color: #000000;
+      border-bottom: none;
+      box-shadow: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
 
     .language-select {
       background: rgba(128, 128, 128, 0.15);
@@ -109,7 +109,7 @@
       color: rgba(128, 128, 128, 0.7);
     }
 
-    /* Кнопка фильтров с исправленной кликабельностью */
+    /* Кнопка фильтров */
     .filters-button {
       background: rgba(128, 128, 128, 0.15);
       border: 1px solid rgba(128, 128, 128, 0.4);
@@ -135,7 +135,7 @@
       background: rgba(128, 128, 128, 0.3);
     }
 
-    /* Выпадающее меню фильтров с исправленным z-index */
+    /* Выпадающее меню фильтров */
     .filters-dropdown {
       position: absolute;
       top: calc(100% + 5px);
@@ -144,12 +144,15 @@
       color: #000000;
       border: 1px solid rgba(128, 128, 128, 0.4);
       border-radius: 8px;
-      padding: 10px;
+      padding: 15px;
       display: none;
       z-index: 1002;
-      min-width: 160px;
+      min-width: 280px;
+      max-width: 320px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
       backdrop-filter: blur(10px);
+      max-height: 400px;
+      overflow-y: auto;
     }
 
     body[data-theme="light"] .filters-dropdown {
@@ -174,7 +177,7 @@
     }
 
     .filter-group {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .filter-group:last-child {
@@ -182,22 +185,52 @@
     }
 
     .filter-label {
-      font-size: 10px;
+      font-size: 12px;
       color: inherit;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
       display: block;
       font-weight: 600;
     }
 
-    .filter-select {
+    .filter-input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .filter-input {
       background: rgba(128, 128, 128, 0.1);
       border: 1px solid rgba(128, 128, 128, 0.3);
       border-radius: 4px;
-      padding: 4px 6px;
+      padding: 6px 8px;
       color: inherit;
-      font-size: 10px;
-      width: 100%;
-      cursor: pointer;
+      font-size: 11px;
+      flex: 1;
+    }
+
+    .filter-checkbox-group {
+      max-height: 120px;
+      overflow-y: auto;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      border-radius: 4px;
+      padding: 8px;
+    }
+
+    .filter-checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 11px;
+    }
+
+    .filter-checkbox:last-child {
+      margin-bottom: 0;
+    }
+
+    .filter-checkbox input[type="checkbox"] {
+      margin-right: 6px;
+      width: 14px;
+      height: 14px;
     }
 
     .top-bar-right {
@@ -269,7 +302,7 @@
       font-size: 32px;
       font-weight: 700;
       text-align: center;
-      margin: 20px 0 20px; /* Уменьшили отступ снизу */
+      margin: 20px 0 20px;
       background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -305,17 +338,6 @@
     .news-section {
       margin: 20px 0 30px;
       text-align: center;
-    }
-
-    .news-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #ffffff;
-    }
-
-    body[data-theme="light"] .news-title {
-      color: #000000;
     }
 
     .news-carousel {
@@ -389,10 +411,10 @@
       transform: scale(1.2);
     }
 
-    /* Основные кнопки - ИСПРАВЛЕНЫ ЦВЕТА */
+    /* Основные кнопки */
     .btn {
-      background: #ffffff !important; /* Белые кнопки в темной теме */
-      color: #000000 !important; /* Черный текст на белых кнопках */
+      background: #ffffff !important;
+      color: #000000 !important;
       padding: 14px 20px;
       margin: 8px 0;
       border: none;
@@ -406,10 +428,9 @@
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Черные кнопки в светлой теме */
     body[data-theme="light"] .btn {
-      background: #000000 !important; /* Черные кнопки в светлой теме */
-      color: #ffffff !important; /* Белый текст на черных кнопках */
+      background: #000000 !important;
+      color: #ffffff !important;
     }
 
     .btn:active {
@@ -615,9 +636,11 @@
       border: 1px solid rgba(128, 128, 128, 0.3);
       border-radius: 15px;
       padding: 25px;
-      max-width: 320px;
+      max-width: 400px;
       width: 100%;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     body[data-theme="light"] .modal-content {
@@ -664,6 +687,48 @@
 
     body[data-theme="light"] .modal-select,
     body[data-theme="light"] .modal-input {
+      background: #f5f5f5;
+      color: #000000;
+    }
+
+    .modal-image-gallery {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+
+    .modal-image {
+      min-width: 80px;
+      height: 80px;
+      background: #333;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .modal-image.active {
+      border-color: #007bff;
+    }
+
+    .modal-description {
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #ffffff;
+    }
+
+    body[data-theme="light"] .modal-description {
       background: #f5f5f5;
       color: #000000;
     }
@@ -897,6 +962,11 @@
       .news-slide p {
         font-size: 11px;
       }
+
+      .filters-dropdown {
+        min-width: 250px;
+        max-width: 280px;
+      }
     }
 </style>
 </head>
@@ -920,39 +990,7 @@
   <div class="filters-button" id="filters-button">
     ФИЛЬТР
     <div class="filters-dropdown" id="filters-dropdown">
-      <div class="filter-group">
-        <label class="filter-label">Цена</label>
-        <select class="filter-select" id="price-filter">
-          <option value="">Все</option>
-          <option value="0-30">€0-30</option>
-          <option value="30-60">€30-60</option>
-          <option value="60-100">€60-100</option>
-          <option value="100+">€100+</option>
-        </select>
-      </div>
-      
-      <div class="filter-group">
-        <label class="filter-label">Размер</label>
-        <select class="filter-select" id="size-filter">
-          <option value="">Все</option>
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-        </select>
-      </div>
-      
-      <div class="filter-group">
-        <label class="filter-label">Бренд</label>
-        <select class="filter-select" id="brand-filter">
-          <option value="">Все</option>
-          <option value="Nike">Nike</option>
-          <option value="Adidas">Adidas</option>
-          <option value="Jordan">Jordan</option>
-          <option value="Premium">Premium</option>
-        </select>
-      </div>
+      <!-- Фильтры будут динамически загружены -->
     </div>
   </div>
 
@@ -973,21 +1011,44 @@
   <div class="modal-content">
     <div class="modal-title" id="modal-title">Выберите опции</div>
     
+    <!-- Галерея изображений -->
     <div class="modal-group">
-      <label class="modal-label">Размер</label>
+      <label class="modal-label" data-key="modal_images_label">Изображения</label>
+      <div class="modal-image-gallery" id="modal-image-gallery">
+        <!-- Изображения будут добавлены динамически -->
+      </div>
+    </div>
+
+    <!-- Описание товара -->
+    <div class="modal-group">
+      <label class="modal-label" data-key="modal_description_label">Описание</label>
+      <div class="modal-description" id="modal-description">
+        <!-- Описание будет добавлено динамически -->
+      </div>
+    </div>
+    
+    <div class="modal-group">
+      <label class="modal-label" data-key="modal_size_label">Размер</label>
       <select class="modal-select" id="modal-size">
+        <!-- Опции будут добавлены динамически -->
+      </select>
+    </div>
+
+    <div class="modal-group">
+      <label class="modal-label" data-key="modal_color_label">Цвет</label>
+      <select class="modal-select" id="modal-color">
         <!-- Опции будут добавлены динамически -->
       </select>
     </div>
     
     <div class="modal-group">
-      <label class="modal-label">Количество</label>
+      <label class="modal-label" data-key="modal_quantity_label">Количество</label>
       <input type="number" class="modal-input" id="modal-quantity" min="1" value="1">
     </div>
     
     <div class="modal-buttons">
-      <button class="modal-btn secondary" onclick="closeModal()">Отмена</button>
-      <button class="modal-btn primary" onclick="confirmAddToCart()">Добавить</button>
+      <button class="modal-btn secondary" onclick="closeModal()" data-key="modal_cancel_btn">Отмена</button>
+      <button class="modal-btn primary" onclick="confirmAddToCart()" data-key="modal_add_btn">Добавить</button>
     </div>
   </div>
 </div>
@@ -1035,10 +1096,12 @@
       <button class="back" onclick="backToHome()">←</button>
       <h1 data-key="mens_title">Мужское</h1>
     </div>
-    <button class="btn" data-key="mens_tshirts_btn" onclick="openScreen('mens-tshirts')">Футболки</button>
-    <button class="btn" data-key="mens_shorts_btn" onclick="openScreen('mens-shorts')">Шорты</button>
-    <button class="btn" data-key="mens_pants_btn" onclick="openScreen('mens-pants')">Штаны</button>
-    <button class="btn" data-key="mens_accessories_btn" onclick="openScreen('mens-accessories')">Аксессуары</button>
+    <div id="mens-content">
+      <!-- Товары будут загружены через JavaScript -->
+    </div>
+    <div class="pagination" id="mens-pagination">
+      <!-- Пагинация будет загружена через JavaScript -->
+    </div>
   </div>
 
   <!-- Женская одежда -->
@@ -1047,10 +1110,12 @@
       <button class="back" onclick="backToHome()">←</button>
       <h1 data-key="womens_title">Женское</h1>
     </div>
-    <button class="btn" data-key="womens_tshirts_btn" onclick="openScreen('womens-tshirts')">Футболки</button>
-    <button class="btn" data-key="womens_shorts_btn" onclick="openScreen('womens-shorts')">Шорты</button>
-    <button class="btn" data-key="womens_pants_btn" onclick="openScreen('womens-pants')">Штаны</button>
-    <button class="btn" data-key="womens_accessories_btn" onclick="openScreen('womens-accessories')">Аксессуары</button>
+    <div id="womens-content">
+      <!-- Товары будут загружены через JavaScript -->
+    </div>
+    <div class="pagination" id="womens-pagination">
+      <!-- Пагинация будет загружена через JavaScript -->
+    </div>
   </div>
 
   <!-- Социальные сети -->
@@ -1079,120 +1144,6 @@
     </button>
   </div>
 
-
-
-  <!-- Мужские футболки -->
-  <div class="screen" id="mens-tshirts">
-    <div class="header">
-      <button class="back" onclick="openScreen('mens')">←</button>
-      <h1 data-key="mens_tshirts_title">Мужские футболки</h1>
-    </div>
-    <div id="mens-tshirts-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="mens-tshirts-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Мужские шорты -->
-  <div class="screen" id="mens-shorts">
-    <div class="header">
-      <button class="back" onclick="openScreen('mens')">←</button>
-      <h1 data-key="mens_shorts_title">Мужские шорты</h1>
-    </div>
-    <div id="mens-shorts-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="mens-shorts-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Мужские штаны -->
-  <div class="screen" id="mens-pants">
-    <div class="header">
-      <button class="back" onclick="openScreen('mens')">←</button>
-      <h1 data-key="mens_pants_title">Мужские штаны</h1>
-    </div>
-    <div id="mens-pants-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="mens-pants-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Мужские аксессуары -->
-  <div class="screen" id="mens-accessories">
-    <div class="header">
-      <button class="back" onclick="openScreen('mens')">←</button>
-      <h1 data-key="mens_accessories_title">Мужские аксессуары</h1>
-    </div>
-    <div id="mens-accessories-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="mens-accessories-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Женские футболки -->
-  <div class="screen" id="womens-tshirts">
-    <div class="header">
-      <button class="back" onclick="openScreen('womens')">←</button>
-      <h1 data-key="womens_tshirts_title">Женские футболки</h1>
-    </div>
-    <div id="womens-tshirts-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="womens-tshirts-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Женские шорты -->
-  <div class="screen" id="womens-shorts">
-    <div class="header">
-      <button class="back" onclick="openScreen('womens')">←</button>
-      <h1 data-key="womens_shorts_title">Женские шорты</h1>
-    </div>
-    <div id="womens-shorts-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="womens-shorts-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Женские штаны -->
-  <div class="screen" id="womens-pants">
-    <div class="header">
-      <button class="back" onclick="openScreen('womens')">←</button>
-      <h1 data-key="womens_pants_title">Женские штаны</h1>
-    </div>
-    <div id="womens-pants-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="womens-pants-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Женские аксессуары -->
-  <div class="screen" id="womens-accessories">
-    <div class="header">
-      <button class="back" onclick="openScreen('womens')">←</button>
-      <h1 data-key="womens_accessories_title">Женские аксессуары</h1>
-    </div>
-    <div id="womens-accessories-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="womens-accessories-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
   <!-- Корзина -->
   <div class="screen" id="cart">
     <div class="header">
@@ -1200,14 +1151,14 @@
       <h1 data-key="cart_title">Корзина</h1>
     </div>
     <div id="cart-content">
-      <div class="empty-state">Корзина пуста</div>
+      <div class="empty-state" data-key="cart_empty">Корзина пуста</div>
     </div>
     <div id="cart-total" style="display: none;" class="cart-total">
       <div class="total-row">
-        <span>Итого:</span>
+        <span data-key="cart_total_label">Итого:</span>
         <span id="total-price">€0.00</span>
       </div>
-      <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
+      <button class="checkout-btn" onclick="checkout()" data-key="checkout_btn">Оформить заказ</button>
     </div>
   </div>
 
@@ -1242,54 +1193,225 @@
   </div>
 </div>
 
+
+
 <script>
-// Инициализация Telegram Web App
-let tg = window.Telegram?.WebApp;
-if (tg) {
-  tg.expand();
-}
-
 // Глобальные переменные
+let currentLanguage = 'ru';
 let currentTheme = 'dark';
-let cart = [];
+let currentScreen = 'home';
+let currentGender = '';
 let currentPage = 1;
-let itemsPerPage = 5;
-let currentCategory = '';
-let filteredProducts = [];
-let selectedProduct = null;
+let itemsPerPage = 10;
+let cart = [];
 let currentSlide = 0;
-let newsInterval;
+let slideInterval;
+let currentProduct = null;
 
-// Данные товаров (100 товаров для каждой категории)
+// Данные товаров
 const products = {
-  'mens-tshirts': generateProducts('Мужская футболка', 100),
-  'mens-shorts': generateProducts('Мужские шорты', 100),
-  'mens-pants': generateProducts('Мужские штаны', 100),
-  'mens-accessories': generateProducts('Мужской аксессуар', 100),
-  'womens-tshirts': generateProducts('Женская футболка', 100),
-  'womens-shorts': generateProducts('Женские шорты', 100),
-  'womens-pants': generateProducts('Женские штаны', 100),
-  'womens-accessories': generateProducts('Женский аксессуар', 100)
+  mens: [
+    {
+      id: 1,
+      name: "Мужская футболка Premium",
+      description: "Высококачественная мужская футболка из премиальных материалов",
+      price: 50.28,
+      brand: "Jordan",
+      stock: 10,
+      category: "tshirts",
+      subcategory: "tshirt",
+      colors: ["black", "white", "gray"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      images: ["image1.jpg", "image2.jpg"],
+      fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта."
+    },
+    {
+      id: 2,
+      name: "Мужская футболка Sport",
+      description: "Спортивная мужская футболка для активного образа жизни",
+      price: 45.99,
+      brand: "Adidas",
+      stock: 15,
+      category: "tshirts",
+      subcategory: "tshirt",
+      colors: ["blue", "red", "black"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["image3.jpg"],
+      fullDescription: "Спортивная футболка с технологией отвода влаги. Отлично подходит для тренировок и активного отдыха."
+    },
+    {
+      id: 3,
+      name: "Мужская футболка Oversize",
+      description: "Стильная оверсайз футболка для современного образа",
+      price: 55.00,
+      brand: "Nike",
+      stock: 8,
+      category: "tshirts",
+      subcategory: "oversize",
+      colors: ["black", "white", "beige"],
+      sizes: ["M", "L", "XL", "XXL"],
+      images: ["image4.jpg", "image5.jpg"],
+      fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества."
+    },
+    {
+      id: 4,
+      name: "Мужское худи Premium",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 89.99,
+      brand: "Supreme",
+      stock: 5,
+      category: "hoodies",
+      subcategory: "hoodie",
+      colors: ["black", "gray", "navy"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["image6.jpg"],
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом."
+    },
+    {
+      id: 5,
+      name: "Мужские джинсы Slim",
+      description: "Классические джинсы слим фит",
+      price: 75.50,
+      brand: "Levi's",
+      stock: 12,
+      category: "pants",
+      subcategory: "slim_fit",
+      colors: ["blue", "black", "gray"],
+      sizes: ["30", "32", "34", "36", "38"],
+      images: ["image7.jpg", "image8.jpg"],
+      fullDescription: "Классические джинсы слим фит из качественного денима. Идеально сидят по фигуре."
+    },
+    {
+      id: 6,
+      name: "Мужские кроссовки Sport",
+      description: "Удобные спортивные кроссовки",
+      price: 120.00,
+      brand: "Nike",
+      stock: 7,
+      category: "shoes",
+      subcategory: "sneakers",
+      colors: ["white", "black", "blue"],
+      sizes: ["40", "41", "42", "43", "44", "45"],
+      images: ["image9.jpg"],
+      fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки."
+    }
+  ],
+  womens: [
+    {
+      id: 101,
+      name: "Женская футболка Basic",
+      description: "Базовая женская футболка из мягкого хлопка",
+      price: 35.99,
+      brand: "H&M",
+      stock: 20,
+      category: "tshirts",
+      subcategory: "tshirt",
+      colors: ["white", "black", "pink", "blue"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["image10.jpg"],
+      fullDescription: "Базовая футболка из 100% хлопка. Идеально подходит для создания повседневных образов."
+    },
+    {
+      id: 102,
+      name: "Женский топ Crop",
+      description: "Стильный укороченный топ",
+      price: 42.50,
+      brand: "Zara",
+      stock: 15,
+      category: "tshirts",
+      subcategory: "top",
+      colors: ["black", "white", "red"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["image11.jpg", "image12.jpg"],
+      fullDescription: "Модный укороченный топ с приталенным силуэтом. Отлично сочетается с высокой талией."
+    },
+    {
+      id: 103,
+      name: "Женское худи Comfort",
+      description: "Уютное худи для комфортного отдыха",
+      price: 65.00,
+      brand: "Champion",
+      stock: 10,
+      category: "hoodies",
+      subcategory: "hoodie",
+      colors: ["gray", "pink", "beige"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["image13.jpg"],
+      fullDescription: "Мягкое и теплое худи с капюшоном. Изготовлено из качественного флиса."
+    },
+    {
+      id: 104,
+      name: "Женские джинсы High Waist",
+      description: "Джинсы с высокой посадкой",
+      price: 68.99,
+      brand: "Levi's",
+      stock: 8,
+      category: "pants",
+      subcategory: "jeans",
+      colors: ["blue", "black"],
+      sizes: ["25", "26", "27", "28", "29", "30"],
+      images: ["image14.jpg", "image15.jpg"],
+      fullDescription: "Стильные джинсы с высокой посадкой. Подчеркивают силуэт и удлиняют ноги."
+    },
+    {
+      id: 105,
+      name: "Женские туфли Classic",
+      description: "Классические туфли на каблуке",
+      price: 95.00,
+      brand: "Zara",
+      stock: 6,
+      category: "shoes",
+      subcategory: "heels",
+      colors: ["black", "beige", "red"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["image16.jpg"],
+      fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев."
+    }
+  ]
 };
 
-// Функция генерации товаров
-function generateProducts(baseName, count) {
-  const brands = ['Nike', 'Adidas', 'Jordan', 'Premium'];
-  const sizes = ['XS', 'S', 'M', 'L', 'XL'];
-  
-  return Array.from({length: count}, (_, i) => ({
-    id: i + 1,
-    name: `${baseName} ${i + 1}`,
-    description: `Высококачественный ${baseName.toLowerCase()} из премиальных материалов`,
-    price: Math.round((Math.random() * 100 + 20) * 100) / 100,
-    sizes: sizes.slice(Math.floor(Math.random() * 2), Math.floor(Math.random() * 3) + 3),
-    stock: Math.floor(Math.random() * 20) + 1,
-    brand: brands[Math.floor(Math.random() * brands.length)],
-    image: 'placeholder'
-  }));
-}
+// Конфигурация фильтров
+const filterConfig = {
+  mens: {
+    brands: ["Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Under Armour", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss"],
+    colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy"],
+    categories: {
+      tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey"],
+      hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater"],
+      pants: ["jeans", "pants", "old_money", "classic", "slim_fit"],
+      shorts: ["old_money_shorts", "bermuda", "sport", "denim"],
+      shoes: ["sneakers", "boots", "loafers", "slippers"],
+      accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses", "underwear"]
+    },
+    sizes: {
+      clothing: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+      pants: ["28", "30", "32", "34", "36", "38", "40", "42"],
+      shoes: ["39", "40", "41", "42", "43", "44", "45", "46"],
+      accessories: ["One Size", "S", "M", "L", "XL"]
+    }
+  },
+  womens: {
+    brands: ["Zara", "H&M", "Nike", "Adidas", "Chanel", "Dior", "Gucci", "Prada", "Louis Vuitton", "Versace"],
+    colors: ["black", "white", "pink", "blue", "red", "green", "yellow", "purple", "beige", "gray"],
+    categories: {
+      tshirts: ["tshirt", "top", "shirt", "tank_top"],
+      hoodies: ["zip_hoodie", "hoodie", "sweater", "sweatshirt", "longsleeve"],
+      pants: ["jeans", "skirt", "sport"],
+      shorts: ["denim", "sport"],
+      swimwear: ["bikini", "one_piece"],
+      shoes: ["heels", "sneakers", "slippers", "mules", "boots", "sandals", "loafers"],
+      accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses"]
+    },
+    sizes: {
+      clothing: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
+      pants: ["24", "25", "26", "27", "28", "29", "30", "32"],
+      shoes: ["35", "36", "37", "38", "39", "40", "41", "42"],
+      accessories: ["One Size", "S", "M", "L", "XL"]
+    }
+  }
+};
 
-// Объект с переводами
+// Переводы
 const translations = {
   ru: {
     mens_btn: "Мужское",
@@ -1303,6 +1425,8 @@ const translations = {
     news2_text: "Специальное предложение на все аксессуары. Акция действует до конца месяца.",
     news3_title: "Быстрая доставка по Европе",
     news3_text: "Теперь доставляем заказы еще быстрее - от 5 до 10 рабочих дней.",
+    mens_title: "Мужское",
+    womens_title: "Женское",
     social_title: "Мы в соцсетях",
     social_text: "Подписывайтесь на наши социальные сети, чтобы быть в курсе всех новинок и специальных предложений!",
     instagram_btn: "📷 Instagram",
@@ -1310,39 +1434,97 @@ const translations = {
     whatsapp_btn: "💬 WhatsApp",
     viber_btn: "📞 Viber",
     telegram_btn: "✈️ Telegram",
-    mens_title: "Мужское",
-    womens_title: "Женское",
-    mens_tshirts_btn: "Футболки",
-    mens_shorts_btn: "Шорты",
-    mens_pants_btn: "Штаны",
-    mens_accessories_btn: "Аксессуары",
-    womens_tshirts_btn: "Футболки",
-    womens_shorts_btn: "Шорты", 
-    womens_pants_btn: "Штаны",
-    womens_accessories_btn: "Аксессуары",
-    mens_tshirts_title: "Мужские футболки",
-    mens_shorts_title: "Мужские шорты",
-    mens_pants_title: "Мужские штаны",
-    mens_accessories_title: "Мужские аксессуары",
-    womens_tshirts_title: "Женские футболки",
-    womens_shorts_title: "Женские шорты",
-    womens_pants_title: "Женские штаны",
-    womens_accessories_title: "Женские аксессуары",
     cart_title: "Корзина",
+    cart_empty: "Корзина пуста",
+    cart_total_label: "Итого:",
+    checkout_btn: "Оформить заказ",
     terms_title: "Условия работы",
-    terms_content: `
-      <p><strong>Добро пожаловать в The Continental!</strong></p>
-      <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
-      <p><strong>Условия заказа:</strong></p>
-      <p>• Оплата — 100% предоплата<br>
-      • Доставка по Европе — 7-14 рабочих дней<br>
-      • Возвратов и обменов нет<br>
-      • Гарантия качества на все товары</p>
-      <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
-    `,
+    terms_content: "<p><strong>Добро пожаловать в The Continental!</strong></p><p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p><p><strong>Условия заказа:</strong></p><p>• Оплата — 100% предоплата<br/>• Доставка по Европе — 7-14 рабочих дней<br/>• Возвратов и обменов нет<br/>• Гарантия качества на все товары</p><p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>",
     support_title: "Поддержка",
     support_text: "Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.",
-    contact_manager_btn: "НАПИСАТЬ МЕНЕДЖЕРУ"
+    contact_manager_btn: "НАПИСАТЬ МЕНЕДЖЕРУ",
+    modal_images_label: "Изображения",
+    modal_description_label: "Описание",
+    modal_size_label: "Размер",
+    modal_color_label: "Цвет",
+    modal_quantity_label: "Количество",
+    modal_cancel_btn: "Отмена",
+    modal_add_btn: "Добавить",
+    add_to_cart_btn: "В корзину",
+    brand_label: "Бренд:",
+    stock_label: "В наличии:",
+    search_placeholder: "Поиск...",
+    filter_btn: "ФИЛЬТР",
+    price_filter: "Цена",
+    price_from: "От",
+    price_to: "До",
+    brand_filter: "Бренд",
+    color_filter: "Цвет",
+    category_filter: "Категория",
+    size_filter: "Размер",
+    apply_filters: "Применить",
+    clear_filters: "Очистить",
+    // Категории мужские
+    tshirts: "Футболки",
+    tshirt: "Футболка",
+    oversize: "Оверсайз",
+    shirt: "Рубашка",
+    polo: "Поло",
+    jersey: "Джерси",
+    hoodies: "Кофты",
+    zip_hoodie: "Зип худи",
+    hoodie: "Худи",
+    sweatshirt: "Свитшот",
+    sweater: "Свитер",
+    pants: "Штаны",
+    jeans: "Джинсы",
+    old_money: "Олд Мани",
+    classic: "Классические",
+    slim_fit: "Слим фит",
+    shorts: "Шорты",
+    old_money_shorts: "Олд Мани",
+    bermuda: "Бермуды",
+    sport: "Спортивные",
+    denim: "Джинсовые",
+    shoes: "Обувь",
+    sneakers: "Кроссовки",
+    boots: "Ботинки",
+    loafers: "Лоферы",
+    slippers: "Тапочки",
+    accessories: "Аксессуары",
+    jewelry: "Бижутерия",
+    watches: "Часы",
+    bags: "Сумки",
+    belts: "Ремни",
+    socks: "Носки",
+    backpacks: "Рюкзаки",
+    scarves: "Шарфы",
+    glasses: "Очки",
+    underwear: "Трусы",
+    // Категории женские
+    top: "Топ",
+    tank_top: "Топ-майка",
+    longsleeve: "Лонгслив",
+    skirt: "Юбка",
+    swimwear: "Купальники",
+    bikini: "Бикини",
+    one_piece: "Слитный",
+    heels: "Туфли",
+    mules: "Мюли",
+    sandals: "Сандали",
+    // Цвета
+    black: "Черный",
+    white: "Белый",
+    gray: "Серый",
+    blue: "Синий",
+    red: "Красный",
+    green: "Зеленый",
+    yellow: "Желтый",
+    brown: "Коричневый",
+    beige: "Бежевый",
+    navy: "Темно-синий",
+    pink: "Розовый",
+    purple: "Фиолетовый"
   },
   en: {
     mens_btn: "Men's",
@@ -1356,6 +1538,8 @@ const translations = {
     news2_text: "Special offer on all accessories. Promotion valid until the end of the month.",
     news3_title: "Fast delivery across Europe",
     news3_text: "We now deliver orders even faster - from 5 to 10 business days.",
+    mens_title: "Men's",
+    womens_title: "Women's",
     social_title: "Follow Us",
     social_text: "Follow our social networks to stay updated on all new arrivals and special offers!",
     instagram_btn: "📷 Instagram",
@@ -1363,39 +1547,97 @@ const translations = {
     whatsapp_btn: "💬 WhatsApp",
     viber_btn: "📞 Viber",
     telegram_btn: "✈️ Telegram",
-    mens_title: "Men's",
-    womens_title: "Women's",
-    mens_tshirts_btn: "T-Shirts",
-    mens_shorts_btn: "Shorts",
-    mens_pants_btn: "Pants",
-    mens_accessories_btn: "Accessories",
-    womens_tshirts_btn: "T-Shirts",
-    womens_shorts_btn: "Shorts",
-    womens_pants_btn: "Pants", 
-    womens_accessories_btn: "Accessories",
-    mens_tshirts_title: "Men's T-Shirts",
-    mens_shorts_title: "Men's Shorts",
-    mens_pants_title: "Men's Pants",
-    mens_accessories_title: "Men's Accessories",
-    womens_tshirts_title: "Women's T-Shirts",
-    womens_shorts_title: "Women's Shorts",
-    womens_pants_title: "Women's Pants",
-    womens_accessories_title: "Women's Accessories",
     cart_title: "Cart",
+    cart_empty: "Cart is empty",
+    cart_total_label: "Total:",
+    checkout_btn: "Checkout",
     terms_title: "Terms of Service",
-    terms_content: `
-      <p><strong>Welcome to The Continental!</strong></p>
-      <p>We offer only premium replicas of the highest quality. Each item undergoes strict quality control before shipping.</p>
-      <p><strong>Order Conditions:</strong></p>
-      <p>• Payment — 100% prepayment<br>
-      • Delivery within Europe — 7-14 business days<br>
-      • No returns or exchanges<br>
-      • Quality guarantee for all items</p>
-      <p>We work only with trusted suppliers and guarantee that the product matches the description.</p>
-    `,
+    terms_content: "<p><strong>Welcome to The Continental!</strong></p><p>We offer only premium replicas of the highest quality. Each item undergoes strict quality control before shipping.</p><p><strong>Order conditions:</strong></p><p>• Payment — 100% prepayment<br/>• Delivery across Europe — 7-14 business days<br/>• No returns or exchanges<br/>• Quality guarantee on all products</p><p>We work only with verified suppliers and guarantee product compliance with description.</p>",
     support_title: "Support",
-    support_text: "Our managers are ready to answer all your questions and help you choose a product. We work 24/7 for your convenience.",
-    contact_manager_btn: "CONTACT MANAGER"
+    support_text: "Our managers are ready to answer all your questions and help with product selection. We work 24/7 for your convenience.",
+    contact_manager_btn: "CONTACT MANAGER",
+    modal_images_label: "Images",
+    modal_description_label: "Description",
+    modal_size_label: "Size",
+    modal_color_label: "Color",
+    modal_quantity_label: "Quantity",
+    modal_cancel_btn: "Cancel",
+    modal_add_btn: "Add",
+    add_to_cart_btn: "Add to Cart",
+    brand_label: "Brand:",
+    stock_label: "In Stock:",
+    search_placeholder: "Search...",
+    filter_btn: "FILTER",
+    price_filter: "Price",
+    price_from: "From",
+    price_to: "To",
+    brand_filter: "Brand",
+    color_filter: "Color",
+    category_filter: "Category",
+    size_filter: "Size",
+    apply_filters: "Apply",
+    clear_filters: "Clear",
+    // Categories men's
+    tshirts: "T-Shirts",
+    tshirt: "T-Shirt",
+    oversize: "Oversize",
+    shirt: "Shirt",
+    polo: "Polo",
+    jersey: "Jersey",
+    hoodies: "Hoodies",
+    zip_hoodie: "Zip Hoodie",
+    hoodie: "Hoodie",
+    sweatshirt: "Sweatshirt",
+    sweater: "Sweater",
+    pants: "Pants",
+    jeans: "Jeans",
+    old_money: "Old Money",
+    classic: "Classic",
+    slim_fit: "Slim Fit",
+    shorts: "Shorts",
+    old_money_shorts: "Old Money",
+    bermuda: "Bermuda",
+    sport: "Sport",
+    denim: "Denim",
+    shoes: "Shoes",
+    sneakers: "Sneakers",
+    boots: "Boots",
+    loafers: "Loafers",
+    slippers: "Slippers",
+    accessories: "Accessories",
+    jewelry: "Jewelry",
+    watches: "Watches",
+    bags: "Bags",
+    belts: "Belts",
+    socks: "Socks",
+    backpacks: "Backpacks",
+    scarves: "Scarves",
+    glasses: "Glasses",
+    underwear: "Underwear",
+    // Categories women's
+    top: "Top",
+    tank_top: "Tank Top",
+    longsleeve: "Longsleeve",
+    skirt: "Skirt",
+    swimwear: "Swimwear",
+    bikini: "Bikini",
+    one_piece: "One Piece",
+    heels: "Heels",
+    mules: "Mules",
+    sandals: "Sandals",
+    // Colors
+    black: "Black",
+    white: "White",
+    gray: "Gray",
+    blue: "Blue",
+    red: "Red",
+    green: "Green",
+    yellow: "Yellow",
+    brown: "Brown",
+    beige: "Beige",
+    navy: "Navy",
+    pink: "Pink",
+    purple: "Purple"
   },
   uk: {
     mens_btn: "Чоловіче",
@@ -1409,6 +1651,8 @@ const translations = {
     news2_text: "Спеціальна пропозиція на всі аксесуари. Акція діє до кінця місяця.",
     news3_title: "Швидка доставка по Європі",
     news3_text: "Тепер доставляємо замовлення ще швидше - від 5 до 10 робочих днів.",
+    mens_title: "Чоловіче",
+    womens_title: "Жіноче",
     social_title: "Ми в соцмережах",
     social_text: "Підписуйтесь на наші соціальні мережі, щоб бути в курсі всіх новинок та спеціальних пропозицій!",
     instagram_btn: "📷 Instagram",
@@ -1416,39 +1660,97 @@ const translations = {
     whatsapp_btn: "💬 WhatsApp",
     viber_btn: "📞 Viber",
     telegram_btn: "✈️ Telegram",
-    mens_title: "Чоловіче",
-    womens_title: "Жіноче",
-    mens_tshirts_btn: "Футболки",
-    mens_shorts_btn: "Шорти",
-    mens_pants_btn: "Штани",
-    mens_accessories_btn: "Аксесуари",
-    womens_tshirts_btn: "Футболки",
-    womens_shorts_btn: "Шорти",
-    womens_pants_btn: "Штани",
-    womens_accessories_btn: "Аксесуари",
-    mens_tshirts_title: "Чоловічі футболки",
-    mens_shorts_title: "Чоловічі шорти",
-    mens_pants_title: "Чоловічі штани",
-    mens_accessories_title: "Чоловічі аксесуари",
-    womens_tshirts_title: "Жіночі футболки",
-    womens_shorts_title: "Жіночі шорти",
-    womens_pants_title: "Жіночі штани",
-    womens_accessories_title: "Жіночі аксесуари",
     cart_title: "Кошик",
+    cart_empty: "Кошик порожній",
+    cart_total_label: "Разом:",
+    checkout_btn: "Оформити замовлення",
     terms_title: "Умови роботи",
-    terms_content: `
-      <p><strong>Ласкаво просимо до The Continental!</strong></p>
-      <p>Ми пропонуємо лише преміум-репліки найвищої якості. Кожен товар проходить суворий контроль якості перед відправкою.</p>
-      <p><strong>Умови замовлення:</strong></p>
-      <p>• Оплата — 100% передоплата<br>
-      • Доставка по Європі — 7-14 робочих днів<br>
-      • Повернень та обмінів немає<br>
-      • Гарантія якості на всі товари</p>
-      <p>Ми працюємо лише з перевіреними постачальниками та гарантуємо відповідність товару опису.</p>
-    `,
+    terms_content: "<p><strong>Ласкаво просимо до The Continental!</strong></p><p>Ми пропонуємо тільки преміум-репліки найвищої якості. Кожен товар проходить суворий контроль якості перед відправкою.</p><p><strong>Умови замовлення:</strong></p><p>• Оплата — 100% передоплата<br/>• Доставка по Європі — 7-14 робочих днів<br/>• Повернень та обмінів немає<br/>• Гарантія якості на всі товари</p><p>Ми працюємо тільки з перевіреними постачальниками та гарантуємо відповідність товару опису.</p>",
     support_title: "Підтримка",
-    support_text: "Наші менеджери готові відповісти на всі ваші запитання та допомогти з вибором товару. Ми працюємо 24/7 для вашої зручності.",
-    contact_manager_btn: "НАПИСАТИ МЕНЕДЖЕРУ"
+    support_text: "Наші менеджери готові відповісти на всі ваші питання та допомогти з вибором товару. Ми працюємо 24/7 для вашої зручності.",
+    contact_manager_btn: "НАПИСАТИ МЕНЕДЖЕРУ",
+    modal_images_label: "Зображення",
+    modal_description_label: "Опис",
+    modal_size_label: "Розмір",
+    modal_color_label: "Колір",
+    modal_quantity_label: "Кількість",
+    modal_cancel_btn: "Скасувати",
+    modal_add_btn: "Додати",
+    add_to_cart_btn: "В кошик",
+    brand_label: "Бренд:",
+    stock_label: "В наявності:",
+    search_placeholder: "Пошук...",
+    filter_btn: "ФІЛЬТР",
+    price_filter: "Ціна",
+    price_from: "Від",
+    price_to: "До",
+    brand_filter: "Бренд",
+    color_filter: "Колір",
+    category_filter: "Категорія",
+    size_filter: "Розмір",
+    apply_filters: "Застосувати",
+    clear_filters: "Очистити",
+    // Categories men's
+    tshirts: "Футболки",
+    tshirt: "Футболка",
+    oversize: "Оверсайз",
+    shirt: "Сорочка",
+    polo: "Поло",
+    jersey: "Джерсі",
+    hoodies: "Кофти",
+    zip_hoodie: "Зіп худі",
+    hoodie: "Худі",
+    sweatshirt: "Світшот",
+    sweater: "Светр",
+    pants: "Штани",
+    jeans: "Джинси",
+    old_money: "Олд Мані",
+    classic: "Класичні",
+    slim_fit: "Слім фіт",
+    shorts: "Шорти",
+    old_money_shorts: "Олд Мані",
+    bermuda: "Бермуди",
+    sport: "Спортивні",
+    denim: "Джинсові",
+    shoes: "Взуття",
+    sneakers: "Кросівки",
+    boots: "Черевики",
+    loafers: "Лофери",
+    slippers: "Тапочки",
+    accessories: "Аксесуари",
+    jewelry: "Біжутерія",
+    watches: "Годинники",
+    bags: "Сумки",
+    belts: "Ремені",
+    socks: "Шкарпетки",
+    backpacks: "Рюкзаки",
+    scarves: "Шарфи",
+    glasses: "Окуляри",
+    underwear: "Труси",
+    // Categories women's
+    top: "Топ",
+    tank_top: "Топ-майка",
+    longsleeve: "Лонгслів",
+    skirt: "Спідниця",
+    swimwear: "Купальники",
+    bikini: "Бікіні",
+    one_piece: "Суцільний",
+    heels: "Туфлі",
+    mules: "Мюлі",
+    sandals: "Сандалі",
+    // Colors
+    black: "Чорний",
+    white: "Білий",
+    gray: "Сірий",
+    blue: "Синій",
+    red: "Червоний",
+    green: "Зелений",
+    yellow: "Жовтий",
+    brown: "Коричневий",
+    beige: "Бежевий",
+    navy: "Темно-синій",
+    pink: "Рожевий",
+    purple: "Фіолетовий"
   },
   de: {
     mens_btn: "Herren",
@@ -1462,6 +1764,8 @@ const translations = {
     news2_text: "Sonderangebot für alle Accessoires. Aktion gültig bis Ende des Monats.",
     news3_title: "Schnelle Lieferung in ganz Europa",
     news3_text: "Wir liefern Bestellungen jetzt noch schneller - von 5 bis 10 Werktagen.",
+    mens_title: "Herren",
+    womens_title: "Damen",
     social_title: "Folgen Sie uns",
     social_text: "Folgen Sie unseren sozialen Netzwerken, um über alle Neuheiten und Sonderangebote informiert zu bleiben!",
     instagram_btn: "📷 Instagram",
@@ -1469,156 +1773,166 @@ const translations = {
     whatsapp_btn: "💬 WhatsApp",
     viber_btn: "📞 Viber",
     telegram_btn: "✈️ Telegram",
-    mens_title: "Herren",
-    womens_title: "Damen",
-    mens_tshirts_btn: "T-Shirts",
-    mens_shorts_btn: "Shorts",
-    mens_pants_btn: "Hosen",
-    mens_accessories_btn: "Accessoires",
-    womens_tshirts_btn: "T-Shirts",
-    womens_shorts_btn: "Shorts",
-    womens_pants_btn: "Hosen",
-    womens_accessories_btn: "Accessoires",
-    mens_tshirts_title: "Herren T-Shirts",
-    mens_shorts_title: "Herren Shorts",
-    mens_pants_title: "Herren Hosen",
-    mens_accessories_title: "Herren Accessoires",
-    womens_tshirts_title: "Damen T-Shirts",
-    womens_shorts_title: "Damen Shorts",
-    womens_pants_title: "Damen Hosen",
-    womens_accessories_title: "Damen Accessoires",
     cart_title: "Warenkorb",
+    cart_empty: "Warenkorb ist leer",
+    cart_total_label: "Gesamt:",
+    checkout_btn: "Zur Kasse",
     terms_title: "Nutzungsbedingungen",
-    terms_content: `
-      <p><strong>Willkommen bei The Continental!</strong></p>
-      <p>Wir bieten nur Premium-Replikas höchster Qualität. Jeder Artikel durchläuft eine strenge Qualitätskontrolle vor dem Versand.</p>
-      <p><strong>Bestellbedingungen:</strong></p>
-      <p>• Zahlung — 100% Vorauszahlung<br>
-      • Lieferung innerhalb Europas — 7-14 Werktage<br>
-      • Keine Rücksendungen oder Umtausch<br>
-      • Qualitätsgarantie für alle Artikel</p>
-      <p>Wir arbeiten nur mit vertrauenswürdigen Lieferanten und garantieren, dass das Produkt der Beschreibung entspricht.</p>
-    `,
+    terms_content: "<p><strong>Willkommen bei The Continental!</strong></p><p>Wir bieten nur Premium-Replikas höchster Qualität. Jeder Artikel durchläuft eine strenge Qualitätskontrolle vor dem Versand.</p><p><strong>Bestellbedingungen:</strong></p><p>• Zahlung — 100% Vorauszahlung<br/>• Lieferung in Europa — 7-14 Werktage<br/>• Keine Rücksendungen oder Umtausch<br/>• Qualitätsgarantie auf alle Produkte</p><p>Wir arbeiten nur mit verifizierten Lieferanten und garantieren die Übereinstimmung des Produkts mit der Beschreibung.</p>",
     support_title: "Support",
-    support_text: "Unsere Manager sind bereit, alle Ihre Fragen zu beantworten und Ihnen bei der Produktauswahl zu helfen. Wir arbeiten 24/7 für Ihre Bequemlichkeit.",
-    contact_manager_btn: "MANAGER KONTAKTIEREN"
+    support_text: "Unsere Manager sind bereit, alle Ihre Fragen zu beantworten und bei der Produktauswahl zu helfen. Wir arbeiten 24/7 für Ihre Bequemlichkeit.",
+    contact_manager_btn: "MANAGER KONTAKTIEREN",
+    modal_images_label: "Bilder",
+    modal_description_label: "Beschreibung",
+    modal_size_label: "Größe",
+    modal_color_label: "Farbe",
+    modal_quantity_label: "Menge",
+    modal_cancel_btn: "Abbrechen",
+    modal_add_btn: "Hinzufügen",
+    add_to_cart_btn: "In den Warenkorb",
+    brand_label: "Marke:",
+    stock_label: "Auf Lager:",
+    search_placeholder: "Suchen...",
+    filter_btn: "FILTER",
+    price_filter: "Preis",
+    price_from: "Von",
+    price_to: "Bis",
+    brand_filter: "Marke",
+    color_filter: "Farbe",
+    category_filter: "Kategorie",
+    size_filter: "Größe",
+    apply_filters: "Anwenden",
+    clear_filters: "Löschen",
+    // Categories men's
+    tshirts: "T-Shirts",
+    tshirt: "T-Shirt",
+    oversize: "Oversize",
+    shirt: "Hemd",
+    polo: "Polo",
+    jersey: "Jersey",
+    hoodies: "Hoodies",
+    zip_hoodie: "Zip Hoodie",
+    hoodie: "Hoodie",
+    sweatshirt: "Sweatshirt",
+    sweater: "Pullover",
+    pants: "Hosen",
+    jeans: "Jeans",
+    old_money: "Old Money",
+    classic: "Klassisch",
+    slim_fit: "Slim Fit",
+    shorts: "Shorts",
+    old_money_shorts: "Old Money",
+    bermuda: "Bermuda",
+    sport: "Sport",
+    denim: "Denim",
+    shoes: "Schuhe",
+    sneakers: "Sneakers",
+    boots: "Stiefel",
+    loafers: "Loafer",
+    slippers: "Hausschuhe",
+    accessories: "Accessoires",
+    jewelry: "Schmuck",
+    watches: "Uhren",
+    bags: "Taschen",
+    belts: "Gürtel",
+    socks: "Socken",
+    backpacks: "Rucksäcke",
+    scarves: "Schals",
+    glasses: "Brillen",
+    underwear: "Unterwäsche",
+    // Categories women's
+    top: "Top",
+    tank_top: "Tank Top",
+    longsleeve: "Longsleeve",
+    skirt: "Rock",
+    swimwear: "Bademode",
+    bikini: "Bikini",
+    one_piece: "Einteilig",
+    heels: "High Heels",
+    mules: "Mules",
+    sandals: "Sandalen",
+    // Colors
+    black: "Schwarz",
+    white: "Weiß",
+    gray: "Grau",
+    blue: "Blau",
+    red: "Rot",
+    green: "Grün",
+    yellow: "Gelb",
+    brown: "Braun",
+    beige: "Beige",
+    navy: "Marineblau",
+    pink: "Rosa",
+    purple: "Lila"
   }
 };
 
-// Функции для работы с новостями
-function initNewsCarousel() {
-  startNewsAutoSlide();
+// Инициализация приложения
+document.addEventListener('DOMContentLoaded', function() {
+  initializeApp();
+});
+
+function initializeApp() {
+  setupEventListeners();
+  startNewsCarousel();
+  updateLanguage();
+  loadCartFromStorage();
 }
 
-function goToSlide(slideIndex) {
-  currentSlide = slideIndex;
-  updateNewsSlide();
-  resetNewsAutoSlide();
-}
+function setupEventListeners() {
+  // Переключатель языка
+  document.getElementById('language-select').addEventListener('change', function() {
+    currentLanguage = this.value;
+    updateLanguage();
+    updateFilters();
+  });
 
-function updateNewsSlide() {
-  const slides = document.getElementById('news-slides');
-  const indicators = document.querySelectorAll('.news-indicator');
+  // Переключатель темы
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  // Корзина
+  document.getElementById('cart-button').addEventListener('click', function() {
+    openScreen('cart');
+  });
+
+  // Поиск
+  document.getElementById('search-input').addEventListener('input', function() {
+    if (currentScreen === 'mens' || currentScreen === 'womens') {
+      currentPage = 1;
+      loadProducts();
+    }
+  });
+
+  // Фильтры
+  document.getElementById('filters-button').addEventListener('click', toggleFilters);
   
-  slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-  
-  indicators.forEach((indicator, index) => {
-    indicator.classList.toggle('active', index === currentSlide);
+  // Закрытие фильтров при клике вне
+  document.addEventListener('click', function(e) {
+    const filtersButton = document.getElementById('filters-button');
+    const filtersDropdown = document.getElementById('filters-dropdown');
+    
+    if (!filtersButton.contains(e.target) && !filtersDropdown.contains(e.target)) {
+      filtersDropdown.classList.remove('show');
+    }
   });
 }
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % 3;
-  updateNewsSlide();
-}
-
-function startNewsAutoSlide() {
-  newsInterval = setInterval(nextSlide, 4000); // Меняем слайд каждые 4 секунды
-}
-
-function resetNewsAutoSlide() {
-  clearInterval(newsInterval);
-  startNewsAutoSlide();
-}
-
-// Функция для открытия социальных ссылок
-function openSocialLink(url) {
-  if (tg && tg.openLink) {
-    tg.openLink(url);
-  } else {
-    window.open(url, '_blank');
-  }
-}
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-  initLanguage();
-  initTheme();
-  initFilters();
-  initCart();
-  initNewsCarousel();
-  
-  // Загружаем товары для первой категории
-  if (products['mens-tshirts']) {
-    loadProducts('mens-tshirts');
-  }
-});
-
-// Функция смены языка
-function changeLanguage(lang) {
+function updateLanguage() {
   const elements = document.querySelectorAll('[data-key]');
   elements.forEach(element => {
     const key = element.getAttribute('data-key');
-    if (translations[lang] && translations[lang][key]) {
-      if (element.innerHTML.includes('<')) {
-        element.innerHTML = translations[lang][key];
+    if (translations[currentLanguage] && translations[currentLanguage][key]) {
+      if (element.tagName === 'INPUT' && element.type === 'text') {
+        element.placeholder = translations[currentLanguage][key];
+      } else if (element.innerHTML.includes('<')) {
+        element.innerHTML = translations[currentLanguage][key];
       } else {
-        element.textContent = translations[lang][key];
+        element.textContent = translations[currentLanguage][key];
       }
     }
   });
-  
-  // Обновляем placeholder для поиска
-  const searchInput = document.getElementById('search-input');
-  const placeholders = {
-    ru: 'Поиск...',
-    en: 'Search...',
-    uk: 'Пошук...',
-    de: 'Suchen...'
-  };
-  if (searchInput && placeholders[lang]) {
-    searchInput.placeholder = placeholders[lang];
-  }
-  
-  // Обновляем текст кнопки фильтров
-  const filtersButton = document.getElementById('filters-button');
-  const filterTexts = {
-    ru: 'ФИЛЬТР',
-    en: 'FILTER',
-    uk: 'ФІЛЬТР',
-    de: 'FILTER'
-  };
-  if (filtersButton && filterTexts[lang]) {
-    const dropdown = filtersButton.querySelector('.filters-dropdown');
-    filtersButton.innerHTML = filterTexts[lang];
-    if (dropdown) {
-      filtersButton.appendChild(dropdown);
-    }
-  }
 }
 
-// Инициализация языка
-function initLanguage() {
-  const languageSelect = document.getElementById('language-select');
-  languageSelect.addEventListener('change', function() {
-    changeLanguage(this.value);
-  });
-  
-  // Устанавливаем язык по умолчанию
-  changeLanguage('ru');
-}
-
-// Функция смены темы
 function toggleTheme() {
   currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
   document.body.setAttribute('data-theme', currentTheme);
@@ -1627,28 +1941,24 @@ function toggleTheme() {
   themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 }
 
-// Инициализация темы
-function initTheme() {
-  const themeToggle = document.getElementById('theme-toggle');
-  themeToggle.addEventListener('click', toggleTheme);
-}
-
-// Функции навигации
-function openScreen(screenId) {
-  // Скрываем все экраны
+function openScreen(screenName) {
+  // Скрыть все экраны
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
   
-  // Показываем нужный экран
-  const targetScreen = document.getElementById(screenId);
-  if (targetScreen) {
-    targetScreen.classList.add('active');
-    
-    // Загружаем товары для категорий
-    if (products[screenId]) {
-      loadProducts(screenId);
-    }
+  // Показать нужный экран
+  document.getElementById(screenName).classList.add('active');
+  currentScreen = screenName;
+  
+  // Загрузить контент для экранов товаров
+  if (screenName === 'mens' || screenName === 'womens') {
+    currentGender = screenName;
+    currentPage = 1;
+    updateFilters();
+    loadProducts();
+  } else if (screenName === 'cart') {
+    updateCartDisplay();
   }
 }
 
@@ -1656,178 +1966,325 @@ function backToHome() {
   openScreen('home');
 }
 
-// Функции для работы с товарами
-function loadProducts(category) {
-  currentCategory = category;
-  currentPage = 1;
-  applyFilters();
+function updateFilters() {
+  if (!currentGender) return;
+  
+  const filtersDropdown = document.getElementById('filters-dropdown');
+  const config = filterConfig[currentGender];
+  const t = translations[currentLanguage];
+  
+  filtersDropdown.innerHTML = `
+    <div class="filter-group">
+      <label class="filter-label">${t.price_filter}</label>
+      <div class="filter-input-group">
+        <input type="number" class="filter-input" id="price-from" placeholder="${t.price_from}" min="0">
+        <input type="number" class="filter-input" id="price-to" placeholder="${t.price_to}" min="0">
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <label class="filter-label">${t.brand_filter}</label>
+      <div class="filter-checkbox-group">
+        ${config.brands.map(brand => `
+          <div class="filter-checkbox">
+            <input type="checkbox" id="brand-${brand}" value="${brand}">
+            <label for="brand-${brand}">${brand}</label>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <label class="filter-label">${t.color_filter}</label>
+      <div class="filter-checkbox-group">
+        ${config.colors.map(color => `
+          <div class="filter-checkbox">
+            <input type="checkbox" id="color-${color}" value="${color}">
+            <label for="color-${color}">${t[color] || color}</label>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <label class="filter-label">${t.category_filter}</label>
+      <div class="filter-checkbox-group">
+        ${Object.entries(config.categories).map(([category, subcategories]) => `
+          <div class="filter-checkbox">
+            <input type="checkbox" id="category-${category}" value="${category}">
+            <label for="category-${category}"><strong>${t[category] || category}</strong></label>
+          </div>
+          ${subcategories.map(sub => `
+            <div class="filter-checkbox" style="margin-left: 15px;">
+              <input type="checkbox" id="subcategory-${sub}" value="${sub}">
+              <label for="subcategory-${sub}">${t[sub] || sub}</label>
+            </div>
+          `).join('')}
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <button onclick="applyFilters()" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; width: 100%; margin-bottom: 8px; cursor: pointer;">${t.apply_filters}</button>
+      <button onclick="clearFilters()" style="background: transparent; color: inherit; border: 1px solid rgba(128,128,128,0.3); padding: 8px 16px; border-radius: 4px; width: 100%; cursor: pointer;">${t.clear_filters}</button>
+    </div>
+  `;
+  
+  // Добавить обработчики событий для фильтров
+  filtersDropdown.querySelectorAll('input').forEach(input => {
+    input.addEventListener('change', applyFilters);
+  });
+}
+
+function toggleFilters() {
+  const filtersDropdown = document.getElementById('filters-dropdown');
+  filtersDropdown.classList.toggle('show');
 }
 
 function applyFilters() {
-  const priceFilter = document.getElementById('price-filter').value;
-  const sizeFilter = document.getElementById('size-filter').value;
-  const brandFilter = document.getElementById('brand-filter').value;
-  const searchQuery = document.getElementById('search-input').value.toLowerCase();
-  
-  let filtered = products[currentCategory] || [];
-  
-  // Фильтр по цене
-  if (priceFilter) {
-    if (priceFilter === '100+') {
-      filtered = filtered.filter(p => p.price >= 100);
-    } else {
-      const [min, max] = priceFilter.split('-').map(Number);
-      filtered = filtered.filter(p => p.price >= min && p.price <= max);
-    }
-  }
-  
-  // Фильтр по размеру
-  if (sizeFilter) {
-    filtered = filtered.filter(p => p.sizes.includes(sizeFilter));
-  }
-  
-  // Фильтр по бренду
-  if (brandFilter) {
-    filtered = filtered.filter(p => p.brand === brandFilter);
-  }
-  
-  // Поиск
-  if (searchQuery) {
-    filtered = filtered.filter(p => 
-      p.name.toLowerCase().includes(searchQuery) ||
-      p.description.toLowerCase().includes(searchQuery)
-    );
-  }
-  
-  filteredProducts = filtered;
-  renderProducts();
-  renderPagination();
+  currentPage = 1;
+  loadProducts();
 }
 
-function renderProducts() {
-  const container = document.getElementById(`${currentCategory}-content`);
-  if (!container) return;
+function clearFilters() {
+  document.querySelectorAll('#filters-dropdown input').forEach(input => {
+    if (input.type === 'checkbox') {
+      input.checked = false;
+    } else {
+      input.value = '';
+    }
+  });
+  applyFilters();
+}
+
+function getActiveFilters() {
+  const filters = {
+    priceFrom: parseFloat(document.getElementById('price-from')?.value) || 0,
+    priceTo: parseFloat(document.getElementById('price-to')?.value) || Infinity,
+    brands: [],
+    colors: [],
+    categories: [],
+    subcategories: []
+  };
   
+  document.querySelectorAll('#filters-dropdown input[type="checkbox"]:checked').forEach(checkbox => {
+    const value = checkbox.value;
+    const id = checkbox.id;
+    
+    if (id.startsWith('brand-')) {
+      filters.brands.push(value);
+    } else if (id.startsWith('color-')) {
+      filters.colors.push(value);
+    } else if (id.startsWith('category-')) {
+      filters.categories.push(value);
+    } else if (id.startsWith('subcategory-')) {
+      filters.subcategories.push(value);
+    }
+  });
+  
+  return filters;
+}
+
+function loadProducts() {
+  if (!currentGender) return;
+  
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  const filters = getActiveFilters();
+  let filteredProducts = products[currentGender].filter(product => {
+    // Поиск
+    if (searchTerm && !product.name.toLowerCase().includes(searchTerm) && 
+        !product.description.toLowerCase().includes(searchTerm)) {
+      return false;
+    }
+    
+    // Фильтр по цене
+    if (product.price < filters.priceFrom || product.price > filters.priceTo) {
+      return false;
+    }
+    
+    // Фильтр по бренду
+    if (filters.brands.length > 0 && !filters.brands.includes(product.brand)) {
+      return false;
+    }
+    
+    // Фильтр по цвету
+    if (filters.colors.length > 0 && !product.colors.some(color => filters.colors.includes(color))) {
+      return false;
+    }
+    
+    // Фильтр по категории
+    if (filters.categories.length > 0 && !filters.categories.includes(product.category)) {
+      return false;
+    }
+    
+    // Фильтр по подкатегории
+    if (filters.subcategories.length > 0 && !filters.subcategories.includes(product.subcategory)) {
+      return false;
+    }
+    
+    return true;
+  });
+  
+  // Пагинация
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const pageProducts = filteredProducts.slice(startIndex, endIndex);
   
+  // Отображение товаров
+  const contentDiv = document.getElementById(currentGender + '-content');
+  const t = translations[currentLanguage];
+  
   if (pageProducts.length === 0) {
-    container.innerHTML = '<div class="empty-state">Товары не найдены</div>';
-    return;
+    contentDiv.innerHTML = `<div class="empty-state">Товары не найдены</div>`;
+  } else {
+    contentDiv.innerHTML = pageProducts.map(product => `
+      <div class="product" onclick="openProductModal(${product.id})">
+        <div class="product-image">Изображение товара</div>
+        <div class="product-name">${product.name}</div>
+        <div class="product-description">${product.description}</div>
+        <div class="product-price">€${product.price.toFixed(2)}</div>
+        <div class="product-details">
+          <span>${t.brand_label} ${product.brand}</span>
+          <span>${t.stock_label} ${product.stock}</span>
+        </div>
+        <button class="add-to-cart-btn" onclick="event.stopPropagation(); openProductModal(${product.id})">${t.add_to_cart_btn}</button>
+      </div>
+    `).join('');
   }
   
-  container.innerHTML = pageProducts.map(product => `
-    <div class="product" onclick="selectProduct(${product.id}, '${currentCategory}')">
-      <div class="product-image">Изображение товара</div>
-      <div class="product-name">${product.name}</div>
-      <div class="product-description">${product.description}</div>
-      <div class="product-price">€${product.price}</div>
-      <div class="product-details">
-        <span>Бренд: ${product.brand}</span>
-        <span>В наличии: ${product.stock}</span>
-      </div>
-      <button class="add-to-cart-btn" onclick="event.stopPropagation(); selectProduct(${product.id}, '${currentCategory}')">
-        Добавить в корзину
-      </button>
-    </div>
-  `).join('');
+  // Пагинация
+  updatePagination(totalPages);
 }
 
-function renderPagination() {
-  const container = document.getElementById(`${currentCategory}-pagination`);
-  if (!container) return;
-  
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+function updatePagination(totalPages) {
+  const paginationDiv = document.getElementById(currentGender + '-pagination');
   
   if (totalPages <= 1) {
-    container.innerHTML = '';
+    paginationDiv.innerHTML = '';
     return;
   }
   
   let paginationHTML = '';
   
-  // Кнопка "Назад"
-  paginationHTML += `<button ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">‹</button>`;
+  // Предыдущая страница
+  if (currentPage > 1) {
+    paginationHTML += `<button onclick="changePage(${currentPage - 1})">‹</button>`;
+  }
   
   // Номера страниц
   for (let i = 1; i <= totalPages; i++) {
-    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-      paginationHTML += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-    } else if (i === currentPage - 2 || i === currentPage + 2) {
-      paginationHTML += '<span>...</span>';
+    if (i === currentPage) {
+      paginationHTML += `<button class="active">${i}</button>`;
+    } else if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+      paginationHTML += `<button onclick="changePage(${i})">${i}</button>`;
+    } else if (i === currentPage - 3 || i === currentPage + 3) {
+      paginationHTML += `<button disabled>...</button>`;
     }
   }
   
-  // Кнопка "Вперед"
-  paginationHTML += `<button ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">›</button>`;
+  // Следующая страница
+  if (currentPage < totalPages) {
+    paginationHTML += `<button onclick="changePage(${currentPage + 1})">›</button>`;
+  }
   
-  container.innerHTML = paginationHTML;
+  paginationDiv.innerHTML = paginationHTML;
 }
 
 function changePage(page) {
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  if (page >= 1 && page <= totalPages) {
-    currentPage = page;
-    renderProducts();
-    renderPagination();
-  }
+  currentPage = page;
+  loadProducts();
 }
 
-// Функции для работы с корзиной
-function selectProduct(productId, category) {
-  const product = products[category].find(p => p.id === productId);
+function openProductModal(productId) {
+  const product = products[currentGender].find(p => p.id === productId);
   if (!product) return;
   
-  selectedProduct = { ...product, category };
+  currentProduct = product;
+  const t = translations[currentLanguage];
   
-  // Заполняем модальное окно
+  // Заполнить модальное окно
   document.getElementById('modal-title').textContent = product.name;
+  document.getElementById('modal-description').textContent = product.fullDescription;
   
+  // Изображения
+  const imageGallery = document.getElementById('modal-image-gallery');
+  imageGallery.innerHTML = product.images.map((img, index) => `
+    <div class="modal-image ${index === 0 ? 'active' : ''}" onclick="selectImage(${index})">
+      Фото ${index + 1}
+    </div>
+  `).join('');
+  
+  // Размеры
   const sizeSelect = document.getElementById('modal-size');
-  sizeSelect.innerHTML = product.sizes.map(size => 
-    `<option value="${size}">${size}</option>`
-  ).join('');
+  sizeSelect.innerHTML = product.sizes.map(size => `
+    <option value="${size}">${size}</option>
+  `).join('');
   
+  // Цвета
+  const colorSelect = document.getElementById('modal-color');
+  colorSelect.innerHTML = product.colors.map(color => `
+    <option value="${color}">${t[color] || color}</option>
+  `).join('');
+  
+  // Количество
   document.getElementById('modal-quantity').value = 1;
   
-  // Показываем модальное окно
+  // Показать модальное окно
   document.getElementById('product-modal').classList.add('show');
+}
+
+function selectImage(index) {
+  document.querySelectorAll('.modal-image').forEach((img, i) => {
+    img.classList.toggle('active', i === index);
+  });
 }
 
 function closeModal() {
   document.getElementById('product-modal').classList.remove('show');
-  selectedProduct = null;
+  currentProduct = null;
 }
 
 function confirmAddToCart() {
-  if (!selectedProduct) return;
+  if (!currentProduct) return;
   
   const size = document.getElementById('modal-size').value;
+  const color = document.getElementById('modal-color').value;
   const quantity = parseInt(document.getElementById('modal-quantity').value);
   
   const cartItem = {
-    id: Date.now(),
-    productId: selectedProduct.id,
-    category: selectedProduct.category,
-    name: selectedProduct.name,
-    price: selectedProduct.price,
+    id: currentProduct.id,
+    name: currentProduct.name,
+    price: currentProduct.price,
     size: size,
+    color: color,
     quantity: quantity,
-    total: selectedProduct.price * quantity
+    gender: currentGender
   };
   
-  cart.push(cartItem);
-  updateCartDisplay();
+  // Проверить, есть ли уже такой товар в корзине
+  const existingItemIndex = cart.findIndex(item => 
+    item.id === cartItem.id && 
+    item.size === cartItem.size && 
+    item.color === cartItem.color &&
+    item.gender === cartItem.gender
+  );
+  
+  if (existingItemIndex !== -1) {
+    cart[existingItemIndex].quantity += quantity;
+  } else {
+    cart.push(cartItem);
+  }
+  
+  updateCartCount();
+  saveCartToStorage();
   closeModal();
   
-  // Показываем уведомление (можно добавить)
-  if (tg && tg.showAlert) {
-    tg.showAlert('Товар добавлен в корзину!');
-  }
+  // Показать уведомление (можно добавить)
+  console.log('Товар добавлен в корзину');
 }
 
-function updateCartDisplay() {
+function updateCartCount() {
   const cartCount = document.getElementById('cart-count');
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   
@@ -1837,96 +2294,125 @@ function updateCartDisplay() {
   } else {
     cartCount.style.display = 'none';
   }
-  
-  renderCart();
 }
 
-function renderCart() {
+function updateCartDisplay() {
   const cartContent = document.getElementById('cart-content');
   const cartTotal = document.getElementById('cart-total');
+  const t = translations[currentLanguage];
   
   if (cart.length === 0) {
-    cartContent.innerHTML = '<div class="empty-state">Корзина пуста</div>';
+    cartContent.innerHTML = `<div class="empty-state">${t.cart_empty}</div>`;
     cartTotal.style.display = 'none';
     return;
   }
   
-  cartContent.innerHTML = cart.map(item => `
+  cartContent.innerHTML = cart.map((item, index) => `
     <div class="cart-item">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-        <div style="flex: 1;">
-          <div style="font-weight: 600; margin-bottom: 4px;">${item.name}</div>
-          <div style="font-size: 12px; color: #999;">Размер: ${item.size} | Количество: ${item.quantity}</div>
-        </div>
-        <button onclick="removeFromCart(${item.id})" style="background: #ff4444; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; cursor: pointer;">×</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div style="font-weight: 600;">${item.name}</div>
+        <button onclick="removeFromCart(${index})" style="background: #ff4444; color: white; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer;">×</button>
       </div>
-      <div style="font-weight: 600;">€${item.total.toFixed(2)}</div>
+      <div style="font-size: 12px; color: #999; margin-bottom: 4px;">
+        ${t.modal_size_label} ${item.size}, ${t.modal_color_label} ${t[item.color] || item.color}
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button onclick="changeQuantity(${index}, -1)" style="background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; cursor: pointer;">-</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQuantity(${index}, 1)" style="background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; cursor: pointer;">+</button>
+        </div>
+        <div style="font-weight: 600;">€${(item.price * item.quantity).toFixed(2)}</div>
+      </div>
     </div>
   `).join('');
   
-  const totalPrice = cart.reduce((sum, item) => sum + item.total, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   document.getElementById('total-price').textContent = `€${totalPrice.toFixed(2)}`;
   cartTotal.style.display = 'block';
 }
 
-function removeFromCart(itemId) {
-  cart = cart.filter(item => item.id !== itemId);
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartCount();
   updateCartDisplay();
+  saveCartToStorage();
 }
 
-function checkout() {
-  if (cart.length === 0) return;
-  
-  // Здесь можно добавить логику оформления заказа
-  if (tg && tg.showAlert) {
-    tg.showAlert('Функция оформления заказа будет добавлена позже');
+function changeQuantity(index, change) {
+  cart[index].quantity += change;
+  if (cart[index].quantity <= 0) {
+    removeFromCart(index);
   } else {
-    alert('Функция оформления заказа будет добавлена позже');
+    updateCartCount();
+    updateCartDisplay();
+    saveCartToStorage();
   }
 }
 
-// Инициализация корзины
-function initCart() {
-  const cartButton = document.getElementById('cart-button');
-  cartButton.addEventListener('click', () => openScreen('cart'));
+function checkout() {
+  // Здесь можно добавить логику оформления заказа
+  alert('Функция оформления заказа будет добавлена позже');
 }
 
-// Инициализация фильтров
-function initFilters() {
-  const filtersButton = document.getElementById('filters-button');
-  const filtersDropdown = document.getElementById('filters-dropdown');
+function saveCartToStorage() {
+  localStorage.setItem('continental_cart', JSON.stringify(cart));
+}
+
+function loadCartFromStorage() {
+  const savedCart = localStorage.getItem('continental_cart');
+  if (savedCart) {
+    cart = JSON.parse(savedCart);
+    updateCartCount();
+  }
+}
+
+function openSocialLink(url) {
+  window.open(url, '_blank');
+}
+
+// Карусель новостей
+function startNewsCarousel() {
+  slideInterval = setInterval(nextSlide, 4000);
+}
+
+function nextSlide() {
+  const slides = document.querySelectorAll('.news-slide');
+  const indicators = document.querySelectorAll('.news-indicator');
   
-  filtersButton.addEventListener('click', function(e) {
-    e.stopPropagation();
-    filtersDropdown.classList.toggle('show');
+  currentSlide = (currentSlide + 1) % slides.length;
+  
+  document.getElementById('news-slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+  
+  indicators.forEach((indicator, index) => {
+    indicator.classList.toggle('active', index === currentSlide);
+  });
+}
+
+function goToSlide(slideIndex) {
+  currentSlide = slideIndex;
+  
+  document.getElementById('news-slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+  
+  document.querySelectorAll('.news-indicator').forEach((indicator, index) => {
+    indicator.classList.toggle('active', index === currentSlide);
   });
   
-  // Закрытие при клике вне меню
-  document.addEventListener('click', function() {
-    filtersDropdown.classList.remove('show');
-  });
-  
-  // Предотвращаем закрытие при клике внутри меню
-  filtersDropdown.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
-  
-  // Обработчики изменения фильтров
-  document.getElementById('price-filter').addEventListener('change', applyFilters);
-  document.getElementById('size-filter').addEventListener('change', applyFilters);
-  document.getElementById('brand-filter').addEventListener('change', applyFilters);
-  document.getElementById('search-input').addEventListener('input', applyFilters);
+  // Перезапустить автопрокрутку
+  clearInterval(slideInterval);
+  startNewsCarousel();
 }
 
 // Закрытие модального окна при клике вне его
-document.addEventListener('click', function(e) {
-  const modal = document.getElementById('product-modal');
-  if (e.target === modal) {
+document.getElementById('product-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
     closeModal();
   }
 });
 </script>
+
 </body>
 </html>
+
 
 
