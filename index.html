@@ -119,10 +119,8 @@
       font-size: 10px;
       font-weight: 600;
       cursor: pointer;
-      position: relative;
       transition: all 0.3s ease;
       user-select: none;
-      z-index: 1001;
     }
 
     .filters-button:hover {
@@ -135,92 +133,116 @@
       background: rgba(128, 128, 128, 0.3);
     }
 
-    /* Выпадающее меню фильтров */
-    .filters-dropdown {
-      position: absolute;
-      top: calc(100% + 5px);
-      left: 0;
-      background: #ffffff;
-      color: #000000;
-      border: 1px solid rgba(128, 128, 128, 0.4);
-      border-radius: 8px;
-      padding: 15px;
-      display: none;
-      z-index: 1002;
-      min-width: 280px;
-      max-width: 320px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(10px);
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    body[data-theme="light"] .filters-dropdown {
+    /* Всплывающая панель фильтров справа */
+    .filter-panel {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 300px;
+      height: 100vh;
       background: #000000;
       color: #ffffff;
+      z-index: 2000;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      padding: 60px 20px 20px;
+      border-left: 1px solid rgba(128, 128, 128, 0.3);
     }
 
-    .filters-dropdown.show {
+    body[data-theme="light"] .filter-panel {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .filter-panel.show {
+      right: 0;
+    }
+
+    .filter-panel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1999;
+      display: none;
+    }
+
+    .filter-panel-overlay.show {
       display: block;
-      animation: fadeInDown 0.3s ease;
     }
 
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .filter-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+    }
+
+    .filter-panel-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .filter-panel-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .filter-panel-close:hover {
+      background: rgba(128, 128, 128, 0.2);
     }
 
     .filter-group {
-      margin-bottom: 15px;
-    }
-
-    .filter-group:last-child {
-      margin-bottom: 0;
+      margin-bottom: 20px;
     }
 
     .filter-label {
-      font-size: 12px;
+      font-size: 14px;
       color: inherit;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       display: block;
       font-weight: 600;
     }
 
     .filter-input-group {
       display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
     .filter-input {
       background: rgba(128, 128, 128, 0.1);
       border: 1px solid rgba(128, 128, 128, 0.3);
-      border-radius: 4px;
-      padding: 6px 8px;
+      border-radius: 6px;
+      padding: 8px 10px;
       color: inherit;
-      font-size: 11px;
+      font-size: 12px;
       flex: 1;
     }
 
     .filter-checkbox-group {
-      max-height: 120px;
+      max-height: 150px;
       overflow-y: auto;
       border: 1px solid rgba(128, 128, 128, 0.2);
-      border-radius: 4px;
-      padding: 8px;
+      border-radius: 6px;
+      padding: 10px;
     }
 
     .filter-checkbox {
       display: flex;
       align-items: center;
-      margin-bottom: 6px;
-      font-size: 11px;
+      margin-bottom: 8px;
+      font-size: 12px;
     }
 
     .filter-checkbox:last-child {
@@ -228,9 +250,28 @@
     }
 
     .filter-checkbox input[type="checkbox"] {
-      margin-right: 6px;
-      width: 14px;
-      height: 14px;
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .filter-apply-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .filter-apply-btn:active {
+      transform: scale(0.98);
+      background: #0056b3;
     }
 
     .top-bar-right {
@@ -276,6 +317,7 @@
       justify-content: center;
       font-size: 9px;
       font-weight: bold;
+      display: none;
     }
 
     /* Основной контейнер */
@@ -612,6 +654,63 @@
       background: #0056b3;
     }
 
+    /* Пагинация */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+      padding: 10px;
+    }
+
+    .pagination button {
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.3);
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      min-width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body[data-theme="light"] .pagination button {
+      background: #f5f5f5;
+      color: #000000;
+    }
+
+    .pagination button:hover {
+      background: rgba(128, 128, 128, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .pagination button:active {
+      transform: translateY(0);
+    }
+
+    .pagination button.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .pagination button:disabled:hover {
+      transform: none;
+    }
+
     /* Модальное окно для выбора товара */
     .modal {
       position: fixed;
@@ -750,75 +849,28 @@
       transition: all 0.3s ease;
     }
 
-    .modal-btn.primary {
+    .modal-btn.cancel {
+      background: transparent;
+      color: inherit;
+      border: 1px solid rgba(128, 128, 128, 0.4);
+    }
+
+    .modal-btn.confirm {
       background: #007bff;
       color: white;
-    }
-
-    .modal-btn.secondary {
-      background: #1a1a1a;
-      color: #ffffff;
-      border: 1px solid rgba(128, 128, 128, 0.3);
-    }
-
-    body[data-theme="light"] .modal-btn.secondary {
-      background: #f5f5f5;
-      color: #000000;
     }
 
     .modal-btn:active {
       transform: scale(0.98);
     }
 
-    /* Пагинация */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .pagination button {
-      background: #ffffff;
-      color: #000000;
-      border: 1px solid rgba(128, 128, 128, 0.3);
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      transition: all 0.3s ease;
-      min-width: 32px;
-    }
-
-    body[data-theme="light"] .pagination button {
-      background: #000000;
-      color: #ffffff;
-    }
-
-    .pagination button.active {
-      background: #007bff;
-      color: white;
-      border-color: #007bff;
-    }
-
-    .pagination button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .pagination button:active:not(:disabled) {
-      transform: scale(0.95);
-    }
-
     /* Корзина */
     .cart-item {
       background: #1a1a1a;
       border: 1px solid rgba(128, 128, 128, 0.2);
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 12px;
     }
 
     body[data-theme="light"] .cart-item {
@@ -826,17 +878,16 @@
     }
 
     .cart-total {
-      border-top: 1px solid rgba(128, 128, 128, 0.3);
-      padding-top: 15px;
-      margin-top: 15px;
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 12px;
+      text-align: center;
     }
 
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
+    body[data-theme="light"] .cart-total {
+      background: #f5f5f5;
     }
 
     .checkout-btn {
@@ -844,7 +895,7 @@
       color: white;
       padding: 12px 20px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
@@ -857,341 +908,271 @@
       background: #1e7e34;
     }
 
-    /* Условия работы */
-    .terms-content {
-      line-height: 1.5;
-      color: #ffffff;
-      font-size: 14px;
-      background: #1a1a1a;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid rgba(128, 128, 128, 0.2);
-    }
-
-    body[data-theme="light"] .terms-content {
-      color: #000000;
-      background: #f5f5f5;
-    }
-
-    .terms-content strong {
-      color: #ffffff;
-    }
-
-    body[data-theme="light"] .terms-content strong {
-      color: #000000;
-    }
-
-    /* Поддержка */
-    .support-link {
-      display: inline-block;
-      background: #ffffff;
-      color: #000000;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 14px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      text-align: center;
-      width: 100%;
-      margin-top: 15px;
-    }
-
-    body[data-theme="light"] .support-link {
-      background: #000000;
-      color: #ffffff;
-    }
-
-    .support-link:active {
-      transform: scale(0.98);
-    }
-
-    /* Пустое состояние */
     .empty-state {
       text-align: center;
+      padding: 40px 20px;
       color: #999999;
-      margin: 40px 0;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     body[data-theme="light"] .empty-state {
       color: #666666;
     }
 
-    /* Адаптивность */
-    @media (max-width: 360px) {
-      .top-bar {
-        padding: 0 8px;
-        gap: 6px;
-      }
-      
-      .search-container {
-        max-width: 70px;
-      }
-      
-      .screen {
-        padding: 12px;
-      }
-      
-      .logo {
-        font-size: 26px;
-        margin: 20px 0 15px;
-      }
-      
-      .btn {
-        padding: 12px 16px;
-        font-size: 14px;
-      }
+    /* Контент страниц */
+    .content {
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 12px;
+      line-height: 1.6;
+    }
 
-      .news-section {
-        margin: 15px 0 25px;
-      }
+    body[data-theme="light"] .content {
+      background: #f5f5f5;
+    }
 
-      .news-carousel {
-        height: 100px;
-      }
+    .content h2 {
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
 
-      .news-slide {
-        padding: 10px;
-      }
+    body[data-theme="light"] .content h2 {
+      color: #000000;
+    }
 
-      .news-slide h3 {
-        font-size: 13px;
-      }
+    .content p {
+      color: #cccccc;
+      margin-bottom: 10px;
+    }
 
-      .news-slide p {
-        font-size: 11px;
-      }
+    body[data-theme="light"] .content p {
+      color: #333333;
+    }
 
-      .filters-dropdown {
-        min-width: 250px;
-        max-width: 280px;
-      }
+    .contact-btn {
+      background: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-btn:active {
+      transform: scale(0.98);
+      background: #1e7e34;
+    }
+
+    .social-text {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #cccccc;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    body[data-theme="light"] .social-text {
+      color: #333333;
     }
 </style>
 </head>
-<body>
-<!-- Верхняя панель -->
-<div class="top-bar">
-  <!-- Переключатель языков -->
-  <select class="language-select" id="language-select">
-    <option value="ru">RU</option>
-    <option value="en">EN</option>
-    <option value="uk">UA</option>
-    <option value="de">DE</option>
-  </select>
 
-  <!-- Поиск без иконки лупы -->
-  <div class="search-container">
-    <input type="text" class="search-input" placeholder="Поиск..." id="search-input">
+<body data-theme="dark">
+  <!-- Верхняя панель -->
+  <div class="top-bar">
+    <select class="language-select" id="language-select">
+      <option value="ru">RU</option>
+      <option value="en">EN</option>
+      <option value="uk">UA</option>
+      <option value="de">DE</option>
+    </select>
+    
+    <div class="search-container">
+      <input type="text" class="search-input" id="search-input" placeholder="Поиск..." data-key="search_placeholder">
+    </div>
+    
+    <button class="filters-button" id="filters-button" data-key="filter_btn">ФИЛЬТР</button>
+    
+    <div class="top-bar-right">
+      <button class="theme-toggle" id="theme-toggle">🌙</button>
+      <button class="cart-button" id="cart-button">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
   </div>
 
-  <!-- Кнопка фильтров -->
-  <div class="filters-button" id="filters-button">
-    ФИЛЬТР
-    <div class="filters-dropdown" id="filters-dropdown">
-      <!-- Фильтры будут динамически загружены -->
+  <!-- Всплывающая панель фильтров -->
+  <div class="filter-panel-overlay" id="filter-panel-overlay"></div>
+  <div class="filter-panel" id="filter-panel">
+    <div class="filter-panel-header">
+      <div class="filter-panel-title" data-key="filter_title">Фильтры</div>
+      <button class="filter-panel-close" id="filter-panel-close">×</button>
+    </div>
+    <div id="filter-content">
+      <!-- Содержимое фильтров будет добавлено динамически -->
     </div>
   </div>
 
-  <div class="top-bar-right">
-    <!-- Переключатель темы -->
-    <button class="theme-toggle" id="theme-toggle">🌙</button>
-    
-    <!-- Корзина -->
-    <button class="cart-button" id="cart-button">
-      🛒
-      <span class="cart-count" id="cart-count" style="display: none;">0</span>
-    </button>
-  </div>
-</div>
-
-<!-- Модальное окно для выбора товара -->
-<div class="modal" id="product-modal">
-  <div class="modal-content">
-    <div class="modal-title" id="modal-title">Выберите опции</div>
-    
-    <!-- Галерея изображений -->
-    <div class="modal-group">
-      <label class="modal-label" data-key="modal_images_label">Изображения</label>
-      <div class="modal-image-gallery" id="modal-image-gallery">
-        <!-- Изображения будут добавлены динамически -->
-      </div>
-    </div>
-
-    <!-- Описание товара -->
-    <div class="modal-group">
-      <label class="modal-label" data-key="modal_description_label">Описание</label>
-      <div class="modal-description" id="modal-description">
-        <!-- Описание будет добавлено динамически -->
-      </div>
-    </div>
-    
-    <div class="modal-group">
-      <label class="modal-label" data-key="modal_size_label">Размер</label>
-      <select class="modal-select" id="modal-size">
-        <!-- Опции будут добавлены динамически -->
-      </select>
-    </div>
-
-    <div class="modal-group">
-      <label class="modal-label" data-key="modal_color_label">Цвет</label>
-      <select class="modal-select" id="modal-color">
-        <!-- Опции будут добавлены динамически -->
-      </select>
-    </div>
-    
-    <div class="modal-group">
-      <label class="modal-label" data-key="modal_quantity_label">Количество</label>
-      <input type="number" class="modal-input" id="modal-quantity" min="1" value="1">
-    </div>
-    
-    <div class="modal-buttons">
-      <button class="modal-btn secondary" onclick="closeModal()" data-key="modal_cancel_btn">Отмена</button>
-      <button class="modal-btn primary" onclick="confirmAddToCart()" data-key="modal_add_btn">Добавить</button>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <!-- Главный экран -->
-  <div class="screen active" id="home">
-    <div class="logo">The Continental</div>
-    
-    <!-- Раздел новостей -->
-    <div class="news-section">
-      <div class="news-carousel">
-        <div class="news-slides" id="news-slides">
-          <div class="news-slide">
-            <h3 data-key="news1_title">Новая коллекция весна-лето 2025</h3>
-            <p data-key="news1_text">Эксклюзивные модели от ведущих брендов уже в наличии. Ограниченная серия!</p>
-          </div>
-          <div class="news-slide">
-            <h3 data-key="news2_title">Скидки до 30% на аксессуары</h3>
-            <p data-key="news2_text">Специальное предложение на все аксессуары. Акция действует до конца месяца.</p>
-          </div>
-          <div class="news-slide">
-            <h3 data-key="news3_title">Быстрая доставка по Европе</h3>
-            <p data-key="news3_text">Теперь доставляем заказы еще быстрее - от 5 до 10 рабочих дней.</p>
+  <div class="container">
+    <!-- Главный экран -->
+    <div class="screen active" id="home">
+      <div class="logo" data-key="logo">The Continental</div>
+      
+      <!-- Раздел новостей -->
+      <div class="news-section">
+        <div class="news-carousel">
+          <div class="news-slides" id="news-slides">
+            <div class="news-slide">
+              <h3 data-key="news1_title">Новая коллекция весна-лето 2025</h3>
+              <p data-key="news1_text">Эксклюзивные модели от ведущих брендов уже в наличии. Ограниченная серия!</p>
+            </div>
+            <div class="news-slide">
+              <h3 data-key="news2_title">Скидки до 30% на аксессуары</h3>
+              <p data-key="news2_text">Специальное предложение на все аксессуары. Акция действует до конца месяца.</p>
+            </div>
+            <div class="news-slide">
+              <h3 data-key="news3_title">Быстрая доставка по Европе</h3>
+              <p data-key="news3_text">Теперь доставляем заказы еще быстрее - от 5 до 10 рабочих дней.</p>
+            </div>
           </div>
         </div>
+        <div class="news-indicators">
+          <div class="news-indicator active" onclick="goToSlide(0)"></div>
+          <div class="news-indicator" onclick="goToSlide(1)"></div>
+          <div class="news-indicator" onclick="goToSlide(2)"></div>
+        </div>
       </div>
-      <div class="news-indicators" id="news-indicators">
-        <div class="news-indicator active" onclick="goToSlide(0)"></div>
-        <div class="news-indicator" onclick="goToSlide(1)"></div>
-        <div class="news-indicator" onclick="goToSlide(2)"></div>
+
+      <button class="btn" onclick="openScreen('mens')" data-key="mens_btn">Мужское</button>
+      <button class="btn" onclick="openScreen('womens')" data-key="womens_btn">Женское</button>
+      <button class="btn" onclick="openScreen('terms')" data-key="terms_btn">Условия работы</button>
+      <button class="btn" onclick="openScreen('support')" data-key="support_btn">Поддержка</button>
+      <button class="btn" onclick="openScreen('social')" data-key="social_btn">Мы в соцсетях</button>
+    </div>
+
+    <!-- Мужские товары -->
+    <div class="screen" id="mens">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1 data-key="mens_title">Мужское</h1>
+      </div>
+      <div id="mens-content"></div>
+      <div class="pagination" id="mens-pagination"></div>
+    </div>
+
+    <!-- Женские товары -->
+    <div class="screen" id="womens">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1 data-key="womens_title">Женское</h1>
+      </div>
+      <div id="womens-content"></div>
+      <div class="pagination" id="womens-pagination"></div>
+    </div>
+
+    <!-- Социальные сети -->
+    <div class="screen" id="social">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1 data-key="social_title">Мы в соцсетях</h1>
+      </div>
+      <div class="social-text" data-key="social_text">
+        Подписывайтесь на наши социальные сети, чтобы быть в курсе всех новинок и специальных предложений!
+      </div>
+      <button class="social-btn" onclick="openSocialLink('https://instagram.com/continental_shop')" data-key="instagram_btn">📷 Instagram</button>
+      <button class="social-btn" onclick="openSocialLink('https://tiktok.com/@continental_shop')" data-key="tiktok_btn">🎵 TikTok</button>
+      <button class="social-btn" onclick="openSocialLink('https://wa.me/1234567890')" data-key="whatsapp_btn">💬 WhatsApp</button>
+      <button class="social-btn" onclick="openSocialLink('viber://chat?number=1234567890')" data-key="viber_btn">📞 Viber</button>
+      <button class="social-btn" onclick="openSocialLink('https://t.me/continental_shop')" data-key="telegram_btn">✈️ Telegram</button>
+    </div>
+
+    <!-- Корзина -->
+    <div class="screen" id="cart">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1 data-key="cart_title">Корзина</h1>
+      </div>
+      <div id="cart-content"></div>
+      <div class="cart-total" id="cart-total" style="display: none;">
+        <div style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">
+          <span data-key="cart_total_label">Итого:</span> <span id="total-price">€0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()" data-key="checkout_btn">Оформить заказ</button>
       </div>
     </div>
 
-    <button class="btn" data-key="mens_btn" onclick="openScreen('mens')">Мужское</button>
-    <button class="btn" data-key="womens_btn" onclick="openScreen('womens')">Женское</button>
-    <button class="btn" data-key="terms_btn" onclick="openScreen('terms')">Условия работы</button>
-    <button class="btn" data-key="support_btn" onclick="openScreen('support')">Поддержка</button>
-    <button class="btn" data-key="social_btn" onclick="openScreen('social')">Мы в соцсетях</button>
-  </div>
-
-  <!-- Мужская одежда -->
-  <div class="screen" id="mens">
-    <div class="header">
-      <button class="back" onclick="backToHome()">←</button>
-      <h1 data-key="mens_title">Мужское</h1>
-    </div>
-    <div id="mens-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="mens-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Женская одежда -->
-  <div class="screen" id="womens">
-    <div class="header">
-      <button class="back" onclick="backToHome()">←</button>
-      <h1 data-key="womens_title">Женское</h1>
-    </div>
-    <div id="womens-content">
-      <!-- Товары будут загружены через JavaScript -->
-    </div>
-    <div class="pagination" id="womens-pagination">
-      <!-- Пагинация будет загружена через JavaScript -->
-    </div>
-  </div>
-
-  <!-- Социальные сети -->
-  <div class="screen" id="social">
-    <div class="header">
-      <button class="back" onclick="backToHome()">←</button>
-      <h1 data-key="social_title">Мы в соцсетях</h1>
-    </div>
-    <p data-key="social_text" style="margin-bottom: 20px; color: #999999; line-height: 1.5; text-align: center;">
-      Подписывайтесь на наши социальные сети, чтобы быть в курсе всех новинок и специальных предложений!
-    </p>
-    <button class="social-btn" data-key="instagram_btn" onclick="openSocialLink('https://instagram.com/continental_store_random')">
-      📷 Instagram
-    </button>
-    <button class="social-btn" data-key="tiktok_btn" onclick="openSocialLink('https://tiktok.com/@continental_random')">
-      🎵 TikTok
-    </button>
-    <button class="social-btn" data-key="whatsapp_btn" onclick="openSocialLink('https://wa.me/1234567890')">
-      💬 WhatsApp
-    </button>
-    <button class="social-btn" data-key="viber_btn" onclick="openSocialLink('viber://chat?number=1234567890')">
-      📞 Viber
-    </button>
-    <button class="social-btn" data-key="telegram_btn" onclick="openSocialLink('https://t.me/continental_random')">
-      ✈️ Telegram
-    </button>
-  </div>
-
-  <!-- Корзина -->
-  <div class="screen" id="cart">
-    <div class="header">
-      <button class="back" onclick="backToHome()">←</button>
-      <h1 data-key="cart_title">Корзина</h1>
-    </div>
-    <div id="cart-content">
-      <div class="empty-state" data-key="cart_empty">Корзина пуста</div>
-    </div>
-    <div id="cart-total" style="display: none;" class="cart-total">
-      <div class="total-row">
-        <span data-key="cart_total_label">Итого:</span>
-        <span id="total-price">€0.00</span>
+    <!-- Условия работы -->
+    <div class="screen" id="terms">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1 data-key="terms_title">Условия работы</h1>
       </div>
-      <button class="checkout-btn" onclick="checkout()" data-key="checkout_btn">Оформить заказ</button>
+      <div class="content" data-key="terms_content">
+        <p><strong>Добро пожаловать в The Continental!</strong></p>
+        <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
+        <p><strong>Условия заказа:</strong></p>
+        <p>• Оплата — 100% предоплата<br/>• Доставка по Европе — 7-14 рабочих дней<br/>• Возвратов и обменов нет<br/>• Гарантия качества на все товары</p>
+        <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
+      </div>
+    </div>
+
+    <!-- Поддержка -->
+    <div class="screen" id="support">
+      <div class="header">
+        <button class="back" onclick="backToHome()">←</button>
+        <h1 data-key="support_title">Поддержка</h1>
+      </div>
+      <div class="content">
+        <p data-key="support_text">Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.</p>
+        <button class="contact-btn" onclick="openSocialLink('https://t.me/continental_manager')" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</button>
+      </div>
     </div>
   </div>
 
-  <!-- Условия работы -->
-  <div class="screen" id="terms">
-    <div class="header">
-      <button class="back" onclick="backToHome()">←</button>
-      <h1 data-key="terms_title">Условия работы</h1>
-    </div>
-    <div class="terms-content" data-key="terms_content">
-      <p><strong>Добро пожаловать в The Continental!</strong></p>
-      <p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p>
-      <p><strong>Условия заказа:</strong></p>
-      <p>• Оплата — 100% предоплата<br/>
-      • Доставка по Европе — 7-14 рабочих дней<br/>
-      • Возвратов и обменов нет<br/>
-      • Гарантия качества на все товары</p>
-      <p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>
+  <!-- Модальное окно товара -->
+  <div class="modal" id="product-modal">
+    <div class="modal-content">
+      <div class="modal-title" id="modal-title">Название товара</div>
+      
+      <div class="modal-group">
+        <div class="modal-label" data-key="modal_images_label">Изображения</div>
+        <div class="modal-image-gallery" id="modal-image-gallery"></div>
+      </div>
+      
+      <div class="modal-group">
+        <div class="modal-label" data-key="modal_description_label">Описание</div>
+        <div class="modal-description" id="modal-description"></div>
+      </div>
+      
+      <div class="modal-group">
+        <div class="modal-label" data-key="modal_size_label">Размер</div>
+        <select class="modal-select" id="modal-size"></select>
+      </div>
+      
+      <div class="modal-group">
+        <div class="modal-label" data-key="modal_color_label">Цвет</div>
+        <select class="modal-select" id="modal-color"></select>
+      </div>
+      
+      <div class="modal-group">
+        <div class="modal-label" data-key="modal_quantity_label">Количество</div>
+        <input type="number" class="modal-input" id="modal-quantity" value="1" min="1">
+      </div>
+      
+      <div class="modal-buttons">
+        <button class="modal-btn cancel" onclick="closeModal()" data-key="modal_cancel_btn">Отмена</button>
+        <button class="modal-btn confirm" onclick="confirmAddToCart()" data-key="modal_add_btn">Добавить</button>
+      </div>
     </div>
   </div>
-
-  <!-- Поддержка -->
-  <div class="screen" id="support">
-    <div class="header">
-      <button class="back" onclick="backToHome()">←</button>
-      <h1 data-key="support_title">Поддержка</h1>
-    </div>
-    <p data-key="support_text" style="margin-bottom: 20px; color: #999999; line-height: 1.5; text-align: center;">
-      Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.
-    </p>
-    <a class="support-link" data-key="contact_manager_btn" href="https://t.me/a6tribunal" target="_blank">НАПИСАТЬ МЕНЕДЖЕРУ</a>
-  </div>
-</div>
 
 
 
@@ -1202,7 +1183,7 @@ let currentTheme = 'dark';
 let currentScreen = 'home';
 let currentGender = '';
 let currentPage = 1;
-let itemsPerPage = 10;
+let itemsPerPage = 6;
 let cart = [];
 let currentSlide = 0;
 let slideInterval;
@@ -1294,6 +1275,34 @@ const products = {
       sizes: ["40", "41", "42", "43", "44", "45"],
       images: ["image9.jpg"],
       fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки."
+    },
+    {
+      id: 7,
+      name: "Мужская рубашка Classic",
+      description: "Классическая мужская рубашка",
+      price: 65.00,
+      brand: "Hugo Boss",
+      stock: 9,
+      category: "tshirts",
+      subcategory: "shirt",
+      colors: ["white", "blue", "black"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["image10.jpg"],
+      fullDescription: "Элегантная классическая рубашка для деловых встреч и особых случаев."
+    },
+    {
+      id: 8,
+      name: "Мужские шорты Summer",
+      description: "Летние шорты для комфорта",
+      price: 35.99,
+      brand: "Puma",
+      stock: 20,
+      category: "shorts",
+      subcategory: "sport",
+      colors: ["black", "navy", "khaki"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["image11.jpg"],
+      fullDescription: "Легкие летние шорты из дышащего материала. Идеальны для спорта и отдыха."
     }
   ],
   womens: [
@@ -1366,6 +1375,34 @@ const products = {
       sizes: ["36", "37", "38", "39", "40"],
       images: ["image16.jpg"],
       fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев."
+    },
+    {
+      id: 106,
+      name: "Женская юбка Mini",
+      description: "Стильная мини-юбка",
+      price: 45.00,
+      brand: "H&M",
+      stock: 12,
+      category: "pants",
+      subcategory: "skirt",
+      colors: ["black", "white", "red"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["image17.jpg"],
+      fullDescription: "Модная мини-юбка А-силуэта. Отлично подходит для создания женственных образов."
+    },
+    {
+      id: 107,
+      name: "Женский купальник Bikini",
+      description: "Стильный купальник бикини",
+      price: 55.99,
+      brand: "Victoria's Secret",
+      stock: 8,
+      category: "swimwear",
+      subcategory: "bikini",
+      colors: ["black", "blue", "pink"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["image18.jpg"],
+      fullDescription: "Элегантный купальник бикини с поддержкой. Идеален для пляжного отдыха."
     }
   ]
 };
@@ -1391,7 +1428,7 @@ const filterConfig = {
     }
   },
   womens: {
-    brands: ["Zara", "H&M", "Nike", "Adidas", "Chanel", "Dior", "Gucci", "Prada", "Louis Vuitton", "Versace"],
+    brands: ["Zara", "H&M", "Nike", "Adidas", "Chanel", "Dior", "Gucci", "Prada", "Louis Vuitton", "Versace", "Victoria's Secret", "Champion"],
     colors: ["black", "white", "pink", "blue", "red", "green", "yellow", "purple", "beige", "gray"],
     categories: {
       tshirts: ["tshirt", "top", "shirt", "tank_top"],
@@ -1455,6 +1492,7 @@ const translations = {
     stock_label: "В наличии:",
     search_placeholder: "Поиск...",
     filter_btn: "ФИЛЬТР",
+    filter_title: "Фильтры",
     price_filter: "Цена",
     price_from: "От",
     price_to: "До",
@@ -1568,6 +1606,7 @@ const translations = {
     stock_label: "In Stock:",
     search_placeholder: "Search...",
     filter_btn: "FILTER",
+    filter_title: "Filters",
     price_filter: "Price",
     price_from: "From",
     price_to: "To",
@@ -1681,6 +1720,7 @@ const translations = {
     stock_label: "В наявності:",
     search_placeholder: "Пошук...",
     filter_btn: "ФІЛЬТР",
+    filter_title: "Фільтри",
     price_filter: "Ціна",
     price_from: "Від",
     price_to: "До",
@@ -1794,6 +1834,7 @@ const translations = {
     stock_label: "Auf Lager:",
     search_placeholder: "Suchen...",
     filter_btn: "FILTER",
+    filter_title: "Filter",
     price_filter: "Preis",
     price_from: "Von",
     price_to: "Bis",
@@ -1884,7 +1925,9 @@ function setupEventListeners() {
   document.getElementById('language-select').addEventListener('change', function() {
     currentLanguage = this.value;
     updateLanguage();
-    updateFilters();
+    if (currentGender) {
+      updateFilterPanel();
+    }
   });
 
   // Переключатель темы
@@ -1904,17 +1947,9 @@ function setupEventListeners() {
   });
 
   // Фильтры
-  document.getElementById('filters-button').addEventListener('click', toggleFilters);
-  
-  // Закрытие фильтров при клике вне
-  document.addEventListener('click', function(e) {
-    const filtersButton = document.getElementById('filters-button');
-    const filtersDropdown = document.getElementById('filters-dropdown');
-    
-    if (!filtersButton.contains(e.target) && !filtersDropdown.contains(e.target)) {
-      filtersDropdown.classList.remove('show');
-    }
-  });
+  document.getElementById('filters-button').addEventListener('click', toggleFilterPanel);
+  document.getElementById('filter-panel-close').addEventListener('click', closeFilterPanel);
+  document.getElementById('filter-panel-overlay').addEventListener('click', closeFilterPanel);
 }
 
 function updateLanguage() {
@@ -1955,7 +1990,7 @@ function openScreen(screenName) {
   if (screenName === 'mens' || screenName === 'womens') {
     currentGender = screenName;
     currentPage = 1;
-    updateFilters();
+    updateFilterPanel();
     loadProducts();
   } else if (screenName === 'cart') {
     updateCartDisplay();
@@ -1963,17 +1998,39 @@ function openScreen(screenName) {
 }
 
 function backToHome() {
+  closeFilterPanel();
   openScreen('home');
 }
 
-function updateFilters() {
+function toggleFilterPanel() {
+  const filterPanel = document.getElementById('filter-panel');
+  const filterOverlay = document.getElementById('filter-panel-overlay');
+  
+  if (filterPanel.classList.contains('show')) {
+    closeFilterPanel();
+  } else {
+    filterPanel.classList.add('show');
+    filterOverlay.classList.add('show');
+    updateFilterPanel();
+  }
+}
+
+function closeFilterPanel() {
+  const filterPanel = document.getElementById('filter-panel');
+  const filterOverlay = document.getElementById('filter-panel-overlay');
+  
+  filterPanel.classList.remove('show');
+  filterOverlay.classList.remove('show');
+}
+
+function updateFilterPanel() {
   if (!currentGender) return;
   
-  const filtersDropdown = document.getElementById('filters-dropdown');
+  const filterContent = document.getElementById('filter-content');
   const config = filterConfig[currentGender];
   const t = translations[currentLanguage];
   
-  filtersDropdown.innerHTML = `
+  filterContent.innerHTML = `
     <div class="filter-group">
       <label class="filter-label">${t.price_filter}</label>
       <div class="filter-input-group">
@@ -2024,37 +2081,14 @@ function updateFilters() {
       </div>
     </div>
     
-    <div class="filter-group">
-      <button onclick="applyFilters()" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; width: 100%; margin-bottom: 8px; cursor: pointer;">${t.apply_filters}</button>
-      <button onclick="clearFilters()" style="background: transparent; color: inherit; border: 1px solid rgba(128,128,128,0.3); padding: 8px 16px; border-radius: 4px; width: 100%; cursor: pointer;">${t.clear_filters}</button>
-    </div>
+    <button class="filter-apply-btn" onclick="applyFilters()">${t.apply_filters}</button>
   `;
-  
-  // Добавить обработчики событий для фильтров
-  filtersDropdown.querySelectorAll('input').forEach(input => {
-    input.addEventListener('change', applyFilters);
-  });
-}
-
-function toggleFilters() {
-  const filtersDropdown = document.getElementById('filters-dropdown');
-  filtersDropdown.classList.toggle('show');
 }
 
 function applyFilters() {
   currentPage = 1;
   loadProducts();
-}
-
-function clearFilters() {
-  document.querySelectorAll('#filters-dropdown input').forEach(input => {
-    if (input.type === 'checkbox') {
-      input.checked = false;
-    } else {
-      input.value = '';
-    }
-  });
-  applyFilters();
+  closeFilterPanel();
 }
 
 function getActiveFilters() {
@@ -2067,7 +2101,7 @@ function getActiveFilters() {
     subcategories: []
   };
   
-  document.querySelectorAll('#filters-dropdown input[type="checkbox"]:checked').forEach(checkbox => {
+  document.querySelectorAll('#filter-content input[type="checkbox"]:checked').forEach(checkbox => {
     const value = checkbox.value;
     const id = checkbox.id;
     
@@ -2169,7 +2203,7 @@ function updatePagination(totalPages) {
   
   // Предыдущая страница
   if (currentPage > 1) {
-    paginationHTML += `<button onclick="changePage(${currentPage - 1})">‹</button>`;
+    paginationHTML += `<button onclick="changePage(${currentPage - 1})">←</button>`;
   }
   
   // Номера страниц
@@ -2185,7 +2219,7 @@ function updatePagination(totalPages) {
   
   // Следующая страница
   if (currentPage < totalPages) {
-    paginationHTML += `<button onclick="changePage(${currentPage + 1})">›</button>`;
+    paginationHTML += `<button onclick="changePage(${currentPage + 1})">→</button>`;
   }
   
   paginationDiv.innerHTML = paginationHTML;
@@ -2279,9 +2313,6 @@ function confirmAddToCart() {
   updateCartCount();
   saveCartToStorage();
   closeModal();
-  
-  // Показать уведомление (можно добавить)
-  console.log('Товар добавлен в корзину');
 }
 
 function updateCartCount() {
@@ -2413,6 +2444,4 @@ document.getElementById('product-modal').addEventListener('click', function(e) {
 
 </body>
 </html>
-
-
 
