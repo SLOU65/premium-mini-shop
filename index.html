@@ -33,6 +33,13 @@
       transition: all 0.3s ease;
     }
 
+    /* Блокировка прокрутки при открытых фильтрах */
+    body.filter-open {
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
+    }
+
     /* Светлая тема */
     body[data-theme="light"] {
       background-color: #ffffff;
@@ -227,7 +234,8 @@
       padding: 8px 10px;
       color: inherit;
       font-size: 12px;
-      flex: 1;
+      width: 80px;
+      max-width: 80px;
     }
 
     .filter-checkbox-group {
@@ -1946,10 +1954,33 @@ function setupEventListeners() {
     }
   });
 
-  // Фильтры
-  document.getElementById('filters-button').addEventListener('click', toggleFilterPanel);
-  document.getElementById('filter-panel-close').addEventListener('click', closeFilterPanel);
-  document.getElementById('filter-panel-overlay').addEventListener('click', closeFilterPanel);
+  // Фильтры - улучшенный обработчик
+  const filtersButton = document.getElementById('filters-button');
+  if (filtersButton) {
+    filtersButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFilterPanel();
+    });
+  }
+
+  const filterPanelClose = document.getElementById('filter-panel-close');
+  if (filterPanelClose) {
+    filterPanelClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeFilterPanel();
+    });
+  }
+
+  const filterPanelOverlay = document.getElementById('filter-panel-overlay');
+  if (filterPanelOverlay) {
+    filterPanelOverlay.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeFilterPanel();
+    });
+  }
 }
 
 function updateLanguage() {
@@ -2385,7 +2416,6 @@ function checkout() {
   // Здесь можно добавить логику оформления заказа
   alert('Функция оформления заказа будет добавлена позже');
 }
-
 function saveCartToStorage() {
   localStorage.setItem('continental_cart', JSON.stringify(cart));
 }
@@ -2396,6 +2426,53 @@ function loadCartFromStorage() {
     cart = JSON.parse(savedCart);
     updateCartCount();
   }
+}
+
+// Функции управления панелью фильтров
+function toggleFilterPanel() {
+  const panel = document.getElementById('filter-panel');
+  const overlay = document.getElementById('filter-panel-overlay');
+  
+  if (!panel || !overlay) {
+    console.error('Filter panel elements not found');
+    return;
+  }
+  
+  const isOpen = panel.classList.contains('show');
+  
+  if (isOpen) {
+    closeFilterPanel();
+  } else {
+    // Принудительно убираем класс show перед добавлением
+    panel.classList.remove('show');
+    overlay.classList.remove('show');
+    document.body.classList.remove('filter-open');
+    
+    // Добавляем небольшую задержку для корректной анимации
+    setTimeout(() => {
+      panel.classList.add('show');
+      overlay.classList.add('show');
+      document.body.classList.add('filter-open');
+      updateFilterPanel();
+    }, 10);
+  }
+}
+
+function closeFilterPanel() {
+  const panel = document.getElementById('filter-panel');
+  const overlay = document.getElementById('filter-panel-overlay');
+  
+  if (panel && overlay) {
+    panel.classList.remove('show');
+    overlay.classList.remove('show');
+    document.body.classList.remove('filter-open');
+  }
+}
+
+function applyFilters() {
+  currentPage = 1;
+  loadProducts();
+  closeFilterPanel();
 }
 
 function openSocialLink(url) {
@@ -2440,8 +2517,10 @@ document.getElementById('product-modal').addEventListener('click', function(e) {
     closeModal();
   }
 });
+
 </script>
 
 </body>
 </html>
+
 
