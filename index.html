@@ -2360,6 +2360,10 @@ function openScreen(screenName) {
 }
 
 function backToHome() {
+  // Сохранить состояние фильтров перед выходом
+  if (currentGender) {
+    saveFilterState();
+  }
   closeFilterPanel();
   openScreen('home');
 }
@@ -3075,6 +3079,8 @@ function closeFilterPanel() {
 }
 
 function applyFilters() {
+  // Сохранить состояние фильтров перед применением
+  saveFilterState();
   currentPage = 1;
   loadProducts();
   closeFilterPanel();
@@ -3141,7 +3147,10 @@ function saveFilterState() {
   localStorage.setItem(`continental_filters_${currentGender}`, JSON.stringify(filterState));
 }
 
-function restoreFilterState() {
+function
+
+
+ restoreFilterState() {
   if (!currentGender) return;
   
   const savedState = localStorage.getItem(`continental_filters_${currentGender}`);
@@ -3183,7 +3192,6 @@ function clearFilterState() {
 
 </body>
 </html>
-
 
 
 
