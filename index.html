@@ -2233,24 +2233,6 @@ function initializeApp() {
     
     // Расширить приложение на весь экран
     tg.expand();
-    
-    // Настроить основную кнопку
-    tg.MainButton.setText('ОТКРЫТЬ');
-    tg.MainButton.show();
-    
-    // Обработчик основной кнопки
-    tg.MainButton.onClick(() => {
-      tg.close();
-    });
-    
-    // Настроить цвета темы
-    if (tg.colorScheme === 'dark') {
-      currentTheme = 'dark';
-      document.body.setAttribute('data-theme', 'dark');
-    } else {
-      currentTheme = 'light';
-      document.body.setAttribute('data-theme', 'light');
-    }
   }
   
   setupEventListeners();
@@ -2259,9 +2241,9 @@ function initializeApp() {
   loadCartFromStorage();
   
   // Добавляем обработчик для кнопки фильтра
-  const filtersButton = document.getElementById('filters-button');
+  const filtersButton = document.getElementById("filters-button");
   if (filtersButton) {
-    filtersButton.addEventListener('click', function(e) {
+    filtersButton.addEventListener("click", function(e) {
       e.preventDefault();
       e.stopPropagation();
       toggleFilterPanel();
@@ -2463,9 +2445,14 @@ function updateFilterPanel() {
     
     <button class="filter-apply-btn" onclick="applyFilters()">${t.apply_filters}</button>
   `;
+  
+  // Восстановить сохраненные фильтры
+  restoreFilterState();
 }
 
 function applyFilters() {
+  // Сохранить состояние фильтров перед применением
+  saveFilterState();
   currentPage = 1;
   loadProducts();
   closeFilterPanel();
@@ -3136,9 +3123,67 @@ document.getElementById('product-modal').addEventListener('click', function(e) {
   }
 });
 
+// Функции для сохранения и восстановления состояния фильтров
+function saveFilterState() {
+  if (!currentGender) return;
+  
+  const filterState = {
+    priceFrom: document.getElementById('price-from')?.value || '',
+    priceTo: document.getElementById('price-to')?.value || '',
+    checkedFilters: []
+  };
+  
+  // Сохранить состояние всех чекбоксов
+  document.querySelectorAll('#filter-content input[type="checkbox"]:checked').forEach(checkbox => {
+    filterState.checkedFilters.push(checkbox.id);
+  });
+  
+  localStorage.setItem(`continental_filters_${currentGender}`, JSON.stringify(filterState));
+}
+
+function restoreFilterState() {
+  if (!currentGender) return;
+  
+  const savedState = localStorage.getItem(`continental_filters_${currentGender}`);
+  if (!savedState) return;
+  
+  try {
+    const filterState = JSON.parse(savedState);
+    
+    // Восстановить значения полей цены
+    const priceFromInput = document.getElementById('price-from');
+    const priceToInput = document.getElementById('price-to');
+    
+    if (priceFromInput && filterState.priceFrom) {
+      priceFromInput.value = filterState.priceFrom;
+    }
+    
+    if (priceToInput && filterState.priceTo) {
+      priceToInput.value = filterState.priceTo;
+    }
+    
+    // Восстановить состояние чекбоксов
+    filterState.checkedFilters.forEach(checkboxId => {
+      const checkbox = document.getElementById(checkboxId);
+      if (checkbox) {
+        checkbox.checked = true;
+      }
+    });
+  } catch (error) {
+    console.error('Ошибка при восстановлении состояния фильтров:', error);
+  }
+}
+
+function clearFilterState() {
+  if (!currentGender) return;
+  localStorage.removeItem(`continental_filters_${currentGender}`);
+}
+
 </script>
 
 </body>
 </html>
+
+
 
 
