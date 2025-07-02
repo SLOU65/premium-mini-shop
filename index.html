@@ -128,6 +128,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       user-select: none;
+      display: none; /* Скрыто по умолчанию */
     }
 
     .filters-button:hover {
@@ -151,14 +152,10 @@
       color: #ffffff;
       z-index: 2000;
       transition: right 0.3s ease;
-      overflow-y: auto;
-      padding: 60px 20px 20px;
+      padding: 20px; /* Уменьшаем общий padding */
       border-left: 1px solid rgba(128, 128, 128, 0.3);
-    }
-
-    body[data-theme="light"] .filter-panel {
-      background: #ffffff;
-      color: #000000;
+      display: flex;
+      flex-direction: column;
     }
 
     .filter-panel.show {
@@ -184,9 +181,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px; /* Уменьшаем отступ */
       padding-bottom: 15px;
       border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+      flex-shrink: 0; /* Заголовок не сжимается */
+    }
+
+    #filter-content {
+      flex-grow: 1; /* Содержимое занимает все доступное пространство */
+      overflow-y: auto; /* Прокрутка только для содержимого */
+      padding-right: 5px; /* Для компенсации скроллбара */
     }
 
     .filter-panel-title {
@@ -960,22 +964,29 @@
     }
 
     .contact-btn {
-      background: #28a745;
-      color: white;
-      padding: 12px 20px;
+      background: #ffffff !important;
+      color: #000000 !important;
+      padding: 14px 20px;
+      margin: 8px 0;
       border: none;
-      border-radius: 8px;
-      font-size: 14px;
       font-weight: 600;
-      cursor: pointer;
+      font-size: 15px;
       width: 100%;
-      margin-top: 15px;
+      text-align: center;
+      border-radius: 12px;
+      cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    body[data-theme="light"] .contact-btn {
+      background: #000000 !important;
+      color: #ffffff !important;
     }
 
     .contact-btn:active {
       transform: scale(0.98);
-      background: #1e7e34;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
 
     .social-text {
@@ -988,6 +999,238 @@
 
     body[data-theme="light"] .social-text {
       color: #333333;
+    }
+
+    /* Экран детального просмотра товара */
+    .product-detail-screen {
+      padding: 15px;
+      min-height: calc(100vh - 50px);
+    }
+
+    .product-detail-images {
+      margin-bottom: 20px;
+    }
+
+    .product-main-image {
+      width: 100%;
+      height: 300px;
+      background: #333;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .product-thumbnail-gallery {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 5px 0;
+    }
+
+    .product-thumbnail {
+      min-width: 60px;
+      height: 60px;
+      background: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 10px;
+    }
+
+    .product-thumbnail.active {
+      border-color: #007bff;
+    }
+
+    .product-detail-info {
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    body[data-theme="light"] .product-detail-info {
+      background: #f5f5f5;
+    }
+
+    .product-detail-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    body[data-theme="light"] .product-detail-title {
+      color: #000000;
+    }
+
+    .product-detail-price {
+      font-size: 28px;
+      font-weight: 700;
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .product-detail-description {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #cccccc;
+      margin-bottom: 20px;
+    }
+
+    body[data-theme="light"] .product-detail-description {
+      color: #333333;
+    }
+
+    .product-detail-options {
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    body[data-theme="light"] .product-detail-options {
+      background: #f5f5f5;
+    }
+
+    .product-option-group {
+      margin-bottom: 20px;
+    }
+
+    .product-option-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .product-option-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    body[data-theme="light"] .product-option-label {
+      color: #000000;
+    }
+
+    .product-option-select {
+      width: 100%;
+      background: rgba(128, 128, 128, 0.1);
+      border: 1px solid rgba(128, 128, 128, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      color: inherit;
+      font-size: 16px;
+    }
+
+    .product-quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .quantity-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quantity-btn:active {
+      transform: scale(0.95);
+      background: #0056b3;
+    }
+
+    .quantity-display {
+      font-size: 18px;
+      font-weight: 600;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .product-detail-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .product-action-btn {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .product-action-btn.primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .product-action-btn.secondary {
+      background: transparent;
+      color: inherit;
+      border: 1px solid rgba(128, 128, 128, 0.4);
+    }
+
+    .product-action-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Админ панель для управления товарами */
+    .admin-panel {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      background: #1a1a1a;
+      border: 1px solid rgba(128, 128, 128, 0.3);
+      border-radius: 12px;
+      padding: 15px;
+      z-index: 1000;
+      display: none;
+    }
+
+    body[data-theme="light"] .admin-panel {
+      background: #f5f5f5;
+    }
+
+    .admin-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      margin: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .admin-btn.delete {
+      background: #dc3545;
+    }
+
+    .admin-btn:active {
+      transform: scale(0.95);
     }
 </style>
 </head>
@@ -1140,9 +1383,71 @@
       </div>
       <div class="content">
         <p data-key="support_text">Наши менеджеры готовы ответить на все ваши вопросы и помочь с выбором товара. Мы работаем 24/7 для вашего удобства.</p>
-        <button class="contact-btn" onclick="openSocialLink('https://t.me/continental_manager')" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</button>
+        <button class="contact-btn" onclick="openSocialLink('https://t.me/a6tribunal')" data-key="contact_manager_btn">НАПИСАТЬ МЕНЕДЖЕРУ</button>
       </div>
     </div>
+
+    <!-- Детальный просмотр товара -->
+    <div class="screen product-detail-screen" id="product-detail">
+      <div class="header">
+        <button class="back" onclick="backFromProductDetail()">←</button>
+        <h1 id="product-detail-header-title">Товар</h1>
+      </div>
+      
+      <div class="product-detail-images">
+        <div class="product-main-image" id="product-main-image">
+          Основное изображение
+        </div>
+        <div class="product-thumbnail-gallery" id="product-thumbnail-gallery">
+          <!-- Миниатюры будут добавлены динамически -->
+        </div>
+      </div>
+      
+      <div class="product-detail-info">
+        <div class="product-detail-title" id="product-detail-title">Название товара</div>
+        <div class="product-detail-price" id="product-detail-price">€0.00</div>
+        <div class="product-detail-description" id="product-detail-description">
+          Описание товара
+        </div>
+      </div>
+      
+      <div class="product-detail-options">
+        <div class="product-option-group">
+          <label class="product-option-label" data-key="modal_size_label">Размер</label>
+          <select class="product-option-select" id="product-detail-size">
+            <!-- Опции будут добавлены динамически -->
+          </select>
+        </div>
+        
+        <div class="product-option-group">
+          <label class="product-option-label" data-key="modal_color_label">Цвет</label>
+          <select class="product-option-select" id="product-detail-color">
+            <!-- Опции будут добавлены динамически -->
+          </select>
+        </div>
+        
+        <div class="product-option-group">
+          <label class="product-option-label" data-key="modal_quantity_label">Количество</label>
+          <div class="product-quantity-controls">
+            <button class="quantity-btn" onclick="changeProductQuantity(-1)">-</button>
+            <div class="quantity-display" id="product-detail-quantity">1</div>
+            <button class="quantity-btn" onclick="changeProductQuantity(1)">+</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="product-detail-actions">
+        <button class="product-action-btn secondary" onclick="backFromProductDetail()" data-key="modal_cancel_btn">Назад</button>
+        <button class="product-action-btn primary" onclick="addToCartFromDetail()" data-key="modal_add_btn">Добавить в корзину</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Админ панель -->
+  <div class="admin-panel" id="admin-panel">
+    <button class="admin-btn" onclick="showAddProductForm()">Добавить товар</button>
+    <button class="admin-btn delete" onclick="toggleDeleteMode()">Удалить товары</button>
+    <button class="admin-btn" onclick="hideAdminPanel()">Закрыть</button>
   </div>
 
   <!-- Модальное окно товара -->
@@ -1922,10 +2227,46 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
+  // Инициализация Telegram Web App
+  if (window.Telegram && window.Telegram.WebApp) {
+    const tg = window.Telegram.WebApp;
+    
+    // Расширить приложение на весь экран
+    tg.expand();
+    
+    // Настроить основную кнопку
+    tg.MainButton.setText('ОТКРЫТЬ');
+    tg.MainButton.show();
+    
+    // Обработчик основной кнопки
+    tg.MainButton.onClick(() => {
+      tg.close();
+    });
+    
+    // Настроить цвета темы
+    if (tg.colorScheme === 'dark') {
+      currentTheme = 'dark';
+      document.body.setAttribute('data-theme', 'dark');
+    } else {
+      currentTheme = 'light';
+      document.body.setAttribute('data-theme', 'light');
+    }
+  }
+  
   setupEventListeners();
   startNewsCarousel();
   updateLanguage();
   loadCartFromStorage();
+  
+  // Добавляем обработчик для кнопки фильтра
+  const filtersButton = document.getElementById('filters-button');
+  if (filtersButton) {
+    filtersButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFilterPanel();
+    });
+  }
 }
 
 function setupEventListeners() {
@@ -2016,6 +2357,14 @@ function openScreen(screenName) {
   // Показать нужный экран
   document.getElementById(screenName).classList.add('active');
   currentScreen = screenName;
+  
+  // Управление видимостью кнопки фильтра
+  const filtersButton = document.getElementById('filters-button');
+  if (screenName === 'mens' || screenName === 'womens') {
+    filtersButton.style.display = 'block';
+  } else {
+    filtersButton.style.display = 'none';
+  }
   
   // Загрузить контент для экранов товаров
   if (screenName === 'mens' || screenName === 'womens') {
@@ -2204,7 +2553,7 @@ function loadProducts() {
     contentDiv.innerHTML = `<div class="empty-state">Товары не найдены</div>`;
   } else {
     contentDiv.innerHTML = pageProducts.map(product => `
-      <div class="product" onclick="openProductModal(${product.id})">
+      <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
         <div class="product-image">Изображение товара</div>
         <div class="product-name">${product.name}</div>
         <div class="product-description">${product.description}</div>
@@ -2213,7 +2562,7 @@ function loadProducts() {
           <span>${t.brand_label} ${product.brand}</span>
           <span>${t.stock_label} ${product.stock}</span>
         </div>
-        <button class="add-to-cart-btn" onclick="event.stopPropagation(); openProductModal(${product.id})">${t.add_to_cart_btn}</button>
+        <button class="add-to-cart-btn" onclick="event.stopPropagation(); ${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">${isDeleteMode ? 'Удалить' : t.add_to_cart_btn}</button>
       </div>
     `).join('');
   }
@@ -2261,43 +2610,209 @@ function changePage(page) {
   loadProducts();
 }
 
-function openProductModal(productId) {
+function openProductDetail(productId) {
   const product = products[currentGender].find(p => p.id === productId);
   if (!product) return;
   
   currentProduct = product;
   const t = translations[currentLanguage];
   
-  // Заполнить модальное окно
-  document.getElementById('modal-title').textContent = product.name;
-  document.getElementById('modal-description').textContent = product.fullDescription;
+  // Заполнить детальный экран
+  document.getElementById('product-detail-header-title').textContent = product.name;
+  document.getElementById('product-detail-title').textContent = product.name;
+  document.getElementById('product-detail-price').textContent = `€${product.price.toFixed(2)}`;
+  document.getElementById('product-detail-description').textContent = product.fullDescription;
   
   // Изображения
-  const imageGallery = document.getElementById('modal-image-gallery');
-  imageGallery.innerHTML = product.images.map((img, index) => `
-    <div class="modal-image ${index === 0 ? 'active' : ''}" onclick="selectImage(${index})">
-      Фото ${index + 1}
+  const mainImage = document.getElementById('product-main-image');
+  mainImage.textContent = `Фото 1 - ${product.name}`;
+  
+  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
+  thumbnailGallery.innerHTML = product.images.map((img, index) => `
+    <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImage(${index})">
+      ${index + 1}
     </div>
   `).join('');
   
   // Размеры
-  const sizeSelect = document.getElementById('modal-size');
+  const sizeSelect = document.getElementById('product-detail-size');
   sizeSelect.innerHTML = product.sizes.map(size => `
     <option value="${size}">${size}</option>
   `).join('');
   
   // Цвета
-  const colorSelect = document.getElementById('modal-color');
+  const colorSelect = document.getElementById('product-detail-color');
   colorSelect.innerHTML = product.colors.map(color => `
     <option value="${color}">${t[color] || color}</option>
   `).join('');
   
   // Количество
-  document.getElementById('modal-quantity').value = 1;
+  document.getElementById('product-detail-quantity').textContent = '1';
   
-  // Показать модальное окно
-  document.getElementById('product-modal').classList.add('show');
+  // Открыть экран
+  openScreen('product-detail');
 }
+
+function selectProductImage(index) {
+  document.querySelectorAll('.product-thumbnail').forEach((img, i) => {
+    img.classList.toggle('active', i === index);
+  });
+  
+  const mainImage = document.getElementById('product-main-image');
+  mainImage.textContent = `Фото ${index + 1} - ${currentProduct.name}`;
+}
+
+function changeProductQuantity(change) {
+  const quantityDisplay = document.getElementById('product-detail-quantity');
+  let currentQuantity = parseInt(quantityDisplay.textContent);
+  currentQuantity = Math.max(1, currentQuantity + change);
+  quantityDisplay.textContent = currentQuantity;
+}
+
+function addToCartFromDetail() {
+  if (!currentProduct) return;
+  
+  const size = document.getElementById('product-detail-size').value;
+  const color = document.getElementById('product-detail-color').value;
+  const quantity = parseInt(document.getElementById('product-detail-quantity').textContent);
+  
+  const cartItem = {
+    id: currentProduct.id,
+    name: currentProduct.name,
+    price: currentProduct.price,
+    size: size,
+    color: color,
+    quantity: quantity,
+    gender: currentGender
+  };
+  
+  // Проверить, есть ли уже такой товар в корзине
+  const existingItemIndex = cart.findIndex(item => 
+    item.id === cartItem.id && 
+    item.size === cartItem.size && 
+    item.color === cartItem.color &&
+    item.gender === cartItem.gender
+  );
+  
+  if (existingItemIndex !== -1) {
+    cart[existingItemIndex].quantity += quantity;
+  } else {
+    cart.push(cartItem);
+  }
+  
+  updateCartCount();
+  saveCartToStorage();
+  
+  // Показать уведомление
+  alert('Товар добавлен в корзину!');
+}
+
+function backFromProductDetail() {
+  if (currentGender) {
+    openScreen(currentGender);
+  } else {
+    openScreen('home');
+  }
+}
+
+// CRUD функции для управления товарами
+let isDeleteMode = false;
+let isAdminMode = false;
+
+function toggleAdminMode() {
+  isAdminMode = !isAdminMode;
+  const adminPanel = document.getElementById('admin-panel');
+  adminPanel.style.display = isAdminMode ? 'block' : 'none';
+}
+
+function showAddProductForm() {
+  const name = prompt('Название товара:');
+  if (!name) return;
+  
+  const description = prompt('Описание товара:');
+  if (!description) return;
+  
+  const price = parseFloat(prompt('Цена товара (€):'));
+  if (!price || price <= 0) return;
+  
+  const brand = prompt('Бренд:');
+  if (!brand) return;
+  
+  const category = prompt('Категория (tshirts, hoodies, pants, shorts, shoes, accessories):');
+  if (!category) return;
+  
+  const subcategory = prompt('Подкатегория:');
+  if (!subcategory) return;
+  
+  const colors = prompt('Цвета (через запятую):').split(',').map(c => c.trim());
+  const sizes = prompt('Размеры (через запятую):').split(',').map(s => s.trim());
+  
+  const stock = parseInt(prompt('Количество на складе:')) || 10;
+  
+  const newProduct = {
+    id: Date.now(), // Простой способ генерации уникального ID
+    name: name,
+    description: description,
+    price: price,
+    brand: brand,
+    stock: stock,
+    category: category,
+    subcategory: subcategory,
+    colors: colors,
+    sizes: sizes,
+    images: ['new_product.jpg'],
+    fullDescription: description
+  };
+  
+  if (currentGender && products[currentGender]) {
+    products[currentGender].push(newProduct);
+    loadProducts();
+    alert('Товар добавлен!');
+  }
+}
+
+function toggleDeleteMode() {
+  isDeleteMode = !isDeleteMode;
+  const deleteBtn = document.querySelector('.admin-btn.delete');
+  deleteBtn.textContent = isDeleteMode ? 'Отменить удаление' : 'Удалить товары';
+  deleteBtn.style.background = isDeleteMode ? '#ffc107' : '#dc3545';
+  
+  if (isDeleteMode) {
+    alert('Режим удаления активирован. Нажмите на товар, чтобы удалить его.');
+  }
+  
+  loadProducts(); // Перезагрузить товары для обновления обработчиков
+}
+
+function deleteProduct(productId) {
+  if (!isDeleteMode) return;
+  
+  if (confirm('Вы уверены, что хотите удалить этот товар?')) {
+    const productIndex = products[currentGender].findIndex(p => p.id === productId);
+    if (productIndex !== -1) {
+      products[currentGender].splice(productIndex, 1);
+      loadProducts();
+      alert('Товар удален!');
+    }
+  }
+}
+
+function hideAdminPanel() {
+  isAdminMode = false;
+  isDeleteMode = false;
+  document.getElementById('admin-panel').style.display = 'none';
+  const deleteBtn = document.querySelector('.admin-btn.delete');
+  deleteBtn.textContent = 'Удалить товары';
+  deleteBtn.style.background = '#dc3545';
+  loadProducts();
+}
+
+// Добавить обработчик двойного клика для активации админ режима
+document.addEventListener('dblclick', function(e) {
+  if (e.target.classList.contains('logo')) {
+    toggleAdminMode();
+  }
+});
 
 function selectImage(index) {
   document.querySelectorAll('.modal-image').forEach((img, i) => {
@@ -2413,8 +2928,111 @@ function changeQuantity(index, change) {
 }
 
 function checkout() {
-  // Здесь можно добавить логику оформления заказа
-  alert('Функция оформления заказа будет добавлена позже');
+  if (cart.length === 0) {
+    alert('Корзина пуста!');
+    return;
+  }
+  
+  const now = new Date();
+  const date = now.toLocaleDateString('ru-RU');
+  const time = now.toLocaleTimeString('ru-RU');
+  
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  
+  // Группировка товаров по категориям
+  const groupedItems = {};
+  cart.forEach(item => {
+    const category = getCategoryName(item);
+    if (!groupedItems[category]) {
+      groupedItems[category] = [];
+    }
+    groupedItems[category].push(item);
+  });
+  
+  // Формирование сообщения
+  let message = `*Новый заказ из The Continental*\n\n`;
+  message += `📅 Дата: ${date}, ${time}\n`;
+  message += `🌐 Язык: ${currentLanguage.toUpperCase()}\n`;
+  message += `📊 Всего позиций: ${totalItems}\n\n`;
+  message += `📦 *Детали заказа:*\n\n`;
+  
+  // Добавление товаров по категориям
+  Object.entries(groupedItems).forEach(([category, items]) => {
+    message += `${getCategoryEmoji(category)} ${category}:\n`;
+    items.forEach((item, index) => {
+      const t = translations[currentLanguage];
+      const colorName = t[item.color] || item.color;
+      message += `  ${index + 1}. ${item.name}\n`;
+      message += `     Размер: ${item.size}\n`;
+      message += `     Цвет: ${colorName}\n`;
+      message += `     Количество: ${item.quantity}\n`;
+      message += `     Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
+    });
+  });
+  
+  message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
+  
+  // Отправка сообщения через Telegram
+  const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
+  
+  if (window.Telegram && window.Telegram.WebApp) {
+    // Если в Telegram Web App, используем API
+    window.Telegram.WebApp.openTelegramLink(telegramUrl);
+  } else {
+    // Иначе открываем ссылку
+    window.open(telegramUrl, '_blank');
+  }
+  
+  // Очистить корзину после оформления заказа
+  cart = [];
+  updateCartCount();
+  updateCartDisplay();
+  saveCartToStorage();
+  
+  alert('Заказ отправлен менеджеру!');
+}
+
+function getCategoryName(item) {
+  const t = translations[currentLanguage];
+  
+  // Определяем категорию на основе товара
+  if (item.name.toLowerCase().includes('футболка') || item.name.toLowerCase().includes('t-shirt') || item.name.toLowerCase().includes('рубашка')) {
+    return t.tshirts || 'Футболки';
+  } else if (item.name.toLowerCase().includes('худи') || item.name.toLowerCase().includes('hoodie')) {
+    return t.hoodies || 'Кофты';
+  } else if (item.name.toLowerCase().includes('джинсы') || item.name.toLowerCase().includes('jeans') || item.name.toLowerCase().includes('штаны')) {
+    return t.pants || 'Штаны';
+  } else if (item.name.toLowerCase().includes('шорты') || item.name.toLowerCase().includes('shorts')) {
+    return t.shorts || 'Шорты';
+  } else if (item.name.toLowerCase().includes('кроссовки') || item.name.toLowerCase().includes('туфли') || item.name.toLowerCase().includes('shoes')) {
+    return t.shoes || 'Обувь';
+  } else if (item.name.toLowerCase().includes('купальник') || item.name.toLowerCase().includes('bikini')) {
+    return t.swimwear || 'Купальники';
+  } else {
+    return t.accessories || 'Аксессуары';
+  }
+}
+
+function getCategoryEmoji(category) {
+  const emojiMap = {
+    'Футболки': '👕',
+    'T-Shirts': '👕',
+    'Кофты': '🧥',
+    'Hoodies': '🧥',
+    'Штаны': '👖',
+    'Pants': '👖',
+    'Шорты': '🩳',
+    'Shorts': '🩳',
+    'Обувь': '👟',
+    'Shoes': '👟',
+    'Купальники': '👙',
+    'Swimwear': '👙',
+    'Аксессуары': '👜',
+    'Accessories': '👜'
+  };
+  
+  return emojiMap[category] || '📦';
 }
 function saveCartToStorage() {
   localStorage.setItem('continental_cart', JSON.stringify(cart));
