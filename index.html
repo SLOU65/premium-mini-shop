@@ -590,18 +590,118 @@
     }
 
     /* ИЗМЕНЕНИЕ: Сделать изображения товаров квадратными и увеличить по вертикали */
-    .product-image {
+    .product-image-container {
+      position: relative;
       width: 100%;
-      height: 200px; /* Увеличено с 120px до 200px */
-      background: #333;
+      height: 250px; /* Увеличено с 200px до 250px для лучшего квадратного вида */
       border-radius: 8px;
       margin-bottom: 10px;
+      overflow: hidden;
+      aspect-ratio: 1; /* Делает изображение квадратным */
+    }
+
+    .product-image-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .product-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #333;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #666;
       font-size: 12px;
-      aspect-ratio: 1; /* Делает изображение квадратным */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-image.active {
+      opacity: 1;
+    }
+
+    .product-carousel-controls {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .product-image-container:hover .product-carousel-controls {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .carousel-btn {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.1);
+    }
+
+    .carousel-btn:active {
+      transform: scale(0.95);
+    }
+
+    .product-carousel-indicators {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-image-container:hover .product-carousel-indicators {
+      opacity: 1;
+    }
+
+    .carousel-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-indicator.active {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.2);
+    }
+
+    .carousel-indicator:hover {
+      background: rgba(255, 255, 255, 0.8);
     }
 
     .product-name {
@@ -1503,6 +1603,7 @@ let cart = [];
 let currentSlide = 0;
 let slideInterval;
 let currentProduct = null;
+let productCarouselStates = {}; // Состояния каруселей для каждого товара
 
 // Данные товаров - РАСШИРЕННАЯ СИСТЕМА УПРАВЛЕНИЯ
 const products = {
@@ -2740,7 +2841,24 @@ function loadProducts() {
   } else {
     contentDiv.innerHTML = pageProducts.map(product => `
       <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
-        <div class="product-image" style="background-image: url(\'${product.images[0]}\'); background-size: cover; background-position: center;"></div>
+        <div class="product-image-container">
+          <div class="product-image-carousel">
+            ${product.images.map((img, index) => `
+              <div class="product-image ${index === 0 ? 'active' : ''}" style="background-image: url('${img}'); background-size: cover; background-position: center;"></div>
+            `).join('')}
+          </div>
+          ${product.images.length > 1 ? `
+            <div class="product-carousel-controls">
+              <button class="carousel-btn prev" onclick="event.stopPropagation(); changeProductImage(${product.id}, -1)">‹</button>
+              <button class="carousel-btn next" onclick="event.stopPropagation(); changeProductImage(${product.id}, 1)">›</button>
+            </div>
+            <div class="product-carousel-indicators">
+              ${product.images.map((_, index) => `
+                <div class="carousel-indicator ${index === 0 ? 'active' : ''}" onclick="event.stopPropagation(); setProductImage(${product.id}, ${index})"></div>
+              `).join('')}
+            </div>
+          ` : ''}
+        </div>
         <div class="product-name">${getProductTranslation(product, 'name')}</div>
         <div class="product-price">€${product.price.toFixed(2)}</div>
         <div class="product-details">
@@ -2753,6 +2871,9 @@ function loadProducts() {
   
   // Пагинация
   updatePagination(totalPages);
+  
+  // Инициализация каруселей товаров
+  initializeProductCarousels();
 }
 
 function updatePagination(totalPages) {
@@ -2812,12 +2933,18 @@ function openProductDetail(productId) {
   
   // Изображения
   const mainImage = document.getElementById('product-main-image');
-  mainImage.textContent = ` Фото 1 - ${productName}`;
+  if (product.images && product.images.length > 0) {
+    mainImage.style.backgroundImage = `url('${product.images[0]}')`;
+    mainImage.style.backgroundSize = 'cover';
+    mainImage.style.backgroundPosition = 'center';
+    mainImage.textContent = '';
+  } else {
+    mainImage.textContent = `Фото 1 - ${productName}`;
+  }
   
   const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
   thumbnailGallery.innerHTML = product.images.map((img, index) => `
-    <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImage(${index})">
-      ${index + 1}
+    <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImage(${index})" style="background-image: url('${img}'); background-size: cover; background-position: center;">
     </div>
   `).join('');
   
@@ -2846,8 +2973,15 @@ function selectProductImage(index) {
   });
   
   const mainImage = document.getElementById('product-main-image');
-  const productName = getProductTranslation(currentProduct, 'name');
-  mainImage.textContent = `Фото ${index + 1} - ${productName}`;
+  if (currentProduct.images && currentProduct.images[index]) {
+    mainImage.style.backgroundImage = `url('${currentProduct.images[index]}')`;
+    mainImage.style.backgroundSize = 'cover';
+    mainImage.style.backgroundPosition = 'center';
+    mainImage.textContent = '';
+  } else {
+    const productName = getProductTranslation(currentProduct, 'name');
+    mainImage.textContent = `Фото ${index + 1} - ${productName}`;
+  }
 }
 
 function changeProductQuantity(change) {
@@ -3427,10 +3561,79 @@ function clearFilterState() {
   localStorage.removeItem(`continental_filters_${currentGender}`);
 }
 
+// Функции управления каруселью товаров
+function changeProductImage(productId, direction) {
+  if (!productCarouselStates[productId]) {
+    productCarouselStates[productId] = { currentIndex: 0 };
+  }
+  
+  const product = products[currentGender].find(p => p.id === productId);
+  if (!product || !product.images || product.images.length <= 1) return;
+  
+  const state = productCarouselStates[productId];
+  const maxIndex = product.images.length - 1;
+  
+  state.currentIndex += direction;
+  
+  if (state.currentIndex > maxIndex) {
+    state.currentIndex = 0;
+  } else if (state.currentIndex < 0) {
+    state.currentIndex = maxIndex;
+  }
+  
+  updateProductCarousel(productId);
+}
+
+function setProductImage(productId, index) {
+  if (!productCarouselStates[productId]) {
+    productCarouselStates[productId] = { currentIndex: 0 };
+  }
+  
+  const product = products[currentGender].find(p => p.id === productId);
+  if (!product || !product.images || index >= product.images.length || index < 0) return;
+  
+  productCarouselStates[productId].currentIndex = index;
+  updateProductCarousel(productId);
+}
+
+function updateProductCarousel(productId) {
+  const state = productCarouselStates[productId];
+  if (!state) return;
+  
+  // Найти элементы карусели для данного товара
+  const productElement = document.querySelector(`[onclick*="openProductDetail(${productId})"]`);
+  if (!productElement) return;
+  
+  const images = productElement.querySelectorAll('.product-image');
+  const indicators = productElement.querySelectorAll('.carousel-indicator');
+  
+  // Обновить активное изображение
+  images.forEach((img, index) => {
+    img.classList.toggle('active', index === state.currentIndex);
+  });
+  
+  // Обновить активный индикатор
+  indicators.forEach((indicator, index) => {
+    indicator.classList.toggle('active', index === state.currentIndex);
+  });
+}
+
+// Инициализация состояний каруселей при загрузке товаров
+function initializeProductCarousels() {
+  if (!currentGender || !products[currentGender]) return;
+  
+  products[currentGender].forEach(product => {
+    if (!productCarouselStates[product.id]) {
+      productCarouselStates[product.id] = { currentIndex: 0 };
+    }
+  });
+}
+
 </script>
 
 </body>
 </html>
+
 
 
 
