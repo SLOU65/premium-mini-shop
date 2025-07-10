@@ -2740,7 +2740,7 @@ function loadProducts() {
   } else {
     contentDiv.innerHTML = pageProducts.map(product => `
       <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
-        <div class="product-image">Изображение товара</div>
+        <div class="product-image" style="background-image: url(\'${product.images[0]}\'); background-size: cover; background-position: center;"></div>
         <div class="product-name">${getProductTranslation(product, 'name')}</div>
         <div class="product-price">€${product.price.toFixed(2)}</div>
         <div class="product-details">
@@ -2812,7 +2812,7 @@ function openProductDetail(productId) {
   
   // Изображения
   const mainImage = document.getElementById('product-main-image');
-  mainImage.textContent = `Фото 1 - ${productName}`;
+  mainImage.textContent = ` Фото 1 - ${productName}`;
   
   const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
   thumbnailGallery.innerHTML = product.images.map((img, index) => `
@@ -3431,8 +3431,6 @@ function clearFilterState() {
 
 </body>
 </html>
-
-
 
 
 
