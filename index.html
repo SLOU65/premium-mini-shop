@@ -569,7 +569,7 @@
       color: #000000;
     }
 
-    /* Товары */
+    /* Товары - МОДИФИЦИРОВАННЫЕ СТИЛИ */
     .product {
       background: #1a1a1a;
       border: 1px solid rgba(128, 128, 128, 0.2);
@@ -589,9 +589,10 @@
       background: rgba(128, 128, 128, 0.1);
     }
 
+    /* ИЗМЕНЕНИЕ: Сделать изображения товаров квадратными и увеличить по вертикали */
     .product-image {
       width: 100%;
-      height: 120px;
+      height: 200px; /* Увеличено с 120px до 200px */
       background: #333;
       border-radius: 8px;
       margin-bottom: 10px;
@@ -600,6 +601,7 @@
       justify-content: center;
       color: #666;
       font-size: 12px;
+      aspect-ratio: 1; /* Делает изображение квадратным */
     }
 
     .product-name {
@@ -613,15 +615,9 @@
       color: #000000;
     }
 
+    /* ИЗМЕНЕНИЕ: Убрать описание товара */
     .product-description {
-      color: #999999;
-      font-size: 13px;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    body[data-theme="light"] .product-description {
-      color: #666666;
+      display: none; /* Скрыть описание товара */
     }
 
     .product-price {
@@ -635,6 +631,7 @@
       color: #000000;
     }
 
+    /* ИЗМЕНЕНИЕ: Убрать информацию о наличии */
     .product-details {
       display: flex;
       justify-content: space-between;
@@ -646,6 +643,11 @@
 
     body[data-theme="light"] .product-details {
       color: #666666;
+    }
+
+    /* Скрыть информацию о наличии */
+    .product-details .stock-info {
+      display: none;
     }
 
     .add-to-cart-btn {
@@ -1502,7 +1504,7 @@ let currentSlide = 0;
 let slideInterval;
 let currentProduct = null;
 
-// Данные товаров
+// Данные товаров - РАСШИРЕННАЯ СИСТЕМА УПРАВЛЕНИЯ
 const products = {
   mens: [
     {
@@ -1517,7 +1519,29 @@ const products = {
       colors: ["black", "white", "gray"],
       sizes: ["S", "M", "L", "XL", "XXL"],
       images: ["image1.jpg", "image2.jpg"],
-      fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта."
+      fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
+      translations: {
+        ru: {
+          name: "Мужская футболка Premium",
+          description: "Высококачественная мужская футболка из премиальных материалов",
+          fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта."
+        },
+        en: {
+          name: "Men's Premium T-Shirt",
+          description: "High-quality men's t-shirt made from premium materials",
+          fullDescription: "This premium t-shirt is made from high-quality cotton with elastane for comfort. Perfect for everyday wear and sports."
+        },
+        uk: {
+          name: "Чоловіча футболка Premium",
+          description: "Високоякісна чоловіча футболка з преміальних матеріалів",
+          fullDescription: "Ця преміальна футболка виготовлена з високоякісного бавовни з додаванням еластану для комфорту. Ідеально підходить для повсякденного носіння та спорту."
+        },
+        de: {
+          name: "Herren Premium T-Shirt",
+          description: "Hochwertiges Herren-T-Shirt aus Premium-Materialien",
+          fullDescription: "Dieses Premium-T-Shirt ist aus hochwertigem Baumwolle mit Elastan für Komfort gefertigt. Perfekt für den täglichen Gebrauch und Sport."
+        }
+      }
     },
     {
       id: 2,
@@ -1531,7 +1555,29 @@ const products = {
       colors: ["blue", "red", "black"],
       sizes: ["S", "M", "L", "XL"],
       images: ["image3.jpg"],
-      fullDescription: "Спортивная футболка с технологией отвода влаги. Отлично подходит для тренировок и активного отдыха."
+      fullDescription: "Спортивная футболка с технологией отвода влаги. Отлично подходит для тренировок и активного отдыха.",
+      translations: {
+        ru: {
+          name: "Мужская футболка Sport",
+          description: "Спортивная мужская футболка для активного образа жизни",
+          fullDescription: "Спортивная футболка с технологией отвода влаги. Отлично подходит для тренировок и активного отдыха."
+        },
+        en: {
+          name: "Men's Sport T-Shirt",
+          description: "Athletic men's t-shirt for active lifestyle",
+          fullDescription: "Athletic t-shirt with moisture-wicking technology. Perfect for workouts and active recreation."
+        },
+        uk: {
+          name: "Чоловіча футболка Sport",
+          description: "Спортивна чоловіча футболка для активного способу життя",
+          fullDescription: "Спортивна футболка з технологією відведення вологи. Відмінно підходить для тренувань та активного відпочинку."
+        },
+        de: {
+          name: "Herren Sport T-Shirt",
+          description: "Athletisches Herren-T-Shirt für aktiven Lebensstil",
+          fullDescription: "Athletisches T-Shirt mit feuchtigkeitsableitender Technologie. Perfekt für Workouts und aktive Erholung."
+        }
+      }
     },
     {
       id: 3,
@@ -1545,7 +1591,29 @@ const products = {
       colors: ["black", "white", "beige"],
       sizes: ["M", "L", "XL", "XXL"],
       images: ["image4.jpg", "image5.jpg"],
-      fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества."
+      fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества.",
+      translations: {
+        ru: {
+          name: "Мужская футболка Oversize",
+          description: "Стильная оверсайз футболка для современного образа",
+          fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества."
+        },
+        en: {
+          name: "Men's Oversize T-Shirt",
+          description: "Stylish oversize t-shirt for modern look",
+          fullDescription: "Trendy oversize t-shirt with loose fit. Made from soft high-quality cotton."
+        },
+        uk: {
+          name: "Чоловіча футболка Oversize",
+          description: "Стильна оверсайз футболка для сучасного образу",
+          fullDescription: "Модна оверсайз футболка вільного крою. Виготовлена з м'якого бавовни високої якості."
+        },
+        de: {
+          name: "Herren Oversize T-Shirt",
+          description: "Stylisches Oversize-T-Shirt für modernen Look",
+          fullDescription: "Trendiges Oversize-T-Shirt mit lockerer Passform. Aus weicher hochwertiger Baumwolle gefertigt."
+        }
+      }
     },
     {
       id: 4,
@@ -1559,7 +1627,29 @@ const products = {
       colors: ["black", "gray", "navy"],
       sizes: ["S", "M", "L", "XL"],
       images: ["image6.jpg"],
-      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом."
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Мужское худи Premium",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом."
+        },
+        en: {
+          name: "Men's Premium Hoodie",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "Premium hoodie with hood and kangaroo pocket. Made from thick cotton with fleece lining."
+        },
+        uk: {
+          name: "Чоловіче худі Premium",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "Преміальне худі з капюшоном та кишенею-кенгуру. Виготовлено з щільного бавовни з начосом."
+        },
+        de: {
+          name: "Herren Premium Hoodie",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "Premium-Hoodie mit Kapuze und Kängurutasche. Aus dichter Baumwolle mit Fleece-Futter gefertigt."
+        }
+      }
     },
     {
       id: 5,
@@ -1573,7 +1663,29 @@ const products = {
       colors: ["blue", "black", "gray"],
       sizes: ["30", "32", "34", "36", "38"],
       images: ["image7.jpg", "image8.jpg"],
-      fullDescription: "Классические джинсы слим фит из качественного денима. Идеально сидят по фигуре."
+      fullDescription: "Классические джинсы слим фит из качественного денима. Идеально сидят по фигуре.",
+      translations: {
+        ru: {
+          name: "Мужские джинсы Slim",
+          description: "Классические джинсы слим фит",
+          fullDescription: "Классические джинсы слим фит из качественного денима. Идеально сидят по фигуре."
+        },
+        en: {
+          name: "Men's Slim Jeans",
+          description: "Classic slim fit jeans",
+          fullDescription: "Classic slim fit jeans made from quality denim. Perfect fit for your figure."
+        },
+        uk: {
+          name: "Чоловічі джинси Slim",
+          description: "Класичні джинси слім фіт",
+          fullDescription: "Класичні джинси слім фіт з якісного деніму. Ідеально сидять по фігурі."
+        },
+        de: {
+          name: "Herren Slim Jeans",
+          description: "Klassische Slim-Fit-Jeans",
+          fullDescription: "Klassische Slim-Fit-Jeans aus hochwertigem Denim. Perfekte Passform für Ihre Figur."
+        }
+      }
     },
     {
       id: 6,
@@ -1587,35 +1699,29 @@ const products = {
       colors: ["white", "black", "blue"],
       sizes: ["40", "41", "42", "43", "44", "45"],
       images: ["image9.jpg"],
-      fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки."
-    },
-    {
-      id: 7,
-      name: "Мужская рубашка Classic",
-      description: "Классическая мужская рубашка",
-      price: 65.00,
-      brand: "Hugo Boss",
-      stock: 9,
-      category: "tshirts",
-      subcategory: "shirt",
-      colors: ["white", "blue", "black"],
-      sizes: ["S", "M", "L", "XL"],
-      images: ["image10.jpg"],
-      fullDescription: "Элегантная классическая рубашка для деловых встреч и особых случаев."
-    },
-    {
-      id: 8,
-      name: "Мужские шорты Summer",
-      description: "Летние шорты для комфорта",
-      price: 35.99,
-      brand: "Puma",
-      stock: 20,
-      category: "shorts",
-      subcategory: "sport",
-      colors: ["black", "navy", "khaki"],
-      sizes: ["S", "M", "L", "XL"],
-      images: ["image11.jpg"],
-      fullDescription: "Легкие летние шорты из дышащего материала. Идеальны для спорта и отдыха."
+      fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки.",
+      translations: {
+        ru: {
+          name: "Мужские кроссовки Sport",
+          description: "Удобные спортивные кроссовки",
+          fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки."
+        },
+        en: {
+          name: "Men's Sport Sneakers",
+          description: "Comfortable athletic sneakers",
+          fullDescription: "Modern athletic sneakers with cushioning. Suitable for running and everyday wear."
+        },
+        uk: {
+          name: "Чоловічі кросівки Sport",
+          description: "Зручні спортивні кросівки",
+          fullDescription: "Сучасні спортивні кросівки з амортизацією. Підходять для бігу та повсякденного носіння."
+        },
+        de: {
+          name: "Herren Sport Sneakers",
+          description: "Bequeme athletische Sneakers",
+          fullDescription: "Moderne athletische Sneakers mit Dämpfung. Geeignet für Laufen und tägliches Tragen."
+        }
+      }
     }
   ],
   womens: [
@@ -1631,7 +1737,29 @@ const products = {
       colors: ["white", "black", "pink", "blue"],
       sizes: ["XS", "S", "M", "L", "XL"],
       images: ["image10.jpg"],
-      fullDescription: "Базовая футболка из 100% хлопка. Идеально подходит для создания повседневных образов."
+      fullDescription: "Базовая футболка из 100% хлопка. Идеально подходит для создания повседневных образов.",
+      translations: {
+        ru: {
+          name: "Женская футболка Basic",
+          description: "Базовая женская футболка из мягкого хлопка",
+          fullDescription: "Базовая футболка из 100% хлопка. Идеально подходит для создания повседневных образов."
+        },
+        en: {
+          name: "Women's Basic T-Shirt",
+          description: "Basic women's t-shirt made from soft cotton",
+          fullDescription: "Basic t-shirt made from 100% cotton. Perfect for creating everyday looks."
+        },
+        uk: {
+          name: "Жіноча футболка Basic",
+          description: "Базова жіноча футболка з м'якого бавовни",
+          fullDescription: "Базова футболка зі 100% бавовни. Ідеально підходить для створення повсякденних образів."
+        },
+        de: {
+          name: "Damen Basic T-Shirt",
+          description: "Basic Damen-T-Shirt aus weicher Baumwolle",
+          fullDescription: "Basic T-Shirt aus 100% Baumwolle. Perfekt für die Erstellung alltäglicher Looks."
+        }
+      }
     },
     {
       id: 102,
@@ -1645,7 +1773,29 @@ const products = {
       colors: ["black", "white", "red"],
       sizes: ["XS", "S", "M", "L"],
       images: ["image11.jpg", "image12.jpg"],
-      fullDescription: "Модный укороченный топ с приталенным силуэтом. Отлично сочетается с высокой талией."
+      fullDescription: "Модный укороченный топ с приталенным силуэтом. Отлично сочетается с высокой талией.",
+      translations: {
+        ru: {
+          name: "Женский топ Crop",
+          description: "Стильный укороченный топ",
+          fullDescription: "Модный укороченный топ с приталенным силуэтом. Отлично сочетается с высокой талией."
+        },
+        en: {
+          name: "Women's Crop Top",
+          description: "Stylish cropped top",
+          fullDescription: "Trendy cropped top with fitted silhouette. Goes great with high waist."
+        },
+        uk: {
+          name: "Жіночий топ Crop",
+          description: "Стильний укорочений топ",
+          fullDescription: "Модний укорочений топ з приталеним силуетом. Відмінно поєднується з високою талією."
+        },
+        de: {
+          name: "Damen Crop Top",
+          description: "Stylisches kurzes Top",
+          fullDescription: "Trendiges kurzes Top mit taillierter Silhouette. Passt hervorragend zu hoher Taille."
+        }
+      }
     },
     {
       id: 103,
@@ -1659,7 +1809,29 @@ const products = {
       colors: ["gray", "pink", "beige"],
       sizes: ["XS", "S", "M", "L", "XL"],
       images: ["image13.jpg"],
-      fullDescription: "Мягкое и теплое худи с капюшоном. Изготовлено из качественного флиса."
+      fullDescription: "Мягкое и теплое худи с капюшоном. Изготовлено из качественного флиса.",
+      translations: {
+        ru: {
+          name: "Женское худи Comfort",
+          description: "Уютное худи для комфортного отдыха",
+          fullDescription: "Мягкое и теплое худи с капюшоном. Изготовлено из качественного флиса."
+        },
+        en: {
+          name: "Women's Comfort Hoodie",
+          description: "Cozy hoodie for comfortable relaxation",
+          fullDescription: "Soft and warm hoodie with hood. Made from quality fleece."
+        },
+        uk: {
+          name: "Жіноче худі Comfort",
+          description: "Затишне худі для комфортного відпочинку",
+          fullDescription: "М'яке та тепле худі з капюшоном. Виготовлено з якісного флісу."
+        },
+        de: {
+          name: "Damen Comfort Hoodie",
+          description: "Gemütlicher Hoodie für entspannte Erholung",
+          fullDescription: "Weicher und warmer Hoodie mit Kapuze. Aus hochwertigem Fleece gefertigt."
+        }
+      }
     },
     {
       id: 104,
@@ -1673,7 +1845,29 @@ const products = {
       colors: ["blue", "black"],
       sizes: ["25", "26", "27", "28", "29", "30"],
       images: ["image14.jpg", "image15.jpg"],
-      fullDescription: "Стильные джинсы с высокой посадкой. Подчеркивают силуэт и удлиняют ноги."
+      fullDescription: "Стильные джинсы с высокой посадкой. Подчеркивают силуэт и удлиняют ноги.",
+      translations: {
+        ru: {
+          name: "Женские джинсы High Waist",
+          description: "Джинсы с высокой посадкой",
+          fullDescription: "Стильные джинсы с высокой посадкой. Подчеркивают силуэт и удлиняют ноги."
+        },
+        en: {
+          name: "Women's High Waist Jeans",
+          description: "High waist jeans",
+          fullDescription: "Stylish high waist jeans. Emphasize silhouette and elongate legs."
+        },
+        uk: {
+          name: "Жіночі джинси High Waist",
+          description: "Джинси з високою посадкою",
+          fullDescription: "Стильні джинси з високою посадкою. Підкреслюють силует та подовжують ноги."
+        },
+        de: {
+          name: "Damen High Waist Jeans",
+          description: "High Waist Jeans",
+          fullDescription: "Stylische High Waist Jeans. Betonen die Silhouette und verlängern die Beine."
+        }
+      }
     },
     {
       id: 105,
@@ -1687,35 +1881,29 @@ const products = {
       colors: ["black", "beige", "red"],
       sizes: ["36", "37", "38", "39", "40"],
       images: ["image16.jpg"],
-      fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев."
-    },
-    {
-      id: 106,
-      name: "Женская юбка Mini",
-      description: "Стильная мини-юбка",
-      price: 45.00,
-      brand: "H&M",
-      stock: 12,
-      category: "pants",
-      subcategory: "skirt",
-      colors: ["black", "white", "red"],
-      sizes: ["XS", "S", "M", "L"],
-      images: ["image17.jpg"],
-      fullDescription: "Модная мини-юбка А-силуэта. Отлично подходит для создания женственных образов."
-    },
-    {
-      id: 107,
-      name: "Женский купальник Bikini",
-      description: "Стильный купальник бикини",
-      price: 55.99,
-      brand: "Victoria's Secret",
-      stock: 8,
-      category: "swimwear",
-      subcategory: "bikini",
-      colors: ["black", "blue", "pink"],
-      sizes: ["XS", "S", "M", "L"],
-      images: ["image18.jpg"],
-      fullDescription: "Элегантный купальник бикини с поддержкой. Идеален для пляжного отдыха."
+      fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев.",
+      translations: {
+        ru: {
+          name: "Женские туфли Classic",
+          description: "Классические туфли на каблуке",
+          fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев."
+        },
+        en: {
+          name: "Women's Classic Heels",
+          description: "Classic heeled shoes",
+          fullDescription: "Elegant classic shoes with stable heel. Suitable for office and special occasions."
+        },
+        uk: {
+          name: "Жіночі туфлі Classic",
+          description: "Класичні туфлі на підборах",
+          fullDescription: "Елегантні класичні туфлі на стійкому підборі. Підходять для офісу та особливих випадків."
+        },
+        de: {
+          name: "Damen Classic Heels",
+          description: "Klassische Schuhe mit Absatz",
+          fullDescription: "Elegante klassische Schuhe mit stabilem Absatz. Geeignet für Büro und besondere Anlässe."
+        }
+      }
     }
   ]
 };
@@ -1802,7 +1990,6 @@ const translations = {
     modal_add_btn: "Добавить",
     add_to_cart_btn: "В корзину",
     brand_label: "Бренд:",
-    stock_label: "В наличии:",
     search_placeholder: "Поиск...",
     filter_btn: "ФИЛЬТР",
     filter_title: "Фильтры",
@@ -1916,7 +2103,6 @@ const translations = {
     modal_add_btn: "Add",
     add_to_cart_btn: "Add to Cart",
     brand_label: "Brand:",
-    stock_label: "In Stock:",
     search_placeholder: "Search...",
     filter_btn: "FILTER",
     filter_title: "Filters",
@@ -2030,7 +2216,6 @@ const translations = {
     modal_add_btn: "Додати",
     add_to_cart_btn: "В кошик",
     brand_label: "Бренд:",
-    stock_label: "В наявності:",
     search_placeholder: "Пошук...",
     filter_btn: "ФІЛЬТР",
     filter_title: "Фільтри",
@@ -2144,7 +2329,6 @@ const translations = {
     modal_add_btn: "Hinzufügen",
     add_to_cart_btn: "In den Warenkorb",
     brand_label: "Marke:",
-    stock_label: "Auf Lager:",
     search_placeholder: "Suchen...",
     filter_btn: "FILTER",
     filter_title: "Filter",
@@ -2221,6 +2405,14 @@ const translations = {
   }
 };
 
+// Функции для работы с переводами товаров
+function getProductTranslation(product, field, language = currentLanguage) {
+  if (product.translations && product.translations[language] && product.translations[language][field]) {
+    return product.translations[language][field];
+  }
+  return product[field] || '';
+}
+
 // Инициализация приложения
 document.addEventListener('DOMContentLoaded', function() {
   initializeApp();
@@ -2258,6 +2450,7 @@ function setupEventListeners() {
     updateLanguage();
     if (currentGender) {
       updateFilterPanel();
+      loadProducts(); // Перезагрузить товары с новыми переводами
     }
   });
 
@@ -2496,9 +2689,12 @@ function loadProducts() {
   const searchTerm = document.getElementById('search-input').value.toLowerCase();
   const filters = getActiveFilters();
   let filteredProducts = products[currentGender].filter(product => {
-    // Поиск
-    if (searchTerm && !product.name.toLowerCase().includes(searchTerm) && 
-        !product.description.toLowerCase().includes(searchTerm)) {
+    // Поиск с учетом переводов
+    const productName = getProductTranslation(product, 'name').toLowerCase();
+    const productDescription = getProductTranslation(product, 'description').toLowerCase();
+    
+    if (searchTerm && !productName.includes(searchTerm) && 
+        !productDescription.includes(searchTerm)) {
       return false;
     }
     
@@ -2546,12 +2742,10 @@ function loadProducts() {
     contentDiv.innerHTML = pageProducts.map(product => `
       <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
         <div class="product-image">Изображение товара</div>
-        <div class="product-name">${product.name}</div>
-        <div class="product-description">${product.description}</div>
+        <div class="product-name">${getProductTranslation(product, 'name')}</div>
         <div class="product-price">€${product.price.toFixed(2)}</div>
         <div class="product-details">
           <span>${t.brand_label} ${product.brand}</span>
-          <span>${t.stock_label} ${product.stock}</span>
         </div>
         <button class="add-to-cart-btn" onclick="event.stopPropagation(); ${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">${isDeleteMode ? 'Удалить' : t.add_to_cart_btn}</button>
       </div>
@@ -2608,15 +2802,18 @@ function openProductDetail(productId) {
   currentProduct = product;
   const t = translations[currentLanguage];
   
-  // Заполнить детальный экран
-  document.getElementById('product-detail-header-title').textContent = product.name;
-  document.getElementById('product-detail-title').textContent = product.name;
+  // Заполнить детальный экран с переводами
+  const productName = getProductTranslation(product, 'name');
+  const productDescription = getProductTranslation(product, 'fullDescription');
+  
+  document.getElementById('product-detail-header-title').textContent = productName;
+  document.getElementById('product-detail-title').textContent = productName;
   document.getElementById('product-detail-price').textContent = `€${product.price.toFixed(2)}`;
-  document.getElementById('product-detail-description').textContent = product.fullDescription;
+  document.getElementById('product-detail-description').textContent = productDescription;
   
   // Изображения
   const mainImage = document.getElementById('product-main-image');
-  mainImage.textContent = `Фото 1 - ${product.name}`;
+  mainImage.textContent = `Фото 1 - ${productName}`;
   
   const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
   thumbnailGallery.innerHTML = product.images.map((img, index) => `
@@ -2650,7 +2847,8 @@ function selectProductImage(index) {
   });
   
   const mainImage = document.getElementById('product-main-image');
-  mainImage.textContent = `Фото ${index + 1} - ${currentProduct.name}`;
+  const productName = getProductTranslation(currentProduct, 'name');
+  mainImage.textContent = `Фото ${index + 1} - ${productName}`;
 }
 
 function changeProductQuantity(change) {
@@ -2669,7 +2867,7 @@ function addToCartFromDetail() {
   
   const cartItem = {
     id: currentProduct.id,
-    name: currentProduct.name,
+    name: getProductTranslation(currentProduct, 'name'),
     price: currentProduct.price,
     size: size,
     color: color,
@@ -2716,12 +2914,31 @@ function toggleAdminMode() {
   adminPanel.style.display = isAdminMode ? 'block' : 'none';
 }
 
+// Функция для добавления нового товара с переводами
 function showAddProductForm() {
-  const name = prompt('Название товара:');
-  if (!name) return;
+  const name_ru = prompt('Название товара (RU):');
+  if (!name_ru) return;
   
-  const description = prompt('Описание товара:');
-  if (!description) return;
+  const name_en = prompt('Название товара (EN):');
+  if (!name_en) return;
+  
+  const name_uk = prompt('Название товара (UA):');
+  if (!name_uk) return;
+  
+  const name_de = prompt('Название товара (DE):');
+  if (!name_de) return;
+  
+  const description_ru = prompt('Описание товара (RU):');
+  if (!description_ru) return;
+  
+  const description_en = prompt('Описание товара (EN):');
+  if (!description_en) return;
+  
+  const description_uk = prompt('Описание товара (UA):');
+  if (!description_uk) return;
+  
+  const description_de = prompt('Описание товара (DE):');
+  if (!description_de) return;
   
   const price = parseFloat(prompt('Цена товара (€):'));
   if (!price || price <= 0) return;
@@ -2742,8 +2959,8 @@ function showAddProductForm() {
   
   const newProduct = {
     id: Date.now(), // Простой способ генерации уникального ID
-    name: name,
-    description: description,
+    name: name_ru,
+    description: description_ru,
     price: price,
     brand: brand,
     stock: stock,
@@ -2752,7 +2969,29 @@ function showAddProductForm() {
     colors: colors,
     sizes: sizes,
     images: ['new_product.jpg'],
-    fullDescription: description
+    fullDescription: description_ru,
+    translations: {
+      ru: {
+        name: name_ru,
+        description: description_ru,
+        fullDescription: description_ru
+      },
+      en: {
+        name: name_en,
+        description: description_en,
+        fullDescription: description_en
+      },
+      uk: {
+        name: name_uk,
+        description: description_uk,
+        fullDescription: description_uk
+      },
+      de: {
+        name: name_de,
+        description: description_de,
+        fullDescription: description_de
+      }
+    }
   };
   
   if (currentGender && products[currentGender]) {
@@ -2819,13 +3058,16 @@ function closeModal() {
 function confirmAddToCart() {
   if (!currentProduct) return;
   
-  const size = document.getElementById('modal-size').value;
+  const size
+
+
+ = document.getElementById('modal-size').value;
   const color = document.getElementById('modal-color').value;
   const quantity = parseInt(document.getElementById('modal-quantity').value);
   
   const cartItem = {
     id: currentProduct.id,
-    name: currentProduct.name,
+    name: getProductTranslation(currentProduct, 'name'),
     price: currentProduct.price,
     size: size,
     color: color,
@@ -3025,6 +3267,7 @@ function getCategoryEmoji(category) {
   
   return emojiMap[category] || '📦';
 }
+
 function saveCartToStorage() {
   localStorage.setItem('continental_cart', JSON.stringify(cart));
 }
@@ -3147,10 +3390,7 @@ function saveFilterState() {
   localStorage.setItem(`continental_filters_${currentGender}`, JSON.stringify(filterState));
 }
 
-function
-
-
- restoreFilterState() {
+function restoreFilterState() {
   if (!currentGender) return;
   
   const savedState = localStorage.getItem(`continental_filters_${currentGender}`);
@@ -3192,6 +3432,7 @@ function clearFilterState() {
 
 </body>
 </html>
+
 
 
 
