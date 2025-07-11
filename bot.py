@@ -8,87 +8,71 @@ from telebot.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 load_dotenv()
 
 
-API_TOKEN = os.getenv("API_TOKEN")
-WEBAPP_URL = os.getenv("WEBAPP_URL")
-WELCOME_IMAGE_URL = os.getenv("WELCOME_IMAGE_URL") # Новая переменная для URL изображения
-
+API_TOKEN = os.getenv('API_TOKEN')
+WEBAPP_URL = os.getenv('WEBAPP_URL')
 
 bot = telebot.TeleBot(API_TOKEN)
 
+# Словарь для хранения предпочтений языка пользователя
+user_language = {}
 
-# Словарь для хранения выбранного языка пользователя
-user_languages = {}
-
-# Словари для переводов
-translations = {
+# Тексты для разных языков
+TEXTS = {
     'ru': {
-        'welcome_message': 'Добро пожаловать! Пожалуйста, выберите язык:',
-        'shop_button': '🛍 Открыть магазин',
-        'news_button': '📰 Новости',
-        'reviews_button': '⭐ Отзывы',
-        'main_menu_message': 'Добро пожаловать в магазин премиум-реплик!',
-        'order_received': '✅ Получен заказ:\n{}'
+        'welcome': 'Добро пожаловать! Пожалуйста, выберите язык:',
+        'main_menu_welcome': 'Добро пожаловать в магазин премиум-реплик!',
+        'open_shop': '🛍 Открыть магазин',
+        'news': '📰 Новости',
+        'reviews': '⭐ Отзывы',
+        'language_selected': 'Вы выбрали русский язык.',
+        'order_received': '✅ Получен заказ:',
     },
     'en': {
-        'welcome_message': 'Welcome! Please choose your language:',
-        'shop_button': '🛍 Open Shop',
-        'news_button': '📰 News',
-        'reviews_button': '⭐ Reviews',
-        'main_menu_message': 'Welcome to the premium replica store!',
-        'order_received': '✅ Order received:\n{}'
+        'welcome': 'Welcome! Please select your language:',
+        'main_menu_welcome': 'Welcome to the premium replica store!',
+        'open_shop': '🛍 Open Shop',
+        'news': '📰 News',
+        'reviews': '⭐ Reviews',
+        'language_selected': 'You have selected English.',
+        'order_received': '✅ Order received:',
     }
 }
 
-def get_text(user_id, key):
-    lang = user_languages.get(user_id, 'ru') # По умолчанию русский
-    return translations[lang].get(key, 'Текст не найден')
+# URL для новостей и отзывов (заглушки)
+NEWS_URL = 'https://example.com/news'  # Замените на вашу ссылку
+REVIEWS_URL = 'https://example.com/reviews' # Замените на вашу ссылку
 
-def send_main_menu(message, lang):
-    user_languages[message.chat.id] = lang
+def get_main_menu_markup(lang):
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton(get_text(message.chat.id, 'shop_button'), web_app=WebAppInfo(url=WEBAPP_URL)))
-    markup.add(InlineKeyboardButton(get_text(message.chat.id, 'news_button'), callback_data='news'))
-    markup.add(InlineKeyboardButton(get_text(message.chat.id, 'reviews_button'), callback_data='reviews'))
-    
-    # Изменяем существующее сообщение вместо отправки нового
-    bot.edit_message_caption(chat_id=message.chat.id, message_id=message.message_id, caption=get_text(message.chat.id, 'main_menu_message'))
-    bot.edit_message_reply_markup(chat_id=message.chat.id, message_id=message.message_id, reply_markup=markup)
-
+    markup.add(InlineKeyboardButton(TEXTS[lang]['open_shop'], web_app=WebAppInfo(url=WEBAPP_URL)))
+    markup.add(InlineKeyboardButton(TEXTS[lang]['news'], url=NEWS_URL))
+    markup.add(InlineKeyboardButton(TEXTS[lang]['reviews'], url=REVIEWS_URL))
+    return markup
 
 @bot.message_handler(commands=['start'])
 def start(message):
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton('🇷🇺 RU', callback_data='lang_ru'))
-    markup.add(InlineKeyboardButton('🇬🇧 EN', callback_data='lang_en'))
-    
-    bot.send_photo(message.chat.id, WELCOME_IMAGE_URL, caption=get_text(message.chat.id, 'welcome_message'), reply_markup=markup)
+    markup.add(InlineKeyboardButton('Русский', callback_data='lang_ru'))
+    markup.add(InlineKeyboardButton('English', callback_data='lang_en'))
+    # Здесь будет отправка приветственной картинки, пока просто текст
+    bot.send_photo(message.chat.id, photo="https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/image1.jpg", caption=TEXTS["ru"]["welcome"], reply_markup=markup)
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith('lang_'))
-def choose_language(call):
+@bot.callback_query_handler(func=lambda call: call.data.startswith("lang_"))
+def callback_inline(call):
     lang = call.data.split('_')[1]
-    # Вместо удаления и отправки нового сообщения, редактируем существующее
-    send_main_menu(call.message, lang)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'news')
-def show_news(call):
-    bot.answer_callback_query(call.id, text=get_text(call.message.chat.id, 'news_button'))
-    bot.send_message(call.message.chat.id, 'Здесь будут новости (на выбранном языке).') # TODO: Добавить реальные новости
-
-@bot.callback_query_handler(func=lambda call: call.data == 'reviews')
-def show_reviews(call):
-    bot.answer_callback_query(call.id, text=get_text(call.message.chat.id, 'reviews_button'))
-    bot.send_message(call.message.chat.id, 'Здесь будут отзывы (на выбранном языке).') # TODO: Добавить реальные отзывы
+    user_language[call.message.chat.id] = lang
+    bot.edit_message_text(chat_id=call.message.chat.id,
+                          message_id=call.message.message_id,
+                          text=TEXTS[lang]["language_selected"])
+    bot.answer_callback_query(call.id)
+    bot.send_message(call.message.chat.id, TEXTS[lang]["main_menu_welcome"], reply_markup=get_main_menu_markup(lang))
 
 @bot.message_handler(content_types=['web_app_data'])
 def handle_order(message):
     data = message.web_app_data.data
-    bot.send_message(message.chat.id, get_text(message.chat.id, 'order_received').format(data))
+    lang = user_language.get(message.chat.id, 'ru') # По умолчанию русский, если язык не выбран
+    bot.send_message(message.chat.id, f"{TEXTS[lang]['order_received']}\n{data}")
 
 
-if __name__ == '__main__':
-    if not WELCOME_IMAGE_URL:
-        print("Error: WELCOME_IMAGE_URL not set in .env. Please provide a URL for the welcome image.")
-        exit()
+if __name__ == "__main__":
     bot.infinity_polling()
-
-
