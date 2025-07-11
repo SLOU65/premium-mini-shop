@@ -626,83 +626,7 @@
       opacity: 1;
     }
 
-    .product-carousel-controls {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      transform: translateY(-50%);
-      display: flex;
-      justify-content: space-between;
-      padding: 0 8px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
 
-    .product-image-container:hover .product-carousel-controls {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .carousel-btn {
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .carousel-btn:hover {
-      background: rgba(0, 0, 0, 0.9);
-      transform: scale(1.1);
-    }
-
-    .carousel-btn:active {
-      transform: scale(0.95);
-    }
-
-    .product-carousel-indicators {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 4px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .product-image-container:hover .product-carousel-indicators {
-      opacity: 1;
-    }
-
-    .carousel-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .carousel-indicator.active {
-      background: rgba(255, 255, 255, 0.9);
-      transform: scale(1.2);
-    }
-
-    .carousel-indicator:hover {
-      background: rgba(255, 255, 255, 0.8);
-    }
 
     .product-name {
       font-weight: 600;
@@ -2858,17 +2782,7 @@ function loadProducts() {
               <div class="product-image ${index === 0 ? 'active' : ''}" style="background-image: url('${img}'); background-size: cover; background-position: center;"></div>
             `).join('')}
           </div>
-          ${product.images.length > 1 ? `
-            <div class="product-carousel-controls">
-              <button class="carousel-btn prev" onclick="event.stopPropagation(); changeProductImage(${product.id}, -1)">‹</button>
-              <button class="carousel-btn next" onclick="event.stopPropagation(); changeProductImage(${product.id}, 1)">›</button>
-            </div>
-            <div class="product-carousel-indicators">
-              ${product.images.map((_, index) => `
-                <div class="carousel-indicator ${index === 0 ? 'active' : ''}" onclick="event.stopPropagation(); setProductImage(${product.id}, ${index})"></div>
-              `).join('')}
-            </div>
-          ` : ''}
+
         </div>
         <div class="product-name">${getProductTranslation(product, 'name')}</div>
         <div class="product-price">€${product.price.toFixed(2)}</div>
@@ -3573,65 +3487,9 @@ function clearFilterState() {
 }
 
 // Функции управления каруселью товаров
-function changeProductImage(productId, direction) {
-  if (!productCarouselStates[productId]) {
-    productCarouselStates[productId] = { currentIndex: 0 };
-  }
-  
-  const product = products[currentGender].find(p => p.id === productId);
-  if (!product || !product.images || product.images.length <= 1) return;
-  
-  // Остановить автоматическое переключение при ручном управлении
-  if (productCarouselIntervals[productId]) {
-    clearInterval(productCarouselIntervals[productId]);
-    // Перезапустить через 5 секунд после ручного управления
-    setTimeout(() => {
-      if (product.images && product.images.length > 1) {
-        productCarouselIntervals[productId] = setInterval(() => {
-          autoChangeProductImage(productId);
-        }, 3000);
-      }
-    }, 5000);
-  }
-  
-  const state = productCarouselStates[productId];
-  const maxIndex = product.images.length - 1;
-  
-  state.currentIndex += direction;
-  
-  if (state.currentIndex > maxIndex) {
-    state.currentIndex = 0;
-  } else if (state.currentIndex < 0) {
-    state.currentIndex = maxIndex;
-  }
-  
-  updateProductCarousel(productId);
-}
 
-function setProductImage(productId, index) {
-  if (!productCarouselStates[productId]) {
-    productCarouselStates[productId] = { currentIndex: 0 };
-  }
-  
-  const product = products[currentGender].find(p => p.id === productId);
-  if (!product || !product.images || index >= product.images.length || index < 0) return;
-  
-  // Остановить автоматическое переключение при ручном управлении
-  if (productCarouselIntervals[productId]) {
-    clearInterval(productCarouselIntervals[productId]);
-    // Перезапустить через 5 секунд после ручного управления
-    setTimeout(() => {
-      if (product.images && product.images.length > 1) {
-        productCarouselIntervals[productId] = setInterval(() => {
-          autoChangeProductImage(productId);
-        }, 3000);
-      }
-    }, 5000);
-  }
-  
-  productCarouselStates[productId].currentIndex = index;
-  updateProductCarousel(productId);
-}
+
+
 
 function updateProductCarousel(productId) {
   const state = productCarouselStates[productId];
@@ -3642,16 +3500,10 @@ function updateProductCarousel(productId) {
   if (!productElement) return;
   
   const images = productElement.querySelectorAll('.product-image');
-  const indicators = productElement.querySelectorAll('.carousel-indicator');
   
   // Обновить активное изображение
   images.forEach((img, index) => {
     img.classList.toggle('active', index === state.currentIndex);
-  });
-  
-  // Обновить активный индикатор
-  indicators.forEach((indicator, index) => {
-    indicator.classList.toggle('active', index === state.currentIndex);
   });
 }
 
@@ -3700,7 +3552,4 @@ function autoChangeProductImage(productId) {
 
 </body>
 </html>
-
-
-
 
