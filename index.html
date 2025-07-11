@@ -593,7 +593,7 @@
     .product-image-container {
       position: relative;
       width: 100%;
-      height: 250px; /* Увеличено с 200px до 250px для лучшего квадратного вида */
+      height: 320px; /* Увеличено с 250px до 320px для еще большего размера */
       border-radius: 8px;
       margin-bottom: 10px;
       overflow: hidden;
@@ -1115,7 +1115,7 @@
 
     .product-main-image {
       width: 100%;
-      height: 300px;
+      height: 400px; /* Увеличено с 300px до 400px для большего размера на детальной странице */
       background: #333;
       border-radius: 12px;
       margin-bottom: 10px;
@@ -1124,6 +1124,9 @@
       justify-content: center;
       color: #666;
       font-size: 14px;
+      aspect-ratio: 1; /* Делает изображение квадратным */
+      background-size: cover;
+      background-position: center;
     }
 
     .product-thumbnail-gallery {
@@ -1604,6 +1607,7 @@ let currentSlide = 0;
 let slideInterval;
 let currentProduct = null;
 let productCarouselStates = {}; // Состояния каруселей для каждого товара
+let productCarouselIntervals = {}; // Интервалы для автоматического переключения каруселей товаров
 
 // Данные товаров - РАСШИРЕННАЯ СИСТЕМА УПРАВЛЕНИЯ
 const products = {
@@ -2657,6 +2661,13 @@ function backToHome() {
   if (currentGender) {
     saveFilterState();
   }
+  
+  // Очистить интервалы каруселей товаров при выходе
+  Object.values(productCarouselIntervals).forEach(interval => {
+    if (interval) clearInterval(interval);
+  });
+  productCarouselIntervals = {};
+  
   closeFilterPanel();
   openScreen('home');
 }
@@ -3570,6 +3581,19 @@ function changeProductImage(productId, direction) {
   const product = products[currentGender].find(p => p.id === productId);
   if (!product || !product.images || product.images.length <= 1) return;
   
+  // Остановить автоматическое переключение при ручном управлении
+  if (productCarouselIntervals[productId]) {
+    clearInterval(productCarouselIntervals[productId]);
+    // Перезапустить через 5 секунд после ручного управления
+    setTimeout(() => {
+      if (product.images && product.images.length > 1) {
+        productCarouselIntervals[productId] = setInterval(() => {
+          autoChangeProductImage(productId);
+        }, 3000);
+      }
+    }, 5000);
+  }
+  
   const state = productCarouselStates[productId];
   const maxIndex = product.images.length - 1;
   
@@ -3591,6 +3615,19 @@ function setProductImage(productId, index) {
   
   const product = products[currentGender].find(p => p.id === productId);
   if (!product || !product.images || index >= product.images.length || index < 0) return;
+  
+  // Остановить автоматическое переключение при ручном управлении
+  if (productCarouselIntervals[productId]) {
+    clearInterval(productCarouselIntervals[productId]);
+    // Перезапустить через 5 секунд после ручного управления
+    setTimeout(() => {
+      if (product.images && product.images.length > 1) {
+        productCarouselIntervals[productId] = setInterval(() => {
+          autoChangeProductImage(productId);
+        }, 3000);
+      }
+    }, 5000);
+  }
   
   productCarouselStates[productId].currentIndex = index;
   updateProductCarousel(productId);
@@ -3622,11 +3659,41 @@ function updateProductCarousel(productId) {
 function initializeProductCarousels() {
   if (!currentGender || !products[currentGender]) return;
   
+  // Очистить существующие интервалы
+  Object.values(productCarouselIntervals).forEach(interval => {
+    if (interval) clearInterval(interval);
+  });
+  productCarouselIntervals = {};
+  
   products[currentGender].forEach(product => {
     if (!productCarouselStates[product.id]) {
       productCarouselStates[product.id] = { currentIndex: 0 };
     }
+    
+    // Запустить автоматическое переключение только для товаров с несколькими изображениями
+    if (product.images && product.images.length > 1) {
+      productCarouselIntervals[product.id] = setInterval(() => {
+        autoChangeProductImage(product.id);
+      }, 3000); // Переключение каждые 3 секунды
+    }
   });
+}
+
+// Функция автоматического переключения изображений товара
+function autoChangeProductImage(productId) {
+  const product = products[currentGender].find(p => p.id === productId);
+  if (!product || !product.images || product.images.length <= 1) return;
+  
+  if (!productCarouselStates[productId]) {
+    productCarouselStates[productId] = { currentIndex: 0 };
+  }
+  
+  const state = productCarouselStates[productId];
+  const maxIndex = product.images.length - 1;
+  
+  state.currentIndex = (state.currentIndex + 1) % product.images.length;
+  
+  updateProductCarousel(productId);
 }
 
 </script>
