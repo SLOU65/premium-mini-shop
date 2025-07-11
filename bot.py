@@ -68,7 +68,7 @@ def get_main_menu_keyboard(lang):
 @bot.message_handler(commands=['start'])
 def start(message):
     # Отправляем приветственную картинку (замени на свою картинку)
-    welcome_photo = "https://via.placeholder.com/800x400/4CAF50/white?text=Welcome+to+Premium+Store"
+    welcome_photo = "https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/image1.jpg"
     
     try:
         bot.send_photo(
@@ -106,7 +106,7 @@ def show_main_menu(message, lang):
     texts = TEXTS[lang]
     
     # Картинка для главного меню (замени на свою)
-    menu_photo = "https://via.placeholder.com/800x400/2196F3/white?text=Premium+Store+Menu"
+    menu_photo = "https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/image1.jpg"
     
     try:
         bot.send_photo(
