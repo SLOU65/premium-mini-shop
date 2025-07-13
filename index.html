@@ -267,6 +267,31 @@
       height: 16px;
     }
 
+    /* Кнопки фильтров - изменено для размещения кнопки "Очистить" слева */
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .filter-clear-btn {
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+
+    .filter-clear-btn:active {
+      transform: scale(0.98);
+      background: #5a6268;
+    }
+
     .filter-apply-btn {
       background: #007bff;
       color: white;
@@ -276,8 +301,7 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      width: 100%;
-      margin-top: 20px;
+      flex: 1;
       transition: all 0.3s ease;
     }
 
@@ -620,13 +644,14 @@
       font-size: 12px;
       opacity: 0;
       transition: opacity 0.3s ease;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .product-image.active {
       opacity: 1;
     }
-
-
 
     .product-name {
       font-weight: 600;
@@ -848,6 +873,9 @@
       cursor: pointer;
       border: 2px solid transparent;
       transition: all 0.3s ease;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .modal-image.active {
@@ -989,20 +1017,23 @@
       color: #333333;
     }
 
+    /* Кнопка "Написать менеджеру" - уменьшена по горизонтали */
     .contact-btn {
       background: #ffffff !important;
       color: #000000 !important;
-      padding: 14px 20px;
-      margin: 8px 0;
+      padding: 14px 15px; /* Уменьшен горизонтальный padding с 20px до 15px */
+      margin: 8px auto; /* Центрирование */
       border: none;
       font-weight: 600;
-      font-size: 15px;
-      width: 100%;
+      font-size: 14px; /* Уменьшен размер шрифта */
+      width: 80%; /* Уменьшена ширина с 100% до 80% */
+      max-width: 250px; /* Добавлена максимальная ширина */
       text-align: center;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      display: block; /* Для корректного центрирования */
     }
 
     body[data-theme="light"] .contact-btn {
@@ -1051,6 +1082,7 @@
       aspect-ratio: 1; /* Делает изображение квадратным */
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
     }
 
     .product-thumbnail-gallery {
@@ -1073,6 +1105,9 @@
       justify-content: center;
       color: #666;
       font-size: 10px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .product-thumbnail.active {
@@ -1545,8 +1580,9 @@ let slideInterval;
 let currentProduct = null;
 let productCarouselStates = {}; // Состояния каруселей для каждого товара
 let productCarouselIntervals = {}; // Интервалы для автоматического переключения каруселей товаров
+let scrollPosition = 0; // Переменная для сохранения позиции прокрутки
 
-// Данные товаров - РАСШИРЕННАЯ СИСТЕМА УПРАВЛЕНИЯ
+// Данные товаров - ИСПРАВЛЕННЫЕ ССЫЛКИ НА ИЗОБРАЖЕНИЯ
 const products = {
   mens: [
     {
@@ -1558,8 +1594,8 @@ const products = {
       category: "tshirts",
       subcategory: "tshirt",
       colors: ["black", "white", "gray"],
-      sizes: ["S", "M", "L", "XL", "XXL"],
-      images: ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/image1.jpg", "https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/image2.jpg"],
+      sizes: ["S", "L", "XL", "XXL"],
+      images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&h=400&fit=crop"],
       fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
       translations: {
         ru: {
@@ -1595,7 +1631,7 @@ const products = {
       subcategory: "tshirt",
       colors: ["blue", "red", "black"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["image3.jpg"],
+      images: ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
       fullDescription: "Спортивная футболка с технологией отвода влаги. Отлично подходит для тренировок и активного отдыха.",
       translations: {
         ru: {
@@ -1631,7 +1667,7 @@ const products = {
       subcategory: "oversize",
       colors: ["black", "white", "beige"],
       sizes: ["M", "L", "XL", "XXL"],
-      images: ["image4.jpg", "image5.jpg"],
+      images: ["https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop"],
       fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества.",
       translations: {
         ru: {
@@ -1667,7 +1703,7 @@ const products = {
       subcategory: "hoodie",
       colors: ["black", "gray", "navy"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["image6.jpg"],
+      images: ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
       fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
       translations: {
         ru: {
@@ -1703,7 +1739,7 @@ const products = {
       subcategory: "slim_fit",
       colors: ["blue", "black", "gray"],
       sizes: ["30", "32", "34", "36", "38"],
-      images: ["image7.jpg", "image8.jpg"],
+      images: ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=400&fit=crop"],
       fullDescription: "Классические джинсы слим фит из качественного денима. Идеально сидят по фигуре.",
       translations: {
         ru: {
@@ -1739,7 +1775,7 @@ const products = {
       subcategory: "sneakers",
       colors: ["white", "black", "blue"],
       sizes: ["40", "41", "42", "43", "44", "45"],
-      images: ["image9.jpg"],
+      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
       fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки.",
       translations: {
         ru: {
@@ -1763,9 +1799,1932 @@ const products = {
           fullDescription: "Moderne athletische Sneakers mit Dämpfung. Geeignet für Laufen und tägliches Tragen."
         }
       }
+    },
+    // МУЖСКИЕ ТОВАРЫ - ДОПОЛНИТЕЛЬНЫЕ КАТЕГОРИИ
+    // Футболки - дополнительные подкатегории
+    {
+      id: 7,
+      name: "Мужская рубашка Classic",
+      description: "Классическая мужская рубашка",
+      price: 65.00,
+      brand: "Hugo Boss",
+      stock: 10,
+      category: "tshirts",
+      subcategory: "shirt",
+      colors: ["white", "blue", "black"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      images: ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантная классическая рубашка из качественного хлопка. Идеально подходит для офиса и деловых встреч.",
+      translations: {
+        ru: {
+          name: "Мужская рубашка Classic",
+          description: "Классическая мужская рубашка",
+          fullDescription: "Элегантная классическая рубашка из качественного хлопка. Идеально подходит для офиса и деловых встреч."
+        },
+        en: {
+          name: "Men's Classic Shirt",
+          description: "Classic men's shirt",
+          fullDescription: "Elegant classic shirt made from quality cotton. Perfect for office and business meetings."
+        },
+        uk: {
+          name: "Чоловіча сорочка Classic",
+          description: "Класична чоловіча сорочка",
+          fullDescription: "Елегантна класична сорочка з якісного бавовни. Ідеально підходить для офісу та ділових зустрічей."
+        },
+        de: {
+          name: "Herren Classic Hemd",
+          description: "Klassisches Herrenhemd",
+          fullDescription: "Elegantes klassisches Hemd aus hochwertiger Baumwolle. Perfekt für Büro und Geschäftstreffen."
+        }
+      }
+    },
+    {
+      id: 8,
+      name: "Мужское поло Premium",
+      description: "Стильное поло из качественного материала",
+      price: 58.00,
+      brand: "Lacoste",
+      stock: 15,
+      category: "tshirts",
+      subcategory: "polo",
+      colors: ["navy", "white", "red"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop"],
+      fullDescription: "Классическое поло с воротником и пуговицами. Изготовлено из дышащего материала.",
+      translations: {
+        ru: {
+          name: "Мужское поло Premium",
+          description: "Стильное поло из качественного материала",
+          fullDescription: "Классическое поло с воротником и пуговицами. Изготовлено из дышащего материала."
+        },
+        en: {
+          name: "Men's Premium Polo",
+          description: "Stylish polo made from quality material",
+          fullDescription: "Classic polo with collar and buttons. Made from breathable material."
+        },
+        uk: {
+          name: "Чоловіче поло Premium",
+          description: "Стильне поло з якісного матеріалу",
+          fullDescription: "Класичне поло з коміром та гудзиками. Виготовлено з дихаючого матеріалу."
+        },
+        de: {
+          name: "Herren Premium Polo",
+          description: "Stylisches Polo aus hochwertigem Material",
+          fullDescription: "Klassisches Polo mit Kragen und Knöpfen. Aus atmungsaktivem Material gefertigt."
+        }
+      }
+    },
+    {
+      id: 9,
+      name: "Мужское джерси Sport",
+      description: "Спортивное джерси для активного отдыха",
+      price: 42.00,
+      brand: "Adidas",
+      stock: 12,
+      category: "tshirts",
+      subcategory: "jersey",
+      colors: ["blue", "red", "green"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      images: ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+      fullDescription: "Легкое спортивное джерси с технологией отвода влаги. Идеально для тренировок.",
+      translations: {
+        ru: {
+          name: "Мужское джерси Sport",
+          description: "Спортивное джерси для активного отдыха",
+          fullDescription: "Легкое спортивное джерси с технологией отвода влаги. Идеально для тренировок."
+        },
+        en: {
+          name: "Men's Sport Jersey",
+          description: "Athletic jersey for active recreation",
+          fullDescription: "Lightweight athletic jersey with moisture-wicking technology. Perfect for workouts."
+        },
+        uk: {
+          name: "Чоловіче джерсі Sport",
+          description: "Спортивне джерсі для активного відпочинку",
+          fullDescription: "Легке спортивне джерсі з технологією відведення вологи. Ідеально для тренувань."
+        },
+        de: {
+          name: "Herren Sport Jersey",
+          description: "Athletisches Jersey für aktive Erholung",
+          fullDescription: "Leichtes athletisches Jersey mit feuchtigkeitsableitender Technologie. Perfekt für Workouts."
+        }
+      }
+    },
+    // Кофты - дополнительные подкатегории
+    {
+      id: 10,
+      name: "Мужской зип-худи Urban",
+      description: "Стильный зип-худи с капюшоном",
+      price: 95.00,
+      brand: "Supreme",
+      stock: 8,
+      category: "hoodies",
+      subcategory: "zip_hoodie",
+      colors: ["black", "gray", "navy"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+      fullDescription: "Удобный зип-худи с полной молнией и карманами. Изготовлен из плотного хлопка.",
+      translations: {
+        ru: {
+          name: "Мужской зип-худи Urban",
+          description: "Стильный зип-худи с капюшоном",
+          fullDescription: "Удобный зип-худи с полной молнией и карманами. Изготовлен из плотного хлопка."
+        },
+        en: {
+          name: "Men's Urban Zip Hoodie",
+          description: "Stylish zip hoodie with hood",
+          fullDescription: "Comfortable zip hoodie with full zipper and pockets. Made from thick cotton."
+        },
+        uk: {
+          name: "Чоловіче зіп-худі Urban",
+          description: "Стильне зіп-худі з капюшоном",
+          fullDescription: "Зручне зіп-худі з повною блискавкою та кишенями. Виготовлено з щільного бавовни."
+        },
+        de: {
+          name: "Herren Urban Zip Hoodie",
+          description: "Stylischer Zip-Hoodie mit Kapuze",
+          fullDescription: "Bequemer Zip-Hoodie mit vollem Reißverschluss und Taschen. Aus dichter Baumwolle gefertigt."
+        }
+      }
+    },
+    {
+      id: 11,
+      name: "Мужской свитшот Comfort",
+      description: "Уютный свитшот для повседневной носки",
+      price: 72.00,
+      brand: "Champion",
+      stock: 14,
+      category: "hoodies",
+      subcategory: "sweatshirt",
+      colors: ["gray", "black", "beige"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      images: ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+      fullDescription: "Мягкий свитшот без капюшона с круглым вырезом. Идеален для прохладной погоды.",
+      translations: {
+        ru: {
+          name: "Мужской свитшот Comfort",
+          description: "Уютный свитшот для повседневной носки",
+          fullDescription: "Мягкий свитшот без капюшона с круглым вырезом. Идеален для прохладной погоды."
+        },
+        en: {
+          name: "Men's Comfort Sweatshirt",
+          description: "Cozy sweatshirt for everyday wear",
+          fullDescription: "Soft sweatshirt without hood with round neckline. Perfect for cool weather."
+        },
+        uk: {
+          name: "Чоловічий світшот Comfort",
+          description: "Затишний світшот для повсякденного носіння",
+          fullDescription: "М'який світшот без капюшона з круглим вирізом. Ідеальний для прохолодної погоди."
+        },
+        de: {
+          name: "Herren Comfort Sweatshirt",
+          description: "Gemütliches Sweatshirt für den täglichen Gebrauch",
+          fullDescription: "Weiches Sweatshirt ohne Kapuze mit rundem Ausschnitt. Perfekt für kühles Wetter."
+        }
+      }
+    },
+    {
+      id: 12,
+      name: "Мужской свитер Wool",
+      description: "Теплый шерстяной свитер",
+      price: 110.00,
+      brand: "Ralph Lauren",
+      stock: 6,
+      category: "hoodies",
+      subcategory: "sweater",
+      colors: ["navy", "gray", "brown"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop"],
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Мужской свитер Wool",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт."
+        },
+        en: {
+          name: "Men's Wool Sweater",
+          description: "Warm wool sweater",
+          fullDescription: "Classic wool sweater with V-neck. Excellent quality and comfort."
+        },
+        uk: {
+          name: "Чоловічий светр Wool",
+          description: "Теплий вовняний светр",
+          fullDescription: "Класичний вовняний светр з V-подібним вирізом. Відмінна якість та комфорт."
+        },
+        de: {
+          name: "Herren Wool Pullover",
+          description: "Warmer Wollpullover",
+          fullDescription: "Klassischer Wollpullover mit V-Ausschnitt. Ausgezeichnete Qualität und Komfort."
+        }
+      }
+    },
+    // Штаны - дополнительные подкатегории
+    {
+      id: 13,
+      name: "Мужские джинсы Regular",
+      description: "Классические джинсы прямого кроя",
+      price: 78.00,
+      brand: "Levi's",
+      stock: 16,
+      category: "pants",
+      subcategory: "jeans",
+      colors: ["blue", "black"],
+      sizes: ["30", "32", "34", "36", "38"],
+      images: ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"],
+      fullDescription: "Классические джинсы прямого кроя из качественного денима. Универсальный выбор.",
+      translations: {
+        ru: {
+          name: "Мужские джинсы Regular",
+          description: "Классические джинсы прямого кроя",
+          fullDescription: "Классические джинсы прямого кроя из качественного денима. Универсальный выбор."
+        },
+        en: {
+          name: "Men's Regular Jeans",
+          description: "Classic straight-cut jeans",
+          fullDescription: "Classic straight-cut jeans made from quality denim. Universal choice."
+        },
+        uk: {
+          name: "Чоловічі джинси Regular",
+          description: "Класичні джинси прямого крою",
+          fullDescription: "Класичні джинси прямого крою з якісного деніму. Універсальний вибір."
+        },
+        de: {
+          name: "Herren Regular Jeans",
+          description: "Klassische gerade geschnittene Jeans",
+          fullDescription: "Klassische gerade geschnittene Jeans aus hochwertigem Denim. Universelle Wahl."
+        }
+      }
+    },
+    {
+      id: 14,
+      name: "Мужские брюки Old Money",
+      description: "Элегантные брюки в стиле Old Money",
+      price: 125.00,
+      brand: "Brunello Cucinelli",
+      stock: 5,
+      category: "pants",
+      subcategory: "old_money",
+      colors: ["beige", "navy", "gray"],
+      sizes: ["30", "32", "34", "36"],
+      images: ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+      fullDescription: "Роскошные брюки в стиле Old Money из премиальных материалов. Воплощение элегантности.",
+      translations: {
+        ru: {
+          name: "Мужские брюки Old Money",
+          description: "Элегантные брюки в стиле Old Money",
+          fullDescription: "Роскошные брюки в стиле Old Money из премиальных материалов. Воплощение элегантности."
+        },
+        en: {
+          name: "Men's Old Money Pants",
+          description: "Elegant Old Money style pants",
+          fullDescription: "Luxurious Old Money style pants made from premium materials. Embodiment of elegance."
+        },
+        uk: {
+          name: "Чоловічі брюки Old Money",
+          description: "Елегантні брюки в стилі Old Money",
+          fullDescription: "Розкішні брюки в стилі Old Money з преміальних матеріалів. Втілення елегантності."
+        },
+        de: {
+          name: "Herren Old Money Hosen",
+          description: "Elegante Hosen im Old Money Stil",
+          fullDescription: "Luxuriöse Hosen im Old Money Stil aus Premium-Materialien. Verkörperung von Eleganz."
+        }
+      }
+    },
+    {
+      id: 15,
+      name: "Мужские брюки Classic",
+      description: "Классические деловые брюки",
+      price: 85.00,
+      brand: "Hugo Boss",
+      stock: 12,
+      category: "pants",
+      subcategory: "classic",
+      colors: ["black", "navy", "gray"],
+      sizes: ["30", "32", "34", "36", "38"],
+      images: ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+      fullDescription: "Классические деловые брюки со стрелками. Идеальны для офиса и официальных мероприятий.",
+      translations: {
+        ru: {
+          name: "Мужские брюки Classic",
+          description: "Классические деловые брюки",
+          fullDescription: "Классические деловые брюки со стрелками. Идеальны для офиса и официальных мероприятий."
+        },
+        en: {
+          name: "Men's Classic Pants",
+          description: "Classic business pants",
+          fullDescription: "Classic business pants with creases. Perfect for office and formal events."
+        },
+        uk: {
+          name: "Чоловічі брюки Classic",
+          description: "Класичні ділові брюки",
+          fullDescription: "Класичні ділові брюки зі стрілками. Ідеальні для офісу та офіційних заходів."
+        },
+        de: {
+          name: "Herren Classic Hosen",
+          description: "Klassische Geschäftshosen",
+          fullDescription: "Klassische Geschäftshosen mit Bügelfalten. Perfekt für Büro und formelle Veranstaltungen."
+        }
+      }
+    },
+    // Шорты - дополнительные подкатегории
+    {
+      id: 16,
+      name: "Мужские шорты Old Money",
+      description: "Элегантные шорты в стиле Old Money",
+      price: 68.00,
+      brand: "Polo Ralph Lauren",
+      stock: 10,
+      category: "shorts",
+      subcategory: "old_money_shorts",
+      colors: ["beige", "navy", "white"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      fullDescription: "Стильные шорты в классическом стиле Old Money. Изготовлены из качественного хлопка.",
+      translations: {
+        ru: {
+          name: "Мужские шорты Old Money",
+          description: "Элегантные шорты в стиле Old Money",
+          fullDescription: "Стильные шорты в классическом стиле Old Money. Изготовлены из качественного хлопка."
+        },
+        en: {
+          name: "Men's Old Money Shorts",
+          description: "Elegant Old Money style shorts",
+          fullDescription: "Stylish shorts in classic Old Money style. Made from quality cotton."
+        },
+        uk: {
+          name: "Чоловічі шорти Old Money",
+          description: "Елегантні шорти в стилі Old Money",
+          fullDescription: "Стильні шорти в класичному стилі Old Money. Виготовлені з якісного бавовни."
+        },
+        de: {
+          name: "Herren Old Money Shorts",
+          description: "Elegante Shorts im Old Money Stil",
+          fullDescription: "Stylische Shorts im klassischen Old Money Stil. Aus hochwertiger Baumwolle gefertigt."
+        }
+      }
+    },
+    {
+      id: 17,
+      name: "Мужские бермуды Classic",
+      description: "Классические бермуды до колена",
+      price: 55.00,
+      brand: "Tommy Hilfiger",
+      stock: 14,
+      category: "shorts",
+      subcategory: "bermuda",
+      colors: ["khaki", "navy", "black"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      fullDescription: "Удобные бермуды классической длины. Отлично подходят для летнего отдыха.",
+      translations: {
+        ru: {
+          name: "Мужские бермуды Classic",
+          description: "Классические бермуды до колена",
+          fullDescription: "Удобные бермуды классической длины. Отлично подходят для летнего отдыха."
+        },
+        en: {
+          name: "Men's Classic Bermuda",
+          description: "Classic knee-length bermuda shorts",
+          fullDescription: "Comfortable bermuda shorts of classic length. Perfect for summer vacation."
+        },
+        uk: {
+          name: "Чоловічі бермуди Classic",
+          description: "Класичні бермуди до коліна",
+          fullDescription: "Зручні бермуди класичної довжини. Відмінно підходять для літнього відпочинку."
+        },
+        de: {
+          name: "Herren Classic Bermuda",
+          description: "Klassische knielange Bermuda-Shorts",
+          fullDescription: "Bequeme Bermuda-Shorts in klassischer Länge. Perfekt für den Sommerurlaub."
+        }
+      }
+    },
+    {
+      id: 18,
+      name: "Мужские шорты Sport",
+      description: "Спортивные шорты для тренировок",
+      price: 38.00,
+      brand: "Nike",
+      stock: 18,
+      category: "shorts",
+      subcategory: "sport",
+      colors: ["black", "blue", "red"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      fullDescription: "Легкие спортивные шорты с технологией отвода влаги. Идеальны для тренировок.",
+      translations: {
+        ru: {
+          name: "Мужские шорты Sport",
+          description: "Спортивные шорты для тренировок",
+          fullDescription: "Легкие спортивные шорты с технологией отвода влаги. Идеальны для тренировок."
+        },
+        en: {
+          name: "Men's Sport Shorts",
+          description: "Athletic shorts for workouts",
+          fullDescription: "Lightweight athletic shorts with moisture-wicking technology. Perfect for workouts."
+        },
+        uk: {
+          name: "Чоловічі шорти Sport",
+          description: "Спортивні шорти для тренувань",
+          fullDescription: "Легкі спортивні шорти з технологією відведення вологи. Ідеальні для тренувань."
+        },
+        de: {
+          name: "Herren Sport Shorts",
+          description: "Athletische Shorts für Workouts",
+          fullDescription: "Leichte athletische Shorts mit feuchtigkeitsableitender Technologie. Perfekt für Workouts."
+        }
+      }
+    },
+    {
+      id: 19,
+      name: "Мужские джинсовые шорты",
+      description: "Стильные джинсовые шорты",
+      price: 48.00,
+      brand: "Levi's",
+      stock: 11,
+      category: "shorts",
+      subcategory: "denim",
+      colors: ["blue", "black", "gray"],
+      sizes: ["30", "32", "34", "36"],
+      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      fullDescription: "Модные джинсовые шорты из качественного денима. Универсальный выбор для лета.",
+      translations: {
+        ru: {
+          name: "Мужские джинсовые шорты",
+          description: "Стильные джинсовые шорты",
+          fullDescription: "Модные джинсовые шорты из качественного денима. Универсальный выбор для лета."
+        },
+        en: {
+          name: "Men's Denim Shorts",
+          description: "Stylish denim shorts",
+          fullDescription: "Trendy denim shorts made from quality denim. Universal choice for summer."
+        },
+        uk: {
+          name: "Чоловічі джинсові шорти",
+          description: "Стильні джинсові шорти",
+          fullDescription: "Модні джинсові шорти з якісного деніму. Універсальний вибір для літа."
+        },
+        de: {
+          name: "Herren Denim Shorts",
+          description: "Stylische Denim-Shorts",
+          fullDescription: "Trendige Denim-Shorts aus hochwertigem Denim. Universelle Wahl für den Sommer."
+        }
+      }
+    },
+    // Обувь - дополнительные подкатегории
+    {
+      id: 20,
+      name: "Мужские ботинки Chelsea",
+      description: "Стильные ботинки челси",
+      price: 145.00,
+      brand: "Dr. Martens",
+      stock: 8,
+      category: "shoes",
+      subcategory: "boots",
+      colors: ["black", "brown"],
+      sizes: ["40", "41", "42", "43", "44"],
+      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+      fullDescription: "Классические ботинки челси из натуральной кожи. Удобные и стильные.",
+      translations: {
+        ru: {
+          name: "Мужские ботинки Chelsea",
+          description: "Стильные ботинки челси",
+          fullDescription: "Классические ботинки челси из натуральной кожи. Удобные и стильные."
+        },
+        en: {
+          name: "Men's Chelsea Boots",
+          description: "Stylish chelsea boots",
+          fullDescription: "Classic chelsea boots made from genuine leather. Comfortable and stylish."
+        },
+        uk: {
+          name: "Чоловічі черевики Chelsea",
+          description: "Стильні черевики челсі",
+          fullDescription: "Класичні черевики челсі з натуральної шкіри. Зручні та стильні."
+        },
+        de: {
+          name: "Herren Chelsea Boots",
+          description: "Stylische Chelsea-Stiefel",
+          fullDescription: "Klassische Chelsea-Stiefel aus echtem Leder. Bequem und stilvoll."
+        }
+      }
+    },
+    {
+      id: 21,
+      name: "Мужские лоферы Classic",
+      description: "Элегантные классические лоферы",
+      price: 98.00,
+      brand: "Gucci",
+      stock: 6,
+      category: "shoes",
+      subcategory: "loafers",
+      colors: ["black", "brown", "navy"],
+      sizes: ["40", "41", "42", "43", "44"],
+      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+      fullDescription: "Роскошные лоферы из премиальной кожи. Идеальны для деловых встреч.",
+      translations: {
+        ru: {
+          name: "Мужские лоферы Classic",
+          description: "Элегантные классические лоферы",
+          fullDescription: "Роскошные лоферы из премиальной кожи. Идеальны для деловых встреч."
+        },
+        en: {
+          name: "Men's Classic Loafers",
+          description: "Elegant classic loafers",
+          fullDescription: "Luxurious loafers made from premium leather. Perfect for business meetings."
+        },
+        uk: {
+          name: "Чоловічі лофери Classic",
+          description: "Елегантні класичні лофери",
+          fullDescription: "Розкішні лофери з преміальної шкіри. Ідеальні для ділових зустрічей."
+        },
+        de: {
+          name: "Herren Classic Loafer",
+          description: "Elegante klassische Loafer",
+          fullDescription: "Luxuriöse Loafer aus Premium-Leder. Perfekt für Geschäftstreffen."
+        }
+      }
+    },
+    {
+      id: 22,
+      name: "Мужские тапочки Home",
+      description: "Удобные домашние тапочки",
+      price: 32.00,
+      brand: "UGG",
+      stock: 20,
+      category: "shoes",
+      subcategory: "slippers",
+      colors: ["brown", "gray", "black"],
+      sizes: ["40", "41", "42", "43", "44", "45"],
+      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+      fullDescription: "Мягкие и теплые домашние тапочки. Обеспечивают максимальный комфорт дома.",
+      translations: {
+        ru: {
+          name: "Мужские тапочки Home",
+          description: "Удобные домашние тапочки",
+          fullDescription: "Мягкие и теплые домашние тапочки. Обеспечивают максимальный комфорт дома."
+        },
+        en: {
+          name: "Men's Home Slippers",
+          description: "Comfortable home slippers",
+          fullDescription: "Soft and warm home slippers. Provide maximum comfort at home."
+        },
+        uk: {
+          name: "Чоловічі тапочки Home",
+          description: "Зручні домашні тапочки",
+          fullDescription: "М'які та теплі домашні тапочки. Забезпечують максимальний комфорт вдома."
+        },
+        de: {
+          name: "Herren Home Hausschuhe",
+          description: "Bequeme Hausschuhe",
+          fullDescription: "Weiche und warme Hausschuhe. Bieten maximalen Komfort zu Hause."
+        }
+      }
+    },
+    // Аксессуары - различные подкатегории
+    {
+      id: 23,
+      name: "Мужская цепочка Gold",
+      description: "Стильная золотистая цепочка",
+      price: 85.00,
+      brand: "Versace",
+      stock: 5,
+      category: "accessories",
+      subcategory: "jewelry",
+      colors: ["gold", "silver"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантная цепочка с позолоченным покрытием. Добавит стиля любому образу.",
+      translations: {
+        ru: {
+          name: "Мужская цепочка Gold",
+          description: "Стильная золотистая цепочка",
+          fullDescription: "Элегантная цепочка с позолоченным покрытием. Добавит стиля любому образу."
+        },
+        en: {
+          name: "Men's Gold Chain",
+          description: "Stylish gold chain",
+          fullDescription: "Elegant chain with gold-plated coating. Will add style to any look."
+        },
+        uk: {
+          name: "Чоловічий ланцюжок Gold",
+          description: "Стильний золотистий ланцюжок",
+          fullDescription: "Елегантний ланцюжок з позолоченим покриттям. Додасть стилю будь-якому образу."
+        },
+        de: {
+          name: "Herren Gold Kette",
+          description: "Stylische goldene Kette",
+          fullDescription: "Elegante Kette mit vergoldeter Beschichtung. Verleiht jedem Look Stil."
+        }
+      }
+    },
+    {
+      id: 24,
+      name: "Мужские часы Sport",
+      description: "Спортивные наручные часы",
+      price: 195.00,
+      brand: "Casio",
+      stock: 7,
+      category: "accessories",
+      subcategory: "watches",
+      colors: ["black", "blue", "white"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop"],
+      fullDescription: "Надежные спортивные часы с водонепроницаемостью. Множество полезных функций.",
+      translations: {
+        ru: {
+          name: "Мужские часы Sport",
+          description: "Спортивные наручные часы",
+          fullDescription: "Надежные спортивные часы с водонепроницаемостью. Множество полезных функций."
+        },
+        en: {
+          name: "Men's Sport Watch",
+          description: "Athletic wrist watch",
+          fullDescription: "Reliable sport watch with water resistance. Many useful functions."
+        },
+        uk: {
+          name: "Чоловічий годинник Sport",
+          description: "Спортивний наручний годинник",
+          fullDescription: "Надійний спортивний годинник з водонепроникністю. Безліч корисних функцій."
+        },
+        de: {
+          name: "Herren Sport Uhr",
+          description: "Athletische Armbanduhr",
+          fullDescription: "Zuverlässige Sportuhr mit Wasserdichtigkeit. Viele nützliche Funktionen."
+        }
+      }
+    },
+    {
+      id: 25,
+      name: "Мужская сумка Messenger",
+      description: "Стильная сумка через плечо",
+      price: 125.00,
+      brand: "Coach",
+      stock: 4,
+      category: "accessories",
+      subcategory: "bags",
+      colors: ["black", "brown", "navy"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+      fullDescription: "Практичная сумка-мессенджер из качественной кожи. Много отделений для вещей.",
+      translations: {
+        ru: {
+          name: "Мужская сумка Messenger",
+          description: "Стильная сумка через плечо",
+          fullDescription: "Практичная сумка-мессенджер из качественной кожи. Много отделений для вещей."
+        },
+        en: {
+          name: "Men's Messenger Bag",
+          description: "Stylish shoulder bag",
+          fullDescription: "Practical messenger bag made from quality leather. Many compartments for items."
+        },
+        uk: {
+          name: "Чоловіча сумка Messenger",
+          description: "Стильна сумка через плече",
+          fullDescription: "Практична сумка-месенджер з якісної шкіри. Багато відділень для речей."
+        },
+        de: {
+          name: "Herren Messenger Tasche",
+          description: "Stylische Umhängetasche",
+          fullDescription: "Praktische Messenger-Tasche aus hochwertigem Leder. Viele Fächer für Gegenstände."
+        }
+      }
+    },
+    {
+      id: 26,
+      name: "Мужской ремень Leather",
+      description: "Классический кожаный ремень",
+      price: 58.00,
+      brand: "Hugo Boss",
+      stock: 15,
+      category: "accessories",
+      subcategory: "belts",
+      colors: ["black", "brown"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантный кожаный ремень с металлической пряжкой. Подходит для деловых костюмов.",
+      translations: {
+        ru: {
+          name: "Мужской ремень Leather",
+          description: "Классический кожаный ремень",
+          fullDescription: "Элегантный кожаный ремень с металлической пряжкой. Подходит для деловых костюмов."
+        },
+        en: {
+          name: "Men's Leather Belt",
+          description: "Classic leather belt",
+          fullDescription: "Elegant leather belt with metal buckle. Suitable for business suits."
+        },
+        uk: {
+          name: "Чоловічий ремінь Leather",
+          description: "Класичний шкіряний ремінь",
+          fullDescription: "Елегантний шкіряний ремінь з металевою пряжкою. Підходить для ділових костюмів."
+        },
+        de: {
+          name: "Herren Leder Gürtel",
+          description: "Klassischer Ledergürtel",
+          fullDescription: "Eleganter Ledergürtel mit Metallschnalle. Geeignet für Geschäftsanzüge."
+        }
+      }
+    },
+    {
+      id: 27,
+      name: "Мужские носки Premium",
+      description: "Качественные хлопковые носки",
+      price: 18.00,
+      brand: "Calvin Klein",
+      stock: 25,
+      category: "accessories",
+      subcategory: "socks",
+      colors: ["black", "white", "gray", "navy"],
+      sizes: ["S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      fullDescription: "Комфортные носки из премиального хлопка. Отличная посадка и долговечность.",
+      translations: {
+        ru: {
+          name: "Мужские носки Premium",
+          description: "Качественные хлопковые носки",
+          fullDescription: "Комфортные носки из премиального хлопка. Отличная посадка и долговечность."
+        },
+        en: {
+          name: "Men's Premium Socks",
+          description: "Quality cotton socks",
+          fullDescription: "Comfortable socks made from premium cotton. Excellent fit and durability."
+        },
+        uk: {
+          name: "Чоловічі шкарпетки Premium",
+          description: "Якісні бавовняні шкарпетки",
+          fullDescription: "Комфортні шкарпетки з преміального бавовни. Відмінна посадка та довговічність."
+        },
+        de: {
+          name: "Herren Premium Socken",
+          description: "Hochwertige Baumwollsocken",
+          fullDescription: "Bequeme Socken aus Premium-Baumwolle. Ausgezeichnete Passform und Haltbarkeit."
+        }
+      }
+    },
+    {
+      id: 28,
+      name: "Мужской рюкзак Urban",
+      description: "Стильный городской рюкзак",
+      price: 89.00,
+      brand: "Herschel",
+      stock: 9,
+      category: "accessories",
+      subcategory: "backpacks",
+      colors: ["black", "gray", "navy"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+      fullDescription: "Практичный рюкзак для города с отделением для ноутбука. Удобные лямки.",
+      translations: {
+        ru: {
+          name: "Мужской рюкзак Urban",
+          description: "Стильный городской рюкзак",
+          fullDescription: "Практичный рюкзак для города с отделением для ноутбука. Удобные лямки."
+        },
+        en: {
+          name: "Men's Urban Backpack",
+          description: "Stylish city backpack",
+          fullDescription: "Practical city backpack with laptop compartment. Comfortable straps."
+        },
+        uk: {
+          name: "Чоловічий рюкзак Urban",
+          description: "Стильний міський рюкзак",
+          fullDescription: "Практичний рюкзак для міста з відділенням для ноутбука. Зручні лямки."
+        },
+        de: {
+          name: "Herren Urban Rucksack",
+          description: "Stylischer Stadtrucksack",
+          fullDescription: "Praktischer Stadtrucksack mit Laptopfach. Bequeme Träger."
+        }
+      }
+    },
+    {
+      id: 29,
+      name: "Мужской шарф Wool",
+      description: "Теплый шерстяной шарф",
+      price: 45.00,
+      brand: "Burberry",
+      stock: 12,
+      category: "accessories",
+      subcategory: "scarves",
+      colors: ["gray", "navy", "brown"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      fullDescription: "Мягкий шерстяной шарф с классическим узором. Защитит от холода зимой.",
+      translations: {
+        ru: {
+          name: "Мужской шарф Wool",
+          description: "Теплый шерстяной шарф",
+          fullDescription: "Мягкий шерстяной шарф с классическим узором. Защитит от холода зимой."
+        },
+        en: {
+          name: "Men's Wool Scarf",
+          description: "Warm wool scarf",
+          fullDescription: "Soft wool scarf with classic pattern. Will protect from cold in winter."
+        },
+        uk: {
+          name: "Чоловічий шарф Wool",
+          description: "Теплий вовняний шарф",
+          fullDescription: "М'який вовняний шарф з класичним візерунком. Захистить від холоду взимку."
+        },
+        de: {
+          name: "Herren Wool Schal",
+          description: "Warmer Wollschal",
+          fullDescription: "Weicher Wollschal mit klassischem Muster. Schützt vor Kälte im Winter."
+        }
+      }
+    },
+    {
+      id: 30,
+      name: "Мужские очки Aviator",
+      description: "Стильные солнцезащитные очки",
+      price: 125.00,
+      brand: "Ray-Ban",
+      stock: 6,
+      category: "accessories",
+      subcategory: "glasses",
+      colors: ["black", "gold", "silver"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      fullDescription: "Классические очки-авиаторы с UV-защитой. Икона стиля и функциональности.",
+      translations: {
+        ru: {
+          name: "Мужские очки Aviator",
+          description: "Стильные солнцезащитные очки",
+          fullDescription: "Классические очки-авиаторы с UV-защитой. Икона стиля и функциональности."
+        },
+        en: {
+          name: "Men's Aviator Glasses",
+          description: "Stylish sunglasses",
+          fullDescription: "Classic aviator glasses with UV protection. Icon of style and functionality."
+        },
+        uk: {
+          name: "Чоловічі окуляри Aviator",
+          description: "Стильні сонцезахисні окуляри",
+          fullDescription: "Класичні окуляри-авіатори з UV-захистом. Ікона стилю та функціональності."
+        },
+        de: {
+          name: "Herren Aviator Brille",
+          description: "Stylische Sonnenbrille",
+          fullDescription: "Klassische Aviator-Brille mit UV-Schutz. Ikone von Stil und Funktionalität."
+        }
+      }
+    },
+    {
+      id: 31,
+      name: "Мужские трусы Premium",
+      description: "Комфортное нижнее белье",
+      price: 25.00,
+      brand: "Calvin Klein",
+      stock: 30,
+      category: "accessories",
+      subcategory: "underwear",
+      colors: ["black", "white", "gray"],
+      sizes: ["S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      fullDescription: "Удобные трусы из мягкого хлопка. Обеспечивают комфорт в течение всего дня.",
+      translations: {
+        ru: {
+          name: "Мужские трусы Premium",
+          description: "Комфортное нижнее белье",
+          fullDescription: "Удобные трусы из мягкого хлопка. Обеспечивают комфорт в течение всего дня."
+        },
+        en: {
+          name: "Men's Premium Underwear",
+          description: "Comfortable underwear",
+          fullDescription: "Comfortable underwear made from soft cotton. Provide comfort throughout the day."
+        },
+        uk: {
+          name: "Чоловічі труси Premium",
+          description: "Комфортна нижня білизна",
+          fullDescription: "Зручні труси з м'якого бавовни. Забезпечують комфорт протягом усього дня."
+        },
+        de: {
+          name: "Herren Premium Unterwäsche",
+          description: "Bequeme Unterwäsche",
+          fullDescription: "Bequeme Unterwäsche aus weicher Baumwolle. Bietet Komfort den ganzen Tag."
+        }
+      }
     }
   ],
   womens: [
+    // ЖЕНСКИЕ ТОВАРЫ - ДОПОЛНИТЕЛЬНЫЕ КАТЕГОРИИ
+    // Футболки - дополнительные подкатегории
+    {
+      id: 32,
+      name: "Женский топ Casual",
+      description: "Стильный повседневный топ",
+      price: 35.00,
+      brand: "Zara",
+      stock: 20,
+      category: "tshirts",
+      subcategory: "top",
+      colors: ["white", "black", "pink"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Легкий и удобный топ для повседневной носки. Отлично сочетается с джинсами и юбками.",
+      translations: {
+        ru: {
+          name: "Женский топ Casual",
+          description: "Стильный повседневный топ",
+          fullDescription: "Легкий и удобный топ для повседневной носки. Отлично сочетается с джинсами и юбками."
+        },
+        en: {
+          name: "Women's Casual Top",
+          description: "Stylish casual top",
+          fullDescription: "Light and comfortable top for everyday wear. Goes great with jeans and skirts."
+        },
+        uk: {
+          name: "Жіночий топ Casual",
+          description: "Стильний повсякденний топ",
+          fullDescription: "Легкий та зручний топ для повсякденного носіння. Відмінно поєднується з джинсами та спідницями."
+        },
+        de: {
+          name: "Damen Casual Top",
+          description: "Stylisches Casual-Top",
+          fullDescription: "Leichtes und bequemes Top für den täglichen Gebrauch. Passt gut zu Jeans und Röcken."
+        }
+      }
+    },
+    {
+      id: 33,
+      name: "Женская рубашка Classic",
+      description: "Элегантная женская рубашка",
+      price: 58.00,
+      brand: "H&M",
+      stock: 15,
+      category: "tshirts",
+      subcategory: "shirt",
+      colors: ["white", "blue", "striped"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Классическая женская рубашка из качественного хлопка. Подходит для офиса и деловых встреч.",
+      translations: {
+        ru: {
+          name: "Женская рубашка Classic",
+          description: "Элегантная женская рубашка",
+          fullDescription: "Классическая женская рубашка из качественного хлопка. Подходит для офиса и деловых встреч."
+        },
+        en: {
+          name: "Women's Classic Shirt",
+          description: "Elegant women's shirt",
+          fullDescription: "Classic women's shirt made from quality cotton. Suitable for office and business meetings."
+        },
+        uk: {
+          name: "Жіноча сорочка Classic",
+          description: "Елегантна жіноча сорочка",
+          fullDescription: "Класична жіноча сорочка з якісного бавовни. Підходить для офісу та ділових зустрічей."
+        },
+        de: {
+          name: "Damen Classic Hemd",
+          description: "Elegantes Damenhemd",
+          fullDescription: "Klassisches Damenhemd aus hochwertiger Baumwolle. Geeignet für Büro und Geschäftstreffen."
+        }
+      }
+    },
+    {
+      id: 34,
+      name: "Женская топ-майка Summer",
+      description: "Легкая летняя майка",
+      price: 28.00,
+      brand: "Uniqlo",
+      stock: 25,
+      category: "tshirts",
+      subcategory: "tank_top",
+      colors: ["white", "black", "yellow", "pink"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Дышащая майка из натурального хлопка. Идеальна для жаркой погоды.",
+      translations: {
+        ru: {
+          name: "Женская топ-майка Summer",
+          description: "Легкая летняя майка",
+          fullDescription: "Дышащая майка из натурального хлопка. Идеальна для жаркой погоды."
+        },
+        en: {
+          name: "Women's Summer Tank Top",
+          description: "Light summer tank top",
+          fullDescription: "Breathable tank top made from natural cotton. Perfect for hot weather."
+        },
+        uk: {
+          name: "Жіноча топ-майка Summer",
+          description: "Легка літня майка",
+          fullDescription: "Дихаюча майка з натурального бавовни. Ідеальна для спекотної погоди."
+        },
+        de: {
+          name: "Damen Summer Tank Top",
+          description: "Leichtes Sommer-Tank-Top",
+          fullDescription: "Atmungsaktives Tank-Top aus natürlicher Baumwolle. Perfekt für heißes Wetter."
+        }
+      }
+    },
+    // Кофты - дополнительные подкатегории
+    {
+      id: 35,
+      name: "Женский зип-худи Comfort",
+      description: "Уютный зип-худи с капюшоном",
+      price: 85.00,
+      brand: "Nike",
+      stock: 12,
+      category: "hoodies",
+      subcategory: "zip_hoodie",
+      colors: ["gray", "pink", "black"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Мягкий зип-худи с полной молнией и удобными карманами. Отлично для прохладной погоды.",
+      translations: {
+        ru: {
+          name: "Женский зип-худи Comfort",
+          description: "Уютный зип-худи с капюшоном",
+          fullDescription: "Мягкий зип-худи с полной молнией и удобными карманами. Отлично для прохладной погоды."
+        },
+        en: {
+          name: "Women's Comfort Zip Hoodie",
+          description: "Cozy zip hoodie with hood",
+          fullDescription: "Soft zip hoodie with full zipper and convenient pockets. Great for cool weather."
+        },
+        uk: {
+          name: "Жіноче зіп-худі Comfort",
+          description: "Затишне зіп-худі з капюшоном",
+          fullDescription: "М'яке зіп-худі з повною блискавкою та зручними кишенями. Відмінно для прохолодної погоди."
+        },
+        de: {
+          name: "Damen Comfort Zip Hoodie",
+          description: "Gemütlicher Zip-Hoodie mit Kapuze",
+          fullDescription: "Weicher Zip-Hoodie mit vollem Reißverschluss und praktischen Taschen. Toll für kühles Wetter."
+        }
+      }
+    },
+    {
+      id: 36,
+      name: "Женский свитер Wool",
+      description: "Теплый шерстяной свитер",
+      price: 95.00,
+      brand: "COS",
+      stock: 8,
+      category: "hoodies",
+      subcategory: "sweater",
+      colors: ["beige", "gray", "navy"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантный шерстяной свитер с круглым вырезом. Мягкий и теплый материал.",
+      translations: {
+        ru: {
+          name: "Женский свитер Wool",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Элегантный шерстяной свитер с круглым вырезом. Мягкий и теплый материал."
+        },
+        en: {
+          name: "Women's Wool Sweater",
+          description: "Warm wool sweater",
+          fullDescription: "Elegant wool sweater with round neckline. Soft and warm material."
+        },
+        uk: {
+          name: "Жіночий светр Wool",
+          description: "Теплий вовняний светр",
+          fullDescription: "Елегантний вовняний светр з круглим вирізом. М'який та теплий матеріал."
+        },
+        de: {
+          name: "Damen Wool Pullover",
+          description: "Warmer Wollpullover",
+          fullDescription: "Eleganter Wollpullover mit rundem Ausschnitt. Weiches und warmes Material."
+        }
+      }
+    },
+    {
+      id: 37,
+      name: "Женский свитшот Oversized",
+      description: "Модный оверсайз свитшот",
+      price: 68.00,
+      brand: "Adidas",
+      stock: 16,
+      category: "hoodies",
+      subcategory: "sweatshirt",
+      colors: ["white", "black", "pink"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Стильный свитшот свободного кроя. Удобный и модный для повседневной носки.",
+      translations: {
+        ru: {
+          name: "Женский свитшот Oversized",
+          description: "Модный оверсайз свитшот",
+          fullDescription: "Стильный свитшот свободного кроя. Удобный и модный для повседневной носки."
+        },
+        en: {
+          name: "Women's Oversized Sweatshirt",
+          description: "Trendy oversized sweatshirt",
+          fullDescription: "Stylish loose-fit sweatshirt. Comfortable and fashionable for everyday wear."
+        },
+        uk: {
+          name: "Жіночий світшот Oversized",
+          description: "Модний оверсайз світшот",
+          fullDescription: "Стильний світшот вільного крою. Зручний та модний для повсякденного носіння."
+        },
+        de: {
+          name: "Damen Oversized Sweatshirt",
+          description: "Trendiges Oversized-Sweatshirt",
+          fullDescription: "Stylisches locker sitzendes Sweatshirt. Bequem und modisch für den täglichen Gebrauch."
+        }
+      }
+    },
+    {
+      id: 38,
+      name: "Женский лонгслив Basic",
+      description: "Базовый лонгслив с длинными рукавами",
+      price: 42.00,
+      brand: "Gap",
+      stock: 22,
+      category: "hoodies",
+      subcategory: "longsleeve",
+      colors: ["white", "black", "gray", "navy"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Универсальный лонгслив из мягкого хлопка. Базовая вещь для любого гардероба.",
+      translations: {
+        ru: {
+          name: "Женский лонгслив Basic",
+          description: "Базовый лонгслив с длинными рукавами",
+          fullDescription: "Универсальный лонгслив из мягкого хлопка. Базовая вещь для любого гардероба."
+        },
+        en: {
+          name: "Women's Basic Longsleeve",
+          description: "Basic long-sleeve shirt",
+          fullDescription: "Versatile longsleeve made from soft cotton. Basic item for any wardrobe."
+        },
+        uk: {
+          name: "Жіночий лонгслів Basic",
+          description: "Базовий лонгслів з довгими рукавами",
+          fullDescription: "Універсальний лонгслів з м'якого бавовни. Базова річ для будь-якого гардеробу."
+        },
+        de: {
+          name: "Damen Basic Longsleeve",
+          description: "Basic Langarmshirt",
+          fullDescription: "Vielseitiges Longsleeve aus weicher Baumwolle. Grundausstattung für jede Garderobe."
+        }
+      }
+    },
+    // Штаны - дополнительные подкатегории
+    {
+      id: 39,
+      name: "Женские джинсы Skinny",
+      description: "Облегающие джинсы скинни",
+      price: 72.00,
+      brand: "Levi's",
+      stock: 18,
+      category: "pants",
+      subcategory: "jeans",
+      colors: ["blue", "black", "white"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Стильные джинсы скинни из эластичного денима. Подчеркивают фигуру.",
+      translations: {
+        ru: {
+          name: "Женские джинсы Skinny",
+          description: "Облегающие джинсы скинни",
+          fullDescription: "Стильные джинсы скинни из эластичного денима. Подчеркивают фигуру."
+        },
+        en: {
+          name: "Women's Skinny Jeans",
+          description: "Fitted skinny jeans",
+          fullDescription: "Stylish skinny jeans made from stretch denim. Accentuate the figure."
+        },
+        uk: {
+          name: "Жіночі джинси Skinny",
+          description: "Облягаючі джинси скінні",
+          fullDescription: "Стильні джинси скінні з еластичного деніму. Підкреслюють фігуру."
+        },
+        de: {
+          name: "Damen Skinny Jeans",
+          description: "Eng anliegende Skinny-Jeans",
+          fullDescription: "Stylische Skinny-Jeans aus Stretch-Denim. Betonen die Figur."
+        }
+      }
+    },
+    {
+      id: 40,
+      name: "Женская юбка Mini",
+      description: "Стильная мини-юбка",
+      price: 48.00,
+      brand: "Zara",
+      stock: 14,
+      category: "pants",
+      subcategory: "skirt",
+      colors: ["black", "navy", "red"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантная мини-юбка А-силуэта. Отлично подходит для вечерних выходов.",
+      translations: {
+        ru: {
+          name: "Женская юбка Mini",
+          description: "Стильная мини-юбка",
+          fullDescription: "Элегантная мини-юбка А-силуэта. Отлично подходит для вечерних выходов."
+        },
+        en: {
+          name: "Women's Mini Skirt",
+          description: "Stylish mini skirt",
+          fullDescription: "Elegant A-line mini skirt. Perfect for evening outings."
+        },
+        uk: {
+          name: "Жіноча спідниця Mini",
+          description: "Стильна міні-спідниця",
+          fullDescription: "Елегантна міні-спідниця А-силуету. Відмінно підходить для вечірніх виходів."
+        },
+        de: {
+          name: "Damen Mini Rock",
+          description: "Stylischer Minirock",
+          fullDescription: "Eleganter A-Linien-Minirock. Perfekt für Abendausflüge."
+        }
+      }
+    },
+    {
+      id: 41,
+      name: "Женские спортивные штаны",
+      description: "Удобные спортивные брюки",
+      price: 55.00,
+      brand: "Puma",
+      stock: 20,
+      category: "pants",
+      subcategory: "sport",
+      colors: ["black", "gray", "navy"],
+      sizes: ["XS", "S", "M", "L", "XL"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Комфортные спортивные штаны из дышащего материала. Идеальны для тренировок.",
+      translations: {
+        ru: {
+          name: "Женские спортивные штаны",
+          description: "Удобные спортивные брюки",
+          fullDescription: "Комфортные спортивные штаны из дышащего материала. Идеальны для тренировок."
+        },
+        en: {
+          name: "Women's Sport Pants",
+          description: "Comfortable athletic pants",
+          fullDescription: "Comfortable sport pants made from breathable material. Perfect for workouts."
+        },
+        uk: {
+          name: "Жіночі спортивні штани",
+          description: "Зручні спортивні брюки",
+          fullDescription: "Комфортні спортивні штани з дихаючого матеріалу. Ідеальні для тренувань."
+        },
+        de: {
+          name: "Damen Sport Hosen",
+          description: "Bequeme Sporthosen",
+          fullDescription: "Bequeme Sporthosen aus atmungsaktivem Material. Perfekt für Workouts."
+        }
+      }
+    },
+    // Шорты - дополнительные подкатегории
+    {
+      id: 42,
+      name: "Женские джинсовые шорты",
+      description: "Модные джинсовые шорты",
+      price: 45.00,
+      brand: "H&M",
+      stock: 16,
+      category: "shorts",
+      subcategory: "denim",
+      colors: ["blue", "black", "white"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Стильные джинсовые шорты с высокой посадкой. Отлично для летнего сезона.",
+      translations: {
+        ru: {
+          name: "Женские джинсовые шорты",
+          description: "Модные джинсовые шорты",
+          fullDescription: "Стильные джинсовые шорты с высокой посадкой. Отлично для летнего сезона."
+        },
+        en: {
+          name: "Women's Denim Shorts",
+          description: "Trendy denim shorts",
+          fullDescription: "Stylish high-waisted denim shorts. Great for summer season."
+        },
+        uk: {
+          name: "Жіночі джинсові шорти",
+          description: "Модні джинсові шорти",
+          fullDescription: "Стильні джинсові шорти з високою посадкою. Відмінно для літнього сезону."
+        },
+        de: {
+          name: "Damen Denim Shorts",
+          description: "Trendige Denim-Shorts",
+          fullDescription: "Stylische High-Waist-Denim-Shorts. Toll für die Sommersaison."
+        }
+      }
+    },
+    {
+      id: 43,
+      name: "Женские спортивные шорты",
+      description: "Легкие шорты для тренировок",
+      price: 32.00,
+      brand: "Nike",
+      stock: 24,
+      category: "shorts",
+      subcategory: "sport",
+      colors: ["black", "pink", "white"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Дышащие спортивные шорты с технологией отвода влаги. Для активного образа жизни.",
+      translations: {
+        ru: {
+          name: "Женские спортивные шорты",
+          description: "Легкие шорты для тренировок",
+          fullDescription: "Дышащие спортивные шорты с технологией отвода влаги. Для активного образа жизни."
+        },
+        en: {
+          name: "Women's Sport Shorts",
+          description: "Lightweight workout shorts",
+          fullDescription: "Breathable sport shorts with moisture-wicking technology. For active lifestyle."
+        },
+        uk: {
+          name: "Жіночі спортивні шорти",
+          description: "Легкі шорти для тренувань",
+          fullDescription: "Дихаючі спортивні шорти з технологією відведення вологи. Для активного способу життя."
+        },
+        de: {
+          name: "Damen Sport Shorts",
+          description: "Leichte Workout-Shorts",
+          fullDescription: "Atmungsaktive Sport-Shorts mit feuchtigkeitsableitender Technologie. Für aktiven Lebensstil."
+        }
+      }
+    },
+    // Купальники
+    {
+      id: 44,
+      name: "Женский купальник Bikini",
+      description: "Стильный раздельный купальник",
+      price: 65.00,
+      brand: "Victoria's Secret",
+      stock: 10,
+      category: "swimwear",
+      subcategory: "bikini",
+      colors: ["black", "red", "blue"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантный раздельный купальник с регулируемыми бретелями. Отличное качество материала.",
+      translations: {
+        ru: {
+          name: "Женский купальник Bikini",
+          description: "Стильный раздельный купальник",
+          fullDescription: "Элегантный раздельный купальник с регулируемыми бретелями. Отличное качество материала."
+        },
+        en: {
+          name: "Women's Bikini Swimsuit",
+          description: "Stylish two-piece swimsuit",
+          fullDescription: "Elegant two-piece swimsuit with adjustable straps. Excellent material quality."
+        },
+        uk: {
+          name: "Жіночий купальник Bikini",
+          description: "Стильний роздільний купальник",
+          fullDescription: "Елегантний роздільний купальник з регульованими бретелями. Відмінна якість матеріалу."
+        },
+        de: {
+          name: "Damen Bikini Badeanzug",
+          description: "Stylischer zweiteiliger Badeanzug",
+          fullDescription: "Eleganter zweiteiliger Badeanzug mit verstellbaren Trägern. Ausgezeichnete Materialqualität."
+        }
+      }
+    },
+    // Обувь - дополнительные подкатегории
+    {
+      id: 45,
+      name: "Женские туфли Classic",
+      description: "Элегантные классические туфли",
+      price: 89.00,
+      brand: "Jimmy Choo",
+      stock: 8,
+      category: "shoes",
+      subcategory: "heels",
+      colors: ["black", "nude", "red"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Классические туфли на среднем каблуке. Идеальны для офиса и торжественных мероприятий.",
+      translations: {
+        ru: {
+          name: "Женские туфли Classic",
+          description: "Элегантные классические туфли",
+          fullDescription: "Классические туфли на среднем каблуке. Идеальны для офиса и торжественных мероприятий."
+        },
+        en: {
+          name: "Women's Classic Heels",
+          description: "Elegant classic heels",
+          fullDescription: "Classic heels with medium heel height. Perfect for office and formal events."
+        },
+        uk: {
+          name: "Жіночі туфлі Classic",
+          description: "Елегантні класичні туфлі",
+          fullDescription: "Класичні туфлі на середньому каблуці. Ідеальні для офісу та урочистих заходів."
+        },
+        de: {
+          name: "Damen Classic Pumps",
+          description: "Elegante klassische Pumps",
+          fullDescription: "Klassische Pumps mit mittlerer Absatzhöhe. Perfekt für Büro und formelle Veranstaltungen."
+        }
+      }
+    },
+    {
+      id: 46,
+      name: "Женские кроссовки Sport",
+      description: "Удобные спортивные кроссовки",
+      price: 95.00,
+      brand: "Adidas",
+      stock: 15,
+      category: "shoes",
+      subcategory: "sneakers",
+      colors: ["white", "pink", "black"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Легкие спортивные кроссовки с амортизацией. Отлично подходят для бега и фитнеса.",
+      translations: {
+        ru: {
+          name: "Женские кроссовки Sport",
+          description: "Удобные спортивные кроссовки",
+          fullDescription: "Легкие спортивные кроссовки с амортизацией. Отлично подходят для бега и фитнеса."
+        },
+        en: {
+          name: "Women's Sport Sneakers",
+          description: "Comfortable athletic sneakers",
+          fullDescription: "Lightweight athletic sneakers with cushioning. Great for running and fitness."
+        },
+        uk: {
+          name: "Жіночі кросівки Sport",
+          description: "Зручні спортивні кросівки",
+          fullDescription: "Легкі спортивні кросівки з амортизацією. Відмінно підходять для бігу та фітнесу."
+        },
+        de: {
+          name: "Damen Sport Sneakers",
+          description: "Bequeme athletische Sneakers",
+          fullDescription: "Leichte athletische Sneakers mit Dämpfung. Toll für Laufen und Fitness."
+        }
+      }
+    },
+    {
+      id: 47,
+      name: "Женские тапочки Home",
+      description: "Мягкие домашние тапочки",
+      price: 28.00,
+      brand: "UGG",
+      stock: 18,
+      category: "shoes",
+      subcategory: "slippers",
+      colors: ["pink", "gray", "beige"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Уютные домашние тапочки из мягкого материала. Обеспечивают комфорт дома.",
+      translations: {
+        ru: {
+          name: "Женские тапочки Home",
+          description: "Мягкие домашние тапочки",
+          fullDescription: "Уютные домашние тапочки из мягкого материала. Обеспечивают комфорт дома."
+        },
+        en: {
+          name: "Women's Home Slippers",
+          description: "Soft home slippers",
+          fullDescription: "Cozy home slippers made from soft material. Provide comfort at home."
+        },
+        uk: {
+          name: "Жіночі тапочки Home",
+          description: "М'які домашні тапочки",
+          fullDescription: "Затишні домашні тапочки з м'якого матеріалу. Забезпечують комфорт вдома."
+        },
+        de: {
+          name: "Damen Home Hausschuhe",
+          description: "Weiche Hausschuhe",
+          fullDescription: "Gemütliche Hausschuhe aus weichem Material. Bieten Komfort zu Hause."
+        }
+      }
+    },
+    {
+      id: 48,
+      name: "Женские мюли Fashion",
+      description: "Стильные мюли без задника",
+      price: 75.00,
+      brand: "Gucci",
+      stock: 6,
+      category: "shoes",
+      subcategory: "mules",
+      colors: ["black", "brown", "white"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Модные мюли на низком каблуке. Легко надеваются и отлично смотрятся.",
+      translations: {
+        ru: {
+          name: "Женские мюли Fashion",
+          description: "Стильные мюли без задника",
+          fullDescription: "Модные мюли на низком каблуке. Легко надеваются и отлично смотрятся."
+        },
+        en: {
+          name: "Women's Fashion Mules",
+          description: "Stylish backless mules",
+          fullDescription: "Fashionable mules with low heel. Easy to slip on and look great."
+        },
+        uk: {
+          name: "Жіночі мюлі Fashion",
+          description: "Стильні мюлі без задника",
+          fullDescription: "Модні мюлі на низькому каблуці. Легко одягаються та відмінно виглядають."
+        },
+        de: {
+          name: "Damen Fashion Mules",
+          description: "Stylische rückenfreie Mules",
+          fullDescription: "Modische Mules mit niedrigem Absatz. Einfach anzuziehen und sehen toll aus."
+        }
+      }
+    },
+    {
+      id: 49,
+      name: "Женские ботинки Ankle",
+      description: "Стильные ботильоны",
+      price: 115.00,
+      brand: "Dr. Martens",
+      stock: 9,
+      category: "shoes",
+      subcategory: "boots",
+      colors: ["black", "brown", "burgundy"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Удобные ботильоны из натуральной кожи. Подходят для осенне-зимнего сезона.",
+      translations: {
+        ru: {
+          name: "Женские ботинки Ankle",
+          description: "Стильные ботильоны",
+          fullDescription: "Удобные ботильоны из натуральной кожи. Подходят для осенне-зимнего сезона."
+        },
+        en: {
+          name: "Women's Ankle Boots",
+          description: "Stylish ankle boots",
+          fullDescription: "Comfortable ankle boots made from genuine leather. Suitable for autumn-winter season."
+        },
+        uk: {
+          name: "Жіночі черевики Ankle",
+          description: "Стильні ботільйони",
+          fullDescription: "Зручні ботільйони з натуральної шкіри. Підходять для осінньо-зимового сезону."
+        },
+        de: {
+          name: "Damen Ankle Boots",
+          description: "Stylische Ankle-Boots",
+          fullDescription: "Bequeme Ankle-Boots aus echtem Leder. Geeignet für die Herbst-Winter-Saison."
+        }
+      }
+    },
+    {
+      id: 50,
+      name: "Женские сандалии Summer",
+      description: "Легкие летние сандалии",
+      price: 52.00,
+      brand: "Birkenstock",
+      stock: 12,
+      category: "shoes",
+      subcategory: "sandals",
+      colors: ["tan", "black", "white"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Комфортные летние сандалии с ортопедической стелькой. Идеальны для жаркой погоды.",
+      translations: {
+        ru: {
+          name: "Женские сандалии Summer",
+          description: "Легкие летние сандалии",
+          fullDescription: "Комфортные летние сандалии с ортопедической стелькой. Идеальны для жаркой погоды."
+        },
+        en: {
+          name: "Women's Summer Sandals",
+          description: "Light summer sandals",
+          fullDescription: "Comfortable summer sandals with orthopedic insole. Perfect for hot weather."
+        },
+        uk: {
+          name: "Жіночі сандалі Summer",
+          description: "Легкі літні сандалі",
+          fullDescription: "Комфортні літні сандалі з ортопедичною устілкою. Ідеальні для спекотної погоди."
+        },
+        de: {
+          name: "Damen Summer Sandalen",
+          description: "Leichte Sommersandalen",
+          fullDescription: "Bequeme Sommersandalen mit orthopädischer Einlage. Perfekt für heißes Wetter."
+        }
+      }
+    },
+    {
+      id: 51,
+      name: "Женские лоферы Classic",
+      description: "Элегантные женские лоферы",
+      price: 82.00,
+      brand: "Tod's",
+      stock: 7,
+      category: "shoes",
+      subcategory: "loafers",
+      colors: ["black", "navy", "brown"],
+      sizes: ["36", "37", "38", "39", "40"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Классические женские лоферы из качественной кожи. Универсальная обувь для любого случая.",
+      translations: {
+        ru: {
+          name: "Женские лоферы Classic",
+          description: "Элегантные женские лоферы",
+          fullDescription: "Классические женские лоферы из качественной кожи. Универсальная обувь для любого случая."
+        },
+        en: {
+          name: "Women's Classic Loafers",
+          description: "Elegant women's loafers",
+          fullDescription: "Classic women's loafers made from quality leather. Versatile shoes for any occasion."
+        },
+        uk: {
+          name: "Жіночі лофери Classic",
+          description: "Елегантні жіночі лофери",
+          fullDescription: "Класичні жіночі лофери з якісної шкіри. Універсальне взуття для будь-якого випадку."
+        },
+        de: {
+          name: "Damen Classic Loafer",
+          description: "Elegante Damen-Loafer",
+          fullDescription: "Klassische Damen-Loafer aus hochwertigem Leder. Vielseitige Schuhe für jeden Anlass."
+        }
+      }
+    },
+    // Аксессуары - различные подкатегории
+    {
+      id: 52,
+      name: "Женские серьги Gold",
+      description: "Элегантные золотистые серьги",
+      price: 65.00,
+      brand: "Pandora",
+      stock: 8,
+      category: "accessories",
+      subcategory: "jewelry",
+      colors: ["gold", "silver"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Изящные серьги с позолоченным покрытием. Добавят элегантности любому образу.",
+      translations: {
+        ru: {
+          name: "Женские серьги Gold",
+          description: "Элегантные золотистые серьги",
+          fullDescription: "Изящные серьги с позолоченным покрытием. Добавят элегантности любому образу."
+        },
+        en: {
+          name: "Women's Gold Earrings",
+          description: "Elegant gold earrings",
+          fullDescription: "Graceful earrings with gold-plated coating. Will add elegance to any look."
+        },
+        uk: {
+          name: "Жіночі сережки Gold",
+          description: "Елегантні золотисті сережки",
+          fullDescription: "Витончені сережки з позолоченим покриттям. Додадуть елегантності будь-якому образу."
+        },
+        de: {
+          name: "Damen Gold Ohrringe",
+          description: "Elegante goldene Ohrringe",
+          fullDescription: "Anmutige Ohrringe mit vergoldeter Beschichtung. Verleihen jedem Look Eleganz."
+        }
+      }
+    },
+    {
+      id: 53,
+      name: "Женские часы Fashion",
+      description: "Стильные женские часы",
+      price: 145.00,
+      brand: "Michael Kors",
+      stock: 5,
+      category: "accessories",
+      subcategory: "watches",
+      colors: ["gold", "silver", "rose_gold"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Модные женские часы с металлическим браслетом. Сочетают стиль и функциональность.",
+      translations: {
+        ru: {
+          name: "Женские часы Fashion",
+          description: "Стильные женские часы",
+          fullDescription: "Модные женские часы с металлическим браслетом. Сочетают стиль и функциональность."
+        },
+        en: {
+          name: "Women's Fashion Watch",
+          description: "Stylish women's watch",
+          fullDescription: "Fashionable women's watch with metal bracelet. Combine style and functionality."
+        },
+        uk: {
+          name: "Жіночий годинник Fashion",
+          description: "Стильний жіночий годинник",
+          fullDescription: "Модний жіночий годинник з металевим браслетом. Поєднують стиль та функціональність."
+        },
+        de: {
+          name: "Damen Fashion Uhr",
+          description: "Stylische Damenuhr",
+          fullDescription: "Modische Damenuhr mit Metallarmband. Verbinden Stil und Funktionalität."
+        }
+      }
+    },
+    {
+      id: 54,
+      name: "Женская сумка Tote",
+      description: "Вместительная сумка-тоут",
+      price: 98.00,
+      brand: "Coach",
+      stock: 6,
+      category: "accessories",
+      subcategory: "bags",
+      colors: ["black", "brown", "beige"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Практичная сумка-тоут из качественной кожи. Много места для всех необходимых вещей.",
+      translations: {
+        ru: {
+          name: "Женская сумка Tote",
+          description: "Вместительная сумка-тоут",
+          fullDescription: "Практичная сумка-тоут из качественной кожи. Много места для всех необходимых вещей."
+        },
+        en: {
+          name: "Women's Tote Bag",
+          description: "Spacious tote bag",
+          fullDescription: "Practical tote bag made from quality leather. Plenty of space for all essentials."
+        },
+        uk: {
+          name: "Жіноча сумка Tote",
+          description: "Місткий сумка-тоут",
+          fullDescription: "Практична сумка-тоут з якісної шкіри. Багато місця для всіх необхідних речей."
+        },
+        de: {
+          name: "Damen Tote Tasche",
+          description: "Geräumige Tote-Tasche",
+          fullDescription: "Praktische Tote-Tasche aus hochwertigem Leder. Viel Platz für alle wichtigen Dinge."
+        }
+      }
+    },
+    {
+      id: 55,
+      name: "Женский ремень Leather",
+      description: "Тонкий кожаный ремень",
+      price: 42.00,
+      brand: "Hermès",
+      stock: 12,
+      category: "accessories",
+      subcategory: "belts",
+      colors: ["black", "brown", "red"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантный тонкий ремень из натуральной кожи. Подчеркнет талию и дополнит образ.",
+      translations: {
+        ru: {
+          name: "Женский ремень Leather",
+          description: "Тонкий кожаный ремень",
+          fullDescription: "Элегантный тонкий ремень из натуральной кожи. Подчеркнет талию и дополнит образ."
+        },
+        en: {
+          name: "Women's Leather Belt",
+          description: "Thin leather belt",
+          fullDescription: "Elegant thin belt made from genuine leather. Will accentuate the waist and complete the look."
+        },
+        uk: {
+          name: "Жіночий ремінь Leather",
+          description: "Тонкий шкіряний ремінь",
+          fullDescription: "Елегантний тонкий ремінь з натуральної шкіри. Підкреслить талію та доповнить образ."
+        },
+        de: {
+          name: "Damen Leder Gürtel",
+          description: "Dünner Ledergürtel",
+          fullDescription: "Eleganter dünner Gürtel aus echtem Leder. Betont die Taille und vervollständigt den Look."
+        }
+      }
+    },
+    {
+      id: 56,
+      name: "Женские носки Cotton",
+      description: "Мягкие хлопковые носки",
+      price: 15.00,
+      brand: "Calvin Klein",
+      stock: 30,
+      category: "accessories",
+      subcategory: "socks",
+      colors: ["white", "black", "pink", "gray"],
+      sizes: ["XS", "S", "M", "L"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Комфортные носки из натурального хлопка. Мягкие и дышащие для ежедневной носки.",
+      translations: {
+        ru: {
+          name: "Женские носки Cotton",
+          description: "Мягкие хлопковые носки",
+          fullDescription: "Комфортные носки из натурального хлопка. Мягкие и дышащие для ежедневной носки."
+        },
+        en: {
+          name: "Women's Cotton Socks",
+          description: "Soft cotton socks",
+          fullDescription: "Comfortable socks made from natural cotton. Soft and breathable for daily wear."
+        },
+        uk: {
+          name: "Жіночі шкарпетки Cotton",
+          description: "М'які бавовняні шкарпетки",
+          fullDescription: "Комфортні шкарпетки з натурального бавовни. М'які та дихаючі для щоденного носіння."
+        },
+        de: {
+          name: "Damen Cotton Socken",
+          description: "Weiche Baumwollsocken",
+          fullDescription: "Bequeme Socken aus natürlicher Baumwolle. Weich und atmungsaktiv für den täglichen Gebrauch."
+        }
+      }
+    },
+    {
+      id: 57,
+      name: "Женский рюкзак Mini",
+      description: "Компактный мини-рюкзак",
+      price: 68.00,
+      brand: "Marc Jacobs",
+      stock: 10,
+      category: "accessories",
+      subcategory: "backpacks",
+      colors: ["black", "pink", "white"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Стильный мини-рюкзак для городских прогулок. Компактный, но вместительный.",
+      translations: {
+        ru: {
+          name: "Женский рюкзак Mini",
+          description: "Компактный мини-рюкзак",
+          fullDescription: "Стильный мини-рюкзак для городских прогулок. Компактный, но вместительный."
+        },
+        en: {
+          name: "Women's Mini Backpack",
+          description: "Compact mini backpack",
+          fullDescription: "Stylish mini backpack for city walks. Compact yet spacious."
+        },
+        uk: {
+          name: "Жіночий рюкзак Mini",
+          description: "Компактний міні-рюкзак",
+          fullDescription: "Стильний міні-рюкзак для міських прогулянок. Компактний, але місткий."
+        },
+        de: {
+          name: "Damen Mini Rucksack",
+          description: "Kompakter Mini-Rucksack",
+          fullDescription: "Stylischer Mini-Rucksack für Stadtspaziergänge. Kompakt und dennoch geräumig."
+        }
+      }
+    },
+    {
+      id: 58,
+      name: "Женский шарф Silk",
+      description: "Шелковый платок",
+      price: 55.00,
+      brand: "Hermès",
+      stock: 8,
+      category: "accessories",
+      subcategory: "scarves",
+      colors: ["blue", "red", "gold"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Роскошный шелковый платок с изысканным принтом. Универсальный аксессуар для любого образа.",
+      translations: {
+        ru: {
+          name: "Женский шарф Silk",
+          description: "Шелковый платок",
+          fullDescription: "Роскошный шелковый платок с изысканным принтом. Универсальный аксессуар для любого образа."
+        },
+        en: {
+          name: "Women's Silk Scarf",
+          description: "Silk scarf",
+          fullDescription: "Luxurious silk scarf with exquisite print. Universal accessory for any look."
+        },
+        uk: {
+          name: "Жіночий шарф Silk",
+          description: "Шовкова хустка",
+          fullDescription: "Розкішна шовкова хустка з вишуканим принтом. Універсальний аксесуар для будь-якого образу."
+        },
+        de: {
+          name: "Damen Silk Schal",
+          description: "Seidenschal",
+          fullDescription: "Luxuriöser Seidenschal mit exquisitem Druck. Universelles Accessoire für jeden Look."
+        }
+      }
+    },
+    {
+      id: 59,
+      name: "Женские очки Cat Eye",
+      description: "Стильные очки кошачий глаз",
+      price: 98.00,
+      brand: "Prada",
+      stock: 4,
+      category: "accessories",
+      subcategory: "glasses",
+      colors: ["black", "tortoise", "pink"],
+      sizes: ["One Size"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      fullDescription: "Элегантные солнцезащитные очки в стиле кошачий глаз. Защита от UV-лучей и стильный вид.",
+      translations: {
+        ru: {
+          name: "Женские очки Cat Eye",
+          description: "Стильные очки кошачий глаз",
+          fullDescription: "Элегантные солнцезащитные очки в стиле кошачий глаз. Защита от UV-лучей и стильный вид."
+        },
+        en: {
+          name: "Women's Cat Eye Glasses",
+          description: "Stylish cat eye glasses",
+          fullDescription: "Elegant cat eye sunglasses. UV protection and stylish appearance."
+        },
+        uk: {
+          name: "Жіночі окуляри Cat Eye",
+          description: "Стильні окуляри котяче око",
+          fullDescription: "Елегантні сонцезахисні окуляри в стилі котяче око. Захист від UV-променів та стильний вигляд."
+        },
+        de: {
+          name: "Damen Cat Eye Brille",
+          description: "Stylische Cat-Eye-Brille",
+          fullDescription: "Elegante Cat-Eye-Sonnenbrille. UV-Schutz und stylisches Aussehen."
+        }
+      }
+    },
     {
       id: 101,
       name: "Женская футболка Basic",
@@ -1777,7 +3736,7 @@ const products = {
       subcategory: "tshirt",
       colors: ["white", "black", "pink", "blue"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["image10.jpg"],
+      images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
       fullDescription: "Базовая футболка из 100% хлопка. Идеально подходит для создания повседневных образов.",
       translations: {
         ru: {
@@ -1813,7 +3772,7 @@ const products = {
       subcategory: "top",
       colors: ["black", "white", "red"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["image11.jpg", "image12.jpg"],
+      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop"],
       fullDescription: "Модный укороченный топ с приталенным силуэтом. Отлично сочетается с высокой талией.",
       translations: {
         ru: {
@@ -1849,7 +3808,7 @@ const products = {
       subcategory: "hoodie",
       colors: ["gray", "pink", "beige"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["image13.jpg"],
+      images: ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
       fullDescription: "Мягкое и теплое худи с капюшоном. Изготовлено из качественного флиса.",
       translations: {
         ru: {
@@ -1885,7 +3844,7 @@ const products = {
       subcategory: "jeans",
       colors: ["blue", "black"],
       sizes: ["25", "26", "27", "28", "29", "30"],
-      images: ["image14.jpg", "image15.jpg"],
+      images: ["https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=400&h=400&fit=crop"],
       fullDescription: "Стильные джинсы с высокой посадкой. Подчеркивают силуэт и удлиняют ноги.",
       translations: {
         ru: {
@@ -1921,7 +3880,7 @@ const products = {
       subcategory: "heels",
       colors: ["black", "beige", "red"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["image16.jpg"],
+      images: ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop"],
       fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев.",
       translations: {
         ru: {
@@ -1949,18 +3908,18 @@ const products = {
   ]
 };
 
-// Конфигурация фильтров
+// Конфигурация фильтров - УЛУЧШЕННАЯ И РАСШИРЕННАЯ
 const filterConfig = {
   mens: {
-    brands: ["Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Under Armour", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss"],
-    colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy"],
+    brands: ["Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Under Armour", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
+    colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
-      tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey"],
-      hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater"],
-      pants: ["jeans", "pants", "old_money", "classic", "slim_fit"],
-      shorts: ["old_money_shorts", "bermuda", "sport", "denim"],
-      shoes: ["sneakers", "boots", "loafers", "slippers"],
-      accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses", "underwear"]
+      tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
+      hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
+      pants: ["jeans", "pants", "old_money", "classic", "slim_fit", "cargo", "chinos"],
+      shorts: ["old_money_shorts", "bermuda", "sport", "denim", "cargo_shorts"],
+      shoes: ["sneakers", "boots", "loafers", "slippers", "dress_shoes", "sandals"],
+      accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses", "underwear", "hats", "wallets"]
     },
     sizes: {
       clothing: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -1970,16 +3929,16 @@ const filterConfig = {
     }
   },
   womens: {
-    brands: ["Zara", "H&M", "Nike", "Adidas", "Chanel", "Dior", "Gucci", "Prada", "Louis Vuitton", "Versace", "Victoria's Secret", "Champion"],
-    colors: ["black", "white", "pink", "blue", "red", "green", "yellow", "purple", "beige", "gray"],
+    brands: ["Zara", "H&M", "Nike", "Adidas", "Chanel", "Dior", "Gucci", "Prada", "Louis Vuitton", "Versace", "Victoria's Secret", "Champion", "Balenciaga", "Off-White", "Bottega Veneta"],
+    colors: ["black", "white", "pink", "blue", "red", "green", "yellow", "purple", "beige", "gray", "navy", "orange", "brown"],
     categories: {
-      tshirts: ["tshirt", "top", "shirt", "tank_top"],
-      hoodies: ["zip_hoodie", "hoodie", "sweater", "sweatshirt", "longsleeve"],
-      pants: ["jeans", "skirt", "sport"],
-      shorts: ["denim", "sport"],
-      swimwear: ["bikini", "one_piece"],
-      shoes: ["heels", "sneakers", "slippers", "mules", "boots", "sandals", "loafers"],
-      accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses"]
+      tshirts: ["tshirt", "top", "shirt", "tank_top", "crop_top"],
+      hoodies: ["zip_hoodie", "hoodie", "sweater", "sweatshirt", "longsleeve", "cardigan"],
+      pants: ["jeans", "skirt", "sport", "leggings", "trousers"],
+      shorts: ["denim", "sport", "mini_skirt"],
+      swimwear: ["bikini", "one_piece", "cover_up"],
+      shoes: ["heels", "sneakers", "slippers", "mules", "boots", "sandals", "loafers", "flats"],
+      accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses", "underwear", "hats", "purses"]
     },
     sizes: {
       clothing: ["XXS", "XS", "S", "M", "L", "XL", "XXL"],
@@ -2008,11 +3967,11 @@ const translations = {
     womens_title: "Женское",
     social_title: "Мы в соцсетях",
     social_text: "Подписывайтесь на наши социальные сети, чтобы быть в курсе всех новинок и специальных предложений!",
-    instagram_btn: "📷 Instagram",
-    tiktok_btn: "🎵 TikTok",
-    whatsapp_btn: "💬 WhatsApp",
-    viber_btn: "📞 Viber",
-    telegram_btn: "✈️ Telegram",
+    instagram_btn: "Instagram",
+    tiktok_btn: "TikTok",
+    whatsapp_btn: "WhatsApp",
+    viber_btn: "Viber",
+    telegram_btn: "Telegram",
     cart_title: "Корзина",
     cart_empty: "Корзина пуста",
     cart_total_label: "Итого:",
@@ -2050,26 +4009,33 @@ const translations = {
     shirt: "Рубашка",
     polo: "Поло",
     jersey: "Джерси",
+    tank_top: "Майка",
     hoodies: "Кофты",
     zip_hoodie: "Зип худи",
     hoodie: "Худи",
     sweatshirt: "Свитшот",
     sweater: "Свитер",
+    cardigan: "Кардиган",
     pants: "Штаны",
     jeans: "Джинсы",
     old_money: "Олд Мани",
     classic: "Классические",
     slim_fit: "Слим фит",
+    cargo: "Карго",
+    chinos: "Чинос",
     shorts: "Шорты",
     old_money_shorts: "Олд Мани",
     bermuda: "Бермуды",
     sport: "Спортивные",
     denim: "Джинсовые",
+    cargo_shorts: "Карго шорты",
     shoes: "Обувь",
     sneakers: "Кроссовки",
     boots: "Ботинки",
     loafers: "Лоферы",
     slippers: "Тапочки",
+    dress_shoes: "Классические туфли",
+    sandals: "Сандали",
     accessories: "Аксессуары",
     jewelry: "Бижутерия",
     watches: "Часы",
@@ -2080,17 +4046,24 @@ const translations = {
     scarves: "Шарфы",
     glasses: "Очки",
     underwear: "Трусы",
+    hats: "Шапки",
+    wallets: "Кошельки",
     // Категории женские
     top: "Топ",
-    tank_top: "Топ-майка",
+    crop_top: "Кроп-топ",
     longsleeve: "Лонгслив",
     skirt: "Юбка",
+    leggings: "Леггинсы",
+    trousers: "Брюки",
+    mini_skirt: "Мини-юбка",
     swimwear: "Купальники",
     bikini: "Бикини",
     one_piece: "Слитный",
+    cover_up: "Парео",
     heels: "Туфли",
     mules: "Мюли",
-    sandals: "Сандали",
+    flats: "Балетки",
+    purses: "Кошельки",
     // Цвета
     black: "Черный",
     white: "Белый",
@@ -2103,7 +4076,8 @@ const translations = {
     beige: "Бежевый",
     navy: "Темно-синий",
     pink: "Розовый",
-    purple: "Фиолетовый"
+    purple: "Фиолетовый",
+    orange: "Оранжевый"
   },
   en: {
     mens_btn: "Men's",
@@ -2121,11 +4095,11 @@ const translations = {
     womens_title: "Women's",
     social_title: "Follow Us",
     social_text: "Follow our social networks to stay updated on all new arrivals and special offers!",
-    instagram_btn: "📷 Instagram",
+    instagram_btn: "Instagram",
     tiktok_btn: "🎵 TikTok",
-    whatsapp_btn: "💬 WhatsApp",
-    viber_btn: "📞 Viber",
-    telegram_btn: "✈️ Telegram",
+    whatsapp_btn: "WhatsApp",
+    viber_btn: "Viber",
+    telegram_btn: "Telegram",
     cart_title: "Cart",
     cart_empty: "Cart is empty",
     cart_total_label: "Total:",
@@ -2163,26 +4137,33 @@ const translations = {
     shirt: "Shirt",
     polo: "Polo",
     jersey: "Jersey",
+    tank_top: "Tank Top",
     hoodies: "Hoodies",
     zip_hoodie: "Zip Hoodie",
     hoodie: "Hoodie",
     sweatshirt: "Sweatshirt",
     sweater: "Sweater",
+    cardigan: "Cardigan",
     pants: "Pants",
     jeans: "Jeans",
     old_money: "Old Money",
     classic: "Classic",
     slim_fit: "Slim Fit",
+    cargo: "Cargo",
+    chinos: "Chinos",
     shorts: "Shorts",
     old_money_shorts: "Old Money",
     bermuda: "Bermuda",
     sport: "Sport",
     denim: "Denim",
+    cargo_shorts: "Cargo Shorts",
     shoes: "Shoes",
     sneakers: "Sneakers",
     boots: "Boots",
     loafers: "Loafers",
     slippers: "Slippers",
+    dress_shoes: "Dress Shoes",
+    sandals: "Sandals",
     accessories: "Accessories",
     jewelry: "Jewelry",
     watches: "Watches",
@@ -2193,17 +4174,24 @@ const translations = {
     scarves: "Scarves",
     glasses: "Glasses",
     underwear: "Underwear",
+    hats: "Hats",
+    wallets: "Wallets",
     // Categories women's
     top: "Top",
-    tank_top: "Tank Top",
+    crop_top: "Crop Top",
     longsleeve: "Longsleeve",
     skirt: "Skirt",
+    leggings: "Leggings",
+    trousers: "Trousers",
+    mini_skirt: "Mini Skirt",
     swimwear: "Swimwear",
     bikini: "Bikini",
     one_piece: "One Piece",
+    cover_up: "Cover Up",
     heels: "Heels",
     mules: "Mules",
-    sandals: "Sandals",
+    flats: "Flats",
+    purses: "Purses",
     // Colors
     black: "Black",
     white: "White",
@@ -2216,7 +4204,8 @@ const translations = {
     beige: "Beige",
     navy: "Navy",
     pink: "Pink",
-    purple: "Purple"
+    purple: "Purple",
+    orange: "Orange"
   },
   uk: {
     mens_btn: "Чоловіче",
@@ -2234,11 +4223,11 @@ const translations = {
     womens_title: "Жіноче",
     social_title: "Ми в соцмережах",
     social_text: "Підписуйтесь на наші соціальні мережі, щоб бути в курсі всіх новинок та спеціальних пропозицій!",
-    instagram_btn: "📷 Instagram",
-    tiktok_btn: "🎵 TikTok",
-    whatsapp_btn: "💬 WhatsApp",
-    viber_btn: "📞 Viber",
-    telegram_btn: "✈️ Telegram",
+    instagram_btn: "Instagram",
+    tiktok_btn: "TikTok",
+    whatsapp_btn: "WhatsApp",
+    viber_btn: "Viber",
+    telegram_btn: "Telegram",
     cart_title: "Кошик",
     cart_empty: "Кошик порожній",
     cart_total_label: "Разом:",
@@ -2276,26 +4265,33 @@ const translations = {
     shirt: "Сорочка",
     polo: "Поло",
     jersey: "Джерсі",
+    tank_top: "Майка",
     hoodies: "Кофти",
     zip_hoodie: "Зіп худі",
     hoodie: "Худі",
     sweatshirt: "Світшот",
     sweater: "Светр",
+    cardigan: "Кардиган",
     pants: "Штани",
     jeans: "Джинси",
     old_money: "Олд Мані",
     classic: "Класичні",
     slim_fit: "Слім фіт",
+    cargo: "Карго",
+    chinos: "Чінос",
     shorts: "Шорти",
     old_money_shorts: "Олд Мані",
     bermuda: "Бермуди",
     sport: "Спортивні",
     denim: "Джинсові",
+    cargo_shorts: "Карго шорти",
     shoes: "Взуття",
     sneakers: "Кросівки",
     boots: "Черевики",
     loafers: "Лофери",
     slippers: "Тапочки",
+    dress_shoes: "Класичні туфлі",
+    sandals: "Сандалі",
     accessories: "Аксесуари",
     jewelry: "Біжутерія",
     watches: "Годинники",
@@ -2306,17 +4302,24 @@ const translations = {
     scarves: "Шарфи",
     glasses: "Окуляри",
     underwear: "Труси",
+    hats: "Шапки",
+    wallets: "Гаманці",
     // Categories women's
     top: "Топ",
-    tank_top: "Топ-майка",
+    crop_top: "Кроп-топ",
     longsleeve: "Лонгслів",
     skirt: "Спідниця",
+    leggings: "Легінси",
+    trousers: "Брюки",
+    mini_skirt: "Міні-спідниця",
     swimwear: "Купальники",
     bikini: "Бікіні",
     one_piece: "Суцільний",
+    cover_up: "Парео",
     heels: "Туфлі",
     mules: "Мюлі",
-    sandals: "Сандалі",
+    flats: "Балетки",
+    purses: "Гаманці",
     // Colors
     black: "Чорний",
     white: "Білий",
@@ -2329,7 +4332,8 @@ const translations = {
     beige: "Бежевий",
     navy: "Темно-синій",
     pink: "Рожевий",
-    purple: "Фіолетовий"
+    purple: "Фіолетовий",
+    orange: "Помаранчевий"
   },
   de: {
     mens_btn: "Herren",
@@ -2347,11 +4351,11 @@ const translations = {
     womens_title: "Damen",
     social_title: "Folgen Sie uns",
     social_text: "Folgen Sie unseren sozialen Netzwerken, um über alle Neuheiten und Sonderangebote informiert zu bleiben!",
-    instagram_btn: "📷 Instagram",
-    tiktok_btn: "🎵 TikTok",
-    whatsapp_btn: "💬 WhatsApp",
-    viber_btn: "📞 Viber",
-    telegram_btn: "✈️ Telegram",
+    instagram_btn: "Instagram",
+    tiktok_btn: "TikTok",
+    whatsapp_btn: "WhatsApp",
+    viber_btn: "Viber",
+    telegram_btn: "Telegram",
     cart_title: "Warenkorb",
     cart_empty: "Warenkorb ist leer",
     cart_total_label: "Gesamt:",
@@ -2389,26 +4393,33 @@ const translations = {
     shirt: "Hemd",
     polo: "Polo",
     jersey: "Jersey",
+    tank_top: "Tank Top",
     hoodies: "Hoodies",
     zip_hoodie: "Zip Hoodie",
     hoodie: "Hoodie",
     sweatshirt: "Sweatshirt",
     sweater: "Pullover",
+    cardigan: "Cardigan",
     pants: "Hosen",
     jeans: "Jeans",
     old_money: "Old Money",
     classic: "Klassisch",
     slim_fit: "Slim Fit",
+    cargo: "Cargo",
+    chinos: "Chinos",
     shorts: "Shorts",
     old_money_shorts: "Old Money",
     bermuda: "Bermuda",
     sport: "Sport",
     denim: "Denim",
+    cargo_shorts: "Cargo Shorts",
     shoes: "Schuhe",
     sneakers: "Sneakers",
     boots: "Stiefel",
     loafers: "Loafer",
     slippers: "Hausschuhe",
+    dress_shoes: "Anzugschuhe",
+    sandals: "Sandalen",
     accessories: "Accessoires",
     jewelry: "Schmuck",
     watches: "Uhren",
@@ -2419,17 +4430,24 @@ const translations = {
     scarves: "Schals",
     glasses: "Brillen",
     underwear: "Unterwäsche",
+    hats: "Hüte",
+    wallets: "Geldbörsen",
     // Categories women's
     top: "Top",
-    tank_top: "Tank Top",
+    crop_top: "Crop Top",
     longsleeve: "Longsleeve",
     skirt: "Rock",
+    leggings: "Leggings",
+    trousers: "Hosen",
+    mini_skirt: "Minirock",
     swimwear: "Bademode",
     bikini: "Bikini",
     one_piece: "Einteilig",
+    cover_up: "Strandkleid",
     heels: "High Heels",
     mules: "Mules",
-    sandals: "Sandalen",
+    flats: "Ballerinas",
+    purses: "Geldbörsen",
     // Colors
     black: "Schwarz",
     white: "Weiß",
@@ -2442,7 +4460,8 @@ const translations = {
     beige: "Beige",
     navy: "Marineblau",
     pink: "Rosa",
-    purple: "Lila"
+    purple: "Lila",
+    orange: "Orange"
   }
 };
 
@@ -2564,7 +4583,7 @@ function toggleTheme() {
   themeToggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 }
 
-function openScreen(screenName) {
+function openScreen(screenName, page = 1) {
   // Скрыть все экраны
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
@@ -2585,7 +4604,7 @@ function openScreen(screenName) {
   // Загрузить контент для экранов товаров
   if (screenName === 'mens' || screenName === 'womens') {
     currentGender = screenName;
-    currentPage = 1;
+    currentPage = page;
     updateFilterPanel();
     loadProducts();
   } else if (screenName === 'cart') {
@@ -2630,6 +4649,7 @@ function closeFilterPanel() {
   filterOverlay.classList.remove('show');
 }
 
+// УЛУЧШЕННАЯ функция обновления панели фильтров
 function updateFilterPanel() {
   if (!currentGender) return;
   
@@ -2688,11 +4708,37 @@ function updateFilterPanel() {
       </div>
     </div>
     
-    <button class="filter-apply-btn" onclick="applyFilters()">${t.apply_filters}</button>
+    <div class="filter-buttons">
+      <button class="filter-clear-btn" onclick="clearFilters()">${t.clear_filters}</button>
+      <button class="filter-apply-btn" onclick="applyFilters()">${t.apply_filters}</button>
+    </div>
   `;
   
   // Восстановить сохраненные фильтры
   restoreFilterState();
+}
+
+// Новая функция для очистки фильтров
+function clearFilters() {
+  // Очистить поля цены
+  const priceFromInput = document.getElementById('price-from');
+  const priceToInput = document.getElementById('price-to');
+  
+  if (priceFromInput) priceFromInput.value = '';
+  if (priceToInput) priceToInput.value = '';
+  
+  // Снять все чекбоксы
+  document.querySelectorAll('#filter-content input[type="checkbox"]').forEach(checkbox => {
+    checkbox.checked = false;
+  });
+  
+  // Очистить сохраненное состояние
+  clearFilterState();
+  
+  // Применить очищенные фильтры
+  currentPage = 1;
+  loadProducts();
+  closeFilterPanel();
 }
 
 function applyFilters() {
@@ -2731,19 +4777,42 @@ function getActiveFilters() {
   return filters;
 }
 
+// УЛУЧШЕННАЯ функция загрузки товаров с расширенным поиском
+
+
 function loadProducts() {
   if (!currentGender) return;
   
-  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
   const filters = getActiveFilters();
   let filteredProducts = products[currentGender].filter(product => {
-    // Поиск с учетом переводов
-    const productName = getProductTranslation(product, 'name').toLowerCase();
-    const productDescription = getProductTranslation(product, 'description').toLowerCase();
-    
-    if (searchTerm && !productName.includes(searchTerm) && 
-        !productDescription.includes(searchTerm)) {
-      return false;
+    // УЛУЧШЕННЫЙ ПОИСК - поиск по всем полям
+    if (searchTerm) {
+      const productName = getProductTranslation(product, 'name').toLowerCase();
+      const productDescription = getProductTranslation(product, 'description').toLowerCase();
+      const productFullDescription = getProductTranslation(product, 'fullDescription').toLowerCase();
+      const productBrand = product.brand.toLowerCase();
+      const productCategory = product.category.toLowerCase();
+      const productSubcategory = product.subcategory.toLowerCase();
+      const productColors = product.colors.map(color => color.toLowerCase()).join(' ');
+      const productSizes = product.sizes.map(size => size.toLowerCase()).join(' ');
+      
+      // Поиск по всем полям
+      const searchFields = [
+        productName,
+        productDescription,
+        productFullDescription,
+        productBrand,
+        productCategory,
+        productSubcategory,
+        productColors,
+        productSizes
+      ].join(' ');
+      
+      // Проверяем, содержится ли поисковый термин в любом из полей
+      if (!searchFields.includes(searchTerm)) {
+        return false;
+      }
     }
     
     // Фильтр по цене
@@ -2792,10 +4861,11 @@ function loadProducts() {
         <div class="product-image-container">
           <div class="product-image-carousel">
             ${product.images.map((img, index) => `
-              <div class="product-image ${index === 0 ? 'active' : ''}" style="background-image: url('${img}'); background-size: cover; background-position: center;"></div>
+              <div class="product-image ${index === 0 ? 'active' : ''}" style="background-image: url('${img}');">
+                ${!img || img === 'new_product.jpg' ? `Фото ${index + 1} - ${getProductTranslation(product, 'name')}` : ''}
+              </div>
             `).join('')}
           </div>
-
         </div>
         <div class="product-name">${getProductTranslation(product, 'name')}</div>
         <div class="product-price">€${product.price.toFixed(2)}</div>
@@ -2812,6 +4882,12 @@ function loadProducts() {
   
   // Инициализация каруселей товаров
   initializeProductCarousels();
+  
+  // Восстановление позиции прокрутки после загрузки товаров
+  if (scrollPosition > 0) {
+    window.scrollTo(0, scrollPosition);
+    scrollPosition = 0; // Сбросить после восстановления
+  }
 }
 
 function updatePagination(totalPages) {
@@ -2854,6 +4930,10 @@ function changePage(page) {
 }
 
 function openProductDetail(productId) {
+  // Сохранить текущую позицию прокрутки
+  lastProductListPage = currentPage; // Сохраняем текущую страницу
+  scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  
   const product = products[currentGender].find(p => p.id === productId);
   if (!product) return;
   
@@ -2871,18 +4951,18 @@ function openProductDetail(productId) {
   
   // Изображения
   const mainImage = document.getElementById('product-main-image');
-  if (product.images && product.images.length > 0) {
+  if (product.images && product.images.length > 0 && product.images[0] !== 'new_product.jpg') {
     mainImage.style.backgroundImage = `url('${product.images[0]}')`;
-    mainImage.style.backgroundSize = 'cover';
-    mainImage.style.backgroundPosition = 'center';
     mainImage.textContent = '';
   } else {
+    mainImage.style.backgroundImage = '';
     mainImage.textContent = `Фото 1 - ${productName}`;
   }
   
   const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
   thumbnailGallery.innerHTML = product.images.map((img, index) => `
-    <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImage(${index})" style="background-image: url('${img}'); background-size: cover; background-position: center;">
+    <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImage(${index})" ${img !== 'new_product.jpg' ? `style="background-image: url('${img}');"` : ''}>
+      ${!img || img === 'new_product.jpg' ? `${index + 1}` : ''}
     </div>
   `).join('');
   
@@ -2911,12 +4991,11 @@ function selectProductImage(index) {
   });
   
   const mainImage = document.getElementById('product-main-image');
-  if (currentProduct.images && currentProduct.images[index]) {
+  if (currentProduct.images && currentProduct.images[index] && currentProduct.images[index] !== 'new_product.jpg') {
     mainImage.style.backgroundImage = `url('${currentProduct.images[index]}')`;
-    mainImage.style.backgroundSize = 'cover';
-    mainImage.style.backgroundPosition = 'center';
     mainImage.textContent = '';
   } else {
+    mainImage.style.backgroundImage = '';
     const productName = getProductTranslation(currentProduct, 'name');
     mainImage.textContent = `Фото ${index + 1} - ${productName}`;
   }
@@ -2969,9 +5048,9 @@ function addToCartFromDetail() {
 
 function backFromProductDetail() {
   if (currentGender) {
-    openScreen(currentGender);
+    openScreen(currentGender, lastProductListPage); // Передаем сохраненную страницу
   } else {
-    openScreen('home');
+    openScreen("home");
   }
 }
 
@@ -3129,10 +5208,7 @@ function closeModal() {
 function confirmAddToCart() {
   if (!currentProduct) return;
   
-  const size
-
-
- = document.getElementById('modal-size').value;
+  const size = document.getElementById('modal-size').value;
   const color = document.getElementById('modal-color').value;
   const quantity = parseInt(document.getElementById('modal-quantity').value);
   
@@ -3500,10 +5576,6 @@ function clearFilterState() {
 }
 
 // Функции управления каруселью товаров
-
-
-
-
 function updateProductCarousel(productId) {
   const state = productCarouselStates[productId];
   if (!state) return;
@@ -3565,4 +5637,5 @@ function autoChangeProductImage(productId) {
 
 </body>
 </html>
+
 
