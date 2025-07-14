@@ -4927,6 +4927,7 @@ function updatePagination(totalPages) {
 function changePage(page) {
   currentPage = page;
   loadProducts();
+  window.scrollTo(0, 0);
 }
 
 function openProductDetail(productId) {
