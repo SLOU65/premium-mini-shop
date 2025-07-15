@@ -158,7 +158,6 @@
       border-left: 1px solid rgba(128, 128, 128, 0.3);
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* ДОБАВЛЕНО */
     }
  
     .filter-panel.show {
@@ -614,6 +613,14 @@
       overflow-x: hidden;
     }
 
+    /* Когда нет товаров, контейнер должен быть flex для центрирования */
+    #mens-content:has(.empty-state), #womens-content:has(.empty-state) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 300px;
+    }
+
     .product {
       background: #1a1a1a;
       border: 1px solid rgba(128, 128, 128, 0.2);
@@ -625,6 +632,9 @@
       max-width: 100%;
       box-sizing: border-box;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 320px;
     }
 
     body[data-theme="light"] .product {
@@ -688,6 +698,7 @@
       margin-bottom: 4px;
       color: #ffffff;
       line-height: 1.2;
+      flex-shrink: 0;
     }
 
     body[data-theme="light"] .product-name {
@@ -704,6 +715,7 @@
       font-size: 14px; /* Уменьшено для сетки 2x2 */
       font-weight: 600;
       margin-bottom: 6px;
+      flex-shrink: 0;
     }
 
     body[data-theme="light"] .product-price {
@@ -718,6 +730,7 @@
       margin-bottom: 8px;
       font-size: 10px; /* Уменьшено для сетки 2x2 */
       color: #999999;
+      flex-shrink: 0;
     }
 
     body[data-theme="light"] .product-details {
@@ -727,6 +740,13 @@
     /* Скрыть информацию о наличии */
     .product-details .stock-info {
       display: none;
+    }
+
+    .product-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .add-to-cart-btn {
@@ -740,6 +760,8 @@
       cursor: pointer;
       width: 100%;
       transition: all 0.3s ease;
+      margin-top: auto;
+      flex-shrink: 0;
     }
 
     .add-to-cart-btn:active {
@@ -1009,6 +1031,11 @@
       padding: 40px 20px;
       color: #999999;
       font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      width: 100%;
     }
 
     body[data-theme="light"] .empty-state {
@@ -4006,6 +4033,7 @@ const translations = {
     cart_empty: "Корзина пуста",
     cart_total_label: "Итого:",
     checkout_btn: "Оформить заказ",
+    no_products_found: "Товары не найдены",
     terms_title: "Условия работы",
     terms_content: "<p><strong>Добро пожаловать в The Continental!</strong></p><p>Мы предлагаем только премиум-реплики высочайшего качества. Каждый товар проходит строгий контроль качества перед отправкой.</p><p><strong>Условия заказа:</strong></p><p>• Оплата — 100% предоплата<br/>• Доставка по Европе — 7-14 рабочих дней<br/>• Возвратов и обменов нет<br/>• Гарантия качества на все товары</p><p>Мы работаем только с проверенными поставщиками и гарантируем соответствие товара описанию.</p>",
     support_title: "Поддержка",
@@ -4134,6 +4162,7 @@ const translations = {
     cart_empty: "Cart is empty",
     cart_total_label: "Total:",
     checkout_btn: "Checkout",
+    no_products_found: "No products found",
     terms_title: "Terms of Service",
     terms_content: "<p><strong>Welcome to The Continental!</strong></p><p>We offer only premium replicas of the highest quality. Each item undergoes strict quality control before shipping.</p><p><strong>Order conditions:</strong></p><p>• Payment — 100% prepayment<br/>• Delivery across Europe — 7-14 business days<br/>• No returns or exchanges<br/>• Quality guarantee on all products</p><p>We work only with verified suppliers and guarantee product compliance with description.</p>",
     support_title: "Support",
@@ -4262,6 +4291,7 @@ const translations = {
     cart_empty: "Кошик порожній",
     cart_total_label: "Разом:",
     checkout_btn: "Оформити замовлення",
+    no_products_found: "Товари не знайдені",
     terms_title: "Умови роботи",
     terms_content: "<p><strong>Ласкаво просимо до The Continental!</strong></p><p>Ми пропонуємо тільки преміум-репліки найвищої якості. Кожен товар проходить суворий контроль якості перед відправкою.</p><p><strong>Умови замовлення:</strong></p><p>• Оплата — 100% передоплата<br/>• Доставка по Європі — 7-14 робочих днів<br/>• Повернень та обмінів немає<br/>• Гарантія якості на всі товари</p><p>Ми працюємо тільки з перевіреними постачальниками та гарантуємо відповідність товару опису.</p>",
     support_title: "Підтримка",
@@ -4846,6 +4876,9 @@ function getActiveFilters() {
 function loadProducts() {
   if (!currentGender) return;
   
+  const productsContainer = document.getElementById(currentGender + '-content');
+  if (!productsContainer) return;
+  
   const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
   const filters = getActiveFilters();
   let filteredProducts = products[currentGender].filter(product => {
@@ -4916,29 +4949,32 @@ function loadProducts() {
   const contentDiv = document.getElementById(currentGender + '-content');
   const t = translations[currentLanguage];
   
-  if (pageProducts.length === 0) {
-    contentDiv.innerHTML = `<div class="empty-state">Товары не найдены</div>`;
-  } else {
-    contentDiv.innerHTML = pageProducts.map(product => `
-      <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
-        <div class="product-image-container">
-          <div class="product-image-carousel">
-            ${product.images.map((img, index) => `
-              <div class="product-image ${index === 0 ? 'active' : ''}" style="background-image: url('${img}');">
-                ${!img || img === 'new_product.jpg' ? `Фото ${index + 1} - ${getProductTranslation(product, 'name')}` : ''}
-              </div>
-            `).join('')}
+  if (filteredProducts.length === 0) {
+    productsContainer.innerHTML = `<div class="empty-state">${translations[currentLanguage].no_products_found}</div>`;
+    return;
+  }
+
+  productsContainer.innerHTML = pageProducts.map(product => `
+    <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
+      <div class="product-image-container">
+        <div class="product-image-carousel">
+          ${product.images.map((image, index) => `
+            <img src="${image}" alt="${product.name}" class="product-image ${index === 0 ? 'active' : ''}" loading="lazy">
+          `).join('')}
+        </div>
+      </div>
+      <div class="product-content">
+        <div>
+          <div class="product-name">${product.name}</div>
+          <div class="product-price">€${product.price}</div>
+          <div class="product-details">
+            <span>Бренд: ${product.brand}</span>
           </div>
         </div>
-        <div class="product-name">${getProductTranslation(product, 'name')}</div>
-        <div class="product-price">€${product.price.toFixed(2)}</div>
-        <div class="product-details">
-          <span>${t.brand_label} ${product.brand}</span>
-        </div>
-        <button class="add-to-cart-btn" onclick="event.stopPropagation(); ${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">${isDeleteMode ? 'Удалить' : t.add_to_cart_btn}</button>
+        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})">${t.add_to_cart_btn}</button>
       </div>
+    </div>
     `).join('');
-  }
   
   // Пагинация
   updatePagination(totalPages);
@@ -5696,20 +5732,25 @@ function autoChangeProductImage(productId) {
   
   updateProductCarousel(productId);
 }
-  if (window.Telegram.WebApp) {
-    Telegram.WebApp.expand(); // Запрос развертывания
-    Telegram.WebApp.setHeaderColor("secondary_bg_color"); // Цвет заголовка
-    Telegram.WebApp.enableClosingConfirmation(); // Подтверждение при свайпе вниз
+
+// Telegram WebApp инициализация
+if (window.Telegram && window.Telegram.WebApp) {
+  Telegram.WebApp.expand(); // Запрос развертывания
+  Telegram.WebApp.setHeaderColor("secondary_bg_color"); // Цвет заголовка
+  Telegram.WebApp.enableClosingConfirmation(); // Подтверждение при свайпе вниз
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.Telegram && window.Telegram.WebApp) {
+    Telegram.WebApp.expand();
   }
-  
- window.addEventListener("DOMContentLoaded", () => {
-  Telegram.WebApp.expand();
 });
 
 </script>
 
 </body>
 </html>
+
 
 
 
