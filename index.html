@@ -31,6 +31,8 @@
       min-height: 100vh;
       padding-top: 50px;
       transition: all 0.3s ease;
+      width: 100%;
+      max-width: 100vw;
     }
 
     /* Блокировка прокрутки при открытых фильтрах */
@@ -362,12 +364,18 @@
       max-width: 100vw;
       padding: 0;
       position: relative;
+      overflow-x: hidden;
+      box-sizing: border-box;
     }
 
     .screen {
       display: none;
       padding: 15px;
       min-height: calc(100vh - 50px);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
     .screen.active {
@@ -598,7 +606,11 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
-      padding: 0 5px;
+      padding: 0 15px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
     .product {
@@ -609,6 +621,9 @@
       transition: all 0.3s ease;
       cursor: pointer;
       width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     body[data-theme="light"] .product {
@@ -629,12 +644,16 @@
       margin-bottom: 8px;
       overflow: hidden;
       aspect-ratio: 1; /* Делает изображение квадратным */
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .product-image-carousel {
       position: relative;
       width: 100%;
       height: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .product-image {
@@ -654,6 +673,8 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .product-image.active {
@@ -5690,6 +5711,8 @@ function autoChangeProductImage(productId) {
 
 </body>
 </html>
+
+
 
 
 
