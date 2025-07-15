@@ -154,12 +154,13 @@
       color: #ffffff;
       z-index: 2000;
       transition: right 0.3s ease;
-      padding: 20px; /* Уменьшаем общий padding */
+      padding: 20px;
       border-left: 1px solid rgba(128, 128, 128, 0.3);
       display: flex;
       flex-direction: column;
+      justify-content: space-between; /* ДОБАВЛЕНО */
     }
-
+ 
     .filter-panel.show {
       right: 0;
     }
@@ -1796,7 +1797,7 @@ const products = {
     {
       id: 6,
       name: "Кроссовки BALENCIAGA RUNNER",
-      description: "BALENCIAGA RUNNER",
+      description: "Кроссовки BALENCIAGA RUNNER",
       price: 350,
       brand: "Balenciaga",
       stock: 7,
@@ -1808,22 +1809,22 @@ const products = {
       fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки.",
       translations: {
         ru: {
-          name: "Кроссовки BALENCIAGA RUNNER",
+          name: "BALENCIAGA RUNNER",
           description: "Удобные спортивные кроссовки",
           fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки."
         },
         en: {
-          name: "Sneakers BALENCIAGA RUNNER",
+          name: "BALENCIAGA RUNNER",
           description: "Comfortable athletic sneakers",
           fullDescription: "Modern athletic sneakers with cushioning. Suitable for running and everyday wear."
         },
         uk: {
-          name: "Кросівки BALENCIAGA RUNNER",
+          name: "BALENCIAGA RUNNER",
           description: "Зручні спортивні кросівки",
           fullDescription: "Сучасні спортивні кросівки з амортизацією. Підходять для бігу та повсякденного носіння."
         },
         de: {
-          name: "Sneakers BALENCIAGA RUNNER",
+          name: "BALENCIAGA RUNNER",
           description: "Bequeme athletische Sneakers",
           fullDescription: "Moderne athletische Sneakers mit Dämpfung. Geeignet für Laufen und tägliches Tragen."
         }
@@ -4751,17 +4752,6 @@ function updateFilterPanel() {
       </div>
     </div>
     
-    <div class="filter-group">
-      <label class="filter-label">${t.color_filter}</label>
-      <div class="filter-checkbox-group">
-        ${config.colors.map(color => `
-          <div class="filter-checkbox">
-            <input type="checkbox" id="color-${color}" value="${color}">
-            <label for="color-${color}">${t[color] || color}</label>
-          </div>
-        `).join('')}
-      </div>
-    </div>
     
     <div class="filter-group">
       <label class="filter-label">${t.category_filter}</label>
@@ -5711,6 +5701,7 @@ function autoChangeProductImage(productId) {
 
 </body>
 </html>
+
 
 
 
