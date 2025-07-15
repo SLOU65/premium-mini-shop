@@ -5701,6 +5701,10 @@ function autoChangeProductImage(productId) {
     Telegram.WebApp.setHeaderColor("secondary_bg_color"); // Цвет заголовка
     Telegram.WebApp.enableClosingConfirmation(); // Подтверждение при свайпе вниз
   }
+  
+ window.addEventListener("DOMContentLoaded", () => {
+  Telegram.WebApp.expand();
+});
 
 </script>
 
