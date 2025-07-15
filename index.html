@@ -593,15 +593,22 @@
       color: #000000;
     }
 
-    /* Товары - МОДИФИЦИРОВАННЫЕ СТИЛИ */
+    /* Товары - МОДИФИЦИРОВАННЫЕ СТИЛИ ДЛЯ СЕТКИ 2x2 */
+    #mens-content, #womens-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      padding: 0 5px;
+    }
+
     .product {
       background: #1a1a1a;
       border: 1px solid rgba(128, 128, 128, 0.2);
-      padding: 15px;
-      margin: 10px 0;
+      padding: 12px;
       border-radius: 12px;
       transition: all 0.3s ease;
       cursor: pointer;
+      width: 100%;
     }
 
     body[data-theme="light"] .product {
@@ -613,13 +620,13 @@
       background: rgba(128, 128, 128, 0.1);
     }
 
-    /* ИЗМЕНЕНИЕ: Сделать изображения товаров квадратными и увеличить по вертикали */
+    /* ИЗМЕНЕНИЕ: Сделать изображения товаров квадратными и адаптированными для сетки 2x2 */
     .product-image-container {
       position: relative;
       width: 100%;
-      height: 320px; /* Увеличено с 250px до 320px для еще большего размера */
+      height: 160px; /* Уменьшено для сетки 2x2 */
       border-radius: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       overflow: hidden;
       aspect-ratio: 1; /* Делает изображение квадратным */
     }
@@ -655,9 +662,10 @@
 
     .product-name {
       font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 5px;
+      font-size: 14px; /* Уменьшено для сетки 2x2 */
+      margin-bottom: 4px;
       color: #ffffff;
+      line-height: 1.2;
     }
 
     body[data-theme="light"] .product-name {
@@ -671,22 +679,22 @@
 
     .product-price {
       color: #ffffff;
-      font-size: 16px;
+      font-size: 14px; /* Уменьшено для сетки 2x2 */
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     body[data-theme="light"] .product-price {
       color: #000000;
     }
 
-    /* ИЗМЕНЕНИЕ: Убрать информацию о наличии */
+    /* ИЗМЕНЕНИЕ: Адаптировать детали товара для сетки 2x2 */
     .product-details {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      font-size: 11px;
+      margin-bottom: 8px;
+      font-size: 10px; /* Уменьшено для сетки 2x2 */
       color: #999999;
     }
 
@@ -702,10 +710,10 @@
     .add-to-cart-btn {
       background: #007bff;
       color: white;
-      padding: 8px 16px;
+      padding: 6px 12px; /* Уменьшено для сетки 2x2 */
       border: none;
-      border-radius: 8px;
-      font-size: 13px;
+      border-radius: 6px;
+      font-size: 11px; /* Уменьшено для сетки 2x2 */
       font-weight: 600;
       cursor: pointer;
       width: 100%;
@@ -1573,7 +1581,7 @@ let currentTheme = 'dark';
 let currentScreen = 'home';
 let currentGender = '';
 let currentPage = 1;
-let itemsPerPage = 6;
+let itemsPerPage = 20;
 let cart = [];
 let currentSlide = 0;
 let slideInterval;
@@ -1766,35 +1774,35 @@ const products = {
     },
     {
       id: 6,
-      name: "Мужские кроссовки Sport",
-      description: "Удобные спортивные кроссовки",
-      price: 120.00,
-      brand: "Nike",
+      name: "Кроссовки BALENCIAGA RUNNER",
+      description: "BALENCIAGA RUNNER",
+      price: 350,
+      brand: "Balenciaga",
       stock: 7,
       category: "shoes",
       subcategory: "sneakers",
       colors: ["white", "black", "blue"],
-      sizes: ["40", "41", "42", "43", "44", "45"],
+      sizes: ["38","39","40", "41", "42", "43"],
       images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
       fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки.",
       translations: {
         ru: {
-          name: "Мужские кроссовки Sport",
+          name: "Кроссовки BALENCIAGA RUNNER",
           description: "Удобные спортивные кроссовки",
           fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки."
         },
         en: {
-          name: "Men's Sport Sneakers",
+          name: "Sneakers BALENCIAGA RUNNER",
           description: "Comfortable athletic sneakers",
           fullDescription: "Modern athletic sneakers with cushioning. Suitable for running and everyday wear."
         },
         uk: {
-          name: "Чоловічі кросівки Sport",
+          name: "Кросівки BALENCIAGA RUNNER",
           description: "Зручні спортивні кросівки",
           fullDescription: "Сучасні спортивні кросівки з амортизацією. Підходять для бігу та повсякденного носіння."
         },
         de: {
-          name: "Herren Sport Sneakers",
+          name: "Sneakers BALENCIAGA RUNNER",
           description: "Bequeme athletische Sneakers",
           fullDescription: "Moderne athletische Sneakers mit Dämpfung. Geeignet für Laufen und tägliches Tragen."
         }
@@ -4573,6 +4581,50 @@ function updateLanguage() {
       }
     }
   });
+  
+  // Обновить переводы на странице товара, если она активна
+  if (currentScreen === 'product-detail' && currentProduct) {
+    updateProductDetailTranslations();
+  }
+}
+
+function updateProductDetailTranslations() {
+  if (!currentProduct) return;
+  
+  const t = translations[currentLanguage];
+  
+  // Обновить название и описание товара с переводами
+  const productName = getProductTranslation(currentProduct, 'name');
+  const productDescription = getProductTranslation(currentProduct, 'fullDescription');
+  
+  document.getElementById('product-detail-header-title').textContent = productName;
+  document.getElementById('product-detail-title').textContent = productName;
+  document.getElementById('product-detail-description').textContent = productDescription;
+  
+  // Обновить основное изображение с переводом
+  const mainImage = document.getElementById('product-main-image');
+  if (!currentProduct.images || !currentProduct.images[0] || currentProduct.images[0] === 'new_product.jpg') {
+    mainImage.textContent = `Фото 1 - ${productName}`;
+  }
+  
+  // Обновить миниатюры с переводами
+  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
+  if (thumbnailGallery) {
+    const thumbnails = thumbnailGallery.querySelectorAll('.product-thumbnail');
+    thumbnails.forEach((thumbnail, index) => {
+      if (!currentProduct.images || !currentProduct.images[index] || currentProduct.images[index] === 'new_product.jpg') {
+        thumbnail.textContent = `${index + 1}`;
+      }
+    });
+  }
+  
+  // Обновить опции цветов с переводами
+  const colorSelect = document.getElementById('product-detail-color');
+  if (colorSelect && currentProduct.colors) {
+    colorSelect.innerHTML = currentProduct.colors.map(color => `
+      <option value="${color}">${t[color] || color}</option>
+    `).join('');
+  }
 }
 
 function toggleTheme() {
@@ -5638,5 +5690,7 @@ function autoChangeProductImage(productId) {
 
 </body>
 </html>
+
+
 
 
