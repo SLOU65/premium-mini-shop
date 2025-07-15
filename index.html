@@ -5696,6 +5696,11 @@ function autoChangeProductImage(productId) {
   
   updateProductCarousel(productId);
 }
+if (window.Telegram.WebApp) {
+    Telegram.WebApp.expand();
+    Telegram.WebApp.setHeaderColor("secondary_bg_color");
+    Telegram.WebApp.enableClosingConfirmation();
+  }
 
 </script>
 
