@@ -4981,8 +4981,10 @@ function loadProducts() {
     </div>
     `).join('');
   
-  // Пагинация
-  updatePagination(totalPages);
+  // Пагинация - только если есть товары
+  if (filteredProducts.length > 0) {
+    updatePagination(totalPages);
+  }
   
   // Инициализация каруселей товаров
   initializeProductCarousels();
