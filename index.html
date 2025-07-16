@@ -4951,6 +4951,11 @@ function loadProducts() {
   
   if (filteredProducts.length === 0) {
     productsContainer.innerHTML = `<div class="empty-state">${translations[currentLanguage].no_products_found}</div>`;
+    // Скрыть пагинацию когда товары не найдены
+    const paginationDiv = document.getElementById(currentGender + '-pagination');
+    if (paginationDiv) {
+      paginationDiv.innerHTML = '';
+    }
     return;
   }
 
@@ -5750,9 +5755,4 @@ window.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
-
-
-
-
 
