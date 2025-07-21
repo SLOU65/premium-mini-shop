@@ -692,6 +692,34 @@
       opacity: 1;
     }
 
+    /* Стили для точек карусели */
+    .carousel-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      z-index: 2;
+    }
+
+    .carousel-dots .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-dots .dot.active {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .carousel-dots .dot:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
     .product-name {
       font-weight: 600;
       font-size: 14px; /* Уменьшено для сетки 2x2 */
@@ -5216,11 +5244,14 @@ function loadProducts() {
   }
 
   productsContainer.innerHTML = pageProducts.map(product => {
-    // Получаем первое изображение для первого цвета
+    // Получаем все изображения для первого цвета
     const firstColor = product.colors[0];
     const productImages = product.imagesByColor && product.imagesByColor[firstColor] 
       ? product.imagesByColor[firstColor] 
       : ['https://via.placeholder.com/400x400'];
+    
+    // Определяем, нужна ли карусель (более 1 изображения)
+    const hasCarousel = productImages.length > 1;
     
     return `
     <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
@@ -5229,6 +5260,13 @@ function loadProducts() {
           ${productImages.map((image, index) => `
             <img src="${image}" alt="${product.name}" class="product-image ${index === 0 ? 'active' : ''}" loading="lazy">
           `).join('')}
+          ${hasCarousel ? `
+            <div class="carousel-dots">
+              ${productImages.map((_, index) => `
+                <span class="dot ${index === 0 ? 'active' : ''}" onclick="event.stopPropagation(); selectProductImage(${product.id}, ${index})"></span>
+              `).join('')}
+            </div>
+          ` : ''}
         </div>
       </div>
       <div class="product-content">
@@ -5320,11 +5358,15 @@ function openProductDetail(productId) {
   document.getElementById('product-detail-price').textContent = `€${product.price.toFixed(2)}`;
   document.getElementById('product-detail-description').textContent = productDescription;
   
-  // Изображения - используем imagesByColor
+  // Изображения - отображаем все фото для первого цвета
   const defaultColor = product.colors[0];
+  const allImagesForColor = product.imagesByColor && product.imagesByColor[defaultColor] 
+    ? product.imagesByColor[defaultColor] 
+    : [];
+  
   const mainImage = document.getElementById('product-main-image');
-  if (product.imagesByColor && product.imagesByColor[defaultColor] && product.imagesByColor[defaultColor].length > 0) {
-    const firstImage = product.imagesByColor[defaultColor][0];
+  if (allImagesForColor.length > 0) {
+    const firstImage = allImagesForColor[0];
     if (firstImage !== 'new_product.jpg') {
       mainImage.style.backgroundImage = `url('${firstImage}')`;
       mainImage.textContent = '';
@@ -5337,7 +5379,7 @@ function openProductDetail(productId) {
     mainImage.textContent = `Фото 1 - ${productName}`;
   }
   
-  // Обновляем галерею миниатюр для первого цвета
+  // Обновляем галерею миниатюр для первого цвета - показываем ВСЕ фото
   updateThumbnailGallery(product, defaultColor);
   
   // Размеры
@@ -6019,10 +6061,16 @@ function updateProductCarousel(productId) {
   if (!productElement) return;
   
   const images = productElement.querySelectorAll('.product-image');
+  const dots = productElement.querySelectorAll('.carousel-dots .dot');
   
   // Обновить активное изображение
   images.forEach((img, index) => {
     img.classList.toggle('active', index === state.currentIndex);
+  });
+  
+  // Обновить активную точку
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('active', index === state.currentIndex);
   });
 }
 
@@ -6041,8 +6089,14 @@ function initializeProductCarousels() {
       productCarouselStates[product.id] = { currentIndex: 0 };
     }
     
+    // Получаем изображения для первого цвета
+    const firstColor = product.colors[0];
+    const productImages = product.imagesByColor && product.imagesByColor[firstColor] 
+      ? product.imagesByColor[firstColor] 
+      : [];
+    
     // Запустить автоматическое переключение только для товаров с несколькими изображениями
-    if (product.images && product.images.length > 1) {
+    if (productImages.length > 1) {
       productCarouselIntervals[product.id] = setInterval(() => {
         autoChangeProductImage(product.id);
       }, 3000); // Переключение каждые 3 секунды
@@ -6053,16 +6107,22 @@ function initializeProductCarousels() {
 // Функция автоматического переключения изображений товара
 function autoChangeProductImage(productId) {
   const product = products[currentGender].find(p => p.id === productId);
-  if (!product || !product.images || product.images.length <= 1) return;
+  if (!product) return;
+  
+  // Получаем изображения для первого цвета
+  const firstColor = product.colors[0];
+  const productImages = product.imagesByColor && product.imagesByColor[firstColor] 
+    ? product.imagesByColor[firstColor] 
+    : [];
+    
+  if (productImages.length <= 1) return;
   
   if (!productCarouselStates[productId]) {
     productCarouselStates[productId] = { currentIndex: 0 };
   }
   
   const state = productCarouselStates[productId];
-  const maxIndex = product.images.length - 1;
-  
-  state.currentIndex = (state.currentIndex + 1) % product.images.length;
+  state.currentIndex = (state.currentIndex + 1) % productImages.length;
   
   updateProductCarousel(productId);
 }
