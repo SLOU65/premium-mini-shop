@@ -1652,7 +1652,11 @@ const products = {
       subcategory: "tshirt",
       colors: ["black", "white", "gray"],
       sizes: ["S", "L", "XL", "XXL"],
-      images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
       translations: {
         ru: {
@@ -1688,7 +1692,11 @@ const products = {
       subcategory: "tshirt",
       colors: ["blue", "red", "black"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Спортивная футболка с технологией отвода влаги. Отлично подходит для тренировок и активного отдыха.",
       translations: {
         ru: {
@@ -1724,7 +1732,11 @@ const products = {
       subcategory: "oversize",
       colors: ["black", "white", "beige"],
       sizes: ["M", "L", "XL", "XXL"],
-      images: ["https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop"],
+        "beige": ["https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества.",
       translations: {
         ru: {
@@ -1760,7 +1772,11 @@ const products = {
       subcategory: "hoodie",
       colors: ["black", "gray", "navy"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
       translations: {
         ru: {
@@ -1796,7 +1812,11 @@ const products = {
       subcategory: "slim_fit",
       colors: ["blue", "black", "gray"],
       sizes: ["30", "32", "34", "36", "38"],
-      images: ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические джинсы слим фит из качественного денима. Идеально сидят по фигуре.",
       translations: {
         ru: {
@@ -1830,9 +1850,14 @@ const products = {
       stock: 7,
       category: "shoes",
       subcategory: "sneakers",
-      colors: ["white", "black", "blue"],
+      colors: ["white", "black", "blue","white-black"],
       sizes: ["38","39","40", "41", "42", "43"],
-      images: ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/main/photo222.jpg", "https://raw.githubusercontent.com/SLOU65/premium-mini-shop/main/photo1.jpg"],
+      imagesByColor: {
+        "white": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/photo222.jpg"],
+        "black": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/photo222.jpg"],
+        "blue": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/photo222.jpg"],
+        "white-black": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/photo222.jpg"]
+      },
       fullDescription: "Современные спортивные кроссовки с амортизацией. Подходят для бега и повседневной носки.",
       translations: {
         ru: {
@@ -1870,7 +1895,11 @@ const products = {
       subcategory: "shirt",
       colors: ["white", "blue", "black"],
       sizes: ["S", "M", "L", "XL", "XXL"],
-      images: ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop"],
+        "blue": ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантная классическая рубашка из качественного хлопка. Идеально подходит для офиса и деловых встреч.",
       translations: {
         ru: {
@@ -1906,7 +1935,11 @@ const products = {
       subcategory: "polo",
       colors: ["navy", "white", "red"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "navy": ["https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классическое поло с воротником и пуговицами. Изготовлено из дышащего материала.",
       translations: {
         ru: {
@@ -1942,7 +1975,11 @@ const products = {
       subcategory: "jersey",
       colors: ["blue", "red", "green"],
       sizes: ["S", "M", "L", "XL", "XXL"],
-      images: ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"],
+        "green": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Легкое спортивное джерси с технологией отвода влаги. Идеально для тренировок.",
       translations: {
         ru: {
@@ -1979,7 +2016,11 @@ const products = {
       subcategory: "zip_hoodie",
       colors: ["black", "gray", "navy"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Удобный зип-худи с полной молнией и карманами. Изготовлен из плотного хлопка.",
       translations: {
         ru: {
@@ -2015,7 +2056,11 @@ const products = {
       subcategory: "sweatshirt",
       colors: ["gray", "black", "beige"],
       sizes: ["S", "M", "L", "XL", "XXL"],
-      images: ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gray": ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+        "beige": ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Мягкий свитшот без капюшона с круглым вырезом. Идеален для прохладной погоды.",
       translations: {
         ru: {
@@ -2051,7 +2096,11 @@ const products = {
       subcategory: "sweater",
       colors: ["navy", "gray", "brown"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "navy": ["https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
       translations: {
         ru: {
@@ -2088,7 +2137,10 @@ const products = {
       subcategory: "jeans",
       colors: ["blue", "black"],
       sizes: ["30", "32", "34", "36", "38"],
-      images: ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические джинсы прямого кроя из качественного денима. Универсальный выбор.",
       translations: {
         ru: {
@@ -2124,7 +2176,11 @@ const products = {
       subcategory: "old_money",
       colors: ["beige", "navy", "gray"],
       sizes: ["30", "32", "34", "36"],
-      images: ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "beige": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Роскошные брюки в стиле Old Money из премиальных материалов. Воплощение элегантности.",
       translations: {
         ru: {
@@ -2160,7 +2216,11 @@ const products = {
       subcategory: "classic",
       colors: ["black", "navy", "gray"],
       sizes: ["30", "32", "34", "36", "38"],
-      images: ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические деловые брюки со стрелками. Идеальны для офиса и официальных мероприятий.",
       translations: {
         ru: {
@@ -2197,7 +2257,11 @@ const products = {
       subcategory: "old_money_shorts",
       colors: ["beige", "navy", "white"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "beige": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Стильные шорты в классическом стиле Old Money. Изготовлены из качественного хлопка.",
       translations: {
         ru: {
@@ -2233,7 +2297,11 @@ const products = {
       subcategory: "bermuda",
       colors: ["khaki", "navy", "black"],
       sizes: ["S", "M", "L", "XL", "XXL"],
-      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "khaki": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Удобные бермуды классической длины. Отлично подходят для летнего отдыха.",
       translations: {
         ru: {
@@ -2269,7 +2337,11 @@ const products = {
       subcategory: "sport",
       colors: ["black", "blue", "red"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "blue": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Легкие спортивные шорты с технологией отвода влаги. Идеальны для тренировок.",
       translations: {
         ru: {
@@ -2305,7 +2377,11 @@ const products = {
       subcategory: "denim",
       colors: ["blue", "black", "gray"],
       sizes: ["30", "32", "34", "36"],
-      images: ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Модные джинсовые шорты из качественного денима. Универсальный выбор для лета.",
       translations: {
         ru: {
@@ -2342,7 +2418,10 @@ const products = {
       subcategory: "boots",
       colors: ["black", "brown"],
       sizes: ["40", "41", "42", "43", "44"],
-      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические ботинки челси из натуральной кожи. Удобные и стильные.",
       translations: {
         ru: {
@@ -2378,7 +2457,11 @@ const products = {
       subcategory: "loafers",
       colors: ["black", "brown", "navy"],
       sizes: ["40", "41", "42", "43", "44"],
-      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Роскошные лоферы из премиальной кожи. Идеальны для деловых встреч.",
       translations: {
         ru: {
@@ -2414,7 +2497,11 @@ const products = {
       subcategory: "slippers",
       colors: ["brown", "gray", "black"],
       sizes: ["40", "41", "42", "43", "44", "45"],
-      images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "brown": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Мягкие и теплые домашние тапочки. Обеспечивают максимальный комфорт дома.",
       translations: {
         ru: {
@@ -2451,7 +2538,10 @@ const products = {
       subcategory: "jewelry",
       colors: ["gold", "silver"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gold": ["https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop"],
+        "silver": ["https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантная цепочка с позолоченным покрытием. Добавит стиля любому образу.",
       translations: {
         ru: {
@@ -2487,7 +2577,11 @@ const products = {
       subcategory: "watches",
       colors: ["black", "blue", "white"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop"],
+        "blue": ["https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Надежные спортивные часы с водонепроницаемостью. Множество полезных функций.",
       translations: {
         ru: {
@@ -2523,7 +2617,11 @@ const products = {
       subcategory: "bags",
       colors: ["black", "brown", "navy"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Практичная сумка-мессенджер из качественной кожи. Много отделений для вещей.",
       translations: {
         ru: {
@@ -2559,7 +2657,10 @@ const products = {
       subcategory: "belts",
       colors: ["black", "brown"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантный кожаный ремень с металлической пряжкой. Подходит для деловых костюмов.",
       translations: {
         ru: {
@@ -2595,7 +2696,12 @@ const products = {
       subcategory: "socks",
       colors: ["black", "white", "gray", "navy"],
       sizes: ["S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Комфортные носки из премиального хлопка. Отличная посадка и долговечность.",
       translations: {
         ru: {
@@ -2631,7 +2737,11 @@ const products = {
       subcategory: "backpacks",
       colors: ["black", "gray", "navy"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Практичный рюкзак для города с отделением для ноутбука. Удобные лямки.",
       translations: {
         ru: {
@@ -2667,7 +2777,11 @@ const products = {
       subcategory: "scarves",
       colors: ["gray", "navy", "brown"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gray": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Мягкий шерстяной шарф с классическим узором. Защитит от холода зимой.",
       translations: {
         ru: {
@@ -2703,7 +2817,11 @@ const products = {
       subcategory: "glasses",
       colors: ["black", "gold", "silver"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "gold": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "silver": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические очки-авиаторы с UV-защитой. Икона стиля и функциональности.",
       translations: {
         ru: {
@@ -2739,7 +2857,11 @@ const products = {
       subcategory: "underwear",
       colors: ["black", "white", "gray"],
       sizes: ["S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Удобные трусы из мягкого хлопка. Обеспечивают комфорт в течение всего дня.",
       translations: {
         ru: {
@@ -2779,7 +2901,11 @@ const products = {
       subcategory: "top",
       colors: ["white", "black", "pink"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Легкий и удобный топ для повседневной носки. Отлично сочетается с джинсами и юбками.",
       translations: {
         ru: {
@@ -2815,7 +2941,11 @@ const products = {
       subcategory: "shirt",
       colors: ["white", "blue", "striped"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "blue": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "striped": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классическая женская рубашка из качественного хлопка. Подходит для офиса и деловых встреч.",
       translations: {
         ru: {
@@ -2851,7 +2981,12 @@ const products = {
       subcategory: "tank_top",
       colors: ["white", "black", "yellow", "pink"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "yellow": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Дышащая майка из натурального хлопка. Идеальна для жаркой погоды.",
       translations: {
         ru: {
@@ -2888,7 +3023,11 @@ const products = {
       subcategory: "zip_hoodie",
       colors: ["gray", "pink", "black"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gray": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Мягкий зип-худи с полной молнией и удобными карманами. Отлично для прохладной погоды.",
       translations: {
         ru: {
@@ -2924,7 +3063,11 @@ const products = {
       subcategory: "sweater",
       colors: ["beige", "gray", "navy"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "beige": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантный шерстяной свитер с круглым вырезом. Мягкий и теплый материал.",
       translations: {
         ru: {
@@ -2960,7 +3103,11 @@ const products = {
       subcategory: "sweatshirt",
       colors: ["white", "black", "pink"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Стильный свитшот свободного кроя. Удобный и модный для повседневной носки.",
       translations: {
         ru: {
@@ -2996,7 +3143,12 @@ const products = {
       subcategory: "longsleeve",
       colors: ["white", "black", "gray", "navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Универсальный лонгслив из мягкого хлопка. Базовая вещь для любого гардероба.",
       translations: {
         ru: {
@@ -3033,7 +3185,11 @@ const products = {
       subcategory: "jeans",
       colors: ["blue", "black", "white"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Стильные джинсы скинни из эластичного денима. Подчеркивают фигуру.",
       translations: {
         ru: {
@@ -3069,7 +3225,11 @@ const products = {
       subcategory: "skirt",
       colors: ["black", "navy", "red"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантная мини-юбка А-силуэта. Отлично подходит для вечерних выходов.",
       translations: {
         ru: {
@@ -3105,7 +3265,11 @@ const products = {
       subcategory: "sport",
       colors: ["black", "gray", "navy"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Комфортные спортивные штаны из дышащего материала. Идеальны для тренировок.",
       translations: {
         ru: {
@@ -3142,7 +3306,11 @@ const products = {
       subcategory: "denim",
       colors: ["blue", "black", "white"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Стильные джинсовые шорты с высокой посадкой. Отлично для летнего сезона.",
       translations: {
         ru: {
@@ -3178,7 +3346,11 @@ const products = {
       subcategory: "sport",
       colors: ["black", "pink", "white"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Дышащие спортивные шорты с технологией отвода влаги. Для активного образа жизни.",
       translations: {
         ru: {
@@ -3215,7 +3387,11 @@ const products = {
       subcategory: "bikini",
       colors: ["black", "red", "blue"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "blue": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантный раздельный купальник с регулируемыми бретелями. Отличное качество материала.",
       translations: {
         ru: {
@@ -3252,7 +3428,11 @@ const products = {
       subcategory: "heels",
       colors: ["black", "nude", "red"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "nude": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические туфли на среднем каблуке. Идеальны для офиса и торжественных мероприятий.",
       translations: {
         ru: {
@@ -3288,7 +3468,11 @@ const products = {
       subcategory: "sneakers",
       colors: ["white", "pink", "black"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Легкие спортивные кроссовки с амортизацией. Отлично подходят для бега и фитнеса.",
       translations: {
         ru: {
@@ -3324,7 +3508,11 @@ const products = {
       subcategory: "slippers",
       colors: ["pink", "gray", "beige"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "beige": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Уютные домашние тапочки из мягкого материала. Обеспечивают комфорт дома.",
       translations: {
         ru: {
@@ -3360,7 +3548,11 @@ const products = {
       subcategory: "mules",
       colors: ["black", "brown", "white"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Модные мюли на низком каблуке. Легко надеваются и отлично смотрятся.",
       translations: {
         ru: {
@@ -3396,7 +3588,11 @@ const products = {
       subcategory: "boots",
       colors: ["black", "brown", "burgundy"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "burgundy": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Удобные ботильоны из натуральной кожи. Подходят для осенне-зимнего сезона.",
       translations: {
         ru: {
@@ -3432,7 +3628,11 @@ const products = {
       subcategory: "sandals",
       colors: ["tan", "black", "white"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "tan": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Комфортные летние сандалии с ортопедической стелькой. Идеальны для жаркой погоды.",
       translations: {
         ru: {
@@ -3468,7 +3668,11 @@ const products = {
       subcategory: "loafers",
       colors: ["black", "navy", "brown"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "navy": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Классические женские лоферы из качественной кожи. Универсальная обувь для любого случая.",
       translations: {
         ru: {
@@ -3505,7 +3709,10 @@ const products = {
       subcategory: "jewelry",
       colors: ["gold", "silver"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gold": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "silver": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Изящные серьги с позолоченным покрытием. Добавят элегантности любому образу.",
       translations: {
         ru: {
@@ -3541,7 +3748,11 @@ const products = {
       subcategory: "watches",
       colors: ["gold", "silver", "rose_gold"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gold": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "silver": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "rose_gold": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Модные женские часы с металлическим браслетом. Сочетают стиль и функциональность.",
       translations: {
         ru: {
@@ -3577,7 +3788,11 @@ const products = {
       subcategory: "bags",
       colors: ["black", "brown", "beige"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "beige": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Практичная сумка-тоут из качественной кожи. Много места для всех необходимых вещей.",
       translations: {
         ru: {
@@ -3613,7 +3828,11 @@ const products = {
       subcategory: "belts",
       colors: ["black", "brown", "red"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "brown": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантный тонкий ремень из натуральной кожи. Подчеркнет талию и дополнит образ.",
       translations: {
         ru: {
@@ -3649,7 +3868,12 @@ const products = {
       subcategory: "socks",
       colors: ["white", "black", "pink", "gray"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "gray": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Комфортные носки из натурального хлопка. Мягкие и дышащие для ежедневной носки.",
       translations: {
         ru: {
@@ -3685,7 +3909,11 @@ const products = {
       subcategory: "backpacks",
       colors: ["black", "pink", "white"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Стильный мини-рюкзак для городских прогулок. Компактный, но вместительный.",
       translations: {
         ru: {
@@ -3721,7 +3949,11 @@ const products = {
       subcategory: "scarves",
       colors: ["blue", "red", "gold"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "gold": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Роскошный шелковый платок с изысканным принтом. Универсальный аксессуар для любого образа.",
       translations: {
         ru: {
@@ -3757,7 +3989,11 @@ const products = {
       subcategory: "glasses",
       colors: ["black", "tortoise", "pink"],
       sizes: ["One Size"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "tortoise": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантные солнцезащитные очки в стиле кошачий глаз. Защита от UV-лучей и стильный вид.",
       translations: {
         ru: {
@@ -3793,7 +4029,12 @@ const products = {
       subcategory: "tshirt",
       colors: ["white", "black", "pink", "blue"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "white": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
+        "blue": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Базовая футболка из 100% хлопка. Идеально подходит для создания повседневных образов.",
       translations: {
         ru: {
@@ -3829,7 +4070,11 @@ const products = {
       subcategory: "top",
       colors: ["black", "white", "red"],
       sizes: ["XS", "S", "M", "L"],
-      images: ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "white": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Модный укороченный топ с приталенным силуэтом. Отлично сочетается с высокой талией.",
       translations: {
         ru: {
@@ -3865,7 +4110,11 @@ const products = {
       subcategory: "hoodie",
       colors: ["gray", "pink", "beige"],
       sizes: ["XS", "S", "M", "L", "XL"],
-      images: ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "gray": ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+        "pink": ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"],
+        "beige": ["https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Мягкое и теплое худи с капюшоном. Изготовлено из качественного флиса.",
       translations: {
         ru: {
@@ -3901,7 +4150,10 @@ const products = {
       subcategory: "jeans",
       colors: ["blue", "black"],
       sizes: ["25", "26", "27", "28", "29", "30"],
-      images: ["https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop", "https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "blue": ["https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop"],
+        "black": ["https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Стильные джинсы с высокой посадкой. Подчеркивают силуэт и удлиняют ноги.",
       translations: {
         ru: {
@@ -3937,7 +4189,11 @@ const products = {
       subcategory: "heels",
       colors: ["black", "beige", "red"],
       sizes: ["36", "37", "38", "39", "40"],
-      images: ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop"],
+      imagesByColor: {
+        "black": ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop"],
+        "beige": ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop"],
+        "red": ["https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop"]
+      },
       fullDescription: "Элегантные классические туфли на устойчивом каблуке. Подходят для офиса и особых случаев.",
       translations: {
         ru: {
@@ -4959,11 +5215,18 @@ function loadProducts() {
     return;
   }
 
-  productsContainer.innerHTML = pageProducts.map(product => `
+  productsContainer.innerHTML = pageProducts.map(product => {
+    // Получаем первое изображение для первого цвета
+    const firstColor = product.colors[0];
+    const productImages = product.imagesByColor && product.imagesByColor[firstColor] 
+      ? product.imagesByColor[firstColor] 
+      : ['https://via.placeholder.com/400x400'];
+    
+    return `
     <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
       <div class="product-image-container">
         <div class="product-image-carousel">
-          ${product.images.map((image, index) => `
+          ${productImages.map((image, index) => `
             <img src="${image}" alt="${product.name}" class="product-image ${index === 0 ? 'active' : ''}" loading="lazy">
           `).join('')}
         </div>
@@ -4979,7 +5242,8 @@ function loadProducts() {
         <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})">${t.add_to_cart_btn}</button>
       </div>
     </div>
-    `).join('');
+    `;
+  }).join('');
   
   // Пагинация - только если есть товары
   if (filteredProducts.length > 0) {
@@ -5056,22 +5320,25 @@ function openProductDetail(productId) {
   document.getElementById('product-detail-price').textContent = `€${product.price.toFixed(2)}`;
   document.getElementById('product-detail-description').textContent = productDescription;
   
-  // Изображения
+  // Изображения - используем imagesByColor
+  const defaultColor = product.colors[0];
   const mainImage = document.getElementById('product-main-image');
-  if (product.images && product.images.length > 0 && product.images[0] !== 'new_product.jpg') {
-    mainImage.style.backgroundImage = `url('${product.images[0]}')`;
-    mainImage.textContent = '';
+  if (product.imagesByColor && product.imagesByColor[defaultColor] && product.imagesByColor[defaultColor].length > 0) {
+    const firstImage = product.imagesByColor[defaultColor][0];
+    if (firstImage !== 'new_product.jpg') {
+      mainImage.style.backgroundImage = `url('${firstImage}')`;
+      mainImage.textContent = '';
+    } else {
+      mainImage.style.backgroundImage = '';
+      mainImage.textContent = `Фото 1 - ${productName}`;
+    }
   } else {
     mainImage.style.backgroundImage = '';
     mainImage.textContent = `Фото 1 - ${productName}`;
   }
   
-  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
-  thumbnailGallery.innerHTML = product.images.map((img, index) => `
-    <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImage(${index})" ${img !== 'new_product.jpg' ? `style="background-image: url('${img}');"` : ''}>
-      ${!img || img === 'new_product.jpg' ? `${index + 1}` : ''}
-    </div>
-  `).join('');
+  // Обновляем галерею миниатюр для первого цвета
+  updateThumbnailGallery(product, defaultColor);
   
   // Размеры
   const sizeSelect = document.getElementById('product-detail-size');
@@ -5079,11 +5346,17 @@ function openProductDetail(productId) {
     <option value="${size}">${size}</option>
   `).join('');
   
-  // Цвета
+  // Цвета - отображаем на английском языке
   const colorSelect = document.getElementById('product-detail-color');
   colorSelect.innerHTML = product.colors.map(color => `
-    <option value="${color}">${t[color] || color}</option>
+    <option value="${color}">${color}</option>
   `).join('');
+  
+  // Добавляем обработчик изменения цвета
+  colorSelect.onchange = function() {
+    const selectedColor = this.value;
+    updateProductImagesByColor(currentProduct, selectedColor);
+  };
   
   // Количество
   document.getElementById('product-detail-quantity').textContent = '1';
@@ -5092,20 +5365,74 @@ function openProductDetail(productId) {
   openScreen('product-detail');
 }
 
-function selectProductImage(index) {
+// Функция для обновления галереи миниатюр по цвету
+function updateThumbnailGallery(product, color) {
+  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
+  if (product.imagesByColor && product.imagesByColor[color]) {
+    const images = product.imagesByColor[color];
+    thumbnailGallery.innerHTML = images.map((img, index) => `
+      <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImageByColor(${index})" ${img !== 'new_product.jpg' ? `style="background-image: url('${img}');"` : ''}>
+        ${!img || img === 'new_product.jpg' ? `${index + 1}` : ''}
+      </div>
+    `).join('');
+  } else {
+    thumbnailGallery.innerHTML = '<div class="product-thumbnail active">1</div>';
+  }
+}
+
+// Функция для обновления изображений при изменении цвета
+function updateProductImagesByColor(product, color) {
+  const mainImage = document.getElementById('product-main-image');
+  const productName = getProductTranslation(product, 'name');
+  
+  if (product.imagesByColor && product.imagesByColor[color] && product.imagesByColor[color].length > 0) {
+    const firstImage = product.imagesByColor[color][0];
+    if (firstImage !== 'new_product.jpg') {
+      mainImage.style.backgroundImage = `url('${firstImage}')`;
+      mainImage.textContent = '';
+    } else {
+      mainImage.style.backgroundImage = '';
+      mainImage.textContent = `Фото 1 - ${productName}`;
+    }
+  } else {
+    mainImage.style.backgroundImage = '';
+    mainImage.textContent = `Фото 1 - ${productName}`;
+  }
+  
+  // Обновляем галерею миниатюр для выбранного цвета
+  updateThumbnailGallery(product, color);
+}
+
+// Функция для выбора изображения по цвету
+function selectProductImageByColor(index) {
   document.querySelectorAll('.product-thumbnail').forEach((img, i) => {
     img.classList.toggle('active', i === index);
   });
   
+  const colorSelect = document.getElementById('product-detail-color');
+  const selectedColor = colorSelect.value;
   const mainImage = document.getElementById('product-main-image');
-  if (currentProduct.images && currentProduct.images[index] && currentProduct.images[index] !== 'new_product.jpg') {
-    mainImage.style.backgroundImage = `url('${currentProduct.images[index]}')`;
-    mainImage.textContent = '';
+  
+  if (currentProduct.imagesByColor && currentProduct.imagesByColor[selectedColor] && currentProduct.imagesByColor[selectedColor][index]) {
+    const selectedImage = currentProduct.imagesByColor[selectedColor][index];
+    if (selectedImage !== 'new_product.jpg') {
+      mainImage.style.backgroundImage = `url('${selectedImage}')`;
+      mainImage.textContent = '';
+    } else {
+      mainImage.style.backgroundImage = '';
+      const productName = getProductTranslation(currentProduct, 'name');
+      mainImage.textContent = `Фото ${index + 1} - ${productName}`;
+    }
   } else {
     mainImage.style.backgroundImage = '';
     const productName = getProductTranslation(currentProduct, 'name');
     mainImage.textContent = `Фото ${index + 1} - ${productName}`;
   }
+}
+
+function selectProductImage(index) {
+  // Используем новую логику с поддержкой цветов
+  selectProductImageByColor(index);
 }
 
 function changeProductQuantity(change) {
