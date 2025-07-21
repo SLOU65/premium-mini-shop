@@ -5358,15 +5358,12 @@ function openProductDetail(productId) {
   document.getElementById('product-detail-price').textContent = `€${product.price.toFixed(2)}`;
   document.getElementById('product-detail-description').textContent = productDescription;
   
-  // Изображения - отображаем все фото для первого цвета
-  const defaultColor = product.colors[0];
-  const allImagesForColor = product.imagesByColor && product.imagesByColor[defaultColor] 
-    ? product.imagesByColor[defaultColor] 
-    : [];
+  // Изображения - отображаем ВСЕ фото из всех цветов при первом заходе
+  const allImages = getAllProductImages(product);
   
   const mainImage = document.getElementById('product-main-image');
-  if (allImagesForColor.length > 0) {
-    const firstImage = allImagesForColor[0];
+  if (allImages.length > 0) {
+    const firstImage = allImages[0];
     if (firstImage !== 'new_product.jpg') {
       mainImage.style.backgroundImage = `url('${firstImage}')`;
       mainImage.textContent = '';
@@ -5379,8 +5376,8 @@ function openProductDetail(productId) {
     mainImage.textContent = `Фото 1 - ${productName}`;
   }
   
-  // Обновляем галерею миниатюр для первого цвета - показываем ВСЕ фото
-  updateThumbnailGallery(product, defaultColor);
+  // Обновляем галерею миниатюр - показываем ВСЕ фото из всех цветов
+  updateThumbnailGalleryAllImages(product);
   
   // Размеры
   const sizeSelect = document.getElementById('product-detail-size');
@@ -5390,14 +5387,20 @@ function openProductDetail(productId) {
   
   // Цвета - отображаем на английском языке
   const colorSelect = document.getElementById('product-detail-color');
-  colorSelect.innerHTML = product.colors.map(color => `
+  colorSelect.innerHTML = `<option value="">Выберите цвет</option>` + product.colors.map(color => `
     <option value="${color}">${color}</option>
   `).join('');
   
   // Добавляем обработчик изменения цвета
   colorSelect.onchange = function() {
     const selectedColor = this.value;
-    updateProductImagesByColor(currentProduct, selectedColor);
+    if (selectedColor) {
+      // Показываем основную фотографию выбранного цвета, но оставляем все миниатюры
+      updateMainImageByColor(currentProduct, selectedColor);
+    } else {
+      // Показываем все фото
+      showAllProductImages(currentProduct);
+    }
   };
   
   // Количество
@@ -5407,19 +5410,141 @@ function openProductDetail(productId) {
   openScreen('product-detail');
 }
 
+// Функция для получения всех изображений товара из всех цветов
+function getAllProductImages(product) {
+  const allImages = [];
+  if (product.imagesByColor) {
+    for (const color in product.imagesByColor) {
+      const colorImages = product.imagesByColor[color];
+      if (Array.isArray(colorImages)) {
+        allImages.push(...colorImages);
+      }
+    }
+  }
+  // Удаляем дубликаты
+  return [...new Set(allImages)];
+}
+
+// Функция для обновления галереи миниатюр всеми изображениями
+function updateThumbnailGalleryAllImages(product) {
+  const allImages = getAllProductImages(product);
+  const thumbnailContainer = document.getElementById('product-thumbnail-gallery');
+  
+  // Всегда показываем галерею, даже если изображение одно
+  thumbnailContainer.style.display = 'flex';
+  thumbnailContainer.innerHTML = '';
+  
+  allImages.forEach((image, index) => {
+    const thumbnail = document.createElement('div');
+    thumbnail.className = 'product-thumbnail';
+    
+    if (image !== 'new_product.jpg') {
+      thumbnail.style.backgroundImage = `url('${image}')`;
+      thumbnail.textContent = '';
+    } else {
+      thumbnail.style.backgroundImage = '';
+      thumbnail.textContent = `${index + 1}`;
+    }
+    
+    thumbnail.onclick = () => {
+      const mainImage = document.getElementById('product-main-image');
+      if (image !== 'new_product.jpg') {
+        mainImage.style.backgroundImage = `url('${image}')`;
+        mainImage.textContent = '';
+      } else {
+        mainImage.style.backgroundImage = '';
+        const productName = getProductTranslation(product, 'name');
+        mainImage.textContent = `Фото ${index + 1} - ${productName}`;
+      }
+    };
+    
+    thumbnailContainer.appendChild(thumbnail);
+  });
+}
+
+// Функция для отображения всех фотографий товара
+function showAllProductImages(product) {
+  const allImages = getAllProductImages(product);
+  
+  const mainImage = document.getElementById('product-main-image');
+  if (allImages.length > 0) {
+    const firstImage = allImages[0];
+    if (firstImage !== 'new_product.jpg') {
+      mainImage.style.backgroundImage = `url('${firstImage}')`;
+      mainImage.textContent = '';
+    } else {
+      mainImage.style.backgroundImage = '';
+      const productName = getProductTranslation(product, 'name');
+      mainImage.textContent = `Фото 1 - ${productName}`;
+    }
+  }
+  
+  updateThumbnailGalleryAllImages(product);
+}
+
+// Функция для обновления только основного изображения по цвету (миниатюры остаются все)
+function updateMainImageByColor(product, color) {
+  const mainImage = document.getElementById('product-main-image');
+  const productName = getProductTranslation(product, 'name');
+  
+  if (product.imagesByColor && product.imagesByColor[color] && product.imagesByColor[color].length > 0) {
+    const firstImage = product.imagesByColor[color][0];
+    if (firstImage !== 'new_product.jpg') {
+      mainImage.style.backgroundImage = `url('${firstImage}')`;
+      mainImage.textContent = '';
+    } else {
+      mainImage.style.backgroundImage = '';
+      mainImage.textContent = `Фото 1 - ${productName}`;
+    }
+  } else {
+    mainImage.style.backgroundImage = '';
+    mainImage.textContent = `Фото 1 - ${productName}`;
+  }
+  
+  // Миниатюры остаются все - не обновляем их
+}
+
 // Функция для обновления галереи миниатюр по цвету
 function updateThumbnailGallery(product, color) {
-  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
-  if (product.imagesByColor && product.imagesByColor[color]) {
-    const images = product.imagesByColor[color];
-    thumbnailGallery.innerHTML = images.map((img, index) => `
-      <div class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="selectProductImageByColor(${index})" ${img !== 'new_product.jpg' ? `style="background-image: url('${img}');"` : ''}>
-        ${!img || img === 'new_product.jpg' ? `${index + 1}` : ''}
-      </div>
-    `).join('');
-  } else {
-    thumbnailGallery.innerHTML = '<div class="product-thumbnail active">1</div>';
+  const thumbnailContainer = document.getElementById('product-thumbnail-gallery');
+  const colorImages = product.imagesByColor && product.imagesByColor[color] 
+    ? product.imagesByColor[color] 
+    : [];
+  
+  if (colorImages.length <= 1) {
+    thumbnailContainer.style.display = 'none';
+    return;
   }
+  
+  thumbnailContainer.style.display = 'flex';
+  thumbnailContainer.innerHTML = '';
+  
+  colorImages.forEach((image, index) => {
+    const thumbnail = document.createElement('div');
+    thumbnail.className = 'product-thumbnail';
+    
+    if (image !== 'new_product.jpg') {
+      thumbnail.style.backgroundImage = `url('${image}')`;
+      thumbnail.textContent = '';
+    } else {
+      thumbnail.style.backgroundImage = '';
+      thumbnail.textContent = `${index + 1}`;
+    }
+    
+    thumbnail.onclick = () => {
+      const mainImage = document.getElementById('product-main-image');
+      if (image !== 'new_product.jpg') {
+        mainImage.style.backgroundImage = `url('${image}')`;
+        mainImage.textContent = '';
+      } else {
+        mainImage.style.backgroundImage = '';
+        const productName = getProductTranslation(product, 'name');
+        mainImage.textContent = `Фото ${index + 1} - ${productName}`;
+      }
+    };
+    
+    thumbnailContainer.appendChild(thumbnail);
+  });
 }
 
 // Функция для обновления изображений при изменении цвета
