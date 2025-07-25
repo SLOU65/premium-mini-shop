@@ -1670,6 +1670,82 @@ let scrollPosition = 0; // Переменная для сохранения по
 // Данные товаров - ИСПРАВЛЕННЫЕ ССЫЛКИ НА ИЗОБРАЖЕНИЯ
 const products = {
   mens: [
+  {
+      id: 444,
+      name: "Sp5der",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 89.99,
+      brand: "Sp5der",
+      stock: 5,
+      category: "pants",
+      subcategory: "trousers",
+      colors: ["beige"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "beige": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/%D1%80%D0%BE.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Штаны Sp5der",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом."
+        },
+        en: {
+          name: "Sp5der Trousers",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "Premium hoodie with hood and kangaroo pocket. Made from thick cotton with fleece lining."
+        },
+        uk: {
+          name: "Штани Sp5der",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "Преміальне худі з капюшоном та кишенею-кенгуру. Виготовлено з щільного бавовни з начосом."
+        },
+        de: {
+          name: "Sp5der Hose",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "Premium-Hoodie mit Kapuze und Kängurutasche. Aus dichter Baumwolle mit Fleece-Futter gefertigt."
+        }
+      }
+    },
+  {
+      id: 4,
+      name: "Sp5der",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 89.99,
+      brand: "Sp5der",
+      stock: 5,
+      category: "hoodies",
+      subcategory: "hoodie",
+      colors: ["beige"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "beige": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/pg.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Худи Sp5der",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом."
+        },
+        en: {
+          name: "Sp5der Hoodie",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "Premium hoodie with hood and kangaroo pocket. Made from thick cotton with fleece lining."
+        },
+        uk: {
+          name: "Худі Sp5der",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "Преміальне худі з капюшоном та кишенею-кенгуру. Виготовлено з щільного бавовни з начосом."
+        },
+        de: {
+          name: "Sp5der Hoodie",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "Premium-Hoodie mit Kapuze und Kängurutasche. Aus dichter Baumwolle mit Fleece-Futter gefertigt."
+        }
+      }
+    },
     {
       id: 1,
       name: "Футболка Pinline Tee",
@@ -1678,12 +1754,10 @@ const products = {
       brand: "Supreme",
       category: "tshirts",
       subcategory: "tshirt",
-      colors: ["black", "white", "gray"],
+      colors: ["black"],
       sizes: ["S", "L", "XL", "XXL"],
       imagesByColor: {
-        "black": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/pho.jpg"],
-        "white": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"],
-        "gray": ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop"]
+        "black": ["https://raw.githubusercontent.com/SLOU65/premium-mini-shop/refs/heads/main/photoz1.jpg"],
       },
       fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
       translations: {
@@ -1786,46 +1860,6 @@ const products = {
           name: "Herren Oversize T-Shirt",
           description: "Stylisches Oversize-T-Shirt für modernen Look",
           fullDescription: "Trendiges Oversize-T-Shirt mit lockerer Passform. Aus weicher hochwertiger Baumwolle gefertigt."
-        }
-      }
-    },
-    {
-      id: 4,
-      name: "Мужское худи Premium",
-      description: "Теплое и стильное худи для прохладной погоды",
-      price: 89.99,
-      brand: "Supreme",
-      stock: 5,
-      category: "hoodies",
-      subcategory: "hoodie",
-      colors: ["black", "gray", "navy"],
-      sizes: ["S", "M", "L", "XL"],
-      imagesByColor: {
-        "black": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
-        "gray": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"],
-        "navy": ["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"]
-      },
-      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
-      translations: {
-        ru: {
-          name: "Мужское худи Premium",
-          description: "Теплое и стильное худи для прохладной погоды",
-          fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом."
-        },
-        en: {
-          name: "Men's Premium Hoodie",
-          description: "Warm and stylish hoodie for cool weather",
-          fullDescription: "Premium hoodie with hood and kangaroo pocket. Made from thick cotton with fleece lining."
-        },
-        uk: {
-          name: "Чоловіче худі Premium",
-          description: "Тепле та стильне худі для прохолодної погоди",
-          fullDescription: "Преміальне худі з капюшоном та кишенею-кенгуру. Виготовлено з щільного бавовни з начосом."
-        },
-        de: {
-          name: "Herren Premium Hoodie",
-          description: "Warmer und stylischer Hoodie für kühles Wetter",
-          fullDescription: "Premium-Hoodie mit Kapuze und Kängurutasche. Aus dichter Baumwolle mit Fleece-Futter gefertigt."
         }
       }
     },
@@ -4252,12 +4286,12 @@ const products = {
 // Конфигурация фильтров - УЛУЧШЕННАЯ И РАСШИРЕННАЯ
 const filterConfig = {
   mens: {
-    brands: ["Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Under Armour", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
+    brands: ["Sp5der", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
-      pants: ["jeans", "pants", "old_money", "classic", "slim_fit", "cargo", "chinos"],
+      pants: ["trousers", "jeans", "old_money", "classic", "slim_fit", "cargo", "chinos"],
       shorts: ["old_money_shorts", "bermuda", "sport", "denim", "cargo_shorts"],
       shoes: ["sneakers", "boots", "loafers", "slippers", "dress_shoes", "sandals"],
       accessories: ["jewelry", "watches", "bags", "belts", "socks", "backpacks", "scarves", "glasses", "underwear", "hats", "wallets"]
@@ -4358,7 +4392,8 @@ const translations = {
     sweatshirt: "Свитшот",
     sweater: "Свитер",
     cardigan: "Кардиган",
-    pants: "Штаны",
+    pants: "Все штаны",
+    trousers: "Штаны",
     jeans: "Джинсы",
     old_money: "Олд Мани",
     classic: "Классические",
@@ -4396,7 +4431,7 @@ const translations = {
     longsleeve: "Лонгслив",
     skirt: "Юбка",
     leggings: "Леггинсы",
-    trousers: "Брюки",
+    trousers: "Штаны",
     mini_skirt: "Мини-юбка",
     swimwear: "Купальники",
     bikini: "Бикини",
@@ -4487,7 +4522,8 @@ const translations = {
     sweatshirt: "Sweatshirt",
     sweater: "Sweater",
     cardigan: "Cardigan",
-    pants: "Pants",
+    pants: "All pants",
+    trousers: "Trousers",
     jeans: "Jeans",
     old_money: "Old Money",
     classic: "Classic",
@@ -4616,7 +4652,8 @@ const translations = {
     sweatshirt: "Світшот",
     sweater: "Светр",
     cardigan: "Кардиган",
-    pants: "Штани",
+    pants: "Всi штани",
+    trousers: "Штани",
     jeans: "Джинси",
     old_money: "Олд Мані",
     classic: "Класичні",
@@ -4654,7 +4691,7 @@ const translations = {
     longsleeve: "Лонгслів",
     skirt: "Спідниця",
     leggings: "Легінси",
-    trousers: "Брюки",
+    trousers: "Штани",
     mini_skirt: "Міні-спідниця",
     swimwear: "Купальники",
     bikini: "Бікіні",
@@ -4744,7 +4781,8 @@ const translations = {
     sweatshirt: "Sweatshirt",
     sweater: "Pullover",
     cardigan: "Cardigan",
-    pants: "Hosen",
+    pants: "Alle hosen",
+    trousers: "Hosen",
     jeans: "Jeans",
     old_money: "Old Money",
     classic: "Klassisch",
