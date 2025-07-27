@@ -4963,44 +4963,48 @@ function updateLanguage() {
   }
 }
 
+// ВСТАВЬТЕ ЭТОТ КОД ВМЕСТО СТАРОГО:
 function updateProductDetailTranslations() {
   if (!currentProduct) return;
   
   const t = translations[currentLanguage];
   
-  // Обновить название и описание товара с переводами
+  // Получаем переведенные названия и описания
   const productName = getProductTranslation(currentProduct, 'name');
   const productDescription = getProductTranslation(currentProduct, 'fullDescription');
   
+  // Обновляем ТОЛЬКО текстовые элементы
   document.getElementById('product-detail-header-title').textContent = productName;
   document.getElementById('product-detail-title').textContent = productName;
   document.getElementById('product-detail-description').textContent = productDescription;
   
-  // Обновить основное изображение с переводом
-  const mainImage = document.getElementById('product-main-image');
-  if (!currentProduct.images || !currentProduct.images[0] || currentProduct.images[0] === 'new_product.jpg') {
-    mainImage.textContent = `Фото 1 - ${productName}`;
+  // Обновляем подписи к опциям
+  document.querySelector('label[data-key="modal_size_label"]').textContent = t.modal_size_label;
+  document.querySelector('label[data-key="modal_color_label"]').textContent = t.modal_color_label;
+  document.querySelector('label[data-key="modal_quantity_label"]').textContent = t.modal_quantity_label;
+  
+  // Находим кнопки по их уникальным классам или data-атрибутам
+  const backButton = document.querySelector('.product-detail-actions .secondary');
+  if (backButton) {
+    backButton.textContent = t.modal_cancel_btn || 'Назад';
   }
   
-  // Обновить миниатюры с переводами
-  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
-  if (thumbnailGallery) {
-    const thumbnails = thumbnailGallery.querySelectorAll('.product-thumbnail');
-    thumbnails.forEach((thumbnail, index) => {
-      if (!currentProduct.images || !currentProduct.images[index] || currentProduct.images[index] === 'new_product.jpg') {
-        thumbnail.textContent = `${index + 1}`;
-      }
-    });
+  const addToCartButton = document.querySelector('.product-detail-actions .primary');
+  if (addToCartButton) {
+    addToCartButton.textContent = t.modal_add_btn || 'Добавить в корзину';
   }
-  
-  // Обновить опции цветов с переводами
+
+  // Обновляем переводы для выпадающего списка цветов, не меняя выбранное значение
   const colorSelect = document.getElementById('product-detail-color');
+  const selectedColorValue = colorSelect.value; // Сохраняем текущий выбор
   if (colorSelect && currentProduct.colors) {
-    colorSelect.innerHTML = currentProduct.colors.map(color => `
+    colorSelect.innerHTML = `<option value="">${t.modal_color_label || 'Цвет'}</option>` + currentProduct.colors.map(color => `
       <option value="${color}">${t[color] || color}</option>
     `).join('');
+    colorSelect.value = selectedColorValue; // Восстанавливаем выбор
   }
 }
+
 
 function toggleTheme() {
   currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
