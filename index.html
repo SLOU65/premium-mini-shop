@@ -6392,13 +6392,15 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-Telegram.WebApp.expand(); // Разворачивает на весь экран
-Telegram.WebApp.setHeaderColor('secondary_bg_color'); // Подходит под тёмную тему
+const tg = window.Telegram.WebApp;
 
-Telegram.WebApp.onEvent('backButtonPressed', () => {
-    // ничего не делаем, или показываем своё подтверждение
-});
-Telegram.WebApp.BackButton.hide(); // вообще скрыть кнопку "назад"
+// Убираем нативный заголовок Telegram
+tg.setAppName(""); // убираем название
+tg.BackButton.hide(); // скрываем кнопку "назад"
+tg.MainButton.hide(); // скрываем главную кнопку, если вдруг была
+tg.setHeaderColor('secondary_bg_color'); // минимальная нативная окраска
+tg.expand(); // расширяем на весь экран
+
 
 
 </script>
