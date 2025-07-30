@@ -6392,12 +6392,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-</script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-  Telegram.WebApp.ready();
-  Telegram.WebApp.setHeaderColor('#000000'); // Шапка Telegram станет чёрной
-  Telegram.WebApp.setBackgroundColor('#000000'); // Фон под шапкой тоже
+Telegram.WebApp.expand(); // Разворачивает на весь экран
+Telegram.WebApp.setHeaderColor('secondary_bg_color'); // Подходит под тёмную тему
+
 </script>
 
 
