@@ -29,7 +29,7 @@
       color: #ffffff;
       overflow-x: hidden;
       min-height: 100vh;
-      padding-top: 0px;
+      padding-top: 50px;
       transition: all 0.3s ease;
       width: 100%;
       max-width: 100vw;
@@ -1381,70 +1381,18 @@
     .admin-btn:active {
       transform: scale(0.95);
     }
-    .custom-close {
-      background: none;
-      border: none;
-      color: #007aff;
-      font-size: 15px;
-      font-weight: 600;
-      margin-right: 8px;
-      cursor: pointer;
-    }
-    .custom-top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: #000;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 12px;
-  z-index: 10000;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-
-.custom-top-bar button {
-  background: none;
-  border: none;
-  color: #007aff;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.title-block {
-  text-align: center;
-  flex-grow: 1;
-  margin-left: -30px; /* чтобы текст был по центру несмотря на кнопки */
-}
-
-.title {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.subtitle {
-  font-size: 12px;
-  color: #aaa;
-}
 </style>
 </head>
 
 <body data-theme="dark">
   <!-- Верхняя панель -->
-  <!-- Верхняя панель -->
-<div class="top-bar">
-  <button class="custom-close" onclick="Telegram.WebApp.close()">❌</button>
-
-  <select class="language-select" id="language-select">
-    <option value="ru">RU</option>
-    <option value="en">EN</option>
-    <option value="uk">UA</option>
-    <option value="de">DE</option>
-  </select>
+  <div class="top-bar">
+    <select class="language-select" id="language-select">
+      <option value="ru">RU</option>
+      <option value="en">EN</option>
+      <option value="uk">UA</option>
+      <option value="de">DE</option>
+    </select>
     
     <div class="search-container">
       <input type="text" class="search-input" id="search-input" placeholder="Поиск..." data-key="search_placeholder">
@@ -1773,7 +1721,7 @@ const products = {
       colors: ["beige"],
       sizes: ["S", "M", "L", "XL"],
       imagesByColor: {
-        "beige": ["https://res.cloudinary.com/dybccapwu/image/upload/v1753824029/spiderhuudieblackandbirch_jvsbw1.jpg"],
+        "beige": [""],
       },
       fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
       translations: {
@@ -1796,6 +1744,45 @@ const products = {
           name: "Sp5der Hoodie",
           description: "Warmer und stylischer Hoodie für kühles Wetter",
           fullDescription: "Premium-Hoodie mit Kapuze und Kängurutasche. Aus dichter Baumwolle mit Fleece-Futter gefertigt."
+        }
+      }
+    },
+    {
+      id: 1221,
+      name: "I Love Sp5der",
+      description: "Высококачественная мужская футболка из премиальных материалов",
+      price: 55,
+      brand: "Sp5der",
+      category: "tshirts",
+      subcategory: "tshirt",
+      colors: ["full black", "white and birch", "white and red",],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "full black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1753734731/tshortilovespeed_full_black_kacjva.jpg"],
+        "white and birch": ["https://res.cloudinary.com/dybccapwu/image/upload/v1753734731/tshortilovespeedwhiteandbirch_lbeaji.jpg"],
+        "white and red": ["https://res.cloudinary.com/dybccapwu/image/upload/v1753734730/tshortilovespeedwhiteandred_mqtf4q.jpg"],
+      },
+      fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
+      translations: {
+        ru: {
+          name: "Футболка I love Sp5der",
+          description: "Высококачественная мужская футболка из премиальных материалов",
+          fullDescription: "Футболки Sp5der сделаны из 100% хлопка или хлопка с полиэстером"
+        },
+        en: {
+          name: "I love Sp5der T-Shirt",
+          description: "High-quality men's t-shirt made from premium materials",
+          fullDescription: "Sp5der T-shirts are made of 100% cotton or cotton with polyester"
+        },
+        uk: {
+          name: "Футболка I love Sp5der",
+          description: "Високоякісна чоловіча футболка з преміальних матеріалів",
+          fullDescription: "Футболки Sp5der виготовлені з 100% бавовни або бавовни з поліестером"
+        },
+        de: {
+          name: "I love Sp5der T-Shirt",
+          description: "Hochwertiges Herren-T-Shirt aus Premium-Materialien",
+          fullDescription: "Sp5der-T-Shirts bestehen aus 100 % Baumwolle oder Baumwolle mit Polyester"
         }
       }
     },
@@ -1839,7 +1826,7 @@ const products = {
     },
     {
       id: 1132,
-      name: "Sp5der",
+      name: "Normal Sp5der",
       description: "Высококачественная мужская футболка из премиальных материалов",
       price: 55,
       brand: "Sp5der",
@@ -6404,10 +6391,6 @@ window.addEventListener("DOMContentLoaded", () => {
     Telegram.WebApp.expand();
   }
 });
-    
-  Telegram.WebApp.ready();
-  Telegram.WebApp.expand(); // Важно: это уберёт телеграммовскую шапку
-
 
 </script>
 
