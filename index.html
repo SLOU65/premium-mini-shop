@@ -5,6 +5,45 @@
 <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"/>
 <title>The Continental</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  z-index: 9999;
+  gap: 10px;
+}
+
+.custom-close,
+.custom-menu {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #0a84ff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.custom-search {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 6px 10px;
+  color: white;
+  font-size: 13px;
+}
+
+body {
+  padding-top: 50px; /* Чтобы контент не залезал под шапку */
+}
 <style>
     /* Используем системные шрифты для лучшей совместимости */
     * {
@@ -1385,6 +1424,11 @@
 </head>
 
 <body data-theme="dark">
+    <div class="custom-header">
+  <button class="custom-close" onclick="Telegram.WebApp.close()">Закрыть</button>
+  <input class="custom-search" type="text" placeholder="Поиск" />
+  <button class="custom-menu">⋯</button>
+</div>
   <!-- Верхняя панель -->
   <div class="top-bar">
     <select class="language-select" id="language-select">
@@ -6352,6 +6396,12 @@ window.addEventListener("DOMContentLoaded", () => {
     Telegram.WebApp.expand();
   }
 });
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand(); // Убираем встроенную шапку Telegram
+</script>
+
 
 </script>
 
