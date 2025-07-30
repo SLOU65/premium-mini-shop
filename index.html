@@ -6392,20 +6392,14 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+<script>
 const tg = window.Telegram.WebApp;
-
-// Убираем нативный заголовок Telegram
-tg.setAppName(""); // убираем название
-tg.BackButton.hide(); // скрываем кнопку "назад"
-tg.MainButton.hide(); // скрываем главную кнопку, если вдруг была
-tg.setHeaderColor('secondary_bg_color'); // минимальная нативная окраска
-tg.expand(); // расширяем на весь экран
-
-tg.disableClosingConfirmation(); // убираем подтверждение выхода
-tg.BackButton.hide(); // убираем кнопку назад
-tg.onEvent('backButtonPressed', () => {
-  // Не даём пользователю выйти свайпом
-});
+tg.expand();
+tg.setAppName(""); 
+tg.MainButton.hide();
+tg.BackButton.hide();
+tg.setHeaderColor("secondary_bg_color"); // минимальный фон
+</script>
 
 
 
