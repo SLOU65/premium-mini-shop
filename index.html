@@ -6395,6 +6395,12 @@ window.addEventListener("DOMContentLoaded", () => {
 Telegram.WebApp.expand(); // Разворачивает на весь экран
 Telegram.WebApp.setHeaderColor('secondary_bg_color'); // Подходит под тёмную тему
 
+Telegram.WebApp.onEvent('backButtonPressed', () => {
+    // ничего не делаем, или показываем своё подтверждение
+});
+Telegram.WebApp.BackButton.hide(); // вообще скрыть кнопку "назад"
+
+
 </script>
 
 
