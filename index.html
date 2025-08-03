@@ -1671,6 +1671,86 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
       {
+      id: 42321,
+      name: "HOODPRINTSP5DER",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 90,
+      brand: "Sp5der",
+      stock: 5,
+      category: "hoodies",
+      subcategory: "hoodie",
+      colors: ["birch yellow", "khaki white", "black orange"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "birch yellow": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225377/photo_2025-08-03_14-49-13_e9yyeq.jpg"],
+        "khaki white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225466/photo_2025-08-03_14-50-56_ed2y0r.jpg"],
+        "black orange": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225593/photo_2025-08-03_14-53-00_qa440g.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Худи SP5DER",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "100% хлопок, яркий принт + стразы, флис внутри."
+        },
+        en: {
+          name: "SP5DER Hoodie",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "100% cotton, bright print + rhinestones, fleece inside."
+        },
+        uk: {
+          name: "Худі SP5DER",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "100% бавовна, яскравий принт + стрази, фліс усередині."
+        },
+        de: {
+          name: "SP5DER Hoodie",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "100 % Baumwolle, leuchtender Druck + Strass, Fleece-Innenseite."
+        }
+      }
+    },
+      {
+      id: 432343,
+      name: "HOODPRINTSP5DER",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 90,
+      brand: "Sp5der",
+      stock: 5,
+      category: "pants",
+      subcategory: "trousers",
+      colors: ["birch yellow", "khaki white", "black orange"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "birch yellow": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225376/photo_2025-08-03_14-49-16_x3htpp.jpg"],
+        "khaki white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225465/photo_2025-08-03_14-50-58_edmj0g.jpg"],
+        "black orange": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225592/photo_2025-08-03_14-53-03_sxyp8m.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Штаны SP5DER",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "Хлопок или трикотаж, спортивный стиль, стразы и графика."
+        },
+        en: {
+          name: "SP5DER Trousers",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "Сotton or jersey, sporty style, rhinestones and graphics."
+        },
+        uk: {
+          name: "Штани SP5DER",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "Бавовна або трикотаж, спортивний стиль, стрази та графіка."
+        },
+        de: {
+          name: "SP5DER Trousers",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "Baumwolle oder Jersey, sportlicher Schnitt, Strass und Grafiken."
+        }
+      }
+    },
+      {
       id: 43234,
       name: "SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
@@ -1679,11 +1759,14 @@ const products = {
       stock: 5,
       category: "pants",
       subcategory: "trousers",
-      colors: ["blue yellow", "red black"],
+      colors: ["blue yellow", "red black", "green gray", "pink black", "black pink",],
       sizes: ["S", "M", "L", "XL"],
       imagesByColor: {
         "blue yellow": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754224236/photo_2025-08-03_14-30-19_yrzpgx.jpg"],
         "red black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754224235/photo_2025-08-03_14-30-26_xvzo4u.jpg"],
+        "green gray": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225776/photo_2025-08-03_14-56-08_ftxub3.jpg"],
+        "pink black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225991/photo_2025-08-03_14-59-43_ku79b5.jpg"],
+        "black pink": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754226086/photo_2025-08-03_15-01-19_e1tl10.jpg"],
       },
       fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
       translations: {
@@ -1718,11 +1801,14 @@ const products = {
       stock: 5,
       category: "hoodies",
       subcategory: "hoodie",
-      colors: ["blue yellow", "red black"],
+      colors: ["blue yellow", "red black", "green gray", "pink black", "black pink"],
       sizes: ["S", "M", "L", "XL"],
       imagesByColor: {
         "blue yellow": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754224088/photo_2025-08-03_14-27-42_rx1uxt.jpg"],
         "red black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754224116/photo_2025-08-03_14-28-28_inr0ov.jpg"],
+        "green gray": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225777/photo_2025-08-03_14-56-04_ccn3y4.jpg"],
+        "pink black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754225924/photo_2025-08-03_14-58-36_kblhv1.jpg"],
+        "black pink": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754226133/photo_2025-08-03_15-01-15_mi744b.jpg"],
       },
       fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
       translations: {
