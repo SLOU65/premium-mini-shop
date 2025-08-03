@@ -1670,9 +1670,125 @@ let scrollPosition = 0; // Переменная для сохранения по
 // Данные товаров - ИСПРАВЛЕННЫЕ ССЫЛКИ НА ИЗОБРАЖЕНИЯ
 const products = {
   mens: [
+      {
+      id: 93156,
+      name: "RHINESTONES SP5DER",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 90,
+      brand: "Sp5der",
+      stock: 5,
+      category: "hoodies",
+      subcategory: "hoodie",
+      colors: ["black white", "red black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "black white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754259104/photo_2025-08-04_00-11-10_jqgttt.jpg"],
+        "red black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754259101/photo_2025-08-04_00-11-26_db6lei.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Худи SP5DER",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "100% хлопок, яркий принт + стразы, флис внутри."
+        },
+        en: {
+          name: "SP5DER Hoodie",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "100% cotton, bright print + rhinestones, fleece inside."
+        },
+        uk: {
+          name: "Худі SP5DER",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "100% бавовна, яскравий принт + стрази, фліс усередині."
+        },
+        de: {
+          name: "SP5DER Hoodie",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "100 % Baumwolle, leuchtender Druck + Strass, Fleece-Innenseite."
+        }
+      }
+    },
+    {
+      id: 3189854,
+      name: "RHINESTONES SP5DER",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 90,
+      brand: "Sp5der",
+      stock: 5,
+      category: "pants",
+      subcategory: "trousers",
+      colors: ["black white", "red black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "black white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754259102/photo_2025-08-04_00-11-12_eigfnd.jpg"],
+        "red black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754259101/photo_2025-08-04_00-11-28_imrsam.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Штаны SP5DER",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "Хлопок или трикотаж, спортивный стиль, стразы и графика."
+        },
+        en: {
+          name: "SP5DER Trousers",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "Сotton or jersey, sporty style, rhinestones and graphics."
+        },
+        uk: {
+          name: "Штани SP5DER",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "Бавовна або трикотаж, спортивний стиль, стрази та графіка."
+        },
+        de: {
+          name: "SP5DER Trousers",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "Baumwolle oder Jersey, sportlicher Schnitt, Strass und Grafiken."
+        }
+      }
+    },
+    {
+      id: 9318994337,
+      name: "RODEO SP5DER",
+      description: "Теплое и стильное худи для прохладной погоды",
+      price: 90,
+      brand: "Sp5der",
+      stock: 5,
+      category: "hoodies",
+      subcategory: "hoodie",
+      colors: ["tight brown light orange"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "tight brown light orange": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754258870/photo_2025-08-04_00-07-21_thoszq.jpg"],
+      },
+      fullDescription: "Премиальное худи с капюшоном и карманом-кенгуру. Изготовлено из плотного хлопка с начесом.",
+      translations: {
+        ru: {
+          name: "Худи SP5DER",
+          description: "Теплое и стильное худи для прохладной погоды",
+          fullDescription: "100% хлопок, яркий принт + стразы, флис внутри."
+        },
+        en: {
+          name: "SP5DER Hoodie",
+          description: "Warm and stylish hoodie for cool weather",
+          fullDescription: "100% cotton, bright print + rhinestones, fleece inside."
+        },
+        uk: {
+          name: "Худі SP5DER",
+          description: "Тепле та стильне худі для прохолодної погоди",
+          fullDescription: "100% бавовна, яскравий принт + стрази, фліс усередині."
+        },
+        de: {
+          name: "SP5DER Hoodie",
+          description: "Warmer und stylischer Hoodie für kühles Wetter",
+          fullDescription: "100 % Baumwolle, leuchtender Druck + Strass, Fleece-Innenseite."
+        }
+      }
+    },
     {
       id: 3189932221,
-      name: "ATLANTASP5DER",
+      name: "ATLANTA SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -1711,7 +1827,7 @@ const products = {
     },
     {
       id: 318994337,
-      name: "ATLANTASP5DER",
+      name: "ATLANTA SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -1750,7 +1866,7 @@ const products = {
     },
       {
       id: 318993222,
-      name: "WEBSP5DER",
+      name: "WEB SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -1790,7 +1906,7 @@ const products = {
     },
     {
       id: 31899433,
-      name: "WEBSP5DER",
+      name: "WEB SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -1830,7 +1946,7 @@ const products = {
     },
     {
       id: 3189943,
-      name: "WAITSP5DER",
+      name: "WAIT SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -2101,7 +2217,7 @@ const products = {
     },
     {
       id: 416,
-      name: "HOODPRINTSP5DER",
+      name: "HOODPRINT SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -2141,7 +2257,7 @@ const products = {
     },
     {
       id: 443,
-      name: "HOODPRINTSP5DER",
+      name: "HOODPRINT SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
@@ -2424,7 +2540,7 @@ const products = {
     },
     {
       id: 4324,
-      name: "BELUGASP5DER",
+      name: "BELUGA SP5DER",
       description: "Теплое и стильное худи для прохладной погоды",
       price: 90,
       brand: "Sp5der",
