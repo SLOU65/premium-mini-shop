@@ -1671,6 +1671,44 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 3098,
+      name: "REPRESENT OWNERS CLUB FLOCKED",
+      description: "Стильная оверсайз футболка для современного образа",
+      price: 40,
+      brand: "Represent",
+      stock: 8,
+      category: "tshirts",
+      subcategory: "oversize",
+      colors: ["black"],
+      sizes: ["M", "L", "XL", "XXL"],
+      imagesByColor: {
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1754390656/photo_2025-08-05_12-43-48_gzsqwa.jpg","https://res.cloudinary.com/dybccapwu/image/upload/v1754390655/photo_2025-08-05_12-43-51_rt7jz2.jpg","https://res.cloudinary.com/dybccapwu/image/upload/v1754390655/photo_2025-08-05_12-43-58_gjhgka.jpg","https://res.cloudinary.com/dybccapwu/image/upload/v1754390655/photo_2025-08-05_12-44-01_fbx1x8.jpg" ],
+      },
+      fullDescription: "Модная оверсайз футболка свободного кроя. Изготовлена из мягкого хлопка высокого качества.",
+      translations: {
+        ru: {
+          name: "Футболка Represent",
+          description: "Стильная оверсайз футболка для современного образа",
+          fullDescription: "Состав: 100% хлопок."
+        },
+        en: {
+          name: "Represent T-Shirt",
+          description: "Stylish oversize t-shirt for modern look",
+          fullDescription: "Composition: 100% cotton."
+        },
+        uk: {
+          name: "Футболка Represent",
+          description: "Стильна оверсайз футболка для сучасного образу",
+          fullDescription: "Склад: 100% бавовна."
+        },
+        de: {
+          name: "Represent T-Shirt",
+          description: "Stylisches Oversize-T-Shirt für modernen Look",
+          fullDescription: "Zusammensetzung: 100 % Baumwolle."
+        }
+      }
+    },
+    {
       id: 24732,
       name: "SUPREME CORTEIZ RULES THE WORLD TEE",
       description: "Спортивная мужская футболка для активного образа жизни",
@@ -7869,7 +7907,7 @@ const products = {
 // Конфигурация фильтров - УЛУЧШЕННАЯ И РАСШИРЕННАЯ
 const filterConfig = {
   mens: {
-    brands: ["Sp5der", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
+    brands: ["Sp5der", "Represent", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
