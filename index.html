@@ -1671,6 +1671,46 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 13143239243,
+      name: "ESSENTIALS FEAR OF GOD",
+      description: "Высококачественная мужская футболка из премиальных материалов",
+      price: 35,
+      brand: "Essentials",
+      category: "tshirts",
+      subcategory: "oversize",
+      colors: ["red","gray","blue","black" ],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "red": ["https://res.cloudinary.com/dybccapwu/image/upload/v1755512620/photo_2025-08-18_12-23-16_ns69ty.jpg"],
+        "gray": ["https://res.cloudinary.com/dybccapwu/image/upload/v1755512620/photo_2025-08-18_12-23-18_znpede.jpg"],
+        "blue": ["https://res.cloudinary.com/dybccapwu/image/upload/v1755512620/photo_2025-08-18_12-23-21_fdkudb.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1755512620/photo_2025-08-18_12-23-23_mgzasj.jpg"],
+      },
+      fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
+      translations: {
+        ru: {
+          name: "Футболка ESSENTIALS",
+          description: "Стильная оверсайз футболка для современного образа",
+          fullDescription: "Состав: 100% хлопок."
+        },
+        en: {
+          name: "ESSENTIALS T-Shirt",
+          description: "Stylish oversize t-shirt for modern look",
+          fullDescription: "Composition: 100% cotton."
+        },
+        uk: {
+          name: "Футболка ESSENTIALS",
+          description: "Стильна оверсайз футболка для сучасного образу",
+          fullDescription: "Склад: 100% бавовна."
+        },
+        de: {
+          name: "ESSENTIALS T-Shirt",
+          description: "Stylisches Oversize-T-Shirt für modernen Look",
+          fullDescription: "Zusammensetzung: 100 % Baumwolle."
+        }
+      }
+    },
+    {
       id: 131432392,
       name: "REPRESENT WORLD CHAMPIONSHIP",
       description: "Высококачественная мужская футболка из премиальных материалов",
@@ -8205,7 +8245,7 @@ const products = {
 // Конфигурация фильтров - УЛУЧШЕННАЯ И РАСШИРЕННАЯ
 const filterConfig = {
   mens: {
-    brands: ["Sp5der", "Represent", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
+    brands: ["Sp5der", "Represent", "Essentials", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
