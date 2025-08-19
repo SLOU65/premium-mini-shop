@@ -1671,6 +1671,44 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 1224121,
+      name: "STONE ISLAND",
+      description: "Высококачественная мужская футболка из премиальных материалов",
+      price: 75,
+      brand: "Stone Island",
+      category: "tshirts",
+      subcategory: "tshirt",
+      colors: ["white", "black",],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1755600743/photo_2025-08-19_12-51-53_qvupfr.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1755600743/photo_2025-08-19_12-51-53_qvupfr.jpg","https://res.cloudinary.com/dybccapwu/image/upload/v1755600743/photo_2025-08-19_12-51-56_r4lcm5.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1755600743/photo_2025-08-19_12-52-00_axkb2o.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1755600743/photo_2025-08-19_12-52-09_cdy7ak.jpg"],
+      },
+      fullDescription: "Эта премиальная футболка изготовлена из высококачественного хлопка с добавлением эластана для комфорта. Идеально подходит для повседневной носки и спорта.",
+      translations: {
+        ru: {
+          name: "Футболка STONE ISLAND",
+          description: "Высококачественная мужская футболка из премиальных материалов",
+          fullDescription: "Состав: 100% хлопок (иногда с добавлением эластана или полиэстера)"
+        },
+        en: {
+          name: "STONE ISLAND T-Shirt",
+          description: "High-quality men's t-shirt made from premium materials",
+          fullDescription: "Material: 100% cotton (sometimes with elastane or polyester)"
+        },
+        uk: {
+          name: "Футболка STONE ISLAND",
+          description: "Високоякісна чоловіча футболка з преміальних матеріалів",
+          fullDescription: "Склад: 100% бавовна (іноді з додаванням еластану чи поліестеру)"
+        },
+        de: {
+          name: "STONE ISLAND T-Shirt",
+          description: "Hochwertiges Herren-T-Shirt aus Premium-Materialien",
+          fullDescription: "Composition: 100% Baumwolle (manchmal mit Elastan oder Polyester)"
+        }
+      }
+    },
+    {
       id: 4324243144424,
       name: "GALLERY DEPT T-SHIRT",
       description: "Теплое и стильное худи для прохладной погоды",
@@ -8281,7 +8319,7 @@ const products = {
 // Конфигурация фильтров - УЛУЧШЕННАЯ И РАСШИРЕННАЯ
 const filterConfig = {
   mens: {
-    brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
+    brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
