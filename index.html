@@ -1670,6 +1670,46 @@ let scrollPosition = 0; // Переменная для сохранения по
 // Данные товаров - ИСПРАВЛЕННЫЕ ССЫЛКИ НА ИЗОБРАЖЕНИЯ
 const products = {
   mens: [
+  {
+      id: 111550390,
+      name: "STONE ISLAND NYLON METAL WATRO",
+      description: "Уютный свитшот для повседневной носки",
+      price: 195,
+      brand: "Stone Island",
+      stock: 14,
+      category: "jackets",
+      subcategory: "windbreaker",
+      colors: ["toxic green", "black", "grey"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      imagesByColor: {
+        "toxic green": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756569418/photo_2025-08-30_17-56-15_nvchr6.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756569419/photo_2025-08-30_17-56-18_i0txwu.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756569418/photo_2025-08-30_17-56-20_o10omg.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756569418/photo_2025-08-30_17-56-24_ofmlle.jpg"],
+        "grey": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756569418/photo_2025-08-30_17-56-28_kxmb96.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756569418/photo_2025-08-30_17-56-30_ilhkhj.jpg"],
+      },
+      fullDescription: "Мягкий свитшот без капюшона с круглым вырезом. Идеален для прохладной погоды.",
+      translations: {
+        ru: {
+          name: "Ветровка Stone Island",
+          description: "Уютный свитшот для повседневной носки",
+          fullDescription: "Состав: 100% Нейлон. Подкладка: 100% Полиэстер"
+        },
+        en: {
+          name: "Stone Island Windbreaker",
+          description: "Cozy sweatshirt for everyday wear",
+          fullDescription: "Material: 100% Nylon. Lining: 100% Polyester"
+        },
+        uk: {
+          name: "Вітровка Stone Island",
+          description: "Затишний світшот для повсякденного носіння",
+          fullDescription: "Склад: 100% Нейлон. Підкладка: 100% Поліестер"
+        },
+        de: {
+          name: "Stone Island Windjacke",
+          description: "Gemütliches Sweatshirt für den täglichen Gebrauch",
+          fullDescription: "Composition: 100% Nylon. Futter: 100% Polyester"
+        }
+      }
+    },
     {
       id: 11141250390,
       name: "STONE ISLAND UNWORN WITH LABEL",
@@ -8798,6 +8838,7 @@ const filterConfig = {
     brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
+      jackets: ["windbreaker", "oversize", "shirt", "polo", "jersey", "tank_top"],
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
       pants: ["trousers", "jeans", "old_money", "classic", "slim_fit", "cargo", "chinos"],
@@ -8935,6 +8976,8 @@ const translations = {
     hats: "Шапки",
     wallets: "Кошельки",
     cap: "Кепки",
+    jackets: "Куртки",
+    windbreaker: "Ветровки",
     // Категории женские
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9066,6 +9109,8 @@ const translations = {
     hats: "Hats",
     wallets: "Wallets",
     cap: "Caps",
+    jackets: "Jackets",
+    windbreaker: "Windbreaker",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
@@ -9197,6 +9242,8 @@ const translations = {
     hats: "Шапки",
     wallets: "Гаманці",
     cap: "Кепки",
+    jackets: "Куртки",
+    windbreaker: "Вітровка",
     // Categories women's
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9327,6 +9374,8 @@ const translations = {
     hats: "Hüte",
     wallets: "Geldbörsen",
     cap: "Kappen",
+    jackets: "Jacken",
+    windbreaker: "Windjacke",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
