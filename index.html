@@ -1671,7 +1671,84 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 132942802,
+      name: "STONE ISLAND QUILTED HOODED PUFFER JACKET",
+      description: "Теплый шерстяной свитер",
+      price: 350,
+      brand: "Stone Island",
+      stock: 6,
+      category: "jackets",
+      subcategory: "pufferjacket",
+      colors: ["black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756647088/photo_2025-08-31_15-19-50_mnw198.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756647087/photo_2025-08-31_15-20-01_ns8s4a.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756647087/photo_2025-08-31_15-20-04_rjlmih.jpg"],
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Пуховик Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Состав: Внешний материал: 100% полиамид. Подкладка: 100% полиэстер. Утеплитель: 90% пух, 10% перо."
+        },
+        en: {
+          name: "Stone Island Puffer jacket",
+          description: "Warm wool sweater",
+          fullDescription: "Material: Outer: 100% polyamide. Lining: 100% polyester. Filling: 90% down, 10% feather."
+        },
+        uk: {
+          name: "Пуховик Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Склад: Зовнішній матеріал: 100% поліамід. Підкладка: 100% поліестер. Наповнювач: 90% пух, 10% перо."
+        },
+        de: {
+          name: "Stone Island Daunenjacke",
+          description: "Warmer Wollpullover",
+          fullDescription: "Composition: Außenmaterial: 100 % Polyamid. Futter: 100 % Polyester. Füllung: 90 % Daunen, 10 % Federn."
+        }
+      }
+    },
+    {
       id: 1329802,
+      name: "STONE ISLAND WOOL CARDIGAN WITH COMPASS PATCH",
+      description: "Теплый шерстяной свитер",
+      price: 145,
+      brand: "Stone Island",
+      stock: 6,
+      category: "hoodies",
+      subcategory: "cardigan",
+      colors: ["grey", "black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "grey": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756646317/photo_2025-08-31_15-18-15_nvcl01.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756646317/photo_2025-08-31_15-18-18_tlk1gy.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756646317/photo_2025-08-31_15-18-20_kvo3mt.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756646316/photo_2025-08-31_15-18-23_farbxr.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756646316/photo_2025-08-31_15-18-25_nspdrk.jpg"],
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Кардиган Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Состав: 100% шерсть."
+        },
+        en: {
+          name: "Stone Island Cardigan",
+          description: "Warm wool sweater",
+          fullDescription: "Material: 100% wool."
+        },
+        uk: {
+          name: "Кардиган Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Склад: 100% вовна."
+        },
+        de: {
+          name: "Stone Island Strickjacke",
+          description: "Warmer Wollpullover",
+          fullDescription: "Composition: 100% Wolle."
+        }
+      }
+    },
+    {
+      id: 1324359802,
       name: "STONE ISLAND WOOL TURTLENECK SWEATER",
       description: "Теплый шерстяной свитер",
       price: 130,
@@ -1710,7 +1787,7 @@ const products = {
       }
     },
     {
-      id: 111320390,
+      id: 1113720390,
       name: "STONE ISLAND GARMENT DYED CREWNECK SWEATSHIRT",
       description: "Уютный свитшот для повседневной носки",
       price: 110,
@@ -8994,7 +9071,7 @@ const filterConfig = {
     brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
-      jackets: ["windbreaker", "oversize", "shirt", "polo", "jersey", "tank_top"],
+      jackets: ["windbreaker", "pufferjacket", "shirt", "polo", "jersey", "tank_top"],
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
       pants: ["trousers", "jeans", "old_money", "classic", "slim_fit", "cargo", "chinos"],
@@ -9134,6 +9211,7 @@ const translations = {
     cap: "Кепки",
     jackets: "Куртки",
     windbreaker: "Ветровки",
+    pufferjacket: "Пуховик",
     // Категории женские
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9267,6 +9345,7 @@ const translations = {
     cap: "Caps",
     jackets: "Jackets",
     windbreaker: "Windbreaker",
+    pufferjacket: "Puffer jacket",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
@@ -9400,6 +9479,7 @@ const translations = {
     cap: "Кепки",
     jackets: "Куртки",
     windbreaker: "Вітровка",
+    pufferjacket: "Пуховик",
     // Categories women's
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9532,6 +9612,7 @@ const translations = {
     cap: "Kappen",
     jackets: "Jacken",
     windbreaker: "Windjacke",
+    pufferjacket: "Daunenjacke",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
