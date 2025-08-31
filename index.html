@@ -1670,7 +1670,85 @@ let scrollPosition = 0; // Переменная для сохранения по
 // Данные товаров - ИСПРАВЛЕННЫЕ ССЫЛКИ НА ИЗОБРАЖЕНИЯ
 const products = {
   mens: [
-  {
+    {
+      id: 111450657390,
+      name: "STONE ISLAND ZIP HOODED SWEATSHIRT",
+      description: "Уютный свитшот для повседневной носки",
+      price: 120,
+      brand: "Stone Island",
+      stock: 14,
+      category: "hoodies",
+      subcategory: "zip_hoodie",
+      colors: ["black", "grey"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      imagesByColor: {
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756641507/photo_2025-08-31_13-58-12_qhqbkg.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756641507/photo_2025-08-31_13-58-15_ibnrlw.jpg"],
+        "grey": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756641507/photo_2025-08-31_13-58-17_doh9ei.jpg","https://res.cloudinary.com/dybccapwu/image/upload/v1756641507/photo_2025-08-31_13-58-19_b7vrsz.jpg"],
+      },
+      fullDescription: "Мягкий свитшот без капюшона с круглым вырезом. Идеален для прохладной погоды.",
+      translations: {
+        ru: {
+          name: "Зип-худи Stone Island",
+          description: "Уютный свитшот для повседневной носки",
+          fullDescription: "Состав: 100% хлопок"
+        },
+        en: {
+          name: "Stone Island Zip Hoodie",
+          description: "Cozy sweatshirt for everyday wear",
+          fullDescription: "Material: 100% cotton"
+        },
+        uk: {
+          name: "Зіп-худі Stone Island",
+          description: "Затишний світшот для повсякденного носіння",
+          fullDescription: "Склад: 100% бавовна"
+        },
+        de: {
+          name: "Stone Island Zip Hoodie",
+          description: "Gemütliches Sweatshirt für den täglichen Gebrauch",
+          fullDescription: "Composition: 100% Baumwolle"
+        }
+      }
+    },
+    {
+      id: 1115540390,
+      name: "STONE ISLAND LIGHT SOFT SHELL-R HOODED JACKET",
+      description: "Уютный свитшот для повседневной носки",
+      price: 195,
+      brand: "Stone Island",
+      stock: 14,
+      category: "jackets",
+      subcategory: "windbreaker",
+      colors: ["black", "light blue", "grey"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      imagesByColor: {
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756640989/photo_2025-08-31_13-49-28_atczw7.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756640989/photo_2025-08-31_13-49-31_tu0fvs.jpg"],
+        "light blue": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756640989/photo_2025-08-31_13-49-34_ayjq5h.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756640989/photo_2025-08-31_13-49-36_akzloo.jpg"],
+      },
+      fullDescription: "Мягкий свитшот без капюшона с круглым вырезом. Идеален для прохладной погоды.",
+      translations: {
+        ru: {
+          name: "Ветровка Stone Island",
+          description: "Уютный свитшот для повседневной носки",
+          fullDescription: "Состав: внешний слой 94% полиэстер, 6% эластан. Подкладка: 100% полиэстер."
+        },
+        en: {
+          name: "Stone Island Windbreaker",
+          description: "Cozy sweatshirt for everyday wear",
+          fullDescription: "Material: outer 94% polyester, 6% elastane. Lining: 100% polyester."
+        },
+        uk: {
+          name: "Вітровка Stone Island",
+          description: "Затишний світшот для повсякденного носіння",
+          fullDescription: "Склад: зовнішній шар 94% поліестер, 6% еластан. Підкладка: 100% поліестер."
+        },
+        de: {
+          name: "Stone Island Windjacke",
+          description: "Gemütliches Sweatshirt für den täglichen Gebrauch",
+          fullDescription: "Composition: außenmaterial 94% Polyester, 6% Elasthan. Futter: 100% Polyester."
+        }
+      }
+    },
+    {
       id: 111550390,
       name: "STONE ISLAND NYLON METAL WATRO",
       description: "Уютный свитшот для повседневной носки",
