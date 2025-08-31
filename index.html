@@ -1671,6 +1671,45 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 132920942802,
+      name: "STONE ISLAND LIGHTWEIGHT ZIP JACKET",
+      description: "Теплый шерстяной свитер",
+      price: 220,
+      brand: "Stone Island",
+      stock: 6,
+      category: "jackets",
+      subcategory: "lightweightjacket",
+      colors: ["grey", "black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "grey": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756648625/photo_2025-08-31_15-56-41_zua6vs.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756648624/photo_2025-08-31_15-56-47_wdohpr.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756648624/photo_2025-08-31_15-56-43_y5v2go.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756648624/photo_2025-08-31_15-56-45_hnhtip.jpg"], 
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Лёгкая куртка Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Состав: Внешний материал: 100% полиамид. Подкладка: 100% полиэстер."
+        },
+        en: {
+          name: "Stone Island Lightweight jacket",
+          description: "Warm wool sweater",
+          fullDescription: "Material: Outer: 100% polyamide. Lining: 100% polyester."
+        },
+        uk: {
+          name: "Легка куртка Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Склад: Зовнішній матеріал: 100% поліамід. Підкладка: 100% поліестер."
+        },
+        de: {
+          name: "Stone Island Leichte Jacke",
+          description: "Warmer Wollpullover",
+          fullDescription: "Composition: Außenmaterial: 100 % Polyamid. Futter: 100 % Polyester."
+        }
+      }
+    },
+    {
       id: 132942802,
       name: "STONE ISLAND QUILTED HOODED PUFFER JACKET",
       description: "Теплый шерстяной свитер",
@@ -9071,7 +9110,7 @@ const filterConfig = {
     brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
-      jackets: ["windbreaker", "pufferjacket"],
+      jackets: ["windbreaker", "pufferjacket", "lightweightjacket"],
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
       pants: ["trousers", "jeans", "old_money", "classic", "slim_fit", "cargo", "chinos"],
@@ -9212,6 +9251,7 @@ const translations = {
     jackets: "Куртки",
     windbreaker: "Ветровки",
     pufferjacket: "Пуховик",
+    lightweightjacket: "Легкая куртка",
     // Категории женские
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9346,6 +9386,7 @@ const translations = {
     jackets: "Jackets",
     windbreaker: "Windbreaker",
     pufferjacket: "Puffer jacket",
+    lightweightjacket: "Lightweight jacket",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
@@ -9480,6 +9521,7 @@ const translations = {
     jackets: "Куртки",
     windbreaker: "Вітровка",
     pufferjacket: "Пуховик",
+    lightweightjacket: "Легка куртка",
     // Categories women's
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9613,6 +9655,7 @@ const translations = {
     jackets: "Jacken",
     windbreaker: "Windjacke",
     pufferjacket: "Daunenjacke",
+    lightweightjacket: "Leichte Jacke",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
