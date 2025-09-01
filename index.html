@@ -1671,6 +1671,87 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 1329435252802,
+      name: "STONE ISLAND GARMENT DYED CRINKLE REPS NY DOWN JACKET",
+      description: "Теплый шерстяной свитер",
+      price: 310,
+      brand: "Stone Island",
+      stock: 6,
+      category: "jackets",
+      subcategory: "blouson",
+      colors: ["orange", "black", "khaki"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "orange": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756726185/photo_2025-09-01_13-29-25_kltvtf.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756726183/photo_2025-09-01_13-29-27_ykyaxs.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756726182/photo_2025-09-01_13-29-31_oj5l0o.jpg"],
+        "khaki": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756726183/photo_2025-09-01_13-29-30_lki9nr.jpg"],
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Блузон Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Материал: 100% полиамид (нейлон репс) с внутренним смолистым покрытием для защиты от ветра и лёгкого дождя. Наполнитель: высококачественный пух, устойчивый к окрашиванию."
+        },
+        en: {
+          name: "Stone Island Blouson",
+          description: "Warm wool sweater",
+          fullDescription: "Fabric: 100% polyamide (nylon reps) with resin coating on the inside for wind resistance and light rain protection. Padding: finest down, optimized for garment dyeing."
+        },
+        uk: {
+          name: "Блузон Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Матеріал: 100% поліамід (нейлон репс) з внутрішнім смоляним покриттям для захисту від вітру та легкого дощу. Наповнювач: найкращий пух, адаптований до фарбування виробу."
+        },
+        de: {
+          name: "Stone Island Blouson",
+          description: "Warmer Wollpullover",
+          fullDescription: "Material: 100 % Polyamid (Nylon Reps) mit Harzbeschichtung auf der Innenseite für Windschutz und leichten Regenschutz. Füllung: hochwertigste Daunen, färbungsoptimiert."
+        }
+      }
+    },
+    {
+      id: 132943252802,
+      name: "STONE ISLAND GARMENT DYED CRINKLE REPS NY DOWN JACKET",
+      description: "Теплый шерстяной свитер",
+      price: 350,
+      brand: "Stone Island",
+      stock: 6,
+      category: "jackets",
+      subcategory: "pufferjacket",
+      colors: ["yellow", "green", "white", "black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "yellow": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756725290/photo_2025-09-01_13-14-24_wnxkjy.jpg"],
+        "green": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756725288/photo_2025-09-01_13-14-26_a4mrsw.jpg"],
+        "white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756725287/photo_2025-09-01_13-14-29_ktwdl1.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1756725287/photo_2025-09-01_13-14-31_hn3c5y.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1756725287/photo_2025-09-01_13-14-33_gpnxps.jpg"],
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Пуховик Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Состав: Внешний материал: 100% полиамид с водоотталкивающим покрытием. Подкладка: 100% полиамид. Утеплитель: 90% пух, 10% перо."
+        },
+        en: {
+          name: "Stone Island Puffer jacket",
+          description: "Warm wool sweater",
+          fullDescription: "Material: Outer: 100% polyamide with anti-drop finish. Lining: 100% polyamide. Padding: 90% down, 10% feather."
+        },
+        uk: {
+          name: "Пуховик Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Склад: Зовнішній матеріал: 100% поліамід з водовідштовхувальним покриттям. Підкладка: 100% поліамід. Наповнювач: 90% пух, 10% перо."
+        },
+        de: {
+          name: "Stone Island Daunenjacke",
+          description: "Warmer Wollpullover",
+          fullDescription: "Composition: Außenmaterial: 100 % Polyamid mit wasserabweisender Beschichtung. Futter: 100 % Polyamid. Füllung: 90 % Daunen, 10 % Federn."
+        }
+      }
+    },
+    {
       id: 132920942802,
       name: "STONE ISLAND LIGHTWEIGHT ZIP JACKET",
       description: "Теплый шерстяной свитер",
@@ -9110,7 +9191,7 @@ const filterConfig = {
     brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
-      jackets: ["windbreaker", "pufferjacket", "lightweightjacket"],
+      jackets: ["windbreaker", "pufferjacket", "lightweightjacket", "blouson"],
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
       pants: ["trousers", "jeans", "old_money", "classic", "slim_fit", "cargo", "chinos"],
@@ -9252,6 +9333,7 @@ const translations = {
     windbreaker: "Ветровки",
     pufferjacket: "Пуховик",
     lightweightjacket: "Легкая куртка",
+    blouson: "Блузон",
     // Категории женские
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9387,6 +9469,7 @@ const translations = {
     windbreaker: "Windbreaker",
     pufferjacket: "Puffer jacket",
     lightweightjacket: "Lightweight jacket",
+    blouson: "Blouson",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
@@ -9522,6 +9605,7 @@ const translations = {
     windbreaker: "Вітровка",
     pufferjacket: "Пуховик",
     lightweightjacket: "Легка куртка",
+    blouson: "Блузон",
     // Categories women's
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9656,6 +9740,7 @@ const translations = {
     windbreaker: "Windjacke",
     pufferjacket: "Daunenjacke",
     lightweightjacket: "Leichte Jacke",
+    blouson: "Blouson",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
