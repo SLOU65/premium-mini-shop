@@ -1671,6 +1671,45 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
+      id: 139469304383,
+      name: "STONE ISLAND COTTON GABARDINE UTILITY FIELD JACKET",
+      description: "Теплый шерстяной свитер",
+      price: 160,
+      brand: "Stone Island",
+      stock: 6,
+      category: "jackets",
+      subcategory: "technicaljacket",
+      colors: ["white", "blue"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "white": ["https://res.cloudinary.com/dybccapwu/image/upload/v1757251525/photo_2025-09-07_15-25-10_xbkgy0.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1757251525/photo_2025-09-07_15-25-16_epahea.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1757251525/photo_2025-09-07_15-25-14_ikfhdl.jpg"],
+        "blue": ["https://res.cloudinary.com/dybccapwu/image/upload/v1757251525/photo_2025-09-07_15-25-12_k3kib1.jpg"], 
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Куртка Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Состав: 100% хлопок (габардин); подкладка — 100% полиамид."
+        },
+        en: {
+          name: "Stone Island Jacket",
+          description: "Warm wool sweater",
+          fullDescription: "Composition: 100% cotton (gabardine); lining — 100% polyamide."
+        },
+        uk: {
+          name: "Куртка Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Склад: 100% бавовна (габардин); підкладка — 100% поліамід."
+        },
+        de: {
+          name: "Stone Island Jacke",
+          description: "Warmer Wollpullover",
+          fullDescription: "Zusammensetzung: 100 % Baumwolle (Gabardine); Futter — 100 % Polyamid."
+        }
+      }
+    },
+    {
       id: 13944246583,
       name: "STONE ISLAND MULTI-ZIP SHELL JACKET",
       description: "Теплый шерстяной свитер",
@@ -1729,7 +1768,7 @@ const products = {
       fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
       translations: {
         ru: {
-          name: " Куртка Stone Island",
+          name: "Куртка Stone Island",
           description: "Теплый шерстяной свитер",
           fullDescription: "Состав: Внешний материал: 100% полиамид. Подкладка: 100% полиэстер."
         },
@@ -9587,7 +9626,7 @@ const filterConfig = {
     brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Stone Island x Supreme", "Stone Island x Nike", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
-      jackets: ["windbreaker", "pufferjacket", "lightweightjacket", "blouson", "gilet"],
+      jackets: ["windbreaker", "pufferjacket", "lightweightjacket", "blouson", "gilet", "technicaljacket"],
       tshirts: ["tshirt", "oversize", "shirt", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
       pants: ["trousers", "jeans", "old_money", "classic", "slim_fit", "cargo", "chinos"],
@@ -9731,6 +9770,7 @@ const translations = {
     lightweightjacket: "Легкая куртка",
     blouson: "Блузон",
     gilet: "Жилетка",
+    technicaljacket: "Техническая куртка",
     // Категории женские
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -9868,6 +9908,7 @@ const translations = {
     lightweightjacket: "Lightweight jacket",
     blouson: "Blouson",
     gilet: "Gilet",
+    technicaljacket: "Technical jacket",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
@@ -10005,6 +10046,7 @@ const translations = {
     lightweightjacket: "Легка куртка",
     blouson: "Блузон",
     gilet: "Жилетка",
+    technicaljacket: "Технічна куртка",
     // Categories women's
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -10141,6 +10183,7 @@ const translations = {
     lightweightjacket: "Leichte Jacke",
     blouson: "Blouson",
     gilet: "Weste",
+    technicaljacket: "Technische Jacke",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
