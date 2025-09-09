@@ -1671,7 +1671,46 @@ let scrollPosition = 0; // Переменная для сохранения по
 const products = {
   mens: [
     {
-      id: 132957442432,
+      id: 198759207432,
+      name: "STONE ISLAND GARMENT DYED NYLON HOODED FIELD JACKET",
+      description: "Теплый шерстяной свитер",
+      price: 170,
+      brand: "Stone Island",
+      stock: 6,
+      category: "jackets",
+      subcategory: "parka",
+      colors: ["orange", "black"],
+      sizes: ["S", "M", "L", "XL"],
+      imagesByColor: {
+        "orange": ["https://res.cloudinary.com/dybccapwu/image/upload/v1757430545/photo_2025-09-09_17-08-52_uhpvkr.jpg", "https://res.cloudinary.com/dybccapwu/image/upload/v1757430544/photo_2025-09-09_17-08-56_jzmuog.jpg"],
+        "black": ["https://res.cloudinary.com/dybccapwu/image/upload/v1757430544/photo_2025-09-09_17-08-54_fbzv1e.jpg"], 
+      },
+      fullDescription: "Классический шерстяной свитер с V-образным вырезом. Отличное качество и комфорт.",
+      translations: {
+        ru: {
+          name: "Парка Stone Island",
+          description: "Теплый шерстяной свитер",
+          fullDescription: "Состав: 100% полиамид (нейлон)."
+        },
+        en: {
+          name: "Stone Island Parka",
+          description: "Warm wool sweater",
+          fullDescription: "Composition: 100% polyamide (nylon)."
+        },
+        uk: {
+          name: "Парка Stone Island",
+          description: "Теплий вовняний светр",
+          fullDescription: "Склад: 100% поліамід (нейлон)."
+        },
+        de: {
+          name: "Stone Island Parka",
+          description: "Warmer Wollpullover",
+          fullDescription: "Zusammensetzung: 100 % Polyamid (Nylon)."
+        }
+      }
+    },
+    {
+      id: 13295824743732,
       name: "STONE ISLAND CORDUROY GARMENT DYED OVERSHIRT",
       description: "Теплый шерстяной свитер",
       price: 170,
@@ -1712,7 +1751,7 @@ const products = {
       }
     },
     {
-      id: 13298032432,
+      id: 19538834232,
       name: "STONE ISLAND CORDUROY SHIRT JACKET",
       description: "Теплый шерстяной свитер",
       price: 165,
@@ -1751,7 +1790,7 @@ const products = {
       }
     },
     {
-      id: 995016221,
+      id: 9950156221,
       name: "STONE ISLAND COTTON STRETCH TAPERED CARGO PANTS",
       description: "Высококачественная мужская футболка из премиальных материалов",
       price: 95,
@@ -9825,7 +9864,7 @@ const filterConfig = {
     brands: ["Sp5der", "Represent", "Essentials", "Gallery Dept", "Stone Island", "Stone Island x Supreme", "Stone Island x Nike", "Nike", "Adidas", "Jordan", "Supreme", "Levi's", "Puma", "Calvin Klein", "Tommy Hilfiger", "Hugo Boss", "Stone Island", "Off-White", "Balenciaga", "Gucci", "Louis Vuitton"],
     colors: ["black", "white", "gray", "blue", "red", "green", "yellow", "brown", "beige", "navy", "orange", "purple", "pink"],
     categories: {
-      jackets: ["windbreaker", "pufferjacket", "lightweightjacket", "blouson", "gilet", "technicaljacket", "shirtjacket"],
+      jackets: ["windbreaker", "pufferjacket", "lightweightjacket", "blouson", "gilet", "technicaljacket", "shirtjacket", "parka"],
       shirts: ["shirt"],
       tshirts: ["tshirt", "oversize", "polo", "jersey", "tank_top"],
       hoodies: ["zip_hoodie", "hoodie", "sweatshirt", "sweater", "cardigan"],
@@ -9973,6 +10012,7 @@ const translations = {
     technicaljacket: "Техническая куртка",
     shirtjacket: "Куртка-рубашка",
     shirts: "Рубашки",
+    parka: "Парка",
     // Категории женские
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -10113,6 +10153,7 @@ const translations = {
     technicaljacket: "Technical jacket",
     shirtjacket: "Shirt jacket",
     shirts: "Shirts",
+    parka: "Parka",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
@@ -10253,6 +10294,7 @@ const translations = {
     technicaljacket: "Технічна куртка",
     shirtjacket: "Куртка-сорочка",
     shirts: "Сорочки",
+    parka: "Парка",
     // Categories women's
     top: "Топ",
     crop_top: "Кроп-топ",
@@ -10392,6 +10434,7 @@ const translations = {
     technicaljacket: "Technische Jacke",
     shirtjacket: "Hemdjacke",
     shirts: "Hemden",
+    parka: "Parka",
     // Categories women's
     top: "Top",
     crop_top: "Crop Top",
