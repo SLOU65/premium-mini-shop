@@ -11707,49 +11707,63 @@ function checkout() {
     groupedItems[category].push(item);
   });
   
-  // Формирование сообщения
-  let message = `*Новый заказ из The Continental*\n\n`;
-  message += `📅 Дата: ${date}, ${time}\n`;
-  message += `🌐 Язык: ${currentLanguage.toUpperCase()}\n`;
-  message += `📊 Всего позиций: ${totalItems}\n\n`;
-  message += `📦 *Детали заказа:*\n\n`;
-  
-  // Добавление товаров без группировки по категориям
-  let itemCounter = 1;
-  Object.entries(groupedItems).forEach(([category, items]) => {
-    items.forEach((item) => {
-      const t = translations[currentLanguage];
-      const colorName = t[item.color] || item.color;
-      message += `${itemCounter}. ${item.name}\n`;
-      message += `   Размер: ${item.size}\n`;
-      message += `   Цвет: ${colorName}\n`;
-      message += `   Количество: ${item.quantity}\n`;
-      message += `   Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
-      itemCounter++;
-    });
-  });
-  
-  message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
-  
-  // Отправка сообщения через Telegram
-  const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
-  
-  if (window.Telegram && window.Telegram.WebApp) {
-    // Если в Telegram Web App, используем API
-    window.Telegram.WebApp.openTelegramLink(telegramUrl);
-  } else {
-    // Иначе открываем ссылку
-    window.open(telegramUrl, '_blank');
-  }
-  
-  // Очистить корзину после оформления заказа
-  cart = [];
-  updateCartCount();
-  updateCartDisplay();
-  saveCartToStorage();
-  
-  alert('Заказ отправлен менеджеру!');
+  function generateOrderId() {
+  return 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase(); // Пример: ORD-A1B2C3D4
 }
+
+// Генерация ID заказа
+const orderId = generateOrderId();
+
+// Формирование сообщения
+let message = `*Новый заказ из The Continental*\n\n`;
+message += `🧾 Номер заказа: ${orderId}\n`;
+message += `📅 Дата: ${date}, ${time}\n`;
+message += `🌐 Язык: ${currentLanguage.toUpperCase()}\n`;
+message += `📊 Всего позиций: ${totalItems}\n\n`;
+message += `📦 *Детали заказа:*\n\n`;
+
+let itemCounter = 1;
+Object.entries(groupedItems).forEach(([category, items]) => {
+  items.forEach((item) => {
+    const t = translations[currentLanguage];
+    const colorName = t[item.color] || item.color;
+    message += `${itemCounter}. ${item.name}\n`;
+    message += `   Размер: ${item.size}\n`;
+    message += `   Цвет: ${colorName}\n`;
+    message += `   Количество: ${item.quantity}\n`;
+    message += `   Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
+    itemCounter++;
+  });
+});
+
+message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
+
+// Отправка сообщения менеджеру
+const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
+if (window.Telegram && window.Telegram.WebApp) {
+  window.Telegram.WebApp.openTelegramLink(telegramUrl);
+} else {
+  window.open(telegramUrl, '_blank');
+}
+
+// Отправка данных заказа в бот
+if (window.Telegram && window.Telegram.WebApp) {
+  const payload = {
+    order_id: orderId,
+    items: groupedItems,
+    total: totalPrice
+  };
+  window.Telegram.WebApp.sendData(JSON.stringify(payload));
+}
+
+// Очистка корзины
+cart = [];
+updateCartCount();
+updateCartDisplay();
+saveCartToStorage();
+
+alert('Заказ отправлен менеджеру!');
+
 
 function getCategoryName(item) {
   const t = translations[currentLanguage];
