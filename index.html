@@ -11692,16 +11692,10 @@ function checkout() {
   }
 
   const orderId = 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
-  const now = new Date();
-  const date = now.toLocaleDateString(currentLanguage || 'ru-RU');
-  const time = now.toLocaleTimeString(currentLanguage || 'ru-RU');
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const payload = {
     order_id: orderId,
-    date: date,
-    time: time,
-    language: currentLanguage || 'ru',
     items: cart.map(item => ({
       name: item.name,
       size: item.size,
@@ -11716,8 +11710,6 @@ function checkout() {
 
   let message = `*Новый заказ из The Continental*\n\n`;
   message += `🧾 Номер заказа: ${orderId}\n`;
-  message += `📅 Дата: ${date}, ${time}\n`;
-  message += `🌐 Язык: ${currentLanguage || 'ru'}\n`;
   message += `📊 Всего позиций: ${cart.length}\n\n`;
 
   cart.forEach((item, index) => {
@@ -11728,17 +11720,16 @@ function checkout() {
     message += `   Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
   });
 
-  message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
+    message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
 
   const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
 
-  if (window.Telegram && window.Telegram.WebApp) {
-    Telegram.WebApp.openTelegramLink(telegramUrl);
-  } else {
-    window.open(telegramUrl, '_blank');
-  }
+if (window.Telegram && window.Telegram.WebApp) {
+  Telegram.WebApp.sendData(JSON.stringify(payload));
+  Telegram.WebApp.openTelegramLink(telegramUrl);
+} else {
+  window.open(telegramUrl, '_blank');
 }
-
 
 
 
