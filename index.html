@@ -11692,94 +11692,65 @@ function changeQuantity(index, change) {
 }
 
 function checkout() {
-  if (cart.length === 0) {
-    alert('Корзина пуста!');
-    return;
-  }
-  
-  const now = new Date();
-  const date = now.toLocaleDateString('ru-RU');
-  const time = now.toLocaleTimeString('ru-RU');
-  
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  
-  // Группировка товаров по категориям
-  const groupedItems = {};
-  cart.forEach(item => {
-    const category = getCategoryName(item);
-    if (!groupedItems[category]) {
-      groupedItems[category] = [];
-    }
-    groupedItems[category].push(item);
-  });
-  
-  function generateOrderId() {
-  return 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
-}
-
-function submitOrder() {
-  if (cart.length === 0) {
+  if (!cart || cart.length === 0) {
     Telegram.WebApp.showAlert('❌ Корзина пуста!');
     return;
   }
 
-  const now = new Date();
-  const date = now.toLocaleDateString('ru-RU');
-  const time = now.toLocaleTimeString('ru-RU');
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const orderId = 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const orderId = generateOrderId();
+
+  const payload = {
+    order_id: orderId,
+    items: cart.map(item => ({
+      name: item.name,
+      size: item.size,
+      color: item.color,
+      quantity: item.quantity,
+      price: item.price
+    })),
+    total: totalPrice
+  };
+
+  Telegram.WebApp.sendData(JSON.stringify(payload));
 
   let message = `*Новый заказ из The Continental*\n\n`;
   message += `🧾 Номер заказа: ${orderId}\n`;
-  message += `📅 Дата: ${date}, ${time}\n`;
-  message += `🌐 Язык: ${currentLanguage.toUpperCase()}\n`;
-  message += `📊 Всего позиций: ${totalItems}\n\n`;
-  message += `📦 *Детали заказа:*\n\n`;
+  message += `📊 Всего позиций: ${cart.length}\n\n`;
 
   cart.forEach((item, index) => {
-    const t = translations[currentLanguage];
-    const colorName = t[item.color] || item.color;
     message += `${index + 1}. ${item.name}\n`;
     message += `   Размер: ${item.size}\n`;
-    message += `   Цвет: ${colorName}\n`;
-    message += `   Количество: ${item.quantity}\n`;
+    message += `   Цвет: ${item.color}\n`;
+    message += `   Кол-во: ${item.quantity}\n`;
     message += `   Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
   });
 
   message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
 
-  // Отправка данных в Telegram-бот
+  Telegram.WebApp.openTelegramLink(`https://t.me/a6tribunal?text=${encodeURIComponent(message)}`);
+
+  
   if (window.Telegram && window.Telegram.WebApp) {
-    const payload = {
-      order_id: orderId,
-      items: cart.map(item => ({
-        name: item.name,
-        size: item.size,
-        color: item.color,
-        quantity: item.quantity,
-        price: item.price
-      })),
-      total: totalPrice
-    };
-    window.Telegram.WebApp.sendData(JSON.stringify(payload));
-
-    const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
-    setTimeout(() => {
-      window.Telegram.WebApp.openTelegramLink(telegramUrl);
-    }, 500);
-
-    Telegram.WebApp.showAlert('✅ Заказ отправлен менеджеру!');
+    // Если в Telegram Web App, используем API
+    window.Telegram.WebApp.openTelegramLink(telegramUrl);
+  } else {
+    // Иначе открываем ссылку
+    window.open(telegramUrl, '_blank');
   }
-
+  
+  // Очистить корзину после оформления заказа
   cart = [];
   updateCartCount();
   updateCartDisplay();
   saveCartToStorage();
+  
+  alert('Заказ отправлен менеджеру!');
 }
 
-  
+function getCategoryName(item) {
+  const t = translations[currentLanguage];
+
   // Определяем категорию на основе товара
   if (item.name.toLowerCase().includes('футболка') || item.name.toLowerCase().includes('t-shirt') || item.name.toLowerCase().includes('рубашка')) {
     return t.tshirts || 'Футболки';
