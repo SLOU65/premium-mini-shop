@@ -1522,9 +1522,7 @@
     </div>
 
     <!-- ✅ Вот здесь меняем -->
-    <button class="checkout-btn" onclick="submitOrder()" data-key="checkout_btn">
-      Оформить заказ
-    </button>
+    <button class="checkout-btn" id="checkout_btn" onclick="checkout()">Оформить заказ</button>
   </div>
 </div>
 
@@ -10703,48 +10701,44 @@ function updateLanguage() {
   }
 }
 
-// ВСТАВЬТЕ ЭТОТ КОД ВМЕСТО СТАРОГО:
 function updateProductDetailTranslations() {
   if (!currentProduct) return;
   
   const t = translations[currentLanguage];
   
-  // Получаем переведенные названия и описания
+  // Обновить название и описание товара с переводами
   const productName = getProductTranslation(currentProduct, 'name');
   const productDescription = getProductTranslation(currentProduct, 'fullDescription');
   
-  // Обновляем ТОЛЬКО текстовые элементы
   document.getElementById('product-detail-header-title').textContent = productName;
   document.getElementById('product-detail-title').textContent = productName;
   document.getElementById('product-detail-description').textContent = productDescription;
   
-  // Обновляем подписи к опциям
-  document.querySelector('label[data-key="modal_size_label"]').textContent = t.modal_size_label;
-  document.querySelector('label[data-key="modal_color_label"]').textContent = t.modal_color_label;
-  document.querySelector('label[data-key="modal_quantity_label"]').textContent = t.modal_quantity_label;
-  
-  // Находим кнопки по их уникальным классам или data-атрибутам
-  const backButton = document.querySelector('.product-detail-actions .secondary');
-  if (backButton) {
-    backButton.textContent = t.modal_cancel_btn || 'Назад';
+  // Обновить основное изображение с переводом
+  const mainImage = document.getElementById('product-main-image');
+  if (!currentProduct.images || !currentProduct.images[0] || currentProduct.images[0] === 'new_product.jpg') {
+    mainImage.textContent = `Фото 1 - ${productName}`;
   }
   
-  const addToCartButton = document.querySelector('.product-detail-actions .primary');
-  if (addToCartButton) {
-    addToCartButton.textContent = t.modal_add_btn || 'Добавить в корзину';
+  // Обновить миниатюры с переводами
+  const thumbnailGallery = document.getElementById('product-thumbnail-gallery');
+  if (thumbnailGallery) {
+    const thumbnails = thumbnailGallery.querySelectorAll('.product-thumbnail');
+    thumbnails.forEach((thumbnail, index) => {
+      if (!currentProduct.images || !currentProduct.images[index] || currentProduct.images[index] === 'new_product.jpg') {
+        thumbnail.textContent = `${index + 1}`;
+      }
+    });
   }
-
-  // Обновляем переводы для выпадающего списка цветов, не меняя выбранное значение
+  
+  // Обновить опции цветов с переводами
   const colorSelect = document.getElementById('product-detail-color');
-  const selectedColorValue = colorSelect.value; // Сохраняем текущий выбор
   if (colorSelect && currentProduct.colors) {
-    colorSelect.innerHTML = `<option value="">${t.modal_color_label || 'Цвет'}</option>` + currentProduct.colors.map(color => `
+    colorSelect.innerHTML = currentProduct.colors.map(color => `
       <option value="${color}">${t[color] || color}</option>
     `).join('');
-    colorSelect.value = selectedColorValue; // Восстанавливаем выбор
   }
 }
-
 
 function toggleTheme() {
   currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -11033,8 +11027,8 @@ function loadProducts() {
       ? product.imagesByColor[firstColor] 
       : ['https://via.placeholder.com/400x400'];
     
-    // Карусель отключена по требованию пользователя
-    const hasCarousel = false;
+    // Определяем, нужна ли карусель (более 1 изображения)
+    const hasCarousel = productImages.length > 1;
     
     return `
     <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
@@ -11726,18 +11720,20 @@ function checkout() {
     message += `   Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
   });
 
-  message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
+    message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
 
-  Telegram.WebApp.openTelegramLink(`https://t.me/a6tribunal?text=${encodeURIComponent(message)}`);
+  const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
 
-  
-  if (window.Telegram && window.Telegram.WebApp) {
-    // Если в Telegram Web App, используем API
-    window.Telegram.WebApp.openTelegramLink(telegramUrl);
-  } else {
-    // Иначе открываем ссылку
-    window.open(telegramUrl, '_blank');
-  }
+if (window.Telegram && window.Telegram.WebApp) {
+  Telegram.WebApp.sendData(JSON.stringify(payload));
+  Telegram.WebApp.openTelegramLink(telegramUrl);
+} else {
+  window.open(telegramUrl, '_blank');
+}
+
+
+
+
   
   // Очистить корзину после оформления заказа
   cart = [];
@@ -11748,9 +11744,16 @@ function checkout() {
   alert('Заказ отправлен менеджеру!');
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("checkout_btn");
+  if (btn) {
+    btn.addEventListener("click", checkout);
+  }
+});
+
 function getCategoryName(item) {
   const t = translations[currentLanguage];
-
+  
   // Определяем категорию на основе товара
   if (item.name.toLowerCase().includes('футболка') || item.name.toLowerCase().includes('t-shirt') || item.name.toLowerCase().includes('рубашка')) {
     return t.tshirts || 'Футболки';
@@ -12038,6 +12041,12 @@ window.addEventListener("DOMContentLoaded", () => {
     Telegram.WebApp.expand();
   }
 });
+
+
+function generateOrderId() {
+  return 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+}
+
 
 </script>
 
