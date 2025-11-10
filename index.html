@@ -1508,19 +1508,26 @@
     </div>
 
     <!-- Корзина -->
-    <div class="screen" id="cart">
-      <div class="header">
-        <button class="back" onclick="backToHome()">←</button>
-        <h1 data-key="cart_title">Корзина</h1>
-      </div>
-      <div id="cart-content"></div>
-      <div class="cart-total" id="cart-total" style="display: none;">
-        <div style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">
-          <span data-key="cart_total_label">Итого:</span> <span id="total-price">€0.00</span>
-        </div>
-        <button class="checkout-btn" onclick="checkout()" data-key="checkout_btn">Оформить заказ</button>
-      </div>
+<div class="screen" id="cart">
+  <div class="header">
+    <button class="back" onclick="backToHome()">←</button>
+    <h1 data-key="cart_title">Корзина</h1>
+  </div>
+
+  <div id="cart-content"></div>
+
+  <div class="cart-total" id="cart-total" style="display: none;">
+    <div style="font-size: 18px; font-weight: 600; margin-bottom: 15px;">
+      <span data-key="cart_total_label">Итого:</span> <span id="total-price">€0.00</span>
     </div>
+
+    <!-- ✅ Вот здесь меняем -->
+    <button class="checkout-btn" onclick="submitOrder()" data-key="checkout_btn">
+      Оформить заказ
+    </button>
+  </div>
+</div>
+
 
     <!-- Условия работы -->
     <div class="screen" id="terms">
