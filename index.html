@@ -11712,11 +11712,17 @@ function checkout() {
 }
 
 function submitOrder() {
-  const orderId = generateOrderId();
-  const date = new Date().toLocaleDateString();
-  const time = new Date().toLocaleTimeString();
-  const totalItems = cart.length;
+  if (cart.length === 0) {
+    Telegram.WebApp.showAlert('❌ Корзина пуста!');
+    return;
+  }
+
+  const now = new Date();
+  const date = now.toLocaleDateString('ru-RU');
+  const time = now.toLocaleTimeString('ru-RU');
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const orderId = generateOrderId();
 
   let message = `*Новый заказ из The Continental*\n\n`;
   message += `🧾 Номер заказа: ${orderId}\n`;
@@ -11752,7 +11758,6 @@ function submitOrder() {
     };
     window.Telegram.WebApp.sendData(JSON.stringify(payload));
 
-    // Открытие ссылки на менеджера
     const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
     setTimeout(() => {
       window.Telegram.WebApp.openTelegramLink(telegramUrl);
@@ -11761,17 +11766,12 @@ function submitOrder() {
     Telegram.WebApp.showAlert('✅ Заказ отправлен менеджеру!');
   }
 
-  // Очистка корзины
   cart = [];
   updateCartCount();
   updateCartDisplay();
   saveCartToStorage();
 }
 
-
-
-function getCategoryName(item) {
-  const t = translations[currentLanguage];
   
   // Определяем категорию на основе товара
   if (item.name.toLowerCase().includes('футболка') || item.name.toLowerCase().includes('t-shirt') || item.name.toLowerCase().includes('рубашка')) {
