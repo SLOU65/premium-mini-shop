@@ -10,6 +10,10 @@ function calculateTotal(cart) {
   return cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
 }
 
+function calculateTotal(cart) {
+  return cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+}
+
 function checkout() {
   const name = document.getElementById("fullName").value;
   const address = document.getElementById("fullName").value;
