@@ -1,3 +1,14 @@
+// Корзина — можно заменить на динамическую
+const cart = [
+  { name: "Utharaa Stone island", price: 70.00, quantity: 2 }
+];
+
+// Подсчёт суммы
+function calculateTotal(cart) {
+  return cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+}
+
+// Основная функция оформления заказа
 async function checkout() {
   const name = document.getElementById("fullName").value;
   const address = document.getElementById("address").value;
@@ -17,16 +28,18 @@ async function checkout() {
     language: Telegram.WebApp.initDataUnsafe.user?.language_code || "ru"
   };
 
-  Telegram.WebApp.sendData(JSON.stringify(order)); // отправка в бот
+  // Отправка заказа в Telegram-бот
+  Telegram.WebApp.sendData(JSON.stringify(order));
 
+  // Создание счёта через CryptoBot API
   const response = await fetch("https://pay.crypt.bot/api/createInvoice", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Crypto-Pay-API-Token": "485720:AATmDRCOrE8DlBF9ZyLPdftKlBugDIpZtrt"
+      "Crypto-Pay-API-Token": "ТВОЙ_API_ТОКЕН" // ← замени на свой токен
     },
     body: JSON.stringify({
-      asset: "USDT",
+      asset: "USDT", // можно BTC, TON, ETH
       amount: order.total,
       description: `Оплата заказа ${order.order_id}`,
       payload: JSON.stringify(order),
@@ -39,6 +52,6 @@ async function checkout() {
   if (data.ok) {
     window.open(data.result.bot_invoice_url, "_blank");
   } else {
-    console.error("Ошибка создания счета:", data.error);
+    console.error("Ошибка создания счёта:", data.error);
   }
 }
