@@ -11,10 +11,10 @@ function calculateTotal(cart) {
 }
 
 function checkout() {
-  const name = document.getElementById("name").value;
-  const address = document.getElementById("address").value;
-  const phone = document.getElementById("phone").value;
-  const email = document.getElementById("email").value;
+  const name = document.getElementById("fullName").value;
+  const address = document.getElementById("fullName").value;
+  const phone = document.getElementById("fullName").value;
+  const email = document.getElementById("fullName").value;
 
   const order = {
     order_id: "ORD-" + Date.now().toString(36).toUpperCase(),
