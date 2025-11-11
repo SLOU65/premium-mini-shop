@@ -1384,36 +1384,23 @@
 </style>
 </head>
 
-<div id="delivery-modal" class="modal">
+<!-- часть модалки доставки -->
+<div id="deliveryModal" class="modal">
   <div class="modal-content">
-    <div class="modal-title">Доставка</div>
-
-    <div class="modal-group">
-      <label class="modal-label">ФИО</label>
-      <input type="text" class="modal-input" id="fullName" />
-    </div>
-
-    <div class="modal-group">
-      <label class="modal-label">Адрес</label>
-      <input type="text" class="modal-input" id="address" />
-    </div>
-
-    <div class="modal-group">
-      <label class="modal-label">Телефон</label>
-      <input type="text" class="modal-input" id="phone" />
-    </div>
-
-    <div class="modal-group">
-      <label class="modal-label">Email</label>
-      <input type="email" class="modal-input" id="email" />
-    </div>
-
-    <div class="modal-buttons">
-      <button class="modal-btn cancel" onclick="closeDeliveryModal()">Отмена</button>
-      <button class="modal-btn confirm" onclick="checkout()">Перейти к оплате</button>
+    <h3>Доставка</h3>
+    <label>ФИО <input id="fullName" type="text" /></label>
+    <label>Адрес <input id="address" type="text" /></label>
+    <label>Телефон <input id="phone" type="tel" /></label>
+    <label>Email <input id="email" type="email" /></label>
+    <div class="modal-actions">
+      <button onclick="closeDeliveryModal()">Отмена</button>
+      <button onclick="checkout()">Оформить заказ</button>
     </div>
   </div>
 </div>
+<!-- подключение скрипта внизу -->
+<script src="script.js"></script>
+
 
 
 <body data-theme="dark">
