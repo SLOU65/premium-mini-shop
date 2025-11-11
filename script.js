@@ -23,7 +23,7 @@ async function checkout() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Crypto-Pay-API-Token": "YOUR_API_TOKEN"
+      "Crypto-Pay-API-Token": "485720:AATmDRCOrE8DlBF9ZyLPdftKlBugDIpZtrt"
     },
     body: JSON.stringify({
       asset: "USDT",
