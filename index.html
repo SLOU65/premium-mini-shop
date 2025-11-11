@@ -1384,6 +1384,38 @@
 </style>
 </head>
 
+<div id="delivery-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-title">Доставка</div>
+
+    <div class="modal-group">
+      <label class="modal-label">ФИО</label>
+      <input type="text" class="modal-input" id="fullName" />
+    </div>
+
+    <div class="modal-group">
+      <label class="modal-label">Адрес</label>
+      <input type="text" class="modal-input" id="address" />
+    </div>
+
+    <div class="modal-group">
+      <label class="modal-label">Телефон</label>
+      <input type="text" class="modal-input" id="phone" />
+    </div>
+
+    <div class="modal-group">
+      <label class="modal-label">Email</label>
+      <input type="email" class="modal-input" id="email" />
+    </div>
+
+    <div class="modal-buttons">
+      <button class="modal-btn cancel" onclick="closeDeliveryModal()">Отмена</button>
+      <button class="modal-btn confirm" onclick="startCryptoBotPayment()">Перейти к оплате</button>
+    </div>
+  </div>
+</div>
+
+
 <body data-theme="dark">
   <!-- Верхняя панель -->
   <div class="top-bar">
@@ -1522,7 +1554,7 @@
     </div>
 
     <!-- ✅ Вот здесь меняем -->
-    <button class="checkout-btn" id="checkout_btn" onclick="checkout()">Оформить заказ</button>
+    <button class="checkout-btn" onclick="openDeliveryModal()">Оформить заказ</button>
   </div>
 </div>
 
@@ -12052,6 +12084,40 @@ function generateOrderId() {
   return 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
 }
 
+function openDeliveryModal() {
+  document.getElementById("delivery-modal").classList.add("show");
+}
+
+function closeDeliveryModal() {
+  document.getElementById("delivery-modal").classList.remove("show");
+}
+
+function startCryptoBotPayment() {
+  const fullName = document.getElementById("fullName").value;
+  const address = document.getElementById("address").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+
+  const order = {
+    fullName,
+    address,
+    phone,
+    email,
+    cart: getCartItems(), // твоя функция
+    total: getCartTotal(),
+    orderId: generateOrderId()
+  };
+
+  Telegram.WebApp.sendData(JSON.stringify(order)); // отправка в бот
+
+  window.open("https://t.me/CryptoBot?start=485720:AATmDRCOrE8DlBF9ZyLPdftKlBugDIpZtrt", "_blank"); // переход на оплату
+
+  closeDeliveryModal();
+}
+
+function generateOrderId() {
+  return "ORD-" + Date.now().toString(36).toUpperCase();
+}
 
 </script>
 
