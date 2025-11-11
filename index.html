@@ -1410,7 +1410,7 @@
 
     <div class="modal-buttons">
       <button class="modal-btn cancel" onclick="closeDeliveryModal()">Отмена</button>
-      <button class="modal-btn confirm" onclick="startCryptoBotPayment()">Перейти к оплате</button>
+      <button class="modal-btn confirm" onclick="checkout()">Перейти к оплате</button>
     </div>
   </div>
 </div>
@@ -11718,68 +11718,30 @@ function changeQuantity(index, change) {
 }
 
 function checkout() {
-  if (!cart || cart.length === 0) {
-    Telegram.WebApp.showAlert('❌ Корзина пуста!');
-    return;
-  }
+  const fullName = document.getElementById("fullName").value;
+  const address = document.getElementById("address").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
 
-  const orderId = 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
-  const now = new Date();
-  const date = now.toLocaleDateString(currentLanguage || 'ru-RU');
-  const time = now.toLocaleTimeString(currentLanguage || 'ru-RU');
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  const payload = {
-    order_id: orderId,
-    date: date,
-    time: time,
-    language: currentLanguage || 'ru',
-    items: cart.map(item => ({
-      name: item.name,
-      size: item.size,
-      color: item.color,
-      quantity: item.quantity,
-      price: item.price
-    })),
-    total: totalPrice
+  const order = {
+    order_id: "ORD-" + Date.now().toString(36).toUpperCase(),
+    fullname: fullName,
+    address: address,
+    phone: phone,
+    email: email,
+    items: cart, // массив товаров
+    total: calculateTotal(cart),
+    date: new Date().toLocaleDateString(),
+    time: new Date().toLocaleTimeString(),
+    language: Telegram.WebApp.initDataUnsafe.user?.language_code || "ru"
   };
 
-  Telegram.WebApp.sendData(JSON.stringify(payload));
+  Telegram.WebApp.sendData(JSON.stringify(order)); // отправка в бот
 
-  let message = `*Новый заказ из The Continental*\n\n`;
-  message += `🧾 Номер заказа: ${orderId}\n`;
-  message += `📅 Дата: ${date}, ${time}\n`;
-  message += `🌐 Язык: ${currentLanguage || 'ru'}\n`;
-  message += `📊 Всего позиций: ${cart.length}\n\n`;
-
-  cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.name}\n`;
-    message += `   Размер: ${item.size}\n`;
-    message += `   Цвет: ${item.color}\n`;
-    message += `   Кол-во: ${item.quantity}\n`;
-    message += `   Цена: €${(item.price * item.quantity).toFixed(2)}\n\n`;
-  });
-
-  message += `💰 *Общая сумма: €${totalPrice.toFixed(2)}*`;
-
-  const telegramUrl = `https://t.me/a6tribunal?text=${encodeURIComponent(message)}`;
-
-  if (window.Telegram && window.Telegram.WebApp) {
-    Telegram.WebApp.openTelegramLink(telegramUrl);
-  } else {
-    window.open(telegramUrl, '_blank');
-  }
-
-
-  
-  // Очистить корзину после оформления заказа
-  cart = [];
-  updateCartCount();
-  updateCartDisplay();
-  saveCartToStorage();
-  
-  alert('Заказ отправлен менеджеру!');
+  window.open("https://t.me/CryptoBot?start=your_payment_token", "_blank"); // переход на оплату
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("checkout_btn");
@@ -12078,7 +12040,6 @@ window.addEventListener("DOMContentLoaded", () => {
     Telegram.WebApp.expand();
   }
 });
-
 
 function generateOrderId() {
   return 'ORD-' + Math.random().toString(36).substr(2, 8).toUpperCase();
