@@ -23,6 +23,32 @@
         transform: translateY(-10px);
       }
     }
+    
+    /* Анимация нажатия кнопки */
+    @keyframes buttonPress {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(0.95);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    /* Анимация пульсации */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+      }
+    }
 
     body {
       background-color: #000000;
@@ -139,7 +165,7 @@
     }
 
     .filters-button:active {
-      transform: translateY(0);
+      animation: buttonPress 0.3s ease;
       background: rgba(128, 128, 128, 0.3);
     }
 
@@ -290,8 +316,13 @@
     }
 
     .filter-clear-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       background: #5a6268;
+    }
+    
+    .filter-clear-btn:hover {
+      background: #5a6268;
+      transform: translateY(-1px);
     }
 
     .filter-apply-btn {
@@ -308,8 +339,13 @@
     }
 
     .filter-apply-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       background: #0056b3;
+    }
+    
+    .filter-apply-btn:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
     }
 
     .top-bar-right {
@@ -338,7 +374,7 @@
     }
 
     .theme-toggle:active, .cart-button:active {
-      transform: translateY(0);
+      animation: buttonPress 0.3s ease;
     }
 
     .cart-count {
@@ -520,8 +556,13 @@
     }
 
     .btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     /* Кнопки социальных сетей */
@@ -551,8 +592,13 @@
     }
 
     .social-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     /* Заголовки экранов */
@@ -793,8 +839,14 @@
     }
 
     .add-to-cart-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       background: #0056b3;
+    }
+    
+    .add-to-cart-btn:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
 
     /* Пагинация */
@@ -835,7 +887,12 @@
     }
 
     .pagination button:active {
-      transform: translateY(0);
+      animation: buttonPress 0.3s ease;
+    }
+    
+    .pagination button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      background: rgba(128, 128, 128, 0.3);
     }
 
     .pagination button.active {
@@ -1007,7 +1064,12 @@
     }
 
     .modal-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
+    }
+    
+    .modal-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     /* Корзина */
@@ -1050,8 +1112,14 @@
     }
 
     .checkout-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       background: #1e7e34;
+    }
+    
+    .checkout-btn:hover {
+      background: #1e7e34;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
     }
 
     .empty-state {
@@ -1127,8 +1195,13 @@
     }
 
     .contact-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .social-text {
@@ -1302,8 +1375,13 @@
     }
 
     .quantity-btn:active {
-      transform: scale(0.95);
+      animation: buttonPress 0.3s ease;
       background: #0056b3;
+    }
+    
+    .quantity-btn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
     }
 
     .quantity-display {
@@ -1342,7 +1420,12 @@
     }
 
     .product-action-btn:active {
-      transform: scale(0.98);
+      animation: buttonPress 0.3s ease;
+    }
+    
+    .product-action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     /* Админ панель для управления товарами */
@@ -1379,7 +1462,12 @@
     }
 
     .admin-btn:active {
-      transform: scale(0.95);
+      animation: buttonPress 0.3s ease;
+    }
+    
+    .admin-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     /* Модальное окно для ввода данных пользователя */
@@ -1500,7 +1588,13 @@ body[data-theme="light"] .checkout-form-input:focus {
 
 .checkout-modal-btn.cancel:active {
   background: #5a6268;
-  transform: scale(0.98);
+  animation: buttonPress 0.3s ease;
+}
+
+.checkout-modal-btn.cancel:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .checkout-modal-btn.pay {
@@ -1510,7 +1604,13 @@ body[data-theme="light"] .checkout-form-input:focus {
 
 .checkout-modal-btn.pay:active {
   background: #1e7e34;
-  transform: scale(0.98);
+  animation: buttonPress 0.3s ease;
+}
+
+.checkout-modal-btn.pay:hover {
+  background: #1e7e34;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
 }
 
 /* Модальное окно выбора способа оплаты */
@@ -1620,7 +1720,13 @@ body[data-theme="light"] .payment-method {
 
 .payment-confirm-btn:active {
   background: #0056b3;
-  transform: scale(0.98);
+  animation: buttonPress 0.3s ease;
+}
+
+.payment-confirm-btn:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
 }
 
 .payment-confirm-btn:disabled {
@@ -1721,7 +1827,13 @@ body[data-theme="light"] .order-id-display {
 
 .order-success-btn:active {
   background: #1e7e34;
-  transform: scale(0.98);
+  animation: buttonPress 0.3s ease;
+}
+
+.order-success-btn:hover {
+  background: #1e7e34;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
 }
 
 </style>
@@ -10503,7 +10615,21 @@ const translations = {
     navy: "Темно-синий",
     pink: "Розовый",
     purple: "Фиолетовый",
-    orange: "Оранжевый"
+    orange: "Оранжевый",
+    // Модальное окно checkout
+    checkout_modal_title: "Оформление заказа",
+    checkout_name_label: "ФИО *",
+    checkout_name_placeholder: "Введите ваше полное имя",
+    checkout_address_label: "Адрес доставки *",
+    checkout_address_placeholder: "Введите адрес доставки",
+    checkout_email_label: "Email *",
+    checkout_email_placeholder: "example@email.com",
+    checkout_phone_label: "Номер телефона *",
+    checkout_phone_placeholder: "+7 (999) 123-45-67",
+    checkout_cancel_btn: "Отмена",
+    checkout_pay_btn: "Оплатить",
+    payment_modal_title: "Выберите способ оплаты",
+    payment_confirm_btn: "Подтвердить оплату"
   },
   en: {
     mens_btn: "Men's",
@@ -10644,7 +10770,21 @@ const translations = {
     navy: "Navy",
     pink: "Pink",
     purple: "Purple",
-    orange: "Orange"
+    orange: "Orange",
+    // Checkout modal
+    checkout_modal_title: "Checkout",
+    checkout_name_label: "Full Name *",
+    checkout_name_placeholder: "Enter your full name",
+    checkout_address_label: "Delivery Address *",
+    checkout_address_placeholder: "Enter delivery address",
+    checkout_email_label: "Email *",
+    checkout_email_placeholder: "example@email.com",
+    checkout_phone_label: "Phone Number *",
+    checkout_phone_placeholder: "+1 (999) 123-45-67",
+    checkout_cancel_btn: "Cancel",
+    checkout_pay_btn: "Pay",
+    payment_modal_title: "Select Payment Method",
+    payment_confirm_btn: "Confirm Payment"
   },
   uk: {
     mens_btn: "Чоловіче",
@@ -10785,7 +10925,21 @@ const translations = {
     navy: "Темно-синій",
     pink: "Рожевий",
     purple: "Фіолетовий",
-    orange: "Помаранчевий"
+    orange: "Помаранчевий",
+    // Модальне вікно checkout
+    checkout_modal_title: "Оформлення замовлення",
+    checkout_name_label: "ПІБ *",
+    checkout_name_placeholder: "Введіть ваше повне ім'я",
+    checkout_address_label: "Адреса доставки *",
+    checkout_address_placeholder: "Введіть адресу доставки",
+    checkout_email_label: "Email *",
+    checkout_email_placeholder: "example@email.com",
+    checkout_phone_label: "Номер телефону *",
+    checkout_phone_placeholder: "+380 (99) 123-45-67",
+    checkout_cancel_btn: "Скасувати",
+    checkout_pay_btn: "Оплатити",
+    payment_modal_title: "Виберіть спосіб оплати",
+    payment_confirm_btn: "Підтвердити оплату"
   },
   de: {
     mens_btn: "Herren",
@@ -10925,7 +11079,21 @@ const translations = {
     navy: "Marineblau",
     pink: "Rosa",
     purple: "Lila",
-    orange: "Orange"
+    orange: "Orange",
+    // Checkout-Modal
+    checkout_modal_title: "Bestellung aufgeben",
+    checkout_name_label: "Vollständiger Name *",
+    checkout_name_placeholder: "Geben Sie Ihren vollständigen Namen ein",
+    checkout_address_label: "Lieferadresse *",
+    checkout_address_placeholder: "Geben Sie die Lieferadresse ein",
+    checkout_email_label: "Email *",
+    checkout_email_placeholder: "example@email.com",
+    checkout_phone_label: "Telefonnummer *",
+    checkout_phone_placeholder: "+49 (999) 123-45-67",
+    checkout_cancel_btn: "Abbrechen",
+    checkout_pay_btn: "Bezahlen",
+    payment_modal_title: "Zahlungsmethode wählen",
+    payment_confirm_btn: "Zahlung bestätigen"
   }
 };
 
@@ -11038,9 +11206,23 @@ function updateLanguage() {
     }
   });
   
+  // Обновить placeholder для элементов с data-key-placeholder
+  const placeholderElements = document.querySelectorAll('[data-key-placeholder]');
+  placeholderElements.forEach(element => {
+    const key = element.getAttribute('data-key-placeholder');
+    if (translations[currentLanguage] && translations[currentLanguage][key]) {
+      element.placeholder = translations[currentLanguage][key];
+    }
+  });
+  
   // Обновить переводы на странице товара, если она активна
   if (currentScreen === 'product-detail' && currentProduct) {
     updateProductDetailTranslations();
+  }
+  
+  // Обновить корзину при смене языка
+  if (currentScreen === 'cart') {
+    updateCartDisplay();
   }
 }
 
@@ -11373,12 +11555,15 @@ function loadProducts() {
     // Определяем, нужна ли карусель (более 1 изображения)
     const hasCarousel = productImages.length > 1;
     
+    // Получаем переведенное название товара
+    const productName = getProductTranslation(product, 'name');
+    
     return `
     <div class="product" onclick="${isDeleteMode ? `deleteProduct(${product.id})` : `openProductDetail(${product.id})`}">
       <div class="product-image-container">
         <div class="product-image-carousel">
           ${productImages.map((image, index) => `
-            <img src="${image}" alt="${product.name}" class="product-image ${index === 0 ? 'active' : ''}" loading="lazy">
+            <img src="${image}" alt="${productName}" class="product-image ${index === 0 ? 'active' : ''}" loading="lazy">
           `).join('')}
           ${hasCarousel ? `
             <div class="carousel-dots">
@@ -11391,13 +11576,13 @@ function loadProducts() {
       </div>
       <div class="product-content">
         <div>
-          <div class="product-name">${product.name}</div>
+          <div class="product-name">${productName}</div>
           <div class="product-price">€${product.price}</div>
           <div class="product-details">
             <span>Бренд: ${product.brand}</span>
           </div>
         </div>
-        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})">${t.add_to_cart_btn}</button>
+        <button class="add-to-cart-btn" onclick="event.stopPropagation(); openProductDetail(${product.id})">${t.add_to_cart_btn}</button>
       </div>
     </div>
     `;
@@ -11743,7 +11928,8 @@ function addToCartFromDetail() {
     size: size,
     color: color,
     quantity: quantity,
-    gender: currentGender
+    gender: currentGender,
+    image: currentProduct.images && currentProduct.images[color] && currentProduct.images[color].length > 0 ? currentProduct.images[color][0] : 'new_product.jpg'
   };
   
   // Проверить, есть ли уже такой товар в корзине
@@ -11940,7 +12126,8 @@ function confirmAddToCart() {
     size: size,
     color: color,
     quantity: quantity,
-    gender: currentGender
+    gender: currentGender,
+    image: currentProduct.images && currentProduct.images[color] && currentProduct.images[color].length > 0 ? currentProduct.images[color][0] : 'new_product.jpg'
   };
   
   // Проверить, есть ли уже такой товар в корзине
@@ -11986,21 +12173,28 @@ function updateCartDisplay() {
   }
   
   cartContent.innerHTML = cart.map((item, index) => `
-    <div class="cart-item">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div style="font-weight: 600;">${item.name}</div>
-        <button onclick="removeFromCart(${index})" style="background: #ff4444; color: white; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer;">×</button>
-      </div>
-      <div style="font-size: 12px; color: #999; margin-bottom: 4px;">
-        ${t.modal_size_label} ${item.size}, ${t.modal_color_label} ${t[item.color] || item.color}
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <button onclick="changeQuantity(${index}, -1)" style="background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; cursor: pointer;">-</button>
-          <span>${item.quantity}</span>
-          <button onclick="changeQuantity(${index}, 1)" style="background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; cursor: pointer;">+</button>
+    <div class="cart-item" style="cursor: pointer;" onclick="openCartItemDetail(${item.id}, '${item.gender}')">
+      <div style="display: flex; gap: 12px; margin-bottom: 8px;">
+        <div style="width: 60px; height: 60px; flex-shrink: 0; border-radius: 8px; overflow: hidden; background: #333;">
+          <img src="${item.image}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <div style="font-weight: 600;">€${(item.price * item.quantity).toFixed(2)}</div>
+        <div style="flex: 1;">
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 4px;">
+            <div style="font-weight: 600;">${item.name}</div>
+            <button onclick="event.stopPropagation(); removeFromCart(${index})" style="background: #ff4444; color: white; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer;">×</button>
+          </div>
+          <div style="font-size: 12px; color: #999; margin-bottom: 4px;">
+            ${t.modal_size_label} ${item.size}, ${t.modal_color_label} ${t[item.color] || item.color}
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button onclick="event.stopPropagation(); changeQuantity(${index}, -1)" style="background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; cursor: pointer;">-</button>
+              <span>${item.quantity}</span>
+              <button onclick="event.stopPropagation(); changeQuantity(${index}, 1)" style="background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; padding: 4px 8px; cursor: pointer;">+</button>
+            </div>
+            <div style="font-weight: 600;">€${(item.price * item.quantity).toFixed(2)}</div>
+          </div>
+        </div>
       </div>
     </div>
   `).join('');
@@ -12015,6 +12209,18 @@ function removeFromCart(index) {
   updateCartCount();
   updateCartDisplay();
   saveCartToStorage();
+}
+
+function openCartItemDetail(productId, gender) {
+  // Устанавливаем текущий пол для правильного поиска товара
+  const previousGender = currentGender;
+  currentGender = gender;
+  
+  // Открываем детальную страницу товара
+  openProductDetail(productId);
+  
+  // Возвращаем предыдущий пол, если нужно
+  // currentGender = previousGender;
 }
 
 function changeQuantity(index, change) {
@@ -12647,31 +12853,31 @@ function generateOrderId() {
 <!-- Модальное окно для ввода данных пользователя -->
 <div class="checkout-modal" id="checkoutModal">
   <div class="checkout-modal-content">
-    <h2 class="checkout-modal-title">Оформление заказа</h2>
+    <h2 class="checkout-modal-title" data-key="checkout_modal_title">Оформление заказа</h2>
     
     <div class="checkout-form-group">
-      <label class="checkout-form-label">ФИО *</label>
-      <input type="text" class="checkout-form-input" id="customerName" placeholder="Введите ваше полное имя" required>
+      <label class="checkout-form-label" data-key="checkout_name_label">ФИО *</label>
+      <input type="text" class="checkout-form-input" id="customerName" data-key-placeholder="checkout_name_placeholder" placeholder="Введите ваше полное имя" required>
     </div>
     
     <div class="checkout-form-group">
-      <label class="checkout-form-label">Адрес доставки *</label>
-      <input type="text" class="checkout-form-input" id="customerAddress" placeholder="Введите адрес доставки" required>
+      <label class="checkout-form-label" data-key="checkout_address_label">Адрес доставки *</label>
+      <input type="text" class="checkout-form-input" id="customerAddress" data-key-placeholder="checkout_address_placeholder" placeholder="Введите адрес доставки" required>
     </div>
     
     <div class="checkout-form-group">
-      <label class="checkout-form-label">Email *</label>
-      <input type="email" class="checkout-form-input" id="customerEmail" placeholder="example@email.com" required>
+      <label class="checkout-form-label" data-key="checkout_email_label">Email *</label>
+      <input type="email" class="checkout-form-input" id="customerEmail" data-key-placeholder="checkout_email_placeholder" placeholder="example@email.com" required>
     </div>
     
     <div class="checkout-form-group">
-      <label class="checkout-form-label">Номер телефона *</label>
-      <input type="tel" class="checkout-form-input" id="customerPhone" placeholder="+7 (999) 123-45-67" required>
+      <label class="checkout-form-label" data-key="checkout_phone_label">Номер телефона *</label>
+      <input type="tel" class="checkout-form-input" id="customerPhone" data-key-placeholder="checkout_phone_placeholder" placeholder="+7 (999) 123-45-67" required>
     </div>
     
     <div class="checkout-modal-buttons">
-      <button class="checkout-modal-btn cancel" onclick="closeCheckoutModal()">Отмена</button>
-      <button class="checkout-modal-btn pay" onclick="proceedToPayment()">Оплатить</button>
+      <button class="checkout-modal-btn cancel" onclick="closeCheckoutModal()" data-key="checkout_cancel_btn">Отмена</button>
+      <button class="checkout-modal-btn pay" onclick="proceedToPayment()" data-key="checkout_pay_btn">Оплатить</button>
     </div>
   </div>
 </div>
@@ -12679,7 +12885,7 @@ function generateOrderId() {
 <!-- Модальное окно выбора способа оплаты -->
 <div class="payment-modal" id="paymentModal">
   <div class="payment-modal-content">
-    <h2 class="payment-modal-title">Выберите способ оплаты</h2>
+    <h2 class="payment-modal-title" data-key="payment_modal_title">Выберите способ оплаты</h2>
     
     <div class="payment-methods">
       <div class="payment-method" data-method="cryptobot" onclick="selectPaymentMethod('cryptobot')">
@@ -12698,7 +12904,7 @@ function generateOrderId() {
       </div>
     </div>
     
-    <button class="payment-confirm-btn" id="confirmPaymentBtn" onclick="confirmPayment()" disabled>
+    <button class="payment-confirm-btn" id="confirmPaymentBtn" onclick="confirmPayment()" data-key="payment_confirm_btn" disabled>
       Подтвердить оплату
     </button>
   </div>
